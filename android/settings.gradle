@@ -1,0 +1,3 @@
+rootProject.name = 'ruui'
+
+include ':app'
