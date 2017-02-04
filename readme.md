@@ -3,7 +3,7 @@
 [![Build Status][travis-image]][travis-url]
 [![npm version][npm-image]][npm-url]
 
-[React][react-url], [React Native][react-native-url]'s Core UI components to re-use everywhere.
+[React][react-url], [React Native][react-native-url]'s UI components to re-use everywhere.
 
 Browser support: Chrome, Firefox, Safari >= 7, IE 10, Edge.
 
@@ -22,7 +22,7 @@ Browser support: Chrome, Firefox, Safari >= 7, IE 10, Edge.
 [react-native-drawer-url]: https://github.com/root-two/react-native-drawer
 
 ## Overview
-"React Universal UI" is a UI Kit based on [react-native-web][react-native-web-url] which could be run on both **Web** and **Native** environment.
+"**React Universal UI**" is a UI Kit based on [react-native-web][react-native-web-url] which could be run on both **Web** and **Native** environment.
 
 **"Write your UI once and use everywhere"**
 
