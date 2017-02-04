@@ -9,8 +9,8 @@ Browser support: Chrome, Firefox, Safari >= 7, IE 10, Edge.
 
 [npm-image]: https://badge.fury.io/js/react-universal-ui.svg
 [npm-url]: https://npmjs.org/package/react-universal-ui
-[travis-image]: https://travis-ci.org/necolas/react-native-web.svg?branch=master
-[travis-url]: https://travis-ci.org/necolas/react-native-web
+[travis-image]: https://travis-ci.org/cloudle/ruui.svg?branch=master
+[travis-url]: https://travis-ci.org/cloudle/ruui
 [react-url]: https://facebook.github.io/react/
 [react-native-url]: https://facebook.github.io/react-native/
 [react-native-web-url]: https://github.com/necolas/react-native-web
