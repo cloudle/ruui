@@ -1,15 +1,17 @@
 {
   "name": "react-universal-ui",
   "description": "Universal UI Kit for React Native and Web",
-  "main": "src/components/index.js",
+  "main": "dist/components/index.js",
   "files": [
+    "dist",
     "src",
     "!**/__tests__"
   ],
-  "version": "0.0.14",
+  "version": "0.0.19",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
+    "build": "NODE_ENV=release babel ./src --out-dir ./dist",
     "web-vendor": "webpack --config webpack.vendor.config.js",
     "web": "node webpack.devserver",
     "ios": "react-native run-ios",

@@ -6,6 +6,10 @@
 web
 !web/index.html
 
+#Distribution
+dist
+!dist/components/NavigationExperimental/assets
+
 # Xcode
 #
 build/
