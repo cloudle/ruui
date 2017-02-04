@@ -1,27 +1,49 @@
 {
-	"name": "react-universal-ui",
-	"description": "Universal UI Kit for React Native and Web",
-	"version": "0.0.13",
-	"scripts": {
-		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest"
-	},
-	"author": "Cloud Le",
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/cloudle/ruui.git"
-	},
-	"dependencies": {
-		"react": "~15.4.0-rc.4",
-		"react-native": "0.41.1"
-	},
-	"devDependencies": {
-		"babel-jest": "18.0.0",
-		"babel-preset-react-native": "1.9.1",
-		"jest": "18.1.0",
-		"react-test-renderer": "~15.4.0-rc.4"
-	},
-	"jest": {
-		"preset": "react-native"
-	}
+  "name": "react-universal-ui",
+  "description": "Universal UI Kit for React Native and Web",
+  "main": "src/components/index.js",
+  "version": "0.0.13",
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "web-vendor": "webpack --config webpack.vendor.config.js",
+    "web": "node webpack.devserver",
+    "ios": "react-native run-ios",
+    "android": "react-native run-android"
+  },
+  "author": "Cloud Le",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cloudle/ruui.git"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.22.0",
+    "react": "~15.4.0-rc.4",
+    "react-native": "0.41.1",
+    "react-native-vector-icons": "github:cloudle/react-native-vector-icons",
+    "react-native-web": "0.0.69",
+    "react-router": "^4.0.0-alpha.6",
+    "react-router-addons-controlled": "0.0.1",
+    "tinycolor2": "^1.4.1"
+  },
+  "devDependencies": {
+    "babel-jest": "18.0.0",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-function-bind": "^6.22.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.2.12",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-es2015-loose": "^8.0.0",
+    "babel-preset-react-native": "1.9.1",
+    "file-loader": "^0.10.0",
+    "jest": "18.1.0",
+    "json-loader": "^0.5.4",
+    "react-hot-loader": "^3.0.0-beta.6",
+    "react-test-renderer": "~15.4.0-rc.4",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.3.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
 }
