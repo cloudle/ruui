@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	titleText: {
-		color: '#FFFFFF'
+		color: '#FFFFFF',
+		backgroundColor: 'transparent',
 	},
 });

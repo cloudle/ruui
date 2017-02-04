@@ -8,7 +8,7 @@ export default function () {
 	return <View>
 		<Text>Hello world!</Text>
 		<Button
-			wrapperStyle={{backgroundColor: 'blue', width: 120}}
+			wrapperStyle={{backgroundColor: '#00bcd4', width: 120}}
 			title="Click me!!" onPress={() => alert("Yay!")}/>
 	</View>
 }

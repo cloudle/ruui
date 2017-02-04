@@ -124,6 +124,7 @@ export class ResponsibleTouchArea extends Component {
   render () {
     let InnerComponent = this.props.disabled ? View : TouchableOpacity;
     return <View
+      className="touchable"
       ref="wrapperView" collapsable={false}
       style={[this.props.wrapperStyle, {overflow: 'hidden'}]}
       onLayout={this.props.onLayout}>

@@ -12,16 +12,16 @@ export class RippleEffect extends Component {
   componentDidMount () {
     Animated.timing(this.state.expandAnimation, {
       toValue: 1,
-      duration: this.props.speed || 800,
-      easing: Easing.out(Easing.cubic),
+      duration: this.props.speed || 750,
+      easing: Easing.out(Easing.bezier(0.445, 0.05, 0.55, 0.95)),
     }).start()
   }
 
   render () {
     let opacity = this.state.expandAnimation.interpolate({
-      inputRange: [0, 0.5, 1], outputRange: [0.3, 0.2, 0]
+      inputRange: [0, 1], outputRange: [0.2, 0]
     }), scale = this.state.expandAnimation.interpolate({
-        inputRange: [0, 0.5, 1], outputRange: [0, 0.2, 1]
+        inputRange: [0, 1], outputRange: [0, 1]
     }), styles = {
       position: 'absolute',
       ...this.props.style,
