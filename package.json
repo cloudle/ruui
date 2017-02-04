@@ -2,7 +2,11 @@
   "name": "react-universal-ui",
   "description": "Universal UI Kit for React Native and Web",
   "main": "src/components/index.js",
-  "version": "0.0.13",
+  "files": [
+    "src",
+    "!**/__tests__"
+  ],
+  "version": "0.0.14",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
