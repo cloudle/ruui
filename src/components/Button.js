@@ -11,6 +11,8 @@ export default class Button extends Component {
 		borderRadius: React.PropTypes.number,
 		rippleColor: React.PropTypes.string,
 		staticRipple: React.PropTypes.bool,
+		icon: React.PropTypes.any,
+		rightIcon: React.PropTypes.bool,
 		title: React.PropTypes.string,
 		textStyle: React.PropTypes.object,
 		raise: React.PropTypes.bool,
@@ -33,11 +35,19 @@ export default class Button extends Component {
   }
 
   renderContent () {
+		let title = this.props.title,
+			icon = this.props.icon,
+			textStyles = [styles.titleText, this.props.textStyle];
+
   	if (this.props.children) {
 		  return this.props.children;
+	  } else if (this.props.rightIcon) {
+  		return <Text style={textStyles}>
+			  {title} {icon}
+		  </Text>
 	  } else {
-  		return <Text style={[styles.titleText, this.props.textStyle]}>
-			  {this.props.title}
+		  return <Text style={textStyles}>
+			  {icon} {title}
 		  </Text>
 	  }
   }
