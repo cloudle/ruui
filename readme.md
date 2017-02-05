@@ -32,7 +32,7 @@ To install it in your app:
 npm install --save react-universal-ui
 ```
 
-Alternatively, you can start with [react-wings-boilerplate][react-wings-boilerplate-url] which have more complete structure to work on cross-platform [React Native][react-native-url] project.
+####Alternatively, you can start with [react-wings-boilerplate][react-wings-boilerplate-url] which have more complete structure to work on cross-platform [React Native][react-native-url] project.
 
 ## Status
 
