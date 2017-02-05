@@ -34,8 +34,6 @@ npm install --save react-universal-ui
 
 Alternatively, you can start with [react-wings-boilerplate][react-wings-boilerplate-url] which have more complete structure to work on cross-platform [React Native][react-native-url] project.
 
-*Note the wings-boilerplate is not ready - coming soon.
-
 ## Status
 
 This is a work in progress, right now here's what is done:
