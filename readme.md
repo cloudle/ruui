@@ -14,7 +14,7 @@ Browser support: Chrome, Firefox, Safari >= 7, IE 10, Edge.
 [react-url]: https://facebook.github.io/react/
 [react-native-url]: https://facebook.github.io/react-native/
 [react-native-web-url]: https://github.com/necolas/react-native-web
-[react-wings-boilerplate-url]: https://github.com/cloudle/
+[react-wings-boilerplate-url]: https://github.com/cloudle/react-wings-boilerplate
 [material-ui-url]: http://www.material-ui.com/
 [ionic-url]: http://ionicframework.com/docs/v2/components/#overview
 [react-native-vector-icon-url]: https://github.com/oblador/react-native-vector-icons
