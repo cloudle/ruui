@@ -16,6 +16,7 @@ export default class Button extends Component {
 		title: React.PropTypes.string,
 		textStyle: React.PropTypes.object,
 		raise: React.PropTypes.bool,
+		onPress: React.PropTypes.func,
 	};
 
 	static defaultProps = {
@@ -26,6 +27,8 @@ export default class Button extends Component {
 
   render () {
     return <ResponsibleTouchArea
+	    onPress={this.props.onPress}
+	    raise={true}
 	    staticRipple={this.props.staticRipple}
 	    rippleColor={this.props.rippleColor}
 	    wrapperStyle={[styles.wrapper, this.props.wrapperStyle]}
@@ -43,7 +46,7 @@ export default class Button extends Component {
 		  return this.props.children;
 	  } else if (this.props.rightIcon) {
   		return <Text style={textStyles}>
-			  {title} {icon}
+			  {text} {icon}
 		  </Text>
 	  } else {
 		  return <Text style={textStyles}>
@@ -57,6 +60,7 @@ const styles = StyleSheet.create({
 	wrapper: {
 		backgroundColor: colors.sky,
 		borderRadius: 3,
+		margin: 20
 	},
 	contentContainer: {
 		padding: 10,

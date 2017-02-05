@@ -49,7 +49,7 @@ This is a work in progress, right now here's what is done:
 - [x] Button Component
   - [x] Ripple effect
   - [x] Flat style
-  - [ ] Raised style
+  - [x] Raised style
   - [x] Icon Button
   - [ ] Tooltip (Web only)
 - [x] Text Input Component (Material-inspired, but highly customizable)

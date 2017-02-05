@@ -29,7 +29,7 @@ export class RippleEffect extends Component {
       opacity,
     };
 
-    return <Animated.View style={styles}/>
+    return <Animated.View pointerEvents="none" style={styles}/>
   }
 }
 

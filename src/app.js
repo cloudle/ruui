@@ -11,7 +11,13 @@ export default function () {
 		<Button
 			wrapperStyle={{backgroundColor: '#00bcd4'}}
 			icon={<Icon name="ios-albums-outline" style={{fontSize: 20}}/>}
-			title="Click me!!" onPress={() => alert("Yay!")}/>
+			title="Click me!!" onPress={() => console.log("Yay!")}/>
+		<Button
+			wrapperStyle={{backgroundColor: '#FFFFFF'}}
+			rippleColor="#666666"
+			textStyle={{color: "#666666"}}
+			icon={<Icon name="ios-albums-outline" style={{fontSize: 20}}/>}
+			title="Click me!!" onPress={() => console.log("Yay!")}/>
 		<Input floatingLabel="Email"/>
 	</View>
 }

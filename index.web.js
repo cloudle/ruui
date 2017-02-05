@@ -21,7 +21,6 @@ render(wings);
 if(module.hot) {
 	module.hot.accept('./src/app', () => {
 		const nextApp = require('./src/app').default;
-		console.log(nextApp);
 		render(nextApp);
 	});
 }
