@@ -60,8 +60,7 @@ export class ResponsibleTouchArea extends Component {
   }
 
   render () {
-    let InnerComponent = this.props.disabled ? View : TouchableOpacity,
-      containerStyles = {overflow: 'hidden', backgroundColor: 'transparent'};
+    let InnerComponent = this.props.disabled ? View : TouchableOpacity;
 
     const shadowOpacity = this.state.raiseAnimation.interpolate({
       inputRange: [0, 1], outputRange: [this.props.raise ? 0.25 : 0, 0.8],
@@ -81,11 +80,11 @@ export class ResponsibleTouchArea extends Component {
       onMouseEnter={this::onMouseEnter}
       className="touchable"
       ref="wrapperView" collapsable={false}
-      style={[this.props.wrapperStyle, {overflow: 'hidden'}]}
+      style={this.props.wrapperStyle}
       onLayout={this.props.onLayout}>
 
       <Animated.View style={[styles.fullSizeAbsolute, shadows]}/>
-	    <View style={styles.fullSizeAbsolute}>
+	    <View style={[styles.fullSizeAbsolute]}>
 		    {this.renderRipples()}
 	    </View>
 
@@ -202,7 +201,7 @@ function playAnimation (toValue: Number) {
 const styles = StyleSheet.create({
 	fullSizeAbsolute: {
 		position: 'absolute',
-		top: 0,  bottom: 0, right: 0, left: 0,
+		top: 0, bottom: 0, right: 0, left: 0,
 		overflow: 'hidden',
 	}
 });

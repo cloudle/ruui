@@ -46,7 +46,7 @@ export default class Button extends Component {
 		  return this.props.children;
 	  } else if (this.props.rightIcon) {
   		return <Text style={textStyles}>
-			  {text} {icon}
+			  {title} {icon}
 		  </Text>
 	  } else {
 		  return <Text style={textStyles}>
