@@ -26,13 +26,13 @@
 [documentation-url]: https://cloudle.github.io/
 
 ## Overview
-"**React Universal UI**" is a cross-platform React UI Kit - which could be run on both **React Web** and **React Native** environment.
+"**React Universal UI**" is a cross-platform **React's UI Kit** - which could be run on both **React Web** and **React Native** environment.
 
 **"Write your UI once and use everywhere"**, checkout my [demo and detailed documentations][documentation-url] for live example. 
 
 ## How it work
 ####React Native: 
-Essentially this is just a normal [React Native][react-native-url] UI Library - which absolutely work with [React Native][react-native-url]'s ecosystem. Feel free to use those UI with your favorite [React Native][react-native-url library *even if you don't care about* **Browser** *yet (but believe me, you'll love it - Browser run give us tons of cool stuff)*. 
+Essentially this is just a normal [React Native][react-native-url] UI Library - which absolutely work with [React Native][react-native-url]'s ecosystem. Feel free to use those UI with your favorite [React Native][react-native-url library] *even if you don't care about* **Browser** *yet (but believe me, you'll love it - Browser run give us tons of cool stuff)*. 
 
 ####Browser:
 [React Native Web][react-native-web-url] let us run our [React Native][react-native-url] code on **Browser** and **[React Universal UI][github-url]** (this project) cares about behavior of those components on **Browser**.
