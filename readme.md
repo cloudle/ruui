@@ -26,9 +26,9 @@
 [documentation-url]: https://cloudle.github.io/
 
 ## Overview
-"**React Universal UI**" is a cross-platform **React's UI Kit** - which could be run on both **React Web** and **React Native** environment.
+"**React Universal UI**" is a cross-platform **React's UI Kit** - which could be run on both **React Web** and **React Native** environment, **write once and use everywhere**.
 
-**"Write your UI once and use everywhere"**, checkout [demo and detailed documentations][documentation-url] for live example. 
+**Checkout [demo and detailed documentations][documentation-url] for live example.** 
 
 ## How it work
 ####React Native: 
