@@ -91,6 +91,3 @@ This is a work in progress, right now here's what is done:
 * [Ionic 2][ionic-url], As a fan of Ionic - their **ecosystem** and **design** is a great reference for me when developing **this project**.
 * [React Native Drawer][react-native-drawer-url]
 * [React Native Vector Icons][react-native-vector-icon-url]
-
-## License
-React Universal UI is [BSD licensed](LICENSE).
