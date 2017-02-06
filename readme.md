@@ -5,7 +5,9 @@
 
 [React][react-url], [React Native][react-native-url]'s UI components to re-use everywhere.
 
-Browser support: Chrome, Firefox, Safari >= 7, IE 10, Edge.
+**Native platforms**: iOs, Android (We'll customize and test to make it work on Windows Phone, Windows, Mac, Linux..).
+
+**Browser support**: Chrome, Firefox, Safari >= 7, IE 10, Edge.
 
 [npm-image]: https://badge.fury.io/js/react-universal-ui.svg
 [npm-url]: https://npmjs.org/package/react-universal-ui
