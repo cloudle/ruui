@@ -13,6 +13,7 @@
 [npm-url]: https://npmjs.org/package/react-universal-ui
 [travis-image]: https://travis-ci.org/cloudle/ruui.svg?branch=master
 [travis-url]: https://travis-ci.org/cloudle/ruui
+[github-url]: https://github.com/cloudle/ruui
 [react-url]: https://facebook.github.io/react/
 [react-native-url]: https://facebook.github.io/react-native/
 [react-native-web-url]: https://github.com/necolas/react-native-web
@@ -25,9 +26,19 @@
 [documentation-url]: https://cloudle.github.io/
 
 ## Overview
-"**React Universal UI**" is a UI Kit based on [react-native-web][react-native-web-url] which could be run on both **Web** and **Native** environment.
+"**React Universal UI**" is a cross-platform React UI Kit - which could be run on both **React Web** and **React Native** environment.
 
 **"Write your UI once and use everywhere"**, checkout my [demo and detailed documentations][documentation-url] for live example. 
+
+## How it work
+####React Native: 
+Essentially this is just a normal [React Native][react-native-url] UI Library - which absolutely work with [React Native][react-native-url]'s ecosystem. Feel free to use those UI with your favorite [React Native][react-native-url library *even if you don't care about* **Browser** *yet (but believe me, you'll love it - Browser run give us tons of cool stuff)*. 
+
+####Browser:
+[React Native Web][react-native-web-url] let us run our [React Native][react-native-url] code on **Browser** and **[React Universal UI][github-url]** (this project) cares about behavior of those components on **Browser**.
+
+####Universal:*
+There're some differences between **React Native** and **Web** building block - such as **Routing**, **Touch/Mouse handling**... this project cares and provide support for those differences (there're helpers under **utils** module), which save your time and let you focus on write your Universal App.
 
 ## Quick start
 To install it in your app:
