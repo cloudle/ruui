@@ -5,7 +5,7 @@
 
 [React][react-url], [React Native][react-native-url]'s UI components to re-use everywhere.
 
-**Native platforms**: iOs, Android (we'll need customize and test to make sure it work on Windows Phone, Windows, Mac, Linux..).
+**Native platforms**: **iOs, Android*** (we'll need more customize to make it run on more native places like Mac, Windows or Linux - currently I got no plan for those platforms).
 
 **Browser support**: Chrome, Firefox, Safari >= 7, IE 10, Edge.
 
