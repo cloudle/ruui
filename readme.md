@@ -3,7 +3,7 @@
 [![Build Status][travis-image]][travis-url]
 [![npm version][npm-image]][npm-url]
 
-[React][react-url], [React Native][react-native-url]'s UI components to re-use everywhere.
+Cross-platform (**React Native** and **Web Browser**) [React][react-url], [React Native][react-native-url]'s UI components to re-use everywhere.
 
 **Native platforms**: **iOs, Android** (we'll need more customize to make it run on another native places like Mac, Windows or Linux - currently I got no plan for those platforms).
 
