@@ -87,7 +87,7 @@ This is a work in progress, right now here's what is done:
 - [ ] Tabs
 
 ## Related projects
-* [Material UI][material-ui-url], this project was heavily inspired by their great component design for **Web**! My job is make it work in **Native** way.
+* [Material UI][material-ui-url], heavily inspired by their great component design for **Web**! My job is make it work in **Native** way.
 * [Ionic 2][ionic-url], As a fan of Ionic - their **ecosystem** and **design** is a great reference for me when developing **this project**.
 * [React Native Drawer][react-native-drawer-url]
 * [React Native Vector Icons][react-native-vector-icon-url]
