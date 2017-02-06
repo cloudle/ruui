@@ -37,7 +37,7 @@ Essentially this is just a normal [React Native][react-native-url] UI Library - 
 ####Browser:
 [React Native Web][react-native-web-url] let us run our [React Native][react-native-url] code on **Browser** and **[React Universal UI][github-url]** (this project) cares about behavior of those components on **Browser**.
 
-####Universal:*
+####Universal:
 There're some differences between **React Native** and **Web** building block - such as **Routing**, **Touch/Mouse handling**... this project cares and provide support for those differences (there're helpers under **utils** module), which save your time and let you focus on write your Universal App.
 
 ## Quick start
