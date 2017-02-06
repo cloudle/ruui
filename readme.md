@@ -20,11 +20,14 @@ Browser support: Chrome, Firefox, Safari >= 7, IE 10, Edge.
 [react-native-vector-icon-url]: https://github.com/oblador/react-native-vector-icons
 [cloud-vector-icons]: https://github.com/cloudle/react-native-vector-icons
 [react-native-drawer-url]: https://github.com/root-two/react-native-drawer
+[documentation-url]: https://cloudle.github.io/
 
 ## Overview
 "**React Universal UI**" is a UI Kit based on [react-native-web][react-native-web-url] which could be run on both **Web** and **Native** environment.
 
 **"Write your UI once and use everywhere"**
+
+#### Checkout my [demo and detailed documentations][documentation-url] for live example. 
 
 ## Quick start
 To install it in your app:
@@ -71,12 +74,6 @@ This is a work in progress, right now here's what is done:
   - [ ] Scroll Picker
 - [ ] Table
 - [ ] Tabs
-
-## Demo (coming soon)
-waiting for update..
-
-## Documentation (coming soon)
-waiting for update..
 
 ## References
 * [Material UI][material-ui-url], this project was heavily inspired by their great component design for **Web**! My job is make it work in **Native** way.
