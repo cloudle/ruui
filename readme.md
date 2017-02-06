@@ -25,9 +25,7 @@ Browser support: Chrome, Firefox, Safari >= 7, IE 10, Edge.
 ## Overview
 "**React Universal UI**" is a UI Kit based on [react-native-web][react-native-web-url] which could be run on both **Web** and **Native** environment.
 
-**"Write your UI once and use everywhere"**
-
-#### Checkout my [demo and detailed documentations][documentation-url] for live example. 
+**"Write your UI once and use everywhere"**, checkout my [demo and detailed documentations][documentation-url] for live example. 
 
 ## Quick start
 To install it in your app:
