@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
-import app from './src/app';
+import App from './example';
+import configureStore from './example/store';
 
-AppRegistry.registerComponent('ruui', () => app);
+const store = configureStore();
+function appWithStore () {
+	return <App store={store}/>
+}
+
+AppRegistry.registerComponent('ruui', () => appWithStore);
