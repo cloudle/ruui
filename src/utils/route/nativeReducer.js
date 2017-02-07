@@ -1,7 +1,5 @@
 import * as Actions from './actions';
-import { NavigationExperimental } from '../../components';
-
-const { StateUtils } = NavigationExperimental;
+import StateUtils from '../../components/NavigationExperimental/NavigationStateUtils';
 
 export function nativeRouteReducer (reducer: Reducer) {
 	const initialState = {
