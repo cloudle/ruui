@@ -95,8 +95,9 @@ export class ResponsibleTouchArea extends Component {
         onPressOut={this::onPressOut}
         onPress={this::onPress}
         onStartShouldSetResponderCapture={() => true}>
-
-		    {this.props.children}
+				<View pointerEvents="none">
+					{this.props.children}
+				</View>
       </InnerComponent>
     </View>
   }
@@ -113,10 +114,10 @@ function onPressIn (e) {
     this::playAnimation(1);
   }
 
-	let event = e.nativeEvent, { locationX, locationY, pageX, pageY } = event;
+	let { locationX, locationY, pageX, pageY } = e.nativeEvent;
 
 	this.refs.wrapperView.measure((fx, fy, wrapperWidth, wrapperHeight, px, py) => {
-		let ripplePosition, rippleRadius = 0, touchX = pageX - px, touchY = pageY - py;
+		let ripplePosition, rippleRadius = 0, touchX = locationX, touchY = locationY;
 
 		if (this.props.staticRipple) {
 			rippleRadius = wrapperWidth / 2;
