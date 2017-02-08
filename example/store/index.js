@@ -4,7 +4,7 @@ import { createStore, compose, combineReducers, applyMiddleware } from 'redux';
 import reducers from './reducers';
 
 const DEVTOOLS = '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__',
-	composeEnhancers = window[DEVTOOLS] || compose;
+	composeEnhancers = module.hot && window[DEVTOOLS] || compose;
 
 export default function configureStore (initialState) {
 	const enhancers = composeEnhancers(
