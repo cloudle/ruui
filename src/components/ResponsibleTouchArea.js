@@ -63,7 +63,7 @@ export class ResponsibleTouchArea extends Component {
     let InnerComponent = this.props.disabled ? View : TouchableOpacity;
 
     const shadowOpacity = this.state.raiseAnimation.interpolate({
-      inputRange: [0, 1], outputRange: [this.props.raise ? 0.25 : 0, 0.8],
+      inputRange: [0, 1], outputRange: [this.props.raise ? 0.25 : 0, 0.6],
     }), shadows = {
       position: 'absolute',
       top: 0, left: 0, bottom: 0, right: 0,
@@ -71,7 +71,7 @@ export class ResponsibleTouchArea extends Component {
       shadowColor: '#666666',
       opacity: shadowOpacity,
       shadowOpacity: 1,
-      shadowRadius: 14,
+      shadowRadius: 10,
       shadowOffset: { width: 0, height: 2 }
     };
 
