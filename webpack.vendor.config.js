@@ -23,9 +23,6 @@ module.exports = {
 	},
 
 	resolve: {
-		alias: {
-			'react-native': 'react-native-web',
-		},
 		modules: ['node_modules'],
 		extensions: ['.js']
 	},
