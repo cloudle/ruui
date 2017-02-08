@@ -22,7 +22,7 @@ export default class Button extends Component {
 	static defaultProps = {
 		staticRipple: false,
 		rippleColor: '#FFFFFF',
-		title: 'Title',
+		title: 'TITLE',
 	};
 
   render () {
@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
 	wrapper: {
 		backgroundColor: colors.sky,
 		borderRadius: 3,
-		margin: 20
 	},
 	contentContainer: {
 		padding: 10,
