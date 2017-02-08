@@ -45,7 +45,7 @@ module.exports = {
 	resolve: {
 		alias: {
 			'react-native': 'react-native-web',
-			'react-universal-ui': path.join(__dirname, 'src'),
+			'react-universal-ui': path.join(__dirname, 'src/index'),
 		},
 		modules: ['node_modules'],
 		extensions: ['.js']
