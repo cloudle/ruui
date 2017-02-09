@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
-import App from './example';
-import configureStore from './example/store';
+import App from './example/travel';
+import configureStore from './example/travel/store';
 
 const store = configureStore();
 function appWithStore () {

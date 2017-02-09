@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
-import { AsyncStorage, View, Text, StyleSheet } from 'react-native';
-import { connect, Provider } from 'react-redux';
+import { AsyncStorage, StatusBar, View, Text, StyleSheet } from 'react-native';
+import { Provider } from 'react-redux';
 
-import { NavigationExperimental } from 'react-universal-ui';
+import { connect } from 'react-redux';
+import { NavigationExperimental, utils } from 'react-universal-ui';
 import Drawer from 'react-native-drawer';
 import Menu from './share/Menu';
 import NavigationHeader from './share/NavigationHeader';
-import Welcome from './scenes/welcome';
+import Raw from './scenes/raw';
 import * as appActions from './store/action/app';
 
-export default function AppContainer ({store}) {
-	return <Provider store={store}>
-		<App/>
-	</Provider>
-}
+const { isIos, isAndroid } = utils;
 
 @connect(({router, app}) => {
 	return {
@@ -24,19 +21,19 @@ export default function AppContainer ({store}) {
 
 export class App extends Component {
 	async componentWillMount () {
-		let token = await AsyncStorage.getItem('sysConfig');
-		if (module.hot) {
-			this.interval = setInterval(() => {
-				this.props.dispatch(appActions.increaseCounter());
-			}, 100);
+		if (isIos) {
+			StatusBar.setBarStyle('light-content', true);
+		} else if (isAndroid) {
+			StatusBar.setBackgroundColor('transparent');
+			StatusBar.setTranslucent(true);
 		}
-	}
 
-	componentWillUnmount () {
-		clearInterval(this.interval);
+		let token = await AsyncStorage.getItem('sysConfig');
 	}
 
 	render () {
+		const navigationState = this.props.router;
+
 		return <Drawer
 			type="overlay"
 			side="right"
@@ -49,7 +46,7 @@ export class App extends Component {
 
 			<NavigationExperimental.CardStack
 				style={styles.navigator}
-				navigationState={{routes: [{key: 'welcome', component: Welcome}], index: 0}}
+				navigationState={navigationState}
 				renderScene={this::renderScene}
 				renderHeader={this::renderHeader}
 				gestureResponseDistance={50}
@@ -59,13 +56,14 @@ export class App extends Component {
 }
 
 function renderScene (props) {
-		const Scene = props.scene.route.component;
-		return <Scene/>
+	const Scene = props.scene.route.component;
+	return <Scene/>
 }
 
 function renderHeader (sceneProps) {
-	// return <View/>
-	return <NavigationHeader {...sceneProps}/>
+	if (!sceneProps.scene.route.hideNavigation) {
+		return <NavigationHeader {...sceneProps}/>
+	}
 }
 
 function drawerTween (ratio, side = 'left') {
@@ -85,6 +83,13 @@ const styles = StyleSheet.create({
 		backgroundColor: '#000',
 	},
 	navigator: {
-
+		flex: 1,
+		backgroundColor: 'red',
 	}
 });
+
+export default function AppContainer ({store}) {
+	return <Provider store={store}>
+		<App/>
+	</Provider>
+}

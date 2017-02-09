@@ -1,8 +1,8 @@
 import 'babel-polyfill';
 import React, { Component } from 'react';
 import ReactNative, { View, Text, AsyncStorage } from 'react-native';
-import app from './example';
-import configureStore from './example/store';
+import app from './example/travel';
+import configureStore from './example/travel/store';
 
 import { AppContainer } from 'react-hot-loader';
 
@@ -21,8 +21,8 @@ render = Component => {
 render(app);
 
 if(module.hot) {
-	module.hot.accept('./example', () => {
-		const nextApp = require('./example').default;
+	module.hot.accept('./example/travel', () => {
+		const nextApp = require('./example/travel').default;
 		render(nextApp);
 	});
 }
