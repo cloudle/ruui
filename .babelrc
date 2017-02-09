@@ -3,12 +3,6 @@
   "plugins": [
     ["transform-react-remove-prop-types", { "mode": "wrap" }],
     "transform-decorators-legacy",
-    "transform-function-bind",
-    ["module-resolver", {
-      "alias": {
-        "react-native": "react-native-web",
-        "react-universal-ui": "./src/index"
-      }
-    }]
+    "transform-function-bind"
   ]
 }
