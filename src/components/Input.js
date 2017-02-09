@@ -126,13 +126,11 @@ function buildInputContainerStyles (defaults = {}) {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
 		backgroundColor: '#FFFFFF',
 		borderBottomWidth: 1,
 		borderColor: '#f5f5f5',
 	},
 	textInput: {
-		flex: 1,
 		height: 30,
 		fontSize: 16,
 	},
