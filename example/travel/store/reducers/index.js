@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import appReducer from './app';
-import { utils } from 'react-universal-ui';
+import { utils } from '../../../../src';
 import { initialRoute } from '../../utils/routes';
 
 const initialRouterState = {

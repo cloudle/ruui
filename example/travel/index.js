@@ -3,11 +3,10 @@ import { AsyncStorage, StatusBar, View, Text, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 
 import { connect } from 'react-redux';
-import { NavigationExperimental, utils } from 'react-universal-ui';
+import { NavigationExperimental, utils } from '../../src';
 import Drawer from 'react-native-drawer';
 import Menu from './share/Menu';
 import NavigationHeader from './share/NavigationHeader';
-import Raw from './scenes/raw';
 import * as appActions from './store/action/app';
 
 const { isIos, isAndroid } = utils;

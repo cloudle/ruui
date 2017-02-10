@@ -22,7 +22,8 @@ class LoginScene extends Component {
         <Input floatingLabel={this.props.localize.placeholders.userAccount}
                ref="username" maxLength={128}/>
         <Input floatingLabel={this.props.localize.placeholders.password}
-               underLineStyle={{backgroundColor: '#d3721b'}}
+               wrapperStyle={{borderBottomWidth: 0}}
+               underLineStyle={{backgroundColor: '#d3721b', bottom: 0}}
                ref="password" password={true}/>
       </View>
 
@@ -56,7 +57,7 @@ export default connect(state => {
 
 const styles = StyleSheet.create({
   container: {
-	  flex: 1, paddingTop: 24,
+	  flex: 1, marginTop: 24,
     backgroundColor: colors.main,
 	  justifyContent: 'center',
 	  alignItems: 'center',
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
   	// height: 200,
 		width: ScreenWidthPadding(40, 280),
 		backgroundColor: 'white',
-		borderRadius: 2,
+		borderRadius: 3,
 		marginBottom: 10,
 		overflow: 'hidden',
 	},
