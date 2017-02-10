@@ -65,13 +65,16 @@ export default class Input extends Component {
 				}),
 				wrapperStyles = {
 					transform:[{scale}, {translateX}, {translateY}],
+				},
+				textStyles = {
+					color: '#888888',
 				};
 
 			return <Animated.View
 				pointerEvents="none"
 				onLayout={this::onFloatingLabelLayout}
 				style={[styles.floatingLabelWrapper, wrapperStyles]}>
-				<Text style={styles.floatingLabelText}>
+				<Text style={[styles.floatingLabelText, textStyles]}>
 					{this.props.floatingLabel}
 				</Text>
 			</Animated.View>
@@ -117,8 +120,8 @@ function onFloatingLabelLayout ({ nativeEvent: { layout } }) {
 	})
 }
 function buildInputContainerStyles (defaults = {}) {
-	defaults.paddingTop =
-		(defaults.paddingTop || 0) +
+	defaults.marginTop =
+		(defaults.marginTop || 0) +
 		(this.props.floatingLabel ? 20 : 0);
 
 	return defaults;
