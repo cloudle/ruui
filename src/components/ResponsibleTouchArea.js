@@ -13,7 +13,7 @@ import {
 
 const MAX_PARTICLE_COUNT = 5;
 import RippleEffect from './RippleEffect';
-import { debounce } from '../utils';
+import { debounce, isIos } from '../utils';
 
 export class ResponsibleTouchArea extends Component {
   rippleIndex = 0;
@@ -63,15 +63,13 @@ export class ResponsibleTouchArea extends Component {
     let InnerComponent = this.props.disabled ? View : TouchableOpacity;
 
     const shadowOpacity = this.state.raiseAnimation.interpolate({
-      inputRange: [0, 1], outputRange: [this.props.raise ? 0.25 : 0, 0.6],
+      inputRange: [0, 1], outputRange: [this.props.raise ? 0.15 : 0, 0.6],
     }), shadows = {
-      position: 'absolute',
-      top: 0, left: 0, bottom: 0, right: 0,
       borderRadius: 3,
       shadowColor: '#666666',
       opacity: shadowOpacity,
       shadowOpacity: 1,
-      shadowRadius: 10,
+      shadowRadius: raiseShadowRadius,
       shadowOffset: { width: 0, height: 2 }
     };
 
@@ -84,7 +82,7 @@ export class ResponsibleTouchArea extends Component {
       onLayout={this.props.onLayout}>
 
       <Animated.View style={[styles.fullSizeAbsolute, shadows]}/>
-	    <View style={[styles.fullSizeAbsolute]}>
+	    <View style={[styles.fullSizeAbsolute, {overflow: 'hidden'}]}>
 		    {this.renderRipples()}
 	    </View>
 
@@ -203,8 +201,9 @@ const styles = StyleSheet.create({
 	fullSizeAbsolute: {
 		position: 'absolute',
 		top: 0, bottom: 0, right: 0, left: 0,
-		overflow: 'hidden',
 	}
 });
+
+const raiseShadowRadius = isIos ? 4 : 10;
 
 export default ResponsibleTouchArea;
