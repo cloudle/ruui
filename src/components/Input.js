@@ -4,6 +4,8 @@ import { minGuard } from '../utils';
 
 export default class Input extends Component {
 	static propTypes = {
+		wrapperStyle: React.PropTypes.any,
+		underLineStyle: React.PropTypes.any,
 		hint: React.PropTypes.string,
 		floatingLabel: React.PropTypes.string,
 		forceFloating: React.PropTypes.bool,
@@ -33,8 +35,9 @@ export default class Input extends Component {
 		const scale = this.state.underLineAnimation.interpolate({
 			inputRange: [0, 1], outputRange: [0.0001, 1]
 		}), underLineStyles = {
+			...this.props.underLineStyle,
 			transform:[{ scaleX: scale }],
-		}, inputContainerStyles = this::buildInputContainerStyles();
+		}, inputContainerStyles = this::buildInputContainerStyles(this.props.wrapperStyle);
 
 		return <View style={[styles.container, inputContainerStyles]}>
 			<View style={{marginLeft: 8, marginRight: 8}}>
@@ -122,11 +125,11 @@ function onFloatingLabelLayout ({ nativeEvent: { layout } }) {
 	})
 }
 function buildInputContainerStyles (defaults = {}) {
-	defaults.marginTop =
-		(defaults.marginTop || 0) +
-		(this.props.floatingLabel ? 20 : 0);
-
-	return defaults;
+	return {
+		...defaults,
+		marginTop: (defaults.marginTop || 0) +
+							 (this.props.floatingLabel ? 20 : 0),
+	};
 }
 
 const styles = StyleSheet.create({
@@ -134,6 +137,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#FFFFFF',
 		borderBottomWidth: 1,
 		borderColor: '#f5f5f5',
+		marginBottom: -1,
 	},
 	textInput: {
 		height: 30,
