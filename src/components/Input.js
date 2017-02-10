@@ -127,25 +127,27 @@ function onFloatingLabelLayout ({ nativeEvent: { layout } }) {
 function buildInputContainerStyles (defaults = {}) {
 	return {
 		...defaults,
-		marginTop: (defaults.marginTop || 0) +
-							 (this.props.floatingLabel ? 20 : 0),
+		paddingTop: (defaults.paddingTop || 0) +
+							 (this.props.floatingLabel ? 28 : 0),
 	};
 }
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: '#FFFFFF',
+		backgroundColor: 'transparent',
 		borderBottomWidth: 1,
 		borderColor: '#f5f5f5',
-		marginBottom: -1,
 	},
 	textInput: {
 		height: 30,
 		fontSize: 16,
+		paddingTop: 8,
+		paddingBottom: 0,
 	},
 	inputUnderLine: {
 		height: 2,
 		backgroundColor: '#F0871A',
+		bottom: -1,
 	},
 	floatingLabelWrapper: {
 		position: 'absolute',
