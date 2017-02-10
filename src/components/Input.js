@@ -37,14 +37,16 @@ export default class Input extends Component {
 		}, inputContainerStyles = this::buildInputContainerStyles();
 
 		return <View style={[styles.container, inputContainerStyles]}>
-			<TextInput
-				onChangeText={this::onChangeText}
-				defaultValue={this.props.value}
-				style={styles.textInput}
-				underlineColorAndroid="transparent"
-				onFocus={playAnimation.bind(this, 1)}
-				onBlur={playAnimation.bind(this, 0)}/>
-			{this.renderFloatingLabel()}
+			<View style={{marginLeft: 8, marginRight: 8}}>
+				<TextInput
+					onChangeText={this::onChangeText}
+					defaultValue={this.props.value}
+					style={styles.textInput}
+					underlineColorAndroid="transparent"
+					onFocus={playAnimation.bind(this, 1)}
+					onBlur={playAnimation.bind(this, 0)}/>
+				{this.renderFloatingLabel()}
+			</View>
 			<Animated.View style={[styles.inputUnderLine, underLineStyles]}/>
 		</View>
 	}
