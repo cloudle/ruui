@@ -9,6 +9,8 @@ export default class Input extends Component {
 		hint: React.PropTypes.string,
 		floatingLabel: React.PropTypes.string,
 		forceFloating: React.PropTypes.bool,
+		errorText: React.PropTypes.string,
+		disabled: React.PropTypes.bool,
 	};
 
 	static defaultProps = {
@@ -28,23 +30,27 @@ export default class Input extends Component {
 		  inputContainerLocation: { x: 0, y: 0 },
 		  value: this.props.value,
 		  empty,
+		  focus: false,
 	  }
 	}
 
 	render () {
-		const scale = this.state.underLineAnimation.interpolate({
+		const pointerEvents = this.props.disabled ? "none" : "auto",
+			scale = this.state.underLineAnimation.interpolate({
 			inputRange: [0, 1], outputRange: [0.0001, 1]
 		}), underLineStyles = {
 			...this.props.underLineStyle,
 			transform:[{ scaleX: scale }],
-		}, inputContainerStyles = this::buildInputContainerStyles(this.props.wrapperStyle);
+		}, inputContainerStyles = this::buildInputContainerStyles(this.props.wrapperStyle),
+			hint = this.state.focus && this.state.empty ? this.props.hint : '';
 
-		return <View style={[styles.container, inputContainerStyles]}>
+		return <View pointerEvents={pointerEvents} style={[styles.container, inputContainerStyles]}>
 			<View style={{marginLeft: 8, marginRight: 8}}>
 				<TextInput
 					onChangeText={this::onChangeText}
 					defaultValue={this.props.value}
 					style={styles.textInput}
+					placeholder={hint}
 					underlineColorAndroid="transparent"
 					onFocus={playAnimation.bind(this, 1)}
 					onBlur={playAnimation.bind(this, 0)}/>
@@ -96,6 +102,7 @@ function onChangeText (nextValue) {
 
 function playAnimation (toValue: Number) {
 	if (this.animation) this.animation.clear();
+	this.setState({focus: toValue == 1});
 
 	let animations = [
 		Animated.timing(this.state.underLineAnimation, {
@@ -142,7 +149,7 @@ const styles = StyleSheet.create({
 	textInput: {
 		height: 30,
 		fontSize: 16,
-		paddingTop: 8,
+		paddingTop: 6,
 		paddingBottom: 0,
 		color: '#444444',
 	},

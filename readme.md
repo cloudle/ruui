@@ -71,7 +71,7 @@ This is a work in progress, right now here's what is done:
   - [x] Floating label
   - [x] Force label-floating
   - [ ] Field Error
-  - [ ] Hint
+  - [x] Hint
   - [ ] Multi-line
   - [ ] Number, currency, datetime masking
   - [ ] Tooltip (Web only)
