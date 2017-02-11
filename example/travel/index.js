@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 
 import { connect } from 'react-redux';
 import { NavigationExperimental, utils } from '../../src';
+import { nativeRouteAction } from '../../src/utils/route';
 import Drawer from 'react-native-drawer';
 import Menu from './share/Menu';
 import NavigationHeader from './share/NavigationHeader';
@@ -31,7 +32,8 @@ export class App extends Component {
 	}
 
 	render () {
-		const navigationState = this.props.router;
+		const navigationState = this.props.router,
+			activeRoute = navigationState.routes[navigationState.index];
 
 		return <Drawer
 			type="overlay"
@@ -45,11 +47,12 @@ export class App extends Component {
 
 			<NavigationExperimental.CardStack
 				style={styles.navigator}
+				cardStyle={activeRoute.style}
 				navigationState={navigationState}
 				renderScene={this::renderScene}
 				renderHeader={this::renderHeader}
 				gestureResponseDistance={50}
-				onNavigateBack={() => console.log('Back..')}/>
+				onNavigateBack={() => this.props.dispatch(nativeRouteAction.pop())}/>
 		</Drawer>
 	}
 }
@@ -67,7 +70,9 @@ function renderHeader (sceneProps) {
 
 function drawerTween (ratio, side = 'left') {
 	return {
-		main: { opacity:(2-ratio)/1.2 },
+		main: {
+			opacity:(2-ratio)/1.2,
+		},
 		drawer: {
 			shadowColor: '#000000',
 			shadowOpacity: 0.1 + (ratio * 0.3),
@@ -83,7 +88,6 @@ const styles = StyleSheet.create({
 	},
 	navigator: {
 		flex: 1,
-		backgroundColor: 'red',
 	}
 });
 

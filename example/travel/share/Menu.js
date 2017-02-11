@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-import { Button, Input } from 'react-universal-ui';
+import { Button, Input } from '../../../src';
 import { colors } from '../utils';
 import tinyColor from 'tinycolor2';
 
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
 	heading: {
 		flexDirection: 'row',
 		backgroundColor: tinyColor(colors.main).darken(5).toHexString(),
-		height: 120,
+		height: 150,
 	},
 	headingAvatar: {
 		justifyContent: 'center',

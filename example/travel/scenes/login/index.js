@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { colors } from '../../utils';
 import { ScreenWidthPadding } from '../../utils/screen';
+import * as manager from './manager';
 
 class LoginScene extends Component {
   render () {
@@ -23,7 +24,7 @@ class LoginScene extends Component {
                ref="username" maxLength={128}/>
         <Input floatingLabel={this.props.localize.placeholders.password}
                wrapperStyle={{borderBottomWidth: 0}}
-               underLineStyle={{backgroundColor: '#d3721b', bottom: 0}}
+               underLineStyle={{backgroundColor: '#fca638', bottom: 0}}
                ref="password" password={true}/>
       </View>
 
@@ -34,7 +35,8 @@ class LoginScene extends Component {
 	    <View style={styles.commandWrapper}>
 		    <Button
 			    wrapperStyle={[styles.buttonWrapper, styles.registerButton]}
-			    title={this.props.localize.titles.register}/>
+			    title={this.props.localize.titles.register}
+		      onPress={this::manager.navigateLogin}/>
 		    <Button
 			    wrapperStyle={[styles.buttonWrapper, styles.loginButton]}
 			    textStyle={{color: '#444444', fontWeight: '500'}}
@@ -57,7 +59,7 @@ export default connect(state => {
 
 const styles = StyleSheet.create({
   container: {
-	  flex: 1, marginTop: 24,
+	  flex: 1,
     backgroundColor: colors.main,
 	  justifyContent: 'center',
 	  alignItems: 'center',
@@ -74,10 +76,9 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 	formWrapper: {
-  	// height: 200,
 		width: ScreenWidthPadding(40, 280),
 		backgroundColor: 'white',
-		borderRadius: 3,
+		borderRadius: 2,
 		marginBottom: 10,
 		overflow: 'hidden',
 	},

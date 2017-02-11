@@ -7,7 +7,7 @@ type Props = {
 
 const NavigationHeaderBackButton = (props: Props) => (
 	<TouchableOpacity style={styles.buttonContainer} onPress={props.onPress}>
-		<Image style={styles.button} source={require('./back-icon.png')} />
+		<Image style={styles.button} source={require('./white-back.png')} />
 	</TouchableOpacity>
 );
 
