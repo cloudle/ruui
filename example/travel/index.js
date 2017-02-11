@@ -33,7 +33,8 @@ export class App extends Component {
 
 	render () {
 		const navigationState = this.props.router,
-			activeRoute = navigationState.routes[navigationState.index];
+			activeRoute = navigationState.routes[navigationState.index],
+			transitionDirection = activeRoute.transitionDirection || 'horizontal';
 
 		return <Drawer
 			type="overlay"
@@ -46,6 +47,7 @@ export class App extends Component {
 			tweenHandler={drawerTween}>
 
 			<NavigationExperimental.CardStack
+				direction={transitionDirection}
 				style={styles.navigator}
 				cardStyle={activeRoute.style}
 				navigationState={navigationState}
