@@ -1,7 +1,7 @@
 import * as Actions from './actions';
 
 export function push (route) {
-	return { type: Actions.NativeRouterPop, route };
+	return { type: Actions.NativeRouterPush, route };
 }
 
 export function pop () {

@@ -124,11 +124,12 @@ function onFloatingLabelLayout ({ nativeEvent: { layout } }) {
 		floatingLabelHeight: layout.height,
 	})
 }
+
 function buildInputContainerStyles (defaults = {}) {
 	return {
 		...defaults,
 		paddingTop: (defaults.paddingTop || 0) +
-							 (this.props.floatingLabel ? 28 : 0),
+							 (this.props.floatingLabel ? 24 : 0),
 	};
 }
 
@@ -143,6 +144,7 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		paddingTop: 8,
 		paddingBottom: 0,
+		color: '#444444',
 	},
 	inputUnderLine: {
 		height: 2,
