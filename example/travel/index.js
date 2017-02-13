@@ -3,7 +3,7 @@ import { AsyncStorage, StatusBar, View, Text, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 
 import { connect } from 'react-redux';
-import { NavigationExperimental, utils } from '../../src';
+import { NavigationExperimental, Modal, utils } from '../../src';
 import { nativeRouteAction } from '../../src/utils/route';
 import Drawer from 'react-native-drawer';
 import Menu from './share/Menu';
@@ -49,7 +49,6 @@ export class App extends Component {
 			<NavigationExperimental.CardStack
 				direction={transitionDirection}
 				style={styles.navigator}
-				cardStyle={activeRoute.style}
 				navigationState={navigationState}
 				renderScene={this::renderScene}
 				renderHeader={this::renderHeader}
@@ -60,8 +59,13 @@ export class App extends Component {
 }
 
 function renderScene (props) {
-	const Scene = props.scene.route.component;
-	return <Scene/>
+	const activeRoute = props.scene.route,
+		Scene = activeRoute.component;
+
+	return <View style={[styles.sceneWrapper, activeRoute.style]}>
+		<Scene/>
+		<Modal/>
+	</View>
 }
 
 function renderHeader (sceneProps) {
@@ -89,6 +93,9 @@ const styles = StyleSheet.create({
 		backgroundColor: '#000',
 	},
 	navigator: {
+		flex: 1,
+	},
+	sceneWrapper: {
 		flex: 1,
 	}
 });

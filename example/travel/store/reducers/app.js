@@ -1,12 +1,13 @@
-import { localize } from '../../utils';
 import * as Actions from '../actions';
+import { utils } from '../../../../src';
+import { localize } from '../../utils';
 
 const initialState = {
   counter: 0,
 	localize: localize('eng'),
 };
 
-export default function (state = initialState, action) {
+export default utils.appReducer((state = initialState, action) => {
 	switch (action.type) {
 		case Actions.IncreaseCounter:
 			return {...state, counter: state.counter + action.volume};
@@ -15,4 +16,4 @@ export default function (state = initialState, action) {
 		default:
 			return state;
 	}
-}
+})
