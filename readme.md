@@ -28,7 +28,7 @@ Cross-platform (**React Native** and **Web Browser**) [React][react-url], [React
 ## Overview
 "**React Universal UI**" is a cross-platform **React's UI Kit** - which could be run on both **Web Browser** and **React Native** environment, **write once and use everywhere**.
 
-**Checkout [demo and detailed documentations][documentation-url] for live example.** 
+### **Checkout [demo and detailed documentations][documentation-url] for live example.** 
 
 ## How it work
 ####React Native: 
@@ -62,7 +62,7 @@ This is a work in progress, right now here's what is done:
 - [x] Switches (exposed from [react-native-web][react-native-web-url])
 - [x] Button Component
   - [x] Ripple effect
-  - [x] Flat style
+  - [x] Fade effect
   - [x] Raised style
   - [x] Icon Button
   - [ ] Tooltip (Web only)
@@ -80,6 +80,7 @@ This is a work in progress, right now here's what is done:
 - [ ] Popover
 - [ ] Snackbar
 - [ ] Select field (mostly for **Web**)
+- [Working] Selector API and Selector components for Native.  
 - [ ] Picker Components
   - [ ] Datetime picker
   - [ ] Scroll Picker
