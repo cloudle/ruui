@@ -7,7 +7,7 @@ const defaultSelectorConfigs = {
 
 export function appReducer (reducer: Reducer) {
 	const initialState = {
-		activeModal: 'select',
+		activeModal: null,
 		selectorConfigs: defaultSelectorConfigs,
 		...reducer(undefined, { type: Actions.ReduxInit })
 	};
