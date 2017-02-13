@@ -14,6 +14,7 @@ import {
 const MAX_PARTICLE_COUNT = 5;
 import RippleEffect from './RippleEffect';
 import { debounce, isIos } from '../utils';
+import tinyColor from 'tinycolor2';
 
 export class ResponsibleTouchArea extends Component {
   rippleIndex = 0;
@@ -23,17 +24,21 @@ export class ResponsibleTouchArea extends Component {
     innerStyle: React.PropTypes.any,
     staticRipple: React.PropTypes.bool,
     rippleColor: React.PropTypes.string,
+	  rippleAnimationSpeed: React.PropTypes.number,
+	  raise: React.PropTypes.bool,
     minActiveOpacity: React.PropTypes.number,
     onPress: React.PropTypes.func,
     onLayout: React.PropTypes.func,
     onMouseEnter: React.PropTypes.func,
     onMouseLeave: React.PropTypes.func,
+	  fadeLevel: React.PropTypes.number,
   };
 
   static defaultProps = {
     staticRipple: false,
-    rippleColor: '#FFFFFF',
 	  minActiveOpacity: 0.8,
+	  raise: false,
+	  fadeLevel: 0.1,
   };
 
   constructor (props) {
@@ -41,6 +46,8 @@ export class ResponsibleTouchArea extends Component {
     this.state = {
       ripples: [],
       raiseAnimation: new Animated.Value(0),
+	    fadeAnimation: new Animated.Value(0),
+	    mouseInside: false,
     };
 
     if (this.props.debounce) {
@@ -48,30 +55,11 @@ export class ResponsibleTouchArea extends Component {
     }
   }
 
-  renderRipples () {
-    return this.state.ripples.map(ripple => {
-      return <RippleEffect
-        key={ripple.index}
-        style={ripple.style}
-        index={ripple.index}
-        speed={this.props.rippleAnimationSpeed}
-      />;
-    })
-  }
-
   render () {
     let InnerComponent = this.props.disabled ? View : TouchableOpacity;
-
-    const shadowOpacity = this.state.raiseAnimation.interpolate({
-      inputRange: [0, 1], outputRange: [this.props.raise ? 0.15 : 0, 0.6],
-    }), shadows = {
-      borderRadius: 3,
-      shadowColor: '#666666',
-      opacity: shadowOpacity,
-      shadowOpacity: 1,
-      shadowRadius: raiseShadowRadius,
-      shadowOffset: { width: 0, height: 2 }
-    };
+    const flattenWrapperStyles = StyleSheet.flatten(this.props.wrapperStyle),
+	    isLightBackground = tinyColor(flattenWrapperStyles.backgroundColor).getBrightness() > 180,
+	    wrapperBorderRadius = extractBorderRadius(flattenWrapperStyles);
 
     return <View
       onMouseLeave={this::onMouseLeave}
@@ -81,15 +69,16 @@ export class ResponsibleTouchArea extends Component {
       style={this.props.wrapperStyle}
       onLayout={this.props.onLayout}>
 
-      <Animated.View style={[styles.fullSizeAbsolute, shadows]}/>
-	    <View style={[styles.fullSizeAbsolute, {overflow: 'hidden'}]}>
+      {this.renderShadowEffect(isLightBackground, wrapperBorderRadius)}
+      {this.renderFadeEffect(isLightBackground, wrapperBorderRadius)}
+	    <View style={[styles.fullSizeAbsolute, wrapperBorderRadius, {overflow: 'hidden'}]}>
 		    {this.renderRipples()}
 	    </View>
 
       <InnerComponent
         activeOpacity={this.props.minActiveOpacity}
         style={this.props.innerStyle}
-        onPressIn={this::onPressIn}
+        onPressIn={onPressIn.bind(this, isLightBackground)}
         onPressOut={this::onPressOut}
         onPress={this::onPress}
         onStartShouldSetResponderCapture={() => true}>
@@ -99,18 +88,59 @@ export class ResponsibleTouchArea extends Component {
       </InnerComponent>
     </View>
   }
+
+  renderShadowEffect (isLightBackground: Boolean, wrapperBorderRadius) {
+		const shadowOpacity = this.state.raiseAnimation.interpolate({
+				inputRange: [0, 1], outputRange: [this.props.raise ? 0.15 : 0, 0.6],
+			}),
+			shadow = this.props.raise ? {
+				borderRadius: 3,
+				shadowColor: '#666666',
+				opacity: shadowOpacity,
+				shadowOpacity: 1,
+				shadowRadius: raiseShadowRadius,
+				shadowOffset: { width: 0, height: 2 }
+			} : {};
+
+		return <Animated.View style={[styles.fullSizeAbsolute, wrapperBorderRadius, shadow]}/>
+  }
+
+  renderFadeEffect (isLightBackground: Boolean, wrapperBorderRadius) {
+  	const backgroundColor = this.state.fadeAnimation.interpolate({
+		  inputRange: [0, 1],
+		  outputRange: isLightBackground
+			  ? ['rgba(0, 0, 0, 0)', `rgba(0, 0, 0, ${this.props.fadeLevel})`]
+			  : ['rgba(255, 255, 255, 0)', `rgba(255, 255, 255, ${this.props.fadeLevel})`]
+	  }), maskStyles = {
+  		backgroundColor,
+	  };
+
+	  return <Animated.View style={[styles.fullSizeAbsolute, wrapperBorderRadius, maskStyles]}/>
+  }
+
+	renderRipples () {
+		return this.state.ripples.map(ripple => {
+			return <RippleEffect
+				key={ripple.index}
+				style={ripple.style}
+				index={ripple.index}
+				speed={this.props.rippleAnimationSpeed}/>
+		})
+	}
 }
 
 function onPress (e) {
 	!this.props.disabled && this.props.onPress && this.props.onPress(e);
 }
 
-function onPressIn (e) {
+function onPressIn (isLightBackground: Boolean, e) {
 	if (this.props.disabled) return;
 
 	if (this.props.raise) {
-    this::playAnimation(1);
+    this::playRaiseAnimation(1);
   }
+
+	this::playFadeAnimation(1);
 
 	let { locationX, locationY, pageX, pageY } = e.nativeEvent;
 
@@ -150,16 +180,18 @@ function onPressIn (e) {
 			};
 		}
 
-		let newRipple = {
-			index: this.rippleIndex++,
-			style: {
-				width: rippleRadius * 2,
-				height: rippleRadius * 2,
-				borderRadius: rippleRadius,
-				backgroundColor: this.props.rippleColor,
-				...ripplePosition
-			}
-		}, ripples = [newRipple, ...this.state.ripples];
+		let defaultRippleColor = isLightBackground ? '#333333' : '#ffffff',
+			newRipple = {
+				index: this.rippleIndex++,
+				style: {
+					width: rippleRadius * 2,
+					height: rippleRadius * 2,
+					borderRadius: rippleRadius,
+					backgroundColor: this.props.rippleColor || defaultRippleColor,
+					...ripplePosition
+				}
+			},
+			ripples = [newRipple, ...this.state.ripples];
 
 		if (ripples.length > MAX_PARTICLE_COUNT) {
 			ripples = ripples.slice(0, MAX_PARTICLE_COUNT);
@@ -171,20 +203,25 @@ function onPressIn (e) {
 	this.props.onPressIn && this.props.onPressIn(e);
 }
 
-function onPressOut () {
-  this::playAnimation(0);
+function onPressOut (forceFade = false) {
+  if (this.props.raise) this::playRaiseAnimation(0);
+  if (forceFade == true || !this.state.mouseInside) {
+  	this::playFadeAnimation(0);
+  }
 }
 
 function onMouseEnter () {
-
+	this::playFadeAnimation(1);
+	this.setState({mouseInside: true});
 }
 
 function onMouseLeave () {
-  return this::onPressOut;
+	this::onPressOut(true);
+	this.setState({mouseInside: false});
 }
 
-function playAnimation (toValue: Number) {
-	if (this.animation) this.animation.clear();
+function playRaiseAnimation (toValue: Number) {
+	if (this.raiseAnimation) this.raiseAnimation.clear();
 
 	let animations = [
 		Animated.timing(this.state.raiseAnimation, {
@@ -194,7 +231,32 @@ function playAnimation (toValue: Number) {
 		})
 	];
 
-	this.animation = Animated.parallel(animations).start();
+	this.raiseAnimation = Animated.parallel(animations).start();
+}
+
+function playFadeAnimation (toValue: Number) {
+	if (this.fadeAnimation) this.fadeAnimation.clear();
+
+	this.fadeAnimation = Animated.timing(this.state.fadeAnimation, {
+		toValue,
+		duration: 800,
+		easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
+	}).start();
+}
+
+function extractBorderRadius (baseStyles) {
+	return [ 'borderRadius'
+	, 'borderTopLeftRadius'
+	,	'borderTopRightRadius'
+	,	'borderBottomLeftRadius'
+	,	'borderBottomRightRadius'
+	].reduce((accumulate, currentAttribute) => {
+		if (baseStyles[currentAttribute]) {
+			accumulate[currentAttribute] = baseStyles[currentAttribute];
+		}
+
+		return accumulate;
+	}, {})
 }
 
 const styles = StyleSheet.create({

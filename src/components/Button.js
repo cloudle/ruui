@@ -17,20 +17,23 @@ export default class Button extends Component {
 		textStyle: React.PropTypes.object,
 		raise: React.PropTypes.bool,
 		onPress: React.PropTypes.func,
+		fadeLevel: React.PropTypes.number,
 	};
 
 	static defaultProps = {
 		staticRipple: false,
-		rippleColor: '#FFFFFF',
 		title: 'TITLE',
+		raise: true,
+		fadeLevel: 0.2,
 	};
 
   render () {
     return <ResponsibleTouchArea
 	    onPress={this.props.onPress}
-	    raise={true}
+	    raise={this.props.raise}
 	    staticRipple={this.props.staticRipple}
 	    rippleColor={this.props.rippleColor}
+	    fadeLevel={this.props.fadeLevel}
 	    wrapperStyle={[styles.wrapper, this.props.wrapperStyle]}
       innerStyle={[styles.contentContainer, this.props.innerStyle]}>
 	    {this.renderContent()}
