@@ -10,6 +10,7 @@ export let colors = {
 	lighterMain,
 	danger: '#ff8142',
 	blue: '#2196F3',
+	iOsBlue: '#007aff',
 	orange: '#FF9800',
 	green: '#8daf7e',
 	text: '#444444',

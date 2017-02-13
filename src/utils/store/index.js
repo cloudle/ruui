@@ -1,8 +1,10 @@
 import * as actionsImport from './actions';
+import * as appActionImport from './appAction';
 import * as nativeActionImport from './nativeAction';
 import * as browserActionImport from './browserAction';
 
 export let routerActions = actionsImport;
+export let appAction = appActionImport;
 export let nativeRouteAction = nativeActionImport;
 export let browserRouteAction = browserActionImport;
 
