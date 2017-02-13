@@ -4,11 +4,14 @@ import { Provider } from 'react-redux';
 
 import { connect } from 'react-redux';
 import { NavigationExperimental, Modal, utils } from '../../src';
-import { nativeRouteAction } from '../../src/utils/route';
+import { nativeRouteAction } from '../../src/utils/store';
 import Drawer from 'react-native-drawer';
 import Menu from './share/Menu';
 import NavigationHeader from './share/NavigationHeader';
 import * as appActions from './store/action/app';
+
+import tinyColor from 'tinycolor2';
+global.tinyColor = tinyColor;
 
 const { isIos, isAndroid } = utils;
 

@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { Image, View, ScrollView, Text, StyleSheet } from 'react-native';
-import { Input, Button } from '../../../../src';
+import { Input, Button, utils } from '../../../../src';
+const { appAction } = utils;
 import { connect } from 'react-redux';
 
 import { colors } from '../../utils';
 import { ScreenWidthPadding } from '../../utils/screen';
 import * as manager from './manager';
+
+@connect(({app}) => {
+	return {
+
+	}
+})
 
 class LoginScene extends Component {
   render () {
@@ -25,6 +32,7 @@ class LoginScene extends Component {
         <Input floatingLabel={this.props.localize.placeholders.password}
                wrapperStyle={{borderBottomWidth: 0}}
                underLineStyle={{backgroundColor: '#fca638', bottom: 0}}
+               secureTextEntry={true}
                ref="password" password={true}/>
       </View>
 
@@ -34,13 +42,15 @@ class LoginScene extends Component {
 
 	    <View style={styles.commandWrapper}>
 		    <Button
+			    onPress={this::manager.navigateLogin}
 			    wrapperStyle={[styles.buttonWrapper, styles.registerButton]}
 			    title={this.props.localize.titles.register}
-		      onPress={this::manager.navigateLogin}/>
+			    raise={false}/>
 		    <Button
+			    onPress={() => this.props.dispatch(appAction.toggleSelector(true))}
 			    wrapperStyle={[styles.buttonWrapper, styles.loginButton]}
 			    textStyle={{color: '#444444', fontWeight: '500'}}
-			    rippleColor="#222222"
+			    raise={false}
 			    title={this.props.localize.titles.login}/>
 	    </View>
 

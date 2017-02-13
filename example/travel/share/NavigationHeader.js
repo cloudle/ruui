@@ -3,8 +3,8 @@ import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import { colors } from '../utils';
-import { nativeRouteAction } from '../../../src/utils/route';
-import { NavigationExperimental } from 'react-universal-ui';
+import { nativeRouteAction } from '../../../src/utils/store';
+import { NavigationExperimental } from '../../../src';
 const { Header: NavigationHeader } = NavigationExperimental;
 import NavigationBackButton from './NavigationBackButton';
 

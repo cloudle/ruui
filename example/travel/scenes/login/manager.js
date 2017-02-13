@@ -1,4 +1,4 @@
-import { nativeRouteAction } from '../../../../src/utils/route';
+import { nativeRouteAction } from '../../../../src/utils/store';
 import { register } from '../../utils/routes';
 
 export function navigateLogin () {
