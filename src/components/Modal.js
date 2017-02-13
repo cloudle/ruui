@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 import { enterAnimation } from '../decorators';
 
 import * as appActions from '../utils/store/appAction';
+import Selector from './Selector';
 
 @connect(({app}) => {
 	return {
 		activeModal: app.activeModal,
+		selectorConfigs: app.selectorConfigs,
 	}
 })
 
@@ -17,20 +19,29 @@ export default class Modal extends Component {
 		this.state = {
 			enterAnimation: new Animated.Value(0),
 			activeModal: this.props.activeModal,
-		}
+		};
 	}
 
 	componentDidMount () {
-		this::playAnimation(1);
+		this.playTransition(this.props.activeModal);
 	}
 
 	componentWillReceiveProps (nextProps) {
-		if (nextProps.activeModal != this.props.activeModal && !nextProps.activeModal) {
-			this::playAnimation(0, () => {
+		if (nextProps.activeModal != this.props.activeModal) {
+			this.playTransition(nextProps.activeModal);
+		}
+	}
+
+	playTransition (activeModal) {
+		const nextValue = activeModal ? 1 : 0;
+
+		if (!activeModal) {
+			this::playAnimation(nextValue, () => {
 				this.setState({activeModal: null});
 			});
 		} else {
-			this.setState({activeModal: nextProps.activeModal});
+			this.setState({activeModal: activeModal});
+			this::playAnimation(nextValue);
 		}
 	}
 
@@ -43,12 +54,21 @@ export default class Modal extends Component {
 
 		return this.state.activeModal ? <Animated.View
 			style={[styles.container, containerStyles]}>
-			<TouchableOpacity
+			<View
 				style={styles.innerTouchable}
 				onPress={this::onBackdropPress}>
-				{this.props.children}
-			</TouchableOpacity>
+				{this.renderModalInner()}
+			</View>
 		</Animated.View> : <View/>;
+	}
+
+	renderModalInner () {
+		switch (this.state.activeModal) {
+			case 'select':
+				return <Selector
+					animation={this.state.enterAnimation}
+					configs={this.props.selectorConfigs}/>
+		}
 	}
 }
 
@@ -63,7 +83,7 @@ function playAnimation (toValue: Number, callback) {
 		Animated.timing(this.state.enterAnimation, {
 			toValue,
 			duration: 1200,
-			easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
+			easing: Easing.in(Easing.bezier(0, .48, .35, 1)),
 		})
 	];
 
@@ -72,7 +92,7 @@ function playAnimation (toValue: Number, callback) {
 
 const styles = StyleSheet.create({
 	container: {
-		position: 'fixed',
+		position: 'absolute',
 		top: 0, left: 0, right: 0, bottom: 0,
 	},
 	innerTouchable: {
