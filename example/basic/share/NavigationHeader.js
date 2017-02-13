@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
 import { colors } from '../utils';
-import { NavigationExperimental } from 'react-universal-ui';
+import { NavigationExperimental } from '../../../src';
 const { Header: NavigationHeader } = NavigationExperimental;
 import NavigationBackButton from './NavigationBackButton';
 

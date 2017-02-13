@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { AsyncStorage, View, Text, StyleSheet } from 'react-native';
 import { connect, Provider } from 'react-redux';
 
-import { NavigationExperimental } from 'react-universal-ui';
+import { NavigationExperimental } from '../../src';
 import Drawer from 'react-native-drawer';
 import Menu from './share/Menu';
 import NavigationHeader from './share/NavigationHeader';
