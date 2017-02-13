@@ -43,9 +43,6 @@ module.exports = {
 		chunkFilename: "[name].js"
 	},
 	resolve: {
-		alias: {
-			"react-native": "react-native-web",
-		},
 		modules: ['node_modules'],
 		extensions: ['.js']
 	},
