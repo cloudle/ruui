@@ -10,4 +10,4 @@ export const isAndroid = os === 'android';
 
 export * from './colors';
 export * from './helpers';
-export * from './route';
+export * from './store';

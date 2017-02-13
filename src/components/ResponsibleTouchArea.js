@@ -23,7 +23,7 @@ export class ResponsibleTouchArea extends Component {
     innerStyle: React.PropTypes.any,
     staticRipple: React.PropTypes.bool,
     rippleColor: React.PropTypes.string,
-	  minActiveOpacity: React.PropTypes.number,
+    minActiveOpacity: React.PropTypes.number,
     onPress: React.PropTypes.func,
     onLayout: React.PropTypes.func,
     onMouseEnter: React.PropTypes.func,

@@ -6,6 +6,6 @@ export let routerActions = actionsImport;
 export let nativeRouteAction = nativeActionImport;
 export let browserRouteAction = browserActionImport;
 
+export * from './appReducer'; //utils.appReducer
 export * from './nativeReducer'; //utils.nativeRouteReducer
-export * from './browserReducer';
-export * from './browserRouter';
+export * from './browserReducer'; //utils.browserReducer

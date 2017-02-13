@@ -1,9 +1,9 @@
 import * as Actions from './actions';
-import { createBrowserHistory, createMemoryHistory } from 'history';
+import { createHistory, createMemoryHistory } from 'history';
 import { isBrowser } from '../../utils';
 
 export let history = isBrowser ?
-	createBrowserHistory() : createMemoryHistory();
+	createHistory() : createMemoryHistory();
 
 export function browserRouteReducer (reducer: Reducer) {
 	const initialState = {
