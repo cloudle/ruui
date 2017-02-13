@@ -7,10 +7,28 @@ export default class Input extends Component {
 		wrapperStyle: React.PropTypes.any,
 		underLineStyle: React.PropTypes.any,
 		hint: React.PropTypes.string,
+		hintColor: React.PropTypes.string,
 		floatingLabel: React.PropTypes.string,
 		forceFloating: React.PropTypes.bool,
 		errorText: React.PropTypes.string,
 		disabled: React.PropTypes.bool,
+
+		autoCapitalize: React.PropTypes.string,
+		autoCorrect: React.PropTypes.bool,
+		autoFocus: React.PropTypes.bool,
+		blurOnSubmit: React.PropTypes.bool,
+		defaultValue: React.PropTypes.node,
+		editable: React.PropTypes.bool,
+		keyboardType: React.PropTypes.string,
+		maxLength: React.PropTypes.number,
+		returnKeyType: React.PropTypes.string,
+		secureTextEntry: React.PropTypes.bool,
+		selectTextOnFocus: React.PropTypes.bool,
+
+		onFocus: React.PropTypes.func,
+		onBlur: React.PropTypes.func,
+		onChangeText: React.PropTypes.func,
+		onEndEditing: React.PropTypes.func,
 	};
 
 	static defaultProps = {
@@ -48,12 +66,24 @@ export default class Input extends Component {
 			<View style={{marginLeft: 8, marginRight: 8}}>
 				<TextInput
 					onChangeText={this::onChangeText}
-					defaultValue={this.props.value}
+					onFocus={this::onInputFocus}
+					onBlur={this::onInputBlur}
+					autoCapitalize={this.props.autoCapitalize}
+					autoCorrect={this.props.autoCorrect}
+					autoFocus={this.props.autoFocus}
+					blurOnSubmit={this.props.blurOnSubmit}
+					editable={this.props.editable}
+					keyboardType={this.props.keyboardType}
+					maxLength={this.props.maxLength}
+					returnKeyType={this.props.returnKeyType}
+					secureTextEntry={this.props.secureTextEntry}
+					selectTextOnFocus={this.props.selectTextOnFocus}
+					onEndEditing={this.props.onEndEditing}
+					defaultValue={this.props.defaultValue}
 					style={styles.textInput}
 					placeholder={hint}
-					underlineColorAndroid="transparent"
-					onFocus={playAnimation.bind(this, 1)}
-					onBlur={playAnimation.bind(this, 0)}/>
+					placeholderTextColor={this.props.hintColor}
+					underlineColorAndroid="transparent"/>
 				{this.renderFloatingLabel()}
 			</View>
 			<Animated.View style={[styles.inputUnderLine, underLineStyles]}/>
@@ -97,7 +127,18 @@ const easeInSpeed = 450,
 	easeOutSpeed = easeInSpeed;
 
 function onChangeText (nextValue) {
-	this.setState({value: nextValue, empty: !nextValue.length})
+	this.setState({value: nextValue, empty: !nextValue.length});
+	if (this.props.onChangeText) this.props.onChangeText(nextValue);
+}
+
+function onInputFocus () {
+	this::playAnimation(1);
+	if (this.props.onFocus) this.props.onFocus();
+}
+
+function onInputBlur () {
+	this::playAnimation(0);
+	if (this.props.onBlur) this.props.onBlur();
 }
 
 function playAnimation (toValue: Number) {
