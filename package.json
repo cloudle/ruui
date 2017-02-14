@@ -18,7 +18,7 @@
     "ios": "react-native run-ios",
     "android": "react-native run-android"
   },
-  "license": "free",
+  "license": "MIT",
   "author": "Cloud Le",
   "repository": {
     "type": "git",

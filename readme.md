@@ -5,6 +5,8 @@
 
 Cross-platform (**React Native** and **Web Browser**) [React][react-url], [React Native][react-native-url]'s UI components to re-use everywhere.
 
+## Platforms
+
 **Native platforms**: **iOs, Android** (we'll need more customize to make it run on another native places like Mac, Windows or Linux - currently I got no plan for those platforms).
 
 **Browser support**: Chrome, Firefox, Safari >= 7, IE 10, Edge.
@@ -80,7 +82,7 @@ This is a work in progress, right now here's what is done:
 - [ ] Popover
 - [ ] Snackbar
 - [ ] Select field (mostly for **Web**)
-- [Working] Selector API and Selector components for Native.  
+- [x] Selector API and Selector components for Native.  
 - [ ] Picker Components
   - [ ] Datetime picker
   - [ ] Scroll Picker
@@ -92,3 +94,7 @@ This is a work in progress, right now here's what is done:
 * [Ionic 2][ionic-url], As a fan of Ionic - their **ecosystem** and **design** is a great reference for me when developing **this project**.
 * [React Native Drawer][react-native-drawer-url]
 * [React Native Vector Icons][react-native-vector-icon-url]
+
+# License
+
+MIT
