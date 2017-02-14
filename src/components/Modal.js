@@ -65,9 +65,7 @@ export default class Modal extends Component {
 	renderModalInner () {
 		switch (this.state.activeModal) {
 			case 'select':
-				return <Selector
-					animation={this.state.enterAnimation}
-					configs={this.props.selectorConfigs}/>
+				return <Selector animation={this.state.enterAnimation}/>
 		}
 	}
 }
@@ -82,7 +80,7 @@ function playAnimation (toValue: Number, callback) {
 	let animations = [
 		Animated.timing(this.state.enterAnimation, {
 			toValue,
-			duration: 1200,
+			duration: 800,
 			easing: Easing.in(Easing.bezier(0, .48, .35, 1)),
 		})
 	];

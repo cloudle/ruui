@@ -9,7 +9,7 @@ import * as appActions from '../utils/store/appAction';
 
 @connect(({app}) => {
 	return {
-
+		configs: app.selectorConfigs,
 	}
 })
 
@@ -39,7 +39,7 @@ export default class Selector extends Component {
 			<View style={styles.optionWrapper}>
 				<View style={styles.selectTitle}>
 					<Text style={styles.selectTitleText}>
-						Select
+						{this.props.configs.selectText}
 					</Text>
 				</View>
 				{this.renderOptions()}
@@ -53,18 +53,30 @@ export default class Selector extends Component {
 	renderOptions () {
 		const { options } = this.props.configs;
 		return options.map((item, i) => {
-			const wrapperRadius = buildSelectionRadius(options, i);
+			let wrapperStyles = buildSelectionRadius(options, i);
+
+			if (JSON.stringify(this.props.configs.value) == JSON.stringify(item)) {
+				wrapperStyles['backgroundColor'] = '#FFFFFF';
+			}
 
 			return <ResponsibleTouchArea
 				key={i} rippleColor={colors.iOsBlue}
-				wrapperStyle={[styles.optionItemWrapper, wrapperRadius]}
+				onPress={onItemPick.bind(this, item)}
+				wrapperStyle={[styles.optionItemWrapper, wrapperStyles]}
 				innerStyle={styles.optionItemInner}
 				fadeLevel={0.04}>
-				<Text style={styles.optionTitle}>
-					{item.title}
-				</Text>
+				{this.renderOptionText(item)}
 			</ResponsibleTouchArea>
 		});
+	}
+
+	renderOptionText (item) {
+		let optionText = item.title;
+		if (this.props.configs.getTitle) optionText = this.props.configs.getTitle(item);
+
+		return <Text style={styles.optionTitle}>
+			{optionText}
+		</Text>
 	}
 
 	renderCommands () {
@@ -81,9 +93,20 @@ export default class Selector extends Component {
 	}
 }
 
+function onItemPick (instance) {
+	this.setState({lock: true});
+	this.props.dispatch(appActions.toggleSelector(false));
+
+	this.props.configs.onSelect && this.props.configs.onSelect(instance);
+	if (JSON.stringify(this.props.configs.value) !== JSON.stringify(instance)) {
+		this.props.configs.onChange && this.props.configs.onChange(instance);
+	}
+}
+
 function cancelSelector () {
 	this.setState({lock: true});
 	this.props.dispatch(appActions.toggleSelector(false));
+	this.props.configs.onCancel && this.props.configs.onCancel();
 }
 
 function buildSelectionRadius (options, index) {

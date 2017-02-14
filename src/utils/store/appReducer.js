@@ -1,6 +1,7 @@
 import * as Actions from './actions';
 
 const defaultSelectorConfigs = {
+	selectText: 'Select',
 	cancelText: 'Cancel',
 	options: [ {title: 'Option 1'}, {title: 'Option 2'} ],
 };
@@ -31,9 +32,9 @@ function handleToggleSelect (state, action) {
 	return {
 		...state,
 		activeModal,
-		selectorConfigs: {
-			...defaultSelectorConfigs,
-			...action.configs,
-		}
+		selectorConfigs: action.flag ? {
+				...defaultSelectorConfigs,
+				...action.configs,
+			} : state.selectorConfigs,
 	};
 }
