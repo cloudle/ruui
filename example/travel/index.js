@@ -57,6 +57,8 @@ export class App extends Component {
 				renderHeader={this::renderHeader}
 				gestureResponseDistance={50}
 				onNavigateBack={() => this.props.dispatch(nativeRouteAction.pop())}/>
+
+			<Modal/>
 		</Drawer>
 	}
 }
@@ -67,7 +69,6 @@ function renderScene (props) {
 
 	return <View style={[styles.sceneWrapper, activeRoute.style]}>
 		<Scene/>
-		<Modal/>
 	</View>
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { Input } from '../../../../src';
+import { Input, Select } from '../../../../src';
 
 import { iStyles } from '../../utils';
 
@@ -17,7 +17,14 @@ export default class RegisterScene extends Component {
     return <ScrollView contentContainerStyle={iStyles.scrollContainer}>
 	    <Text style={iStyles.headingText}>{this.props.localize.placeholders.userAccount}</Text>
 	    <View style={iStyles.sectionContainer}>
-				<Input floatingLabel={this.props.localize.placeholders.accountType}/>
+				<Select
+					floatingLabel="Account type"
+					cancelText="Stop!"
+					options={[{desc: "I'm a traveller"}, {desc: "I'm a worker!"}]}
+					getTitle={(item) => item.desc}
+					value={{desc: "I'm a traveller"}}
+					onChange={(instance) => console.log("Selected:", instance)}/>
+		    <Input floatingLabel={this.props.localize.placeholders.accountType}/>
 				<Input floatingLabel={this.props.localize.placeholders.userAccount}/>
 				<Input floatingLabel={this.props.localize.placeholders.password}/>
 	    </View>

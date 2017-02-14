@@ -86,14 +86,14 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 	formWrapper: {
-		width: ScreenWidthPadding(40, 280),
+		width: ScreenWidthPadding(40, 260),
 		backgroundColor: 'white',
 		borderRadius: 2,
 		marginBottom: 10,
 		overflow: 'hidden',
 	},
 	commandWrapper: {
-		width: ScreenWidthPadding(40, 290),
+		width: ScreenWidthPadding(40, 270),
 		flexDirection: 'row'
 	},
 	errorText: {
