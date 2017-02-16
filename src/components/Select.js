@@ -5,13 +5,7 @@ import { connect } from 'react-redux';
 import { appAction, colors } from '../../src/utils';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-@connect(({app}) => {
-	return {
-
-	}
-})
-
-export default class Select extends Component {
+class Select extends Component {
 	static propTypes = {
 		floatingLabel: React.PropTypes.string,
 		cancelText: React.PropTypes.string,
@@ -31,7 +25,7 @@ export default class Select extends Component {
 
 	render () {
 		return <TouchableOpacity
-			onPress={this::activateSelector}
+			onPress={activateSelector.bind(this)}
 			style={styles.container}
 			activeOpacity={0.8}>
 			<View style={styles.contentWrapper}>
@@ -99,3 +93,7 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 	}
 });
+
+export default connect(({app}) => {
+
+})(Select)

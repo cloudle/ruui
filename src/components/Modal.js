@@ -6,14 +6,7 @@ import { enterAnimation } from '../decorators';
 import * as appActions from '../utils/store/appAction';
 import Selector from './Selector';
 
-@connect(({app}) => {
-	return {
-		activeModal: app.activeModal,
-		selectorConfigs: app.selectorConfigs,
-	}
-})
-
-export default class Modal extends Component {
+class Modal extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -36,12 +29,12 @@ export default class Modal extends Component {
 		const nextValue = activeModal ? 1 : 0;
 
 		if (!activeModal) {
-			this::playAnimation(nextValue, () => {
+			playAnimation.call(this, nextValue, () => {
 				this.setState({activeModal: null});
 			});
 		} else {
 			this.setState({activeModal: activeModal});
-			this::playAnimation(nextValue);
+			playAnimation.call(this, nextValue);
 		}
 	}
 
@@ -56,7 +49,7 @@ export default class Modal extends Component {
 			style={[styles.container, containerStyles]}>
 			<View
 				style={styles.innerTouchable}
-				onPress={this::onBackdropPress}>
+				onPress={onBackdropPress.bind(this)}>
 				{this.renderModalInner()}
 			</View>
 		</Animated.View> : <View/>;
@@ -97,3 +90,10 @@ const styles = StyleSheet.create({
 		flex: 1,
 	}
 });
+
+export default connect(({app}) => {
+	return {
+		activeModal: app.activeModal,
+		selectorConfigs: app.selectorConfigs,
+	}
+})(Modal)

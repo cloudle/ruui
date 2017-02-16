@@ -7,13 +7,7 @@ import { colors } from '../utils';
 import { ScreenWidthPadding } from '../utils/screen';
 import * as appActions from '../utils/store/appAction';
 
-@connect(({app}) => {
-	return {
-		configs: app.selectorConfigs,
-	}
-})
-
-export default class Selector extends Component {
+class Selector extends Component {
 	constructor (props) {
 	  super(props);
 	  this.state = {
@@ -81,7 +75,7 @@ export default class Selector extends Component {
 
 	renderCommands () {
 		return <ResponsibleTouchArea
-			onPress={this::cancelSelector}
+			onPress={cancelSelector.bind(this)}
 			rippleColor={colors.iOsBlue}
 			wrapperStyle={[styles.optionItemWrapper, {borderRadius: 8}]}
 			innerStyle={styles.optionItemInner}
@@ -172,3 +166,9 @@ const styles = StyleSheet.create({
 		backgroundColor: 'transparent',
 	}
 });
+
+export default connect(({app}) => {
+	return {
+		configs: app.selectorConfigs,
+	}
+})(Selector);

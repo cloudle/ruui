@@ -14,7 +14,7 @@ export function instantInterval (
 	interval: Number,
 	trigger: Boolean = true
 ) {
-	if (trigger) this::func();
+	if (trigger) func.call(this);
 	return setInterval(func, interval);
 }
 

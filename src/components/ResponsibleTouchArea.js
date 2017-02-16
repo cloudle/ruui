@@ -62,8 +62,8 @@ export class ResponsibleTouchArea extends Component {
 	    wrapperBorderRadius = extractBorderRadius(flattenWrapperStyles);
 
     return <View
-      onMouseLeave={this::onMouseLeave}
-      onMouseEnter={this::onMouseEnter}
+      onMouseLeave={onMouseLeave.bind(this)}
+      onMouseEnter={onMouseEnter.bind(this)}
       className="touchable"
       ref="wrapperView" collapsable={false}
       style={this.props.wrapperStyle}
@@ -79,8 +79,8 @@ export class ResponsibleTouchArea extends Component {
         activeOpacity={this.props.minActiveOpacity}
         style={this.props.innerStyle}
         onPressIn={onPressIn.bind(this, isLightBackground)}
-        onPressOut={this::onPressOut}
-        onPress={this::onPress}
+        onPressOut={onPressOut.bind(this)}
+        onPress={onPress.bind(this)}
         onStartShouldSetResponderCapture={() => true}>
 				<View pointerEvents="none">
 					{this.props.children}
@@ -138,10 +138,10 @@ function onPressIn (isLightBackground: Boolean, e) {
 	if (this.props.disabled) return;
 
 	if (this.props.raise) {
-    this::playRaiseAnimation(1);
+    playRaiseAnimation.call(this, 1);
   }
 
-	this::playFadeAnimation(1);
+	playFadeAnimation.call(this, 1);
 
 	let { locationX, locationY, pageX, pageY } = e.nativeEvent;
 
@@ -205,19 +205,19 @@ function onPressIn (isLightBackground: Boolean, e) {
 }
 
 function onPressOut (forceFade = false) {
-  if (this.props.raise) this::playRaiseAnimation(0);
+  if (this.props.raise) playRaiseAnimation.call(this, 0);
   if (forceFade == true || !this.state.mouseInside) {
-  	this::playFadeAnimation(0);
+  	playFadeAnimation.call(this, 0);
   }
 }
 
 function onMouseEnter () {
-	this::playFadeAnimation(1);
+	playFadeAnimation.call(this, 1);
 	this.setState({mouseInside: true});
 }
 
 function onMouseLeave () {
-	this::onPressOut(true);
+	onPressOut.call(this, true);
 	this.setState({mouseInside: false});
 }
 

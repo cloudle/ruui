@@ -59,15 +59,15 @@ export default class Input extends Component {
 		}), underLineStyles = {
 			...this.props.underLineStyle,
 			transform:[{ scaleX: scale }],
-		}, inputContainerStyles = this::buildInputContainerStyles(this.props.wrapperStyle),
+		}, inputContainerStyles = buildInputContainerStyles.call(this, this.props.wrapperStyle),
 			hint = this.state.focus && this.state.empty ? this.props.hint : '';
 
 		return <View pointerEvents={pointerEvents} style={[styles.container, inputContainerStyles]}>
 			<View style={{marginLeft: 8, marginRight: 8}}>
 				<TextInput
-					onChangeText={this::onChangeText}
-					onFocus={this::onInputFocus}
-					onBlur={this::onInputBlur}
+					onChangeText={onChangeText.bind(this)}
+					onFocus={onInputFocus.bind(this)}
+					onBlur={onInputBlur.bind(this)}
 					autoCapitalize={this.props.autoCapitalize}
 					autoCorrect={this.props.autoCorrect}
 					autoFocus={this.props.autoFocus}
@@ -113,7 +113,7 @@ export default class Input extends Component {
 
 			return <Animated.View
 				pointerEvents="none"
-				onLayout={this::onFloatingLabelLayout}
+				onLayout={onFloatingLabelLayout.bind(this)}
 				style={[styles.floatingLabelWrapper, wrapperStyles]}>
 				<Text style={[styles.floatingLabelText, textStyles]}>
 					{this.props.floatingLabel}
@@ -132,12 +132,12 @@ function onChangeText (nextValue) {
 }
 
 function onInputFocus () {
-	this::playAnimation(1);
+	playAnimation.call(this, 1);
 	if (this.props.onFocus) this.props.onFocus();
 }
 
 function onInputBlur () {
-	this::playAnimation(0);
+	playAnimation.call(this, 0);
 	if (this.props.onBlur) this.props.onBlur();
 }
 
