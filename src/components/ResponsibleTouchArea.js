@@ -110,7 +110,8 @@ export class ResponsibleTouchArea extends Component {
 		  inputRange: [0, 1],
 		  outputRange: isLightBackground
 			  ? ['rgba(0, 0, 0, 0)', `rgba(0, 0, 0, ${this.props.fadeLevel})`]
-			  : ['rgba(255, 255, 255, 0)', `rgba(255, 255, 255, ${this.props.fadeLevel})`]
+			  : ['rgba(255, 255, 255, 0)', `rgba(255, 255, 255, ${this.props.fadeLevel})`],
+		  extrapolate: 'clamp',
 	  }), maskStyles = {
   		backgroundColor,
 	  };
