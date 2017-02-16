@@ -4,10 +4,9 @@
   "main": "dist",
   "files": [
     "dist",
-    "src",
     "!**/__tests__"
   ],
-  "version": "0.0.47",
+  "version": "0.0.48",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
