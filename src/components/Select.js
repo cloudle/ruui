@@ -95,5 +95,7 @@ const styles = StyleSheet.create({
 });
 
 export default connect(({app}) => {
+	return {
 
+	}
 })(Select)

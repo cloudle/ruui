@@ -7,7 +7,7 @@
     "src",
     "!**/__tests__"
   ],
-  "version": "0.0.50",
+  "version": "0.0.51",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
@@ -60,9 +60,6 @@
     "react": "~15.4.1"
   },
   "jest": {
-    "preset": "react-native",
-    "moduleNameMapper": {
-      "^React$": "<rootDir>/node_modules/react"
-    }
+    "preset": "react-native"
   }
 }
