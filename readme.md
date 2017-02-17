@@ -19,7 +19,7 @@ Cross-platform (**React Native** and **Web Browser**) [React][react-url], [React
 [react-url]: https://facebook.github.io/react/
 [react-native-url]: https://facebook.github.io/react-native/
 [react-native-web-url]: https://github.com/necolas/react-native-web
-[react-wings-boilerplate-url]: https://github.com/cloudle/react-wings-boilerplate
+[boilerplate-url]: https://github.com/cloudle/react-universal-ui-boilerplate
 [material-ui-url]: http://www.material-ui.com/
 [ionic-url]: http://ionicframework.com/docs/v2/components/#overview
 [react-native-vector-icon-url]: https://github.com/oblador/react-native-vector-icons
@@ -48,7 +48,7 @@ To install it in your app:
 npm install --save react-universal-ui
 ```
 
-####Alternatively, you can start with [react-wings-boilerplate][react-wings-boilerplate-url] which have more complete structure to work on cross-platform [React Native][react-native-url] project.
+####Alternatively, you can start with [react-universal-ui boilerplate][boilerplate-url] which have more complete structure to work on cross-platform [React Native][react-native-url] project.
 
 ## Status
 
