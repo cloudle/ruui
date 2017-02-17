@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Platform, Dimensions } from 'react-native';
 
 export let ScreenSize = Dimensions.get('window');
 
@@ -8,10 +8,14 @@ export function ScreenWidthPadding (padding, maxSize): Number {
 }
 
 export function isTouchDevice() {
-	try {
-		document.createEvent("TouchEvent");
+	if (['android', 'ios'].indexOf(Platform.OS) >= 0) {
 		return true;
-	} catch (e) {
-		return false;
+	} else {
+		try {
+			document.createEvent("TouchEvent");
+			return true;
+		} catch (e) {
+			return false;
+		}
 	}
 }
