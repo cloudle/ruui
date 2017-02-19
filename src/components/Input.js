@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Animated, Easing, View, Text, TextInput, StyleSheet } from 'react-native';
-import { minGuard } from '../utils';
+import { minGuard, isAndroid } from '../utils';
 
 export default class Input extends Component {
 	static propTypes = {
@@ -60,7 +60,8 @@ export default class Input extends Component {
 			...this.props.underLineStyle,
 			transform:[{ scaleX: scale }],
 		}, inputContainerStyles = buildInputContainerStyles.call(this, this.props.wrapperStyle),
-			hint = this.state.focus && this.state.empty ? this.props.hint : '';
+			hint = this.state.focus && this.state.empty ? this.props.hint : '',
+			platformProps = isAndroid ? { underlineColorAndroid: 'transparent' } : {};
 
 		return <View pointerEvents={pointerEvents} style={[styles.container, inputContainerStyles]}>
 			<View style={{marginLeft: 8, marginRight: 8}}>
@@ -83,7 +84,7 @@ export default class Input extends Component {
 					style={styles.textInput}
 					placeholder={hint}
 					placeholderTextColor={this.props.hintColor}
-					underlineColorAndroid="transparent"/>
+					{...platformProps}/>
 				{this.renderFloatingLabel()}
 			</View>
 			<Animated.View style={[styles.inputUnderLine, underLineStyles]}/>
