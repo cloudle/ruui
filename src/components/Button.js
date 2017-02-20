@@ -25,13 +25,14 @@ export default class Button extends Component {
 		staticRipple: false,
 		title: 'TITLE',
 		raise: true,
+		fade: true,
 		fadeLevel: 0.2,
 	};
 
   render () {
     return <ResponsibleTouchArea
 	    onPress={this.props.onPress}
-	    raise={this.props.raise}
+	    raise={this.props.raise} fade={this.props.fade}
 	    staticRipple={this.props.staticRipple}
 	    rippleColor={this.props.rippleColor}
 	    fadeLevel={this.props.fadeLevel}
