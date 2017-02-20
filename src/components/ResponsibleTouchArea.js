@@ -25,6 +25,7 @@ export class ResponsibleTouchArea extends Component {
     staticRipple: React.PropTypes.bool,
     rippleColor: React.PropTypes.string,
 	  rippleAnimationSpeed: React.PropTypes.number,
+	  fade: React.PropTypes.bool,
 	  raise: React.PropTypes.bool,
     minActiveOpacity: React.PropTypes.number,
     onPress: React.PropTypes.func,
@@ -38,6 +39,7 @@ export class ResponsibleTouchArea extends Component {
     staticRipple: false,
 	  minActiveOpacity: 0.8,
 	  raise: false,
+	  fade: false,
 	  fadeLevel: 0.1,
   };
 
@@ -106,6 +108,8 @@ export class ResponsibleTouchArea extends Component {
   }
 
   renderFadeEffect (isLightBackground: Boolean, wrapperBorderRadius) {
+  	if (!this.props.fade) return;
+
   	const backgroundColor = this.state.fadeAnimation.interpolate({
 		  inputRange: [0, 1],
 		  outputRange: isLightBackground

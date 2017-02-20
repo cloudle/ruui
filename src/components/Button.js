@@ -16,6 +16,7 @@ export default class Button extends Component {
 		title: React.PropTypes.string,
 		textStyle: React.PropTypes.object,
 		raise: React.PropTypes.bool,
+		fade: React.PropTypes.bool,
 		onPress: React.PropTypes.func,
 		fadeLevel: React.PropTypes.number,
 	};
