@@ -9,6 +9,7 @@ export default class Button extends Component {
 		innerStyle: React.PropTypes.object,
 		color: React.PropTypes.string,
 		borderRadius: React.PropTypes.number,
+		ripple: React.PropTypes.bool,
 		rippleColor: React.PropTypes.string,
 		rippleInitialOpacity: React.PropTypes.number,
 		rippleInitialScale: React.PropTypes.number,
@@ -16,6 +17,7 @@ export default class Button extends Component {
 		icon: React.PropTypes.any,
 		rightIcon: React.PropTypes.bool,
 		title: React.PropTypes.string,
+		tooltip: React.PropTypes.string,
 		textStyle: React.PropTypes.object,
 		raise: React.PropTypes.bool,
 		fade: React.PropTypes.bool,
@@ -24,6 +26,7 @@ export default class Button extends Component {
 	};
 
 	static defaultProps = {
+		ripple: true,
 		staticRipple: false,
 		title: 'TITLE',
 		raise: true,
@@ -34,12 +37,15 @@ export default class Button extends Component {
   render () {
     return <ResponsibleTouchArea
 	    onPress={this.props.onPress}
-	    raise={this.props.raise} fade={this.props.fade}
+	    ripple={this.props.ripple}
 	    staticRipple={this.props.staticRipple}
 	    rippleColor={this.props.rippleColor}
 	    rippleInitialOpacity={this.props.rippleInitialOpacity}
 	    rippleInitialScale={this.props.rippleInitialScale}
+	    raise={this.props.raise}
+	    fade={this.props.fade}
 	    fadeLevel={this.props.fadeLevel}
+	    tooltip={this.props.tooltip}
 	    wrapperStyle={[styles.wrapper, this.props.wrapperStyle]}
       innerStyle={[styles.contentContainer, this.props.innerStyle]}>
 	    {this.renderContent()}

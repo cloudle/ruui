@@ -32,7 +32,6 @@ class LoginScene extends Component {
         <Input floatingLabel={this.props.localize.placeholders.password}
                wrapperStyle={{borderBottomWidth: 0}}
                underLineStyle={{backgroundColor: '#fca638', bottom: 0}}
-               secureTextEntry={true}
                ref="password" password={true}/>
       </View>
 
@@ -45,13 +44,15 @@ class LoginScene extends Component {
 			    onPress={this::manager.navigateLogin}
 			    wrapperStyle={[styles.buttonWrapper, styles.registerButton]}
 			    title={this.props.localize.titles.register}
+			    tooltip="This is tooltip"
 			    raise={false}/>
 		    <Button
-			    onPress={() => this.props.dispatch(appAction.toggleSelector(true))}
+
 			    wrapperStyle={[styles.buttonWrapper, styles.loginButton]}
 			    textStyle={{color: '#444444', fontWeight: '500'}}
-			    raise={false}
-			    title={this.props.localize.titles.login}/>
+			    raise={false} ripple={false}
+			    title={this.props.localize.titles.login}
+		      tooltip="This is a stupid tooltip"/>
 	    </View>
 
 	    <Text style={styles.supportText}>

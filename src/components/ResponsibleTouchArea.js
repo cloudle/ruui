@@ -13,6 +13,7 @@ import {
 
 const MAX_PARTICLE_COUNT = 5;
 import RippleEffect from './RippleEffect';
+import Tooltip from './Tooltip';
 import { debounce, isIos } from '../utils';
 import tinyColor from 'tinycolor2';
 
@@ -22,6 +23,8 @@ export class ResponsibleTouchArea extends Component {
   static propTypes = {
     wrapperStyle: React.PropTypes.any,
     innerStyle: React.PropTypes.any,
+    tooltip: React.PropTypes.string,
+    ripple: React.PropTypes.bool,
     staticRipple: React.PropTypes.bool,
     rippleColor: React.PropTypes.string,
 	  rippleInitialOpacity: React.PropTypes.number,
@@ -40,6 +43,7 @@ export class ResponsibleTouchArea extends Component {
   static defaultProps = {
     staticRipple: false,
 	  minActiveOpacity: 0.8,
+	  ripple: true,
 	  raise: false,
 	  fade: false,
 	  fadeLevel: 0.1,
@@ -75,9 +79,8 @@ export class ResponsibleTouchArea extends Component {
 
       {this.renderShadowEffect(isLightBackground, wrapperBorderRadius)}
       {this.renderFadeEffect(isLightBackground, wrapperBorderRadius)}
-	    <View style={[styles.fullSizeAbsolute, wrapperBorderRadius, {overflow: 'hidden'}]}>
-		    {this.renderRipples()}
-	    </View>
+	    {this.renderRippleEffect(isLightBackground, wrapperBorderRadius)}
+	    {this.renderTooltip()}
 
       <InnerComponent
         activeOpacity={this.props.minActiveOpacity}
@@ -124,6 +127,14 @@ export class ResponsibleTouchArea extends Component {
 	  return <Animated.View style={[styles.fullSizeAbsolute, wrapperBorderRadius, maskStyles]}/>
   }
 
+  renderRippleEffect (isLightBackground: Boolean, wrapperBorderRadius) {
+  	if (!this.props.ripple) return;
+
+		return <View style={[styles.fullSizeAbsolute, wrapperBorderRadius, {overflow: 'hidden'}]}>
+			{this.renderRipples()}
+		</View>
+  }
+
 	renderRipples () {
 		return this.state.ripples.map(ripple => {
 			return <RippleEffect
@@ -134,6 +145,12 @@ export class ResponsibleTouchArea extends Component {
 				initialScale={this.props.rippleInitialScale}
 				speed={this.props.rippleAnimationSpeed}/>
 		})
+	}
+
+	renderTooltip () {
+		if (this.props.tooltip && this.state.mouseInside) {
+			return <Tooltip title={this.props.tooltip}/>
+		}
 	}
 }
 

@@ -67,7 +67,7 @@ This is a work in progress, right now here's what is done:
   - [x] Fade effect
   - [x] Raised style
   - [x] Icon Button
-  - [ ] Tooltip (Web only)
+  - [x] Tooltip (Web only)
 - [x] Text Input Component (Material-inspired, but highly customizable)
   - [x] Underline effect
   - [x] Floating label

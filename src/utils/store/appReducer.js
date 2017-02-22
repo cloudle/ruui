@@ -24,10 +24,10 @@ export function appReducer (reducer: Reducer) {
 }
 
 function handleToggleSelect (state, action) {
-	const activeModal = action.flag == false
-		? null : action.flag == true
+	const activeModal = action.flag === false
+		? null : action.flag === true
 			? 'select'
-			: state.activeModal == null ? 'select' : null;
+			: state.activeModal === null ? 'select' : null;
 
 	return {
 		...state,

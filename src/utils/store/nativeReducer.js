@@ -15,7 +15,7 @@ export function nativeRouteReducer (reducer: Reducer) {
 			case Actions.NativeRouterPop:
 				return StateUtils.pop(state);
 			case Actions.NativeRouterReset:
-				return StateUtils.reset(state);
+				return StateUtils.reset(state, state.routes);
 			case Actions.NativeRouterJumpTo:
 				return StateUtils.jumpTo(state, action.key);
 			case Actions.NativeRouterJumpToIndex:
