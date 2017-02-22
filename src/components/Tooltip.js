@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Animated, Easing, View, Text, StyleSheet } from 'react-native';
+import { isBrowser } from '../utils';
 
 export default class Tooltip extends Component {
 	static propTypes = {
@@ -45,7 +46,8 @@ export default class Tooltip extends Component {
 
 const styles = StyleSheet.create({
   container: {
-		position: 'fixed', marginTop: -30, marginLeft: 0,
+		position: isBrowser ? 'fixed' : 'absolute',
+	  marginTop: -30, marginLeft: 0,
 		backgroundColor: 'rgb(97, 97, 97)',
 		borderRadius: 3,
     padding: 5, paddingLeft: 8, paddingRight: 8,
