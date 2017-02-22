@@ -2,6 +2,16 @@ import React, { Component } from 'react';
 import { Animated, Easing } from 'react-native';
 
 export class RippleEffect extends Component {
+  static propTypes = {
+    initialOpacity: React.PropTypes.number,
+    initialScale: React.PropTypes.number,
+  };
+
+  static defaultProps = {
+    initialOpacity: 0.2,
+    initialScale: 0,
+  };
+
   constructor (props) {
     super(props);
     this.state = {
@@ -12,16 +22,16 @@ export class RippleEffect extends Component {
   componentDidMount () {
     Animated.timing(this.state.expandAnimation, {
       toValue: 1,
-      duration: this.props.speed || 750,
+      duration: this.props.speed || 1000,
       easing: Easing.out(Easing.bezier(0.445, 0.05, 0.55, 0.95)),
     }).start()
   }
 
   render () {
     let opacity = this.state.expandAnimation.interpolate({
-      inputRange: [0, 1], outputRange: [0.2, 0]
+      inputRange: [0, 0.5, 1], outputRange: [this.props.initialOpacity, 0.1, 0]
     }), scale = this.state.expandAnimation.interpolate({
-        inputRange: [0, 1], outputRange: [0, 1]
+      inputRange: [0, 0.25, 1], outputRange: [this.props.initialScale, 0.8, 1]
     }), styles = {
       position: 'absolute',
       ...this.props.style,

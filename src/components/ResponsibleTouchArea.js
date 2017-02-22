@@ -24,6 +24,8 @@ export class ResponsibleTouchArea extends Component {
     innerStyle: React.PropTypes.any,
     staticRipple: React.PropTypes.bool,
     rippleColor: React.PropTypes.string,
+	  rippleInitialOpacity: React.PropTypes.number,
+	  rippleInitialScale: React.PropTypes.number,
 	  rippleAnimationSpeed: React.PropTypes.number,
 	  fade: React.PropTypes.bool,
 	  raise: React.PropTypes.bool,
@@ -110,14 +112,13 @@ export class ResponsibleTouchArea extends Component {
   renderFadeEffect (isLightBackground: Boolean, wrapperBorderRadius) {
   	if (!this.props.fade) return;
 
-  	const backgroundColor = this.state.fadeAnimation.interpolate({
+  	const opacity = this.state.fadeAnimation.interpolate({
 		  inputRange: [0, 1],
-		  outputRange: isLightBackground
-			  ? ['rgba(0, 0, 0, 0)', `rgba(0, 0, 0, ${this.props.fadeLevel})`]
-			  : ['rgba(255, 255, 255, 0)', `rgba(255, 255, 255, ${this.props.fadeLevel})`],
+		  outputRange: [0, this.props.fadeLevel],
 		  extrapolate: 'clamp',
 	  }), maskStyles = {
-  		backgroundColor,
+  		backgroundColor: isLightBackground ? '#000000' : '#ffffff',
+		  opacity
 	  };
 
 	  return <Animated.View style={[styles.fullSizeAbsolute, wrapperBorderRadius, maskStyles]}/>
@@ -129,6 +130,8 @@ export class ResponsibleTouchArea extends Component {
 				key={ripple.index}
 				style={ripple.style}
 				index={ripple.index}
+				initialOpacity={this.props.rippleInitialOpacity}
+				initialScale={this.props.rippleInitialScale}
 				speed={this.props.rippleAnimationSpeed}/>
 		})
 	}

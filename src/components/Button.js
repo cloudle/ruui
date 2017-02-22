@@ -10,6 +10,8 @@ export default class Button extends Component {
 		color: React.PropTypes.string,
 		borderRadius: React.PropTypes.number,
 		rippleColor: React.PropTypes.string,
+		rippleInitialOpacity: React.PropTypes.number,
+		rippleInitialScale: React.PropTypes.number,
 		staticRipple: React.PropTypes.bool,
 		icon: React.PropTypes.any,
 		rightIcon: React.PropTypes.bool,
@@ -35,6 +37,8 @@ export default class Button extends Component {
 	    raise={this.props.raise} fade={this.props.fade}
 	    staticRipple={this.props.staticRipple}
 	    rippleColor={this.props.rippleColor}
+	    rippleInitialOpacity={this.props.rippleInitialOpacity}
+	    rippleInitialScale={this.props.rippleInitialScale}
 	    fadeLevel={this.props.fadeLevel}
 	    wrapperStyle={[styles.wrapper, this.props.wrapperStyle]}
       innerStyle={[styles.contentContainer, this.props.innerStyle]}>
