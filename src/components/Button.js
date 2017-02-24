@@ -73,7 +73,7 @@ export default class Button extends Component {
 
 const styles = StyleSheet.create({
 	wrapper: {
-		backgroundColor: colors.sky,
+		backgroundColor: colors.iOsBlue,
 		borderRadius: 3,
 	},
 	contentContainer: {
