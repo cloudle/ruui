@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Image, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import { appAction, colors } from '../../src/utils';
-import Icon from 'react-native-vector-icons/Ionicons';
 
 class Select extends Component {
 	static propTypes = {
@@ -33,7 +32,10 @@ class Select extends Component {
 				{this.renderValue()}
 			</View>
 			<View style={styles.iconWrapper}>
-				<Icon name="ios-arrow-dropdown" style={styles.downIcon}/>
+				<Image
+					style={styles.downIcon}
+					resizeMode={Image.resizeMode.contain}
+					source={require('./arrow-down.png')}/>
 			</View>
 		</TouchableOpacity>
 	}
@@ -89,8 +91,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	downIcon: {
-		color: '#c4c4c4',
-		fontSize: 20,
+		width: 16, height: 16,
 	}
 });
 
