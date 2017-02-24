@@ -7,7 +7,7 @@
     "src",
     "!**/__tests__"
   ],
-  "version": "0.0.66",
+  "version": "0.0.69",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
@@ -25,6 +25,9 @@
     "url": "git://github.com/cloudle/ruui.git"
   },
   "dependencies": {
+    "history": "^4.5.1",
+    "redux": "^3.6.0",
+    "react-redux": "^5.0.3",
     "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
@@ -48,9 +51,7 @@
     "react-native-drawer": "^2.3.0",
     "react-native-vector-icons": "github:cloudle/react-native-vector-icons",
     "react-native-web": "0.0.70",
-    "react-redux": "^5.0.2",
     "react-test-renderer": "~15.4.0-rc.4",
-    "redux": "^3.6.0",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0"
   },
