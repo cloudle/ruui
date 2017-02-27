@@ -17,6 +17,7 @@ export default class Input extends Component {
 		autoCorrect: React.PropTypes.bool,
 		autoFocus: React.PropTypes.bool,
 		blurOnSubmit: React.PropTypes.bool,
+		value: React.PropTypes.node,
 		defaultValue: React.PropTypes.node,
 		editable: React.PropTypes.bool,
 		keyboardType: React.PropTypes.string,
@@ -80,6 +81,7 @@ export default class Input extends Component {
 					secureTextEntry={this.props.secureTextEntry}
 					selectTextOnFocus={this.props.selectTextOnFocus}
 					onEndEditing={this.props.onEndEditing}
+					value={this.props.value}
 					defaultValue={this.props.defaultValue}
 					style={styles.textInput}
 					placeholder={hint}
