@@ -7,3 +7,4 @@ export let appAction = appActionImport;
 export let nativeRouteAction = nativeActionImport;
 
 export * from './appReducer'; //utils.appReducer
+export * from './nativeReducer'; //utils.nativeRouterReducer

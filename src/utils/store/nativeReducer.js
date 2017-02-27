@@ -1,7 +1,7 @@
 import * as Actions from './actions';
 import StateUtils from '../../components/NavigationExperimental/NavigationStateUtils';
 
-export function nativeRouteReducer (reducer: Reducer) {
+export function routeReducer (reducer: Reducer) {
 	const initialState = {
 			index: 0,
 			routes: [],
