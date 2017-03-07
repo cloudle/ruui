@@ -8,7 +8,7 @@ const initialRouterState = {
 	routes: [initialRoute],
 };
 
-const routeReducer = utils.nativeRouteReducer(
+const routeReducer = utils.routeReducer(
 	(state = initialRouterState, action) => {
 		switch (action.type) {
 			default:
