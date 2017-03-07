@@ -78,16 +78,12 @@ This is a work in progress, right now here's what is done:
   - [ ] Number, currency, datetime masking
   - [ ] Tooltip (Web only)
 - [ ] Radio
-- [ ] Slider
-- [ ] Popover
 - [ ] Snackbar
 - [ ] Select field (mostly for **Web**)
 - [x] Selector API and Selector components for Native.  
 - [ ] Picker Components
   - [ ] Datetime picker
   - [ ] Scroll Picker
-- [ ] Table
-- [ ] Tabs
 
 ## Related projects
 * [Material UI][material-ui-url], heavily inspired by their great component design for **Web**! My job is make it work in **Native** way.
