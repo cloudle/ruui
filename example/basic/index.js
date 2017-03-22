@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { AsyncStorage, View, Text, StyleSheet } from 'react-native';
 import { connect, Provider } from 'react-redux';
 
-import { NavigationExperimental } from '../../src';
+import { NavigationExperimental, Snackbar } from '../../src';
 import Drawer from 'react-native-drawer';
 import Menu from './share/Menu';
 import NavigationHeader from './share/NavigationHeader';
@@ -54,6 +54,8 @@ export class App extends Component {
 				renderHeader={this::renderHeader}
 				gestureResponseDistance={50}
 				onNavigateBack={() => console.log('Back..')}/>
+
+			<Snackbar/>
 		</Drawer>
 	}
 }

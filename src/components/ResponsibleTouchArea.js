@@ -230,7 +230,7 @@ function onPressIn (isLightBackground: Boolean, e) {
 
 function onPressOut (forceFade = false) {
   if (this.props.raise) playRaiseAnimation.call(this, 0);
-  if (forceFade == true || !this.state.mouseInside) {
+  if (forceFade === true || !this.state.mouseInside) {
   	playFadeAnimation.call(this, 0);
   }
 }

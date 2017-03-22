@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ResponsibleTouchArea from './ResponsibleTouchArea';
 
 import { colors } from '../utils';
-import { ScreenWidthPadding } from '../utils/screen';
+import { screenWidthPadding } from '../utils/screen';
 import * as appActions from '../utils/store/appAction';
 
 class Selector extends Component {
@@ -49,7 +49,7 @@ class Selector extends Component {
 		return options.map((item, i) => {
 			let wrapperStyles = buildSelectionRadius(options, i);
 
-			if (JSON.stringify(this.props.configs.value) == JSON.stringify(item)) {
+			if (JSON.stringify(this.props.configs.value) === JSON.stringify(item)) {
 				wrapperStyles['backgroundColor'] = '#FFFFFF';
 			}
 
@@ -106,7 +106,7 @@ function cancelSelector () {
 function buildSelectionRadius (options, index) {
 	const result = {};
 
-	if (index == options.length - 1) {
+	if (index === options.length - 1) {
 		result['borderBottomLeftRadius'] = 8;
 		result['borderBottomRightRadius'] = 8;
 	}
@@ -142,12 +142,12 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		borderRadius: 8,
 		overflow: 'hidden',
-		width: ScreenWidthPadding(20, 400)
+		width: screenWidthPadding(20, 400)
 	},
 	commandWrapper: {
 		margin: 20,
 		marginTop: 0,
-		width: ScreenWidthPadding(20, 400)
+		width: screenWidthPadding(20, 400)
 	},
 	optionItemWrapper: {
 		flex: 1,

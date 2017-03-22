@@ -20,7 +20,7 @@ class Modal extends Component {
 	}
 
 	componentWillReceiveProps (nextProps) {
-		if (nextProps.activeModal != this.props.activeModal) {
+		if (nextProps.activeModal !== this.props.activeModal) {
 			this.playTransition(nextProps.activeModal);
 		}
 	}
