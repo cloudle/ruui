@@ -26,7 +26,7 @@ export default class app extends Component {
 			</Text>
 			<Button
 				wrapperStyle={{backgroundColor: '#00bcd4', width: 120}}
-				tooltip="Yay!"
+				tooltip="Yay!" disabled={true}
 				title="Click me!" onPress={() => {
 					this.props.dispatch(appActions.increaseCounter());
 				}}/>

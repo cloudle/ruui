@@ -74,7 +74,7 @@ export class ResponsibleTouchArea extends Component {
       onMouseEnter={onMouseEnter.bind(this)}
       className="touchable"
       ref="wrapperView" collapsable={false}
-      style={this.props.wrapperStyle}
+      style={[this.props.wrapperStyle]}
       onLayout={this.props.onLayout}>
 
       {this.renderShadowEffect(isLightBackground, wrapperBorderRadius)}

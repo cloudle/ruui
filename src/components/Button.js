@@ -19,6 +19,7 @@ export default class Button extends Component {
 		title: React.PropTypes.string,
 		tooltip: React.PropTypes.string,
 		textStyle: React.PropTypes.object,
+		disabled: React.PropTypes.bool,
 		raise: React.PropTypes.bool,
 		fade: React.PropTypes.bool,
 		onPress: React.PropTypes.func,
@@ -29,6 +30,7 @@ export default class Button extends Component {
 		ripple: true,
 		staticRipple: false,
 		title: 'TITLE',
+		disabled: false,
 		raise: true,
 		fade: true,
 		fadeLevel: 0.2,
@@ -42,6 +44,7 @@ export default class Button extends Component {
 	    rippleColor={this.props.rippleColor}
 	    rippleInitialOpacity={this.props.rippleInitialOpacity}
 	    rippleInitialScale={this.props.rippleInitialScale}
+			disabled={this.props.disabled}
 	    raise={this.props.raise}
 	    fade={this.props.fade}
 	    fadeLevel={this.props.fadeLevel}
