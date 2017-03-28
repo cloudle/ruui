@@ -38,15 +38,11 @@ class Selector extends Component {
 						{this.props.configs.selectText}
 					</Text>
 				</View>
-				<View style={{maxHeight: 255}}>
-					<OptionWrapperElement>
+				<View style={{maxHeight: 255,}}>
+					<OptionWrapperElement style={{backgroundColor: '#f9f9f9'}}>
 						{this.renderOptions()}
 					</OptionWrapperElement>
-					{!isAndroid && <View style={{
-						height: selectorRadius,
-						backgroundColor: '#f9f9f9',
-						borderBottomLeftRadius: selectorRadius,
-						borderBottomRightRadius: selectorRadius, }}/>}
+					{!isAndroid && <View style={styles.optionTails}/>}
 				</View>
 			</View>
 			<View style={styles.commandWrapper}>
@@ -160,7 +156,7 @@ const styles = StyleSheet.create({
 		padding: selectorPadding,
 		paddingTop: 9, paddingBottom: 9,
 		textAlign: selectionAlign,
-		color: '#8f8f8f',
+		color: '#8f8f8f', backgroundColor: 'transparent',
 		fontSize: 14, fontWeight: '300',
 	},
 	optionWrapper: {
@@ -182,6 +178,12 @@ const styles = StyleSheet.create({
 	optionIcon: {
 		color: '#dedede',
 		fontSize: 18,
+	},
+	optionTails: {
+		height: selectorRadius,
+		backgroundColor: '#f9f9f9',
+		borderBottomLeftRadius: selectorRadius,
+		borderBottomRightRadius: selectorRadius,
 	},
 	commandWrapper: {
 		margin: selectorMargin,
