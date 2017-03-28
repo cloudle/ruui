@@ -73,7 +73,7 @@ function playAnimation (toValue: Number, callback) {
 	let animations = [
 		Animated.timing(this.state.enterAnimation, {
 			toValue,
-			duration: 800,
+			duration: 500,
 			easing: Easing.in(Easing.bezier(0, .48, .35, 1)),
 		})
 	];

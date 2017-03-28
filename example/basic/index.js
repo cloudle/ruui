@@ -55,7 +55,7 @@ export class App extends Component {
 				gestureResponseDistance={50}
 				onNavigateBack={() => console.log('Back..')}/>
 
-			<Snackbar/>
+			{/*<Snackbar/>*/}
 		</Drawer>
 	}
 }

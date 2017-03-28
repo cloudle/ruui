@@ -47,20 +47,45 @@ class LoginScene extends Component {
 			    tooltip="This is tooltip"
 			    raise={false}/>
 		    <Button
+					wrapperStyle={[styles.buttonWrapper, styles.loginButton]}
+					textStyle={{color: '#444444', fontWeight: '500'}}
+					raise={false} ripple={false}
+					title={this.props.localize.titles.login}
+					onPress={() => {
+						this.props.dispatch(appAction.toggleSelector(true, {
+							options: selects,
+							value: selects[2],
+						}));
+					}}
+					tooltip="This is a stupid tooltip"/>
+			</View>
 
-			    wrapperStyle={[styles.buttonWrapper, styles.loginButton]}
-			    textStyle={{color: '#444444', fontWeight: '500'}}
-			    raise={false} ripple={false}
-			    title={this.props.localize.titles.login}
-		      tooltip="This is a stupid tooltip"/>
-	    </View>
-
-	    <Text style={styles.supportText}>
-		    {this.props.localize.titles.support}
-	    </Text>
-    </ScrollView>
+			<Text style={styles.supportText}>
+				{this.props.localize.titles.support}
+			</Text>
+		</ScrollView>
   }
 }
+
+const selects = [{
+	title: 'Option 1',
+}, {
+	title: 'Option 2',
+}, {
+	title: 'Option 3',
+}, {
+	title: 'Option 4',
+}, {
+	title: 'Option 5',
+},  {
+	title: 'Option 6',
+},  {
+	title: 'Option 7',
+},  {
+	title: 'Option 8',
+},  {
+	title: 'Option 9',
+}, ];
 
 export default connect(state => {
   return {
