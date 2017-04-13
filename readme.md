@@ -77,6 +77,8 @@ This is a work in progress, right now here's what is done:
   - [ ] Multi-line
   - [ ] Number, currency, datetime masking
   - [ ] Tooltip (Web only)
+- [x] Modal
+- [x] Loading Mask (mobile)
 - [ ] Radio
 - [ ] Snackbar
 - [ ] Select field (mostly for **Web**)

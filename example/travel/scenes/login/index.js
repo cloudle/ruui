@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { colors } from '../../utils';
 import { ScreenWidthPadding } from '../../utils/screen';
 import * as manager from './manager';
+import Welcome from '../welcome';
 
 @connect(({app}) => {
 	return {
@@ -51,12 +52,7 @@ class LoginScene extends Component {
 					textStyle={{color: '#444444', fontWeight: '500'}}
 					raise={false} ripple={false}
 					title={this.props.localize.titles.login}
-					onPress={() => {
-						this.props.dispatch(appAction.toggleSelector(true, {
-							options: selects,
-							value: selects[2],
-						}));
-					}}
+					onPress={toggleModal.bind(this)}
 					tooltip="This is a stupid tooltip"/>
 			</View>
 
@@ -65,6 +61,21 @@ class LoginScene extends Component {
 			</Text>
 		</ScrollView>
   }
+}
+
+function toggleSelector () {
+	this.props.dispatch(appAction.toggleSelector(true, {
+		options: selects,
+		value: selects[2],
+	}));
+}
+
+function toggleLoading () {
+	this.props.dispatch(appAction.toggleLoading(true, {tapToClose: true}))
+}
+
+function toggleModal () {
+	this.props.dispatch(appAction.toggleModal(true, {Component: Welcome}))
 }
 
 const selects = [{

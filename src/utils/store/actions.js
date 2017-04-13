@@ -7,3 +7,5 @@ export const NativeRouterJumpTo             = 'ROUTER:NATIVE-JUMP-TO';
 export const NativeRouterReset              = 'ROUTER:NATIVE-RESET';
 
 export const ToggleSelect                   = '@RUUI:TOGGLE-SELECT';
+export const ToggleModal										= '@RUUI:TOGGLE-MODAL';
+export const ToggleLoading									= '@RUUI:TOGGLE-LOADING';

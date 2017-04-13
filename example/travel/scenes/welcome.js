@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Button } from '../../../src';
+import * as ruuiActions from '../../../src/utils/store/appAction';
 import * as appActions from '../store/action/app';
 
 @connect(({app}) => {
@@ -27,7 +28,7 @@ export default class app extends Component {
 			<Button
 				wrapperStyle={{backgroundColor: '#00bcd4', width: 120}}
 				title="Click me!" onPress={() => {
-					this.props.dispatch(appActions.increaseCounter());
+					this.props.dispatch(ruuiActions.toggleModal(false));
 				}}/>
 		</View>
 	}

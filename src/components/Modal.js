@@ -5,6 +5,8 @@ import { enterAnimation } from '../decorators';
 
 import * as appActions from '../utils/store/appAction';
 import Selector from './Selector';
+import LoadingMask from './LoadingMask';
+import CloseableModal from './CloseableModal';
 
 class Modal extends Component {
 	constructor (props) {
@@ -58,7 +60,11 @@ class Modal extends Component {
 	renderModalInner () {
 		switch (this.state.activeModal) {
 			case 'select':
-				return <Selector animation={this.state.enterAnimation}/>
+				return <Selector animation={this.state.enterAnimation}/>;
+			case 'modal':
+				return <CloseableModal animation={this.state.enterAnimation}/>;
+			case 'loading':
+				return <LoadingMask animation={this.state.enterAnimation}/>;
 		}
 	}
 }

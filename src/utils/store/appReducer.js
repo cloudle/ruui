@@ -10,6 +10,7 @@ export function appReducer (reducer: Reducer) {
 	const initialState = {
 		activeModal: null,
 		selectorConfigs: defaultSelectorConfigs,
+		modalConfigs: {},
 		...reducer(undefined, { type: Actions.ReduxInit })
 	};
 
@@ -17,6 +18,10 @@ export function appReducer (reducer: Reducer) {
 		switch (action.type) {
 			case Actions.ToggleSelect:
 				return handleToggleSelect(state, action);
+			case Actions.ToggleModal:
+				return handleToggleModal(state, action);
+			case Actions.ToggleLoading:
+				return handleToggleLoading(state, action);
 			default:
 				return reducer(state, action);
 		}
@@ -37,4 +42,30 @@ function handleToggleSelect (state, action) {
 				...action.configs,
 			} : state.selectorConfigs,
 	};
+}
+
+function handleToggleModal (state, action) {
+	const activeModal = action.flag === false
+		? null : 'modal';
+
+	return {
+		...state,
+		activeModal,
+		modalConfigs: action.flag ? {
+			...action.configs,
+		} : state.modalConfigs,
+	}
+}
+
+function handleToggleLoading (state, action) {
+	const activeModal = action.flag === false
+		? null : 'loading';
+
+	return {
+		...state,
+		activeModal,
+		loadingConfigs: action.flag ? {
+			...action.configs,
+		} : {},
+	}
 }
