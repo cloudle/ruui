@@ -196,7 +196,6 @@ const styles = StyleSheet.create({
 		width: screenWidthPadding(selectorMargin, 400)
 	},
 	optionItemWrapper: {
-		flex: 1,
 		backgroundColor: '#f9f9f9',
 		borderBottomWidth: borderWidth,
 		borderColor: '#dedede',
