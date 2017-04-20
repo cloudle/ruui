@@ -1,0 +1,38 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "func-names": ["error", "never"],
+    "no-tabs": "off",
+    "one-var": "off",
+    "eol-last": "off",
+    "comma-dangle": "off",
+    "indent": [2, "tab"],
+    "object-property-newline": "off",
+    "no-unused-expressions": "warn",
+    "no-unused-vars": "warn",
+    "no-else-return": "off",
+    "no-use-before-define": "off",
+    "arrow-body-style": "off",
+    "one-var-declaration-per-line": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-named-as-default": "off",
+    "import/prefer-default-export": "off",
+    "react/require-default-props": "off",
+    "react/forbid-prop-types": "off",
+    "react/sort-comp": "off",
+    "react/no-unused-prop-types": "off",
+    "react/no-array-index-key": "off",
+    "react/prefer-stateless-function": "off",
+    "react/jsx-filename-extension": "off",
+    "react/jsx-indent-props": "off",
+    "react/jsx-wrap-multilines": "off",
+    "react/jsx-indent": "off",
+    "react/jsx-closing-bracket-location": "off",
+    "react/jsx-space-before-closing": "off",
+    "react/jsx-tag-spacing": "off"
+  }
+}
