@@ -3,33 +3,34 @@ import { StyleSheet } from 'react-native';
 
 import { colors } from '../utils';
 import { NavigationExperimental } from '../../../src';
-const { Header: NavigationHeader } = NavigationExperimental;
 import NavigationBackButton from './NavigationBackButton';
 
+const { Header: NavigationHeader } = NavigationExperimental;
+
 export default class Header extends Component {
-	render () {
+	render() {
 		return <NavigationHeader
 			{...this.props}
 			style={styles.navigationContainer}
-			renderTitleComponent={this::this.renderTitleComponent}
-			renderLeftComponent={this::this.renderLeftComponent}/>
+			renderTitleComponent={this.renderTitleComponent}
+			renderLeftComponent={this.renderLeftComponent}/>;
 	}
 
-	renderTitleComponent (props) {
+	renderTitleComponent = (props) => {
 		return <NavigationHeader.Title
 				textStyle={styles.navigationTitle}>
 			{props.scene.route.key}
-		</NavigationHeader.Title>
-	}
+		</NavigationHeader.Title>;
+	};
 
-	renderLeftComponent (props) {
-		return props.scene.index == 0 ?
-			null : <NavigationBackButton onPress={this::onNavigateBack} />
-	}
-}
+	renderLeftComponent = (props) => {
+		return props.scene.index === 0 ?
+			null : <NavigationBackButton onPress={this.onNavigateBack}/>;
+	};
 
-function onNavigateBack () {
-	console.log("Back!");
+	onNavigateBack = () => {
+		console.log('Back!');
+	}
 }
 
 const styles = StyleSheet.create({

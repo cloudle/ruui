@@ -1,54 +1,54 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import tinyColor from 'tinycolor2';
 
 import { Button, Input } from '../../../src';
 import { colors } from '../utils';
-import tinyColor from 'tinycolor2';
 
 export default class Menu extends Component {
-	render () {
+	render() {
 		return <View style={styles.container}>
 			<View style={styles.spacer}/>
-			{this::renderHeader()}
-			{this::renderMenu()}
-		</View>
+			{this.renderHeader()}
+			{this.renderMenu()}
+		</View>;
 	}
-}
 
-function renderHeader () {
-	return <View style={styles.heading}>
-		<View style={styles.headingAvatar}>
-			<View style={styles.avatar}/>
-		</View>
-		{this::renderAccount()}
-	</View>
-}
+	renderHeader = () => {
+		return <View style={styles.heading}>
+			<View style={styles.headingAvatar}>
+				<View style={styles.avatar}/>
+			</View>
+			{this.renderAccount()}
+		</View>;
+	};
 
-function renderAccount () {
-	return <View style={styles.headingAccount}>
-		<Text style={styles.headingText}>Cloud Le</Text>
-		<Text style={styles.headingText}>lehaoson@gmail.com</Text>
-		<Text style={styles.headingText}>traveller</Text>
-		<Button
-			title="LOGOUT"
-			textStyle={{fontSize: 11, fontWeight: '500'}}
-			wrapperStyle={{
-				marginTop: 6,
-				width: 100,
-				borderWidth: 1,
-				borderColor: '#FFFFFF',
-				borderStyle: 'solid',
-				borderRadius: 2}}
-			innerStyle={{
-				padding: 2,
-			}}/>
-	</View>
-}
+	renderAccount = () => {
+		return <View style={styles.headingAccount}>
+			<Text style={styles.headingText}>Cloud Le</Text>
+			<Text style={styles.headingText}>lehaoson@gmail.com</Text>
+			<Text style={styles.headingText}>traveller</Text>
+			<Button
+				title="LOGOUT"
+				textStyle={{ fontSize: 11, fontWeight: '500' }}
+				wrapperStyle={{
+					marginTop: 6,
+					width: 100,
+					borderWidth: 1,
+					borderColor: '#FFFFFF',
+					borderStyle: 'solid',
+					borderRadius: 2 }}
+				innerStyle={{
+					padding: 2,
+				}}/>
+		</View>;
+	};
 
-function renderMenu () {
-	return <View style={styles.menu}>
-		<Text>Menu</Text>
-	</View>
+	renderMenu = () => {
+		return <View style={styles.menu}>
+			<Text>Menu</Text>
+		</View>;
+	};
 }
 
 const avatarSize = 72;

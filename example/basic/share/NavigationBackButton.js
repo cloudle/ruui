@@ -1,13 +1,15 @@
 import React from 'react';
 import { I18nManager, Image, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
+const backIconImage = require('./back-icon.png');
+
 type Props = {
 	onPress: Function,
 };
 
 const NavigationHeaderBackButton = (props: Props) => (
 	<TouchableOpacity style={styles.buttonContainer} onPress={props.onPress}>
-		<Image style={styles.button} source={require('./back-icon.png')} />
+		<Image style={styles.button} source={backIconImage} />
 	</TouchableOpacity>
 );
 
@@ -27,7 +29,7 @@ const styles = StyleSheet.create({
 		width: 24,
 		margin: new Set(['ios', 'web']).has(Platform.OS) ? 10 : 16,
 		resizeMode: 'contain',
-		transform: [{scaleX: I18nManager.isRTL ? -1 : 1}],
+		transform: [{ scaleX: I18nManager.isRTL ? -1 : 1 }],
 	}
 });
 

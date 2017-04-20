@@ -1,12 +1,12 @@
-import * as Actions from './actions';
 import { createStore, compose, combineReducers, applyMiddleware } from 'redux';
+import * as Actions from './actions';
 
 import reducers from './reducers';
 
 const DEVTOOLS = '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__',
-	composeEnhancers = module.hot && window[DEVTOOLS] || compose;
+	composeEnhancers = module.hot && (window[DEVTOOLS] || compose);
 
-export default function configureStore (initialState) {
+export default function configureStore(initialState) {
 	const enhancers = composeEnhancers(
 		//...
 	);

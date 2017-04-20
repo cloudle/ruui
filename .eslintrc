@@ -34,5 +34,9 @@
     "react/jsx-closing-bracket-location": "off",
     "react/jsx-space-before-closing": "off",
     "react/jsx-tag-spacing": "off"
+  },
+  "globals": {
+    "document": true,
+    "window": true
   }
 }

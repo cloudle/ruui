@@ -11,8 +11,8 @@ const initialRouterState = {
 const routeReducer = utils.routeReducer(
 	(state = initialRouterState, action) => {
 		switch (action.type) {
-			default:
-				return state;
+		default:
+			return state;
 		}
 	}
 );
