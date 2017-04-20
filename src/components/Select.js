@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, Image, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import { appAction } from '../../src/utils';
 
-import { appAction, colors } from '../../src/utils';
+const arrowDownImage = require('./arrow-down.png');
 
-class Select extends Component {
+@connect(({ app }) => {
+	return {
+
+	};
+})
+
+export default class Select extends Component {
 	static propTypes = {
 		floatingLabel: React.PropTypes.string,
 		cancelText: React.PropTypes.string,
@@ -14,17 +21,18 @@ class Select extends Component {
 		onSelect: React.PropTypes.func,
 		onChange: React.PropTypes.func,
 		onCancel: React.PropTypes.func,
+		dispatch: React.PropTypes.func,
 	};
 
 	static defaultProps = {
 		floatingLabel: 'Select',
 		cancelText: 'Cancel',
-		options: [{ title: 'Missing options param' }]
+		options: [{ title: 'Missing options param' }],
 	};
 
-	render () {
+	render() {
 		return <TouchableOpacity
-			onPress={activateSelector.bind(this)}
+			onPress={this.activateSelector}
 			style={styles.container}
 			activeOpacity={0.8}>
 			<View style={styles.contentWrapper}>
@@ -35,33 +43,33 @@ class Select extends Component {
 				<Image
 					style={styles.downIcon}
 					resizeMode={Image.resizeMode.contain}
-					source={require('./arrow-down.png')}/>
+					source={arrowDownImage}/>
 			</View>
-		</TouchableOpacity>
+		</TouchableOpacity>;
 	}
 
-	renderValue () {
-		let valueText = this.props.value && this.props.value.title || 'Missing value option';
+	renderValue() {
+		let valueText = this.props.value && (this.props.value.title || 'Missing value option');
 		if (this.props.getTitle) valueText = this.props.getTitle(this.props.value);
 
 		return <Text style={styles.valueText}>
 			{valueText}
-		</Text>
+		</Text>;
 	}
-}
 
-function activateSelector () {
-	this.props.dispatch(appAction.toggleSelector(true, {
-		selectText: this.props.floatingLabel,
-		cancelText: this.props.cancelText,
-		options: this.props.options,
-		activeOption: this.props.value,
-		getTitle: this.props.getTitle,
-		onSelect: this.props.onSelect,
-		onChange: this.props.onChange,
-		onCancel: this.props.onCancel,
-		value: this.props.value,
-	}));
+	activateSelector = () => {
+		this.props.dispatch(appAction.toggleSelector(true, {
+			selectText: this.props.floatingLabel,
+			cancelText: this.props.cancelText,
+			options: this.props.options,
+			activeOption: this.props.value,
+			getTitle: this.props.getTitle,
+			onSelect: this.props.onSelect,
+			onChange: this.props.onChange,
+			onCancel: this.props.onCancel,
+			value: this.props.value,
+		}));
+	}
 }
 
 const styles = StyleSheet.create({
@@ -92,11 +100,5 @@ const styles = StyleSheet.create({
 	},
 	downIcon: {
 		width: 16, height: 16,
-	}
+	},
 });
-
-export default connect(({app}) => {
-	return {
-
-	}
-})(Select)

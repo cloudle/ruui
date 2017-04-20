@@ -1,30 +1,38 @@
 import React, { Component } from 'react';
-import { Animated, TouchableOpacity, ScrollView, View, Text, StyleSheet } from 'react-native';
+import { Animated, ScrollView, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import ResponsibleTouchArea from './ResponsibleTouchArea';
 
+import ResponsibleTouchArea from './ResponsibleTouchArea';
+import SelectorItem from './SelectorItem';
 import { isAndroid, colors } from '../utils';
 import { screenWidthPadding } from '../utils/screen';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as appActions from '../utils/store/appAction';
 
-class Selector extends Component {
-	constructor (props) {
-	  super(props);
-	  this.state = {
-	    lock: false,
-	  }
-	}
+@connect(({ app }) => {
+	return {
+		configs: app.selectorConfigs,
+	};
+})
 
+export default class Selector extends Component {
 	static propTypes = {
 		configs: React.PropTypes.object,
+		animation: React.PropTypes.any,
+		dispatch: React.PropTypes.func,
 	};
 
-	render () {
+	constructor(props) {
+		super(props);
+		this.state = {
+			lock: false,
+		};
+	}
+
+	render() {
 		const translateY = this.props.animation.interpolate({
-				inputRange: [0, 0.32, 1], outputRange: [maxContainerSize, maxContainerSize * 0.15, 0]
+				inputRange: [0, 0.32, 1], outputRange: [maxContainerSize, maxContainerSize * 0.15, 0],
 			}), containerStyles = {
-				transform: [{ translateY }]
+				transform: [{ translateY }],
 			},
 			OptionWrapperElement = this.props.configs.options.length > 5 ? ScrollView : View,
 			pointerEvents = this.state.lock ? 'none' : 'auto';
@@ -38,8 +46,8 @@ class Selector extends Component {
 						{this.props.configs.selectText}
 					</Text>
 				</View>
-				<View style={{maxHeight: 255,}}>
-					<OptionWrapperElement style={{backgroundColor: '#f9f9f9'}}>
+				<View style={{ maxHeight: 255 }}>
+					<OptionWrapperElement style={{ backgroundColor: '#f9f9f9' }}>
 						{this.renderOptions()}
 					</OptionWrapperElement>
 					{!isAndroid && <View style={styles.optionTails}/>}
@@ -48,54 +56,24 @@ class Selector extends Component {
 			<View style={styles.commandWrapper}>
 				{this.renderCommands()}
 			</View>
-		</Animated.View>
+		</Animated.View>;
 	}
 
-	renderOptions () {
-		const { options } = this.props.configs;
-
+	renderOptions() {
+		const options = this.props.configs.options || [];
 		return options.map((item, i) => {
-			let wrapperStyles = {}, iconStyles = {},
-				iconName = "radio-button-unchecked";
-
-			if (JSON.stringify(this.props.configs.value) === JSON.stringify(item)) {
-				wrapperStyles['backgroundColor'] = '#fcfcfc';
-				iconStyles['color'] = colors.iOsBlue;
-				iconName = "radio-button-checked";
-			}
-
-			return <ResponsibleTouchArea
-				key={i} rippleColor={colors.iOsBlue}
-				onPress={onItemPick.bind(this, item)}
-				wrapperStyle={[styles.optionItemWrapper, wrapperStyles]}
-				innerStyle={styles.optionItemInner}
-				fadeLevel={0.04}>
-				<View style={styles.optionInnerWrapper}>
-					<View style={styles.optionIconWrapper}>
-						<Icon
-							style={[styles.optionIcon, iconStyles]}
-							name={iconName}/>
-					</View>
-					<View style={styles.optionTextWrapper}>
-						{this.renderOptionText(item)}
-					</View>
-				</View>
-			</ResponsibleTouchArea>
+			return <SelectorItem
+				key={i}
+				optionInstance={item}
+				activeInstance={this.props.configs.value}
+				getTitle={this.props.configs.getTitle}
+				onPress={this.onItemPick}/>;
 		});
 	}
 
-	renderOptionText (item) {
-		let optionText = item.title;
-		if (this.props.configs.getTitle) optionText = this.props.configs.getTitle(item);
-
-		return <Text style={styles.optionTitle}>
-			{optionText}
-		</Text>
-	}
-
-	renderCommands () {
+	renderCommands() {
 		return <ResponsibleTouchArea
-			onPress={cancelSelector.bind(this)}
+			onPress={this.cancelSelector}
 			rippleColor={colors.iOsBlue}
 			wrapperStyle={[styles.commandItemWrapper]}
 			innerStyle={styles.optionItemInner}
@@ -103,31 +81,25 @@ class Selector extends Component {
 			<Text style={styles.commandTitle}>
 				{this.props.configs.cancelText}
 			</Text>
-		</ResponsibleTouchArea>
+		</ResponsibleTouchArea>;
 	}
-}
 
-function onItemPick (instance) {
-	this.setState({lock: true});
-	this.props.dispatch(appActions.toggleSelector(false));
+	onItemPick = (item) => {
+		this.setState({ lock: true });
+		this.props.dispatch(appActions.toggleSelector(false));
 
-	this.props.configs.onSelect && this.props.configs.onSelect(instance);
-	if (JSON.stringify(this.props.configs.value) !== JSON.stringify(instance)) {
-		this.props.configs.onChange && this.props.configs.onChange(instance);
+		if (this.props.configs.onSelect) this.props.configs.onSelect(item);
+		if (this.props.configs.onChange
+			&& JSON.stringify(this.props.configs.value) !== JSON.stringify(item)) {
+			this.props.configs.onChange(item);
+		}
+	};
+
+	cancelSelector = () => {
+		this.setState({ lock: true });
+		this.props.dispatch(appActions.toggleSelector(false));
+		if (this.props.configs.onCancel) this.props.configs.onCancel();
 	}
-}
-
-function cancelSelector () {
-	this.setState({lock: true});
-	this.props.dispatch(appActions.toggleSelector(false));
-	this.props.configs.onCancel && this.props.configs.onCancel();
-}
-
-function buildOptionRadius (index, options) {
-	return index >= options.length - 1 ? {
-		borderBottomLeftRadius: selectorRadius,
-		borderBottomRightRadius: selectorRadius,
-	} : {};
 }
 
 const maxContainerSize = 500,
@@ -164,20 +136,9 @@ const styles = StyleSheet.create({
 		marginBottom: isAndroid ? 0 : selectorMargin / 2,
 		width: screenWidthPadding(selectorMargin, 400),
 	},
-	optionInnerWrapper: {
-		flexDirection: 'row',
-	},
-	optionTextWrapper: {
-		flex: 1, marginRight: 25,
-	},
-	optionIconWrapper: {
-		width: 20, marginRight: 10,
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	optionIcon: {
-		color: '#dedede',
-		fontSize: 18,
+	optionItemInner: {
+		padding: selectorPadding,
+		paddingTop: 12, paddingBottom: 12,
 	},
 	optionTails: {
 		height: selectorRadius,
@@ -193,22 +154,7 @@ const styles = StyleSheet.create({
 		borderTopRightRadius: isAndroid ? 0 : selectorRadius,
 		backgroundColor: isAndroid ? '#f9f9f9' : 'transparent',
 		overflow: 'hidden',
-		width: screenWidthPadding(selectorMargin, 400)
-	},
-	optionItemWrapper: {
-		backgroundColor: '#f9f9f9',
-		borderBottomWidth: borderWidth,
-		borderColor: '#dedede',
-	},
-	optionItemInner: {
-		padding: selectorPadding,
-		paddingTop: 12, paddingBottom: 12,
-	},
-	optionTitle: {
-		color: colors.iOsBlue,
-		fontSize: 17,
-		textAlign: selectionAlign,
-		backgroundColor: 'transparent',
+		width: screenWidthPadding(selectorMargin, 400),
 	},
 	commandItemWrapper: {
 		flex: 1,
@@ -224,9 +170,3 @@ const styles = StyleSheet.create({
 		backgroundColor: 'transparent',
 	},
 });
-
-export default connect(({app}) => {
-	return {
-		configs: app.selectorConfigs,
-	}
-})(Selector);

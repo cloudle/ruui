@@ -1,9 +1,9 @@
 import { Platform, Dimensions } from 'react-native';
 
-export let ScreenSize = Dimensions.get('window');
+export const ScreenSize = Dimensions.get('window');
 
-export function screenWidthPadding (padding, maxSize): Number {
-	let paddedSize = ScreenSize.width - (padding * 2);
+export function screenWidthPadding(padding, maxSize): Number {
+	const paddedSize = ScreenSize.width - (padding * 2);
 	return paddedSize > maxSize ? maxSize : paddedSize;
 }
 
@@ -13,20 +13,20 @@ export function screenWidthPadding (padding, maxSize): Number {
  */
 export const ScreenWidthPadding = screenWidthPadding;
 
-export function horizontalPaddings (padding, maxSize): Number {
-	let paddedSize = ScreenSize.width - (padding * 2);
+export function horizontalPaddings(padding, maxSize): Number {
+	const paddedSize = ScreenSize.width - (padding * 2);
 	return paddedSize > maxSize ? { width: maxSize, } : {
 		width: paddedSize,
 		marginLeft: padding, marginRight: padding,
-	}
+	};
 }
 
-export function horizontalSnappings (padding, minSize): Number {
-	let paddedSize = ScreenSize.width - (padding * 2);
+export function horizontalSnappings(padding, minSize): Number {
+	const paddedSize = ScreenSize.width - (padding * 2);
 	return paddedSize > minSize ? {
-			width: minSize,
-			marginLeft: padding, marginRight: padding,
-		} : { width: ScreenSize.width }
+		width: minSize,
+		marginLeft: padding, marginRight: padding,
+	} : { width: ScreenSize.width };
 }
 
 export function isTouchDevice() {
@@ -34,7 +34,7 @@ export function isTouchDevice() {
 		return true;
 	} else {
 		try {
-			document.createEvent("TouchEvent");
+			document.createEvent('TouchEvent');
 			return true;
 		} catch (e) {
 			return false;

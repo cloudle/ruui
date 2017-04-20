@@ -3,32 +3,32 @@ import * as Actions from './actions';
 const defaultSelectorConfigs = {
 	selectText: 'Select',
 	cancelText: 'Cancel',
-	options: [ {title: 'Option 1'}, {title: 'Option 2'} ],
+	options: [{ title: 'Option 1' }, { title: 'Option 2' }],
 };
 
-export function appReducer (reducer: Reducer) {
+export function appReducer(reducer: Reducer) {
 	const initialState = {
 		activeModal: null,
 		selectorConfigs: defaultSelectorConfigs,
 		modalConfigs: {},
-		...reducer(undefined, { type: Actions.ReduxInit })
+		...reducer(undefined, { type: Actions.ReduxInit }),
 	};
 
 	return function (state = initialState, action) {
 		switch (action.type) {
-			case Actions.ToggleSelect:
-				return handleToggleSelect(state, action);
-			case Actions.ToggleModal:
-				return handleToggleModal(state, action);
-			case Actions.ToggleLoading:
-				return handleToggleLoading(state, action);
-			default:
-				return reducer(state, action);
+		case Actions.ToggleSelect:
+			return handleToggleSelect(state, action);
+		case Actions.ToggleModal:
+			return handleToggleModal(state, action);
+		case Actions.ToggleLoading:
+			return handleToggleLoading(state, action);
+		default:
+			return reducer(state, action);
 		}
-	}
+	};
 }
 
-function handleToggleSelect (state, action) {
+function handleToggleSelect(state, action) {
 	const activeModal = action.flag === false
 		? null : action.flag === true
 			? 'select'
@@ -38,15 +38,14 @@ function handleToggleSelect (state, action) {
 		...state,
 		activeModal,
 		selectorConfigs: action.flag ? {
-				...defaultSelectorConfigs,
-				...action.configs,
-			} : state.selectorConfigs,
+			...defaultSelectorConfigs,
+			...action.configs,
+		} : state.selectorConfigs,
 	};
 }
 
-function handleToggleModal (state, action) {
-	const activeModal = action.flag === false
-		? null : 'modal';
+function handleToggleModal(state, action) {
+	const activeModal = action.flag === false ? null : 'modal';
 
 	return {
 		...state,
@@ -54,10 +53,10 @@ function handleToggleModal (state, action) {
 		modalConfigs: action.flag ? {
 			...action.configs,
 		} : state.modalConfigs,
-	}
+	};
 }
 
-function handleToggleLoading (state, action) {
+function handleToggleLoading(state, action) {
 	const activeModal = action.flag === false
 		? null : 'loading';
 
@@ -67,5 +66,5 @@ function handleToggleLoading (state, action) {
 		loadingConfigs: action.flag ? {
 			...action.configs,
 		} : {},
-	}
+	};
 }

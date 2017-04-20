@@ -2,9 +2,9 @@ import * as actionsImport from './actions';
 import * as appActionImport from './appAction';
 import * as nativeActionImport from './nativeAction';
 
-export let routerActions = actionsImport;
-export let appAction = appActionImport;
-export let nativeRouteAction = nativeActionImport;
+export const routerActions = actionsImport;
+export const appAction = appActionImport;
+export const nativeRouteAction = nativeActionImport;
 
-export * from './appReducer'; //utils.appReducer
-export * from './nativeReducer'; //utils.nativeRouterReducer
+export * from './appReducer';
+export * from './nativeReducer';

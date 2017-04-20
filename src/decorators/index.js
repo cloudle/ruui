@@ -1,3 +1,3 @@
 import EnterAnimation from './EnterAnimation';
 
-export let enterAnimation = EnterAnimation;
+export const enterAnimation = EnterAnimation;

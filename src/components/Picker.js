@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 export default class Picker extends Component {
 	static propTypes = {
 		selectorConfigs: React.PropTypes.object,
 	};
 
-	render () {
+	render() {
 		return <View>
 			{this.renderOptions()}
-		</View>
+		</View>;
 	}
 
-	renderOptions () {
+	renderOptions() {
 		const { options } = this.props.selectorConfigs;
 
 		return options.map((item, i) => {
@@ -20,7 +20,7 @@ export default class Picker extends Component {
 				<Text style={styles.optionTitle}>
 					{item.title}
 				</Text>
-			</View>
+			</View>;
 		});
 	}
 }
@@ -31,5 +31,5 @@ const styles = StyleSheet.create({
 	},
 	optionTitle: {
 		color: '#ffffff',
-	}
+	},
 });

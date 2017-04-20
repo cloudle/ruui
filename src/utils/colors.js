@@ -4,7 +4,7 @@ const main = '#F0871A';
 const lighterMain = tinyColor(main).lighten(15).toHexString();
 const darkerMain = tinyColor(main).darken(10).toHexString();
 
-export let colors = {
+export const colors = {
 	main,
 	darkerMain,
 	lighterMain,

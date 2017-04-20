@@ -170,7 +170,7 @@ function NavigationScenesReducer(
       };
     }
     if (isActive) {
-      activeScenesCount++;
+      activeScenesCount += 1;
     }
   });
 

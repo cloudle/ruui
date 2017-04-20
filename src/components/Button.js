@@ -24,6 +24,7 @@ export default class Button extends Component {
 		fade: React.PropTypes.bool,
 		onPress: React.PropTypes.func,
 		fadeLevel: React.PropTypes.number,
+		children: React.PropTypes.element,
 	};
 
 	static defaultProps = {
@@ -36,42 +37,42 @@ export default class Button extends Component {
 		fadeLevel: 0.2,
 	};
 
-  render () {
-    return <ResponsibleTouchArea
-	    onPress={this.props.onPress}
-	    ripple={this.props.ripple}
-	    staticRipple={this.props.staticRipple}
-	    rippleColor={this.props.rippleColor}
-	    rippleInitialOpacity={this.props.rippleInitialOpacity}
-	    rippleInitialScale={this.props.rippleInitialScale}
+	render() {
+		return <ResponsibleTouchArea
+			onPress={this.props.onPress}
+			ripple={this.props.ripple}
+			staticRipple={this.props.staticRipple}
+			rippleColor={this.props.rippleColor}
+			rippleInitialOpacity={this.props.rippleInitialOpacity}
+			rippleInitialScale={this.props.rippleInitialScale}
 			disabled={this.props.disabled}
-	    raise={this.props.raise}
-	    fade={this.props.fade}
-	    fadeLevel={this.props.fadeLevel}
-	    tooltip={this.props.tooltip}
-	    wrapperStyle={[styles.wrapper, this.props.wrapperStyle]}
-      innerStyle={[styles.contentContainer, this.props.innerStyle]}>
-	    {this.renderContent()}
-    </ResponsibleTouchArea>
-  }
+			raise={this.props.raise}
+			fade={this.props.fade}
+			fadeLevel={this.props.fadeLevel}
+			tooltip={this.props.tooltip}
+			wrapperStyle={[styles.wrapper, this.props.wrapperStyle]}
+			innerStyle={[styles.contentContainer, this.props.innerStyle]}>
+			{this.renderContent()}
+		</ResponsibleTouchArea>;
+	}
 
-  renderContent () {
-		let title = this.props.title,
+	renderContent() {
+		const title = this.props.title,
 			icon = this.props.icon,
 			textStyles = [styles.titleText, this.props.textStyle];
 
-  	if (this.props.children) {
-		  return this.props.children;
-	  } else if (this.props.rightIcon) {
-  		return <Text style={textStyles}>
-			  {title} {icon}
-		  </Text>
-	  } else {
-		  return <Text style={textStyles}>
-			  {icon} {title}
-		  </Text>
-	  }
-  }
+		if (this.props.children) {
+			return this.props.children;
+		} else if (this.props.rightIcon) {
+			return <Text style={textStyles}>
+				{title} {icon}
+			</Text>;
+		} else {
+			return <Text style={textStyles}>
+				{icon} {title}
+			</Text>;
+		}
+	}
 }
 
 const styles = StyleSheet.create({

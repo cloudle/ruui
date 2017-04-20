@@ -6,10 +6,10 @@ import { horizontalSnappings } from '../utils';
 
 const snackbarRadius = 3;
 
-@connect(({app}) => {
+@connect(({ app }) => {
 	return {
 
-	}
+	};
 })
 
 export default class Snackbar extends Component {
@@ -26,49 +26,45 @@ export default class Snackbar extends Component {
 		margin: 15,
 	};
 
-	constructor (props) {
-	  super(props);
-	  this.state = {
-		  enterAnimation: new Animated.Value(0),
-	  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			enterAnimation: new Animated.Value(0),
+		};
 	}
 
-  render () {
-  	const snappingStyles = horizontalSnappings(this.props.margin, this.props.minWidth);
+	render() {
+		const snappingStyles = horizontalSnappings(this.props.margin, this.props.minWidth);
 
-  	return <View
-	    style={[styles.container, this.props.containerStyle, snappingStyles]}>
-		  {this.props.contentRenderer()}
-    </View>
-  }
+		return <View
+			style={[styles.container, this.props.containerStyle, snappingStyles]}>
+			{this.props.contentRenderer()}
+		</View>;
+	}
+
+	playEnterAnimation = () => {
+		if (this.enterAnimation) this.enterAnimation.clear();
+
+		this.enterAnimation = Animated.timing(this.state.enterAnimation, {
+			toValue: 1,
+			duration: 800,
+			easing: Easing.in(Easing.bezier(0, 0.48, 0.35, 1)),
+		});
+	};
 }
 
-function defaultContentRenderer () {
-	return <Text style={styles.message}>Snackbar</Text>
-}
-
-function playEnterAnimation () {
-	if (this.enterAnimation) this.enterAnimation.clear();
-
-	this.enterAnimation = Animated.timing(this.state.enterAnimation, {
-		toValue: 1,
-		duration: 800,
-		easing: Easing.in(Easing.bezier(0, .48, .35, 1)),
-	});
-}
-
-function playLeaveAnimation () {
-
+function defaultContentRenderer() {
+	return <Text style={styles.message}>Snackbar</Text>;
 }
 
 const styles = StyleSheet.create({
-  container: {
-  	position: 'absolute', bottom: 0,
-	  padding: 14,
-  	borderTopLeftRadius: snackbarRadius, borderTopRightRadius: snackbarRadius,
-	  backgroundColor: 'rgba(20, 20 , 20, 0.8)',
-  },
+	container: {
+		position: 'absolute', bottom: 0,
+		padding: 14,
+		borderTopLeftRadius: snackbarRadius, borderTopRightRadius: snackbarRadius,
+		backgroundColor: 'rgba(20, 20 , 20, 0.8)',
+	},
 	message: {
-  	color: '#ffffff',
-	}
+		color: '#ffffff',
+	},
 });
