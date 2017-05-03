@@ -7,8 +7,6 @@ import selectImport from './Select';
 import snackbarImport from './Snackbar';
 import tooltipImport from './Tooltip';
 
-export * from './NavigationExperimental/NavigationExperimental';
-
 export const ResponsibleTouchArea = responsibleTouchAreaImport;
 export const RippleEffect = rippleEffectImport;
 export const Button = buttonImport;
