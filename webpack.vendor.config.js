@@ -13,7 +13,6 @@ module.exports = {
 			'babel-polyfill',
 			'react', 'react-dom',
 			'react-native-web',
-			'react-router', 'react-router-addons-controlled', 'history',
 			'react-native-vector-icons/FontAwesome',
 			'react-native-vector-icons/Ionicons',
 			'react-native-vector-icons/glyphmaps/MaterialIcons.json',
@@ -23,6 +22,9 @@ module.exports = {
 	},
 
 	resolve: {
+		alias: {
+			"react-native": "react-native-web",
+		},
 		modules: ['node_modules'],
 		extensions: ['.js']
 	},
