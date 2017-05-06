@@ -3,10 +3,9 @@ import { AsyncStorage, View, Text, StyleSheet } from 'react-native';
 import { connect, Provider } from 'react-redux';
 import Drawer from 'react-native-drawer';
 
-import { NavigationExperimental, Snackbar } from '../../src';
-import Menu from './share/Menu';
-import NavigationHeader from './share/NavigationHeader';
-import Welcome from './scenes/welcome';
+import { Snackbar } from '../../src';
+import Router from './router';
+import Menu from './share/menu';
 import * as appActions from './store/action/app';
 
 export default function AppContainer({ store }) {
@@ -50,26 +49,10 @@ export class App extends Component {
 			content={<Menu/>}
 			tweenHandler={drawerTween}>
 
-			<NavigationExperimental.CardStack
-				style={styles.navigator}
-				navigationState={this.props.router}
-				renderScene={this.renderScene}
-				renderHeader={this.renderHeader}
-				gestureResponseDistance={50}
-				onNavigateBack={() => console.log('Back..')}/>
-
+			<Router/>
 			<Snackbar/>
 		</Drawer>;
 	}
-
-	renderScene = (props) => {
-		const Scene = props.scene.route.component;
-		return <Scene/>;
-	};
-
-	renderHeader = (sceneProps) => {
-		return <NavigationHeader {...sceneProps}/>;
-	};
 }
 
 function drawerTween(ratio, side = 'left') {

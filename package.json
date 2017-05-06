@@ -7,13 +7,13 @@
     "src",
     "!**/__tests__"
   ],
-  "version": "0.0.81",
+  "version": "0.0.85",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "build": "babel ./src --out-dir ./dist",
     "prepublish": "npm run build",
-    "web-vendor": "webpack --config webpack.vendor.config.js",
+    "web-vendor": "webpack --config webpack.vendor.config.js --progress",
     "web": "node webpack.devserver",
     "ios": "react-native run-ios",
     "android": "react-native run-android"
@@ -57,12 +57,13 @@
     "react-native-drawer": "^2.3.0",
     "react-native-vector-icons": "github:cloudle/react-native-vector-icons",
     "react-native-web": "0.0.70",
+    "react-navigation": "github:cloudle/react-navigation",
     "react-test-renderer": "~15.4.0-rc.4",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0"
   },
   "peerDependencies": {
-    "react": "~15.4.1"
+    "react": "^15.4.2"
   },
   "jest": {
     "preset": "react-native"

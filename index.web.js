@@ -2,9 +2,9 @@ import 'babel-polyfill';
 import React, { Component } from 'react';
 import ReactNative, { View, Text, AsyncStorage } from 'react-native';
 import { AppContainer } from 'react-hot-loader';
-import app from './example/basic';
-import configureStore from './example/basic/store';
-import * as appActions from './example/basic/store/action/app';
+import app from './example/next';
+import configureStore from './example/next/store';
+import * as appActions from './example/next/store/action/app';
 
 const store = configureStore();
 const render = (AppComponent) => {
@@ -21,9 +21,9 @@ const render = (AppComponent) => {
 render(app);
 
 if (module.hot) {
-	module.hot.accept('./example/basic', () => {
-		const nextApp = require('./example/basic').default; //eslint-disable-line
-		render(nextApp);
+	module.hot.accept('./example/next', () => {
+		const App = require('./example/next').default; //eslint-disable-line
+		render(App);
 
 		/* Beautiful workaround:
 		 Force update unrelated modules in the next execution loop.*/
