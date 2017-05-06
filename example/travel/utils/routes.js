@@ -21,7 +21,6 @@ export let login = {
 export let register = {
 	key: 'register',
 	component: Register,
-	transitionDirection: 'vertical',
 };
 
 export let initialRoute = login;
