@@ -15,7 +15,7 @@ export default class Button extends Component {
 		rippleInitialScale: React.PropTypes.number,
 		staticRipple: React.PropTypes.bool,
 		icon: React.PropTypes.any,
-		rightIcon: React.PropTypes.bool,
+		rightIcon: React.PropTypes.any,
 		title: React.PropTypes.string,
 		tooltip: React.PropTypes.string,
 		textStyle: React.PropTypes.object,
@@ -58,19 +58,18 @@ export default class Button extends Component {
 
 	renderContent() {
 		const title = this.props.title,
-			icon = this.props.icon,
 			textStyles = [styles.titleText, this.props.textStyle];
 
 		if (this.props.children) {
 			return this.props.children;
-		} else if (this.props.rightIcon) {
-			return <Text style={textStyles}>
-				{title} {icon}
-			</Text>;
 		} else {
-			return <Text style={textStyles}>
-				{icon} {title}
-			</Text>;
+			return <View style={styles.innerContainer}>
+				<View style={styles.leftContainer}>{this.props.icon}</View>
+				<View style={styles.titleContainer}>
+					<Text style={textStyles}>{title}</Text>
+				</View>
+				<View style={styles.rightContainer}>{this.props.rightIcon}</View>
+			</View>;
 		}
 	}
 }
@@ -82,8 +81,23 @@ const styles = StyleSheet.create({
 	},
 	contentContainer: {
 		padding: 10,
+		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center',
+	},
+	innerContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	leftContainer: {
+		marginRight: 6,
+	},
+	rightContainer: {
+		marginLeft: 6,
+	},
+	titleContainer: {
+		flex: 1,
 	},
 	titleText: {
 		color: '#FFFFFF',

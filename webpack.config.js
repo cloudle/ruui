@@ -37,26 +37,26 @@ module.exports = {
 		app: prod ? [entry] : [...hot, entry]
 	},
 	output: {
-		publicPath: publicPath,
+		publicPath,
 		path: path.join(__dirname, 'web'),
 		filename: '[name].bundle.js',
-		chunkFilename: "[name].js"
+		chunkFilename: '[name].js'
 	},
 	resolve: {
 		alias: {
-			"react-native": "react-native-web",
+			'react-native': 'react-native-web',
 		},
 		modules: ['node_modules'],
 		extensions: ['.js']
 	},
-	plugins: plugins,
+	plugins,
 	module: {
 		rules: [
 			{
 				test: /\.js?$/,
 				loaders: prod ? ['babel-loader'] : ['react-hot-loader/webpack', 'babel-loader'],
 			},
-			{ test: /\.css$/, loader: "style-loader!css-loader" },
+			{ test: /\.css$/, loader: 'style-loader!css-loader' },
 			{
 				test: /\.(png|jpg|svg|ttf)$/,
 				loader: 'file-loader?name=[name].[ext]'

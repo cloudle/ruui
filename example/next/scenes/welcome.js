@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-
+import Icon from 'react-native-vector-icons/Ionicons';
 import { Button } from '../../../src';
 import * as appActions from '../store/action/app';
 
@@ -36,6 +36,7 @@ export default class app extends Component {
 				wrapperStyle={{ backgroundColor: '#00bcd4', width: 120 }}
 				tooltip="Yay!"
 				title="Click me!"
+				icon={<Icon name="ios-beer-outline" size={28}/>}
 				onPress={() => {
 					this.props.navigation.navigate('Welcome');
 				}}/>
