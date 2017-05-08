@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { AsyncStorage, View, Text, StyleSheet } from 'react-native';
+import { AsyncStorage, StatusBar, View, Text, StyleSheet } from 'react-native';
 import { connect, Provider } from 'react-redux';
 import Drawer from 'react-native-drawer';
 
-import { Snackbar } from '../../src';
+import { Snackbar, utils } from '../../src';
 import Router from './router';
 import Menu from './share/menu';
 import * as appActions from './store/action/app';
+
+const { isIos, isAndroid } = utils;
 
 export default function AppContainer({ store }) {
 	return <Provider store={store}>
@@ -32,6 +34,13 @@ export class App extends Component {
 	};
 
 	async componentWillMount() {
+		if (isIos) {
+			StatusBar.setBarStyle('light-content', true);
+		} else if (isAndroid) {
+			StatusBar.setBackgroundColor('transparent');
+			StatusBar.setTranslucent(true);
+		}
+
 		const token = await AsyncStorage.getItem('sysConfig');
 	}
 

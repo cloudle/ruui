@@ -65,9 +65,7 @@ export default class Button extends Component {
 		} else {
 			return <View style={styles.innerContainer}>
 				<View style={styles.leftContainer}>{this.props.icon}</View>
-				<View style={styles.titleContainer}>
-					<Text style={textStyles}>{title}</Text>
-				</View>
+				<Text style={textStyles}>{title}</Text>
 				<View style={styles.rightContainer}>{this.props.rightIcon}</View>
 			</View>;
 		}
@@ -95,9 +93,6 @@ const styles = StyleSheet.create({
 	},
 	rightContainer: {
 		marginLeft: 6,
-	},
-	titleContainer: {
-		flex: 1,
 	},
 	titleText: {
 		color: '#FFFFFF',
