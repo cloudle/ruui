@@ -13,7 +13,7 @@ type Props = {
 	rippleColor?: string,
 	rippleInitialOpacity?: number,
 	rippleInitialScale?: number,
-	staticRipple?: number,
+	staticRipple?: boolean,
 	icon?: Element,
 	rightIcon?: Element,
 	title?: string,
