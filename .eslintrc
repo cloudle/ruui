@@ -2,7 +2,8 @@
   "parser": "babel-eslint",
   "extends": "airbnb",
   "plugins": [
-    "react"
+    "react",
+    "flowtype"
   ],
   "rules": {
     "func-names": ["error", "never"],

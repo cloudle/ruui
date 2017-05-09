@@ -7,6 +7,11 @@ import Selector from './Selector';
 import LoadingMask from './LoadingMask';
 import CloseableModal from './CloseableModal';
 
+type Props = {
+	activeModal?: any,
+	dispatch?: Function,
+};
+
 @connect(({ app }) => {
 	return {
 		activeModal: app.activeModal,
@@ -14,11 +19,8 @@ import CloseableModal from './CloseableModal';
 	};
 })
 
-export default class Modal extends Component {
-	static propTypes = {
-		activeModal: React.PropTypes.any,
-		dispatch: React.PropTypes.func,
-	};
+export default class Modal extends Component<any, Props, any> {
+	props: Props;
 
 	constructor(props) {
 		super(props);

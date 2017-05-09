@@ -2,17 +2,19 @@ import React, { Component } from 'react';
 import { Animated, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
+type Props = {
+	configs?: any,
+	animation?: any,
+};
+
 @connect(({ app }) => {
 	return {
 		configs: app.modalConfigs,
 	};
 })
 
-export default class CloseableModal extends Component {
-	static propTypes = {
-		configs: React.PropTypes.any,
-		animation: React.PropTypes.any,
-	};
+export default class CloseableModal extends Component<any, Props, any> {
+	props: Props;
 
 	render() {
 		const containerOpacity = this.props.animation.interpolate({

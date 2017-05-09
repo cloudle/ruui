@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { Animated, Easing, Text, StyleSheet } from 'react-native';
 import { isBrowser } from '../utils';
 
-export default class Tooltip extends Component {
-	static propTypes = {
-		title: React.PropTypes.string,
-	};
+type Props = {
+	title?: string,
+};
+
+export default class Tooltip extends Component<any, Props, any> {
+	props: Props;
 
 	constructor(props) {
 		super(props);

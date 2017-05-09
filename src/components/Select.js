@@ -3,6 +3,18 @@ import { TouchableOpacity, Image, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { appAction } from '../../src/utils';
 
+type Props = {
+	floatingLabel?: string,
+	cancelText?: string,
+	options?: Array<any>,
+	value?: any,
+	getTitle?: Function,
+	onSelect?: Function,
+	onChange?: Function,
+	onCancel?: Function,
+	dispatch?: Function,
+};
+
 const arrowDownImage = require('./arrow-down.png');
 
 @connect(({ app }) => {
@@ -11,18 +23,8 @@ const arrowDownImage = require('./arrow-down.png');
 	};
 })
 
-export default class Select extends Component {
-	static propTypes = {
-		floatingLabel: React.PropTypes.string,
-		cancelText: React.PropTypes.string,
-		options: React.PropTypes.array,
-		value: React.PropTypes.any,
-		getTitle: React.PropTypes.func,
-		onSelect: React.PropTypes.func,
-		onChange: React.PropTypes.func,
-		onCancel: React.PropTypes.func,
-		dispatch: React.PropTypes.func,
-	};
+export default class Select extends Component<any, Props, any> {
+	props: Props;
 
 	static defaultProps = {
 		floatingLabel: 'Select',

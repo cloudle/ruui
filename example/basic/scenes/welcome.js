@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-
-import { Button, utils } from '../../../src';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { Button } from '../../../src';
 import * as appActions from '../store/action/app';
-import { routes } from '../utils';
+
+type Props = {
+	navigation?: Object,
+};
 
 @connect(({ app }) => {
 	return {
@@ -13,10 +16,16 @@ import { routes } from '../utils';
 })
 
 export default class app extends Component {
+	props: Props;
+
+	static navigationOptions = ({ navigation }) => ({
+		title: 'Page title',
+	});
+
 	render() {
 		return <View style={styles.container}>
 			<Text style={styles.welcome}>
-				Welcome to React Native! {this.props.counter}
+				Welcome to React Native!!
 			</Text>
 			<Text style={styles.instructions}>
 				To get started, edit src/app.js
@@ -26,12 +35,14 @@ export default class app extends Component {
 				Cmd+D or shake for dev menu
 			</Text>
 			<Button
-				wrapperStyle={{backgroundColor: '#00bcd4', width: 120}}
+				wrapperStyle={{ backgroundColor: '#00bcd4', width: 120 }}
 				tooltip="Yay!"
-				title="Click me!" onPress={() => {
-					this.props.dispatch(utils.nativeRouteAction.push(routes[1]));
+				title="Click me!"
+				icon={<Icon name="ios-beer-outline" size={28}/>}
+				onPress={() => {
+					this.props.navigation.navigate('Welcome');
 				}}/>
-		</View>
+		</View>;
 	}
 }
 

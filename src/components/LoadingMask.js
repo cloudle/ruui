@@ -3,17 +3,19 @@ import { ActivityIndicator, View, TouchableOpacity, StyleSheet } from 'react-nat
 import { connect } from 'react-redux';
 import * as appActions from '../utils/store/appAction';
 
+type Props = {
+	configs?: Object,
+	dispatch?: Function,
+};
+
 @connect(({ app }) => {
 	return {
 		configs: app.loadingConfigs,
 	};
 })
 
-export default class LoadingModal extends Component {
-	static propTypes = {
-		configs: React.PropTypes.any,
-		dispatch: React.PropTypes.func,
-	};
+export default class LoadingModal extends Component<any, Props, any> {
+	props: Props;
 
 	render() {
 		return <View

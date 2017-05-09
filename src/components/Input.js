@@ -1,38 +1,41 @@
 import React, { Component } from 'react';
 import { Animated, Easing, View, Text, TextInput, StyleSheet } from 'react-native';
 import { minGuard, isAndroid } from '../utils';
+import { Style, Element } from '../typeDefinition';
+
+type Props = {
+	wrapperStyle?: Style,
+	underLineStyle?: Style,
+	hint?: string,
+	hintColor?: string,
+	floatingLabel?: string,
+	forceFloating?: boolean,
+	errorText?: string,
+	disabled?: boolean,
+
+	autoCapitalize?: boolean,
+	autoCorrect?: boolean,
+	autoFocus?: boolean,
+	blurOnSubmit?: boolean,
+	value?: any,
+	defaultValue?: any,
+	editable?: boolean,
+	keyboardType?: string,
+	maxLength?: number,
+	returnKeyType?: string,
+	secureTextEntry?: boolean,
+	selectTextOnFocus?: boolean,
+
+	onFocus?: Function,
+	onBlur?: Function,
+	onChangeText?: Function,
+	onEndEditing?: Function,
+};
 
 const easeInSpeed = 450;
 
-export default class Input extends Component {
-	static propTypes = {
-		wrapperStyle: React.PropTypes.any,
-		underLineStyle: React.PropTypes.any,
-		hint: React.PropTypes.string,
-		hintColor: React.PropTypes.string,
-		floatingLabel: React.PropTypes.string,
-		forceFloating: React.PropTypes.bool,
-		errorText: React.PropTypes.string,
-		disabled: React.PropTypes.bool,
-
-		autoCapitalize: React.PropTypes.string,
-		autoCorrect: React.PropTypes.bool,
-		autoFocus: React.PropTypes.bool,
-		blurOnSubmit: React.PropTypes.bool,
-		value: React.PropTypes.node,
-		defaultValue: React.PropTypes.node,
-		editable: React.PropTypes.bool,
-		keyboardType: React.PropTypes.string,
-		maxLength: React.PropTypes.number,
-		returnKeyType: React.PropTypes.string,
-		secureTextEntry: React.PropTypes.bool,
-		selectTextOnFocus: React.PropTypes.bool,
-
-		onFocus: React.PropTypes.func,
-		onBlur: React.PropTypes.func,
-		onChangeText: React.PropTypes.func,
-		onEndEditing: React.PropTypes.func,
-	};
+export default class Input extends Component<any, Props, any> {
+	props: Props;
 
 	static defaultProps = {
 		value: '',

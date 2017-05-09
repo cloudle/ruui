@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { Animated, Easing } from 'react-native';
+import { Style } from '../typeDefinition';
 
-export class RippleEffect extends Component {
-	static propTypes = {
-		initialOpacity: React.PropTypes.number,
-		initialScale: React.PropTypes.number,
-		speed: React.PropTypes.number,
-	};
+type Props = {
+	initialOpacity?: number,
+	initialScale?: number,
+	speed?: number,
+	style: Style,
+};
+
+export class RippleEffect extends Component<any, Props, any> {
+	props: Props;
 
 	static defaultProps = {
 		initialOpacity: 0.2,

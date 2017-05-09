@@ -3,6 +3,14 @@ import { Animated, Easing, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import { horizontalSnappings } from '../utils';
+import { Style } from '../typeDefinition';
+
+type Props = {
+	contentRenderer?: Function,
+	containerStyle?: Style,
+	minWidth?: number,
+	margin?: number,
+};
 
 const snackbarRadius = 3;
 
@@ -12,13 +20,8 @@ const snackbarRadius = 3;
 	};
 })
 
-export default class Snackbar extends Component {
-	static propTypes = {
-		contentRenderer: React.PropTypes.func,
-		containerStyle: React.PropTypes.any,
-		minWidth: React.PropTypes.number,
-		margin: React.PropTypes.number,
-	};
+export default class Snackbar extends Component<any, Props, any> {
+	props: Props;
 
 	static defaultProps = {
 		contentRenderer: defaultContentRenderer,

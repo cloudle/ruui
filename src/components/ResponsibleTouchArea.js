@@ -4,33 +4,36 @@ import { Animated, Easing, TouchableOpacity, View, StyleSheet } from 'react-nati
 import RippleEffect from './RippleEffect';
 import Tooltip from './Tooltip';
 import { debounce, isIos } from '../utils';
+import { Style, Element } from '../typeDefinition';
+
+type Props = {
+	wrapperStyle?: Style,
+	innerStyle?: Style,
+	tooltip?: string,
+	ripple?: boolean,
+	staticRipple?: boolean,
+	rippleColor?: string,
+	rippleInitialOpacity?: number,
+	rippleInitialScale?: number,
+	rippleAnimationSpeed?: number,
+	fade?: boolean,
+	raise?: boolean,
+	debounce?: number,
+	disabled?: boolean,
+	minActiveOpacity?: number,
+	onPress?: Function,
+	onLayout?: Function,
+	onMouseEnter?: Function,
+	onMouseLeave?: Function,
+	fadeLevel?: number,
+	children?: Element,
+	onPressIn?: Function,
+};
 
 const MAX_PARTICLE_COUNT = 5;
 
-export default class ResponsibleTouchArea extends Component {
-	static propTypes = {
-		wrapperStyle: React.PropTypes.any,
-		innerStyle: React.PropTypes.any,
-		tooltip: React.PropTypes.string,
-		ripple: React.PropTypes.bool,
-		staticRipple: React.PropTypes.bool,
-		rippleColor: React.PropTypes.string,
-		rippleInitialOpacity: React.PropTypes.number,
-		rippleInitialScale: React.PropTypes.number,
-		rippleAnimationSpeed: React.PropTypes.number,
-		fade: React.PropTypes.bool,
-		raise: React.PropTypes.bool,
-		debounce: React.PropTypes.number,
-		disabled: React.PropTypes.bool,
-		minActiveOpacity: React.PropTypes.number,
-		onPress: React.PropTypes.func,
-		onLayout: React.PropTypes.func,
-		onMouseEnter: React.PropTypes.func,
-		onMouseLeave: React.PropTypes.func,
-		fadeLevel: React.PropTypes.number,
-		children: React.PropTypes.element,
-		onPressIn: React.PropTypes.func,
-	};
+export default class ResponsibleTouchArea extends Component<any, Props, any> {
+	props: Props;
 
 	static defaultProps = {
 		staticRipple: false,

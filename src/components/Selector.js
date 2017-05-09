@@ -8,18 +8,20 @@ import { isAndroid, colors } from '../utils';
 import { screenWidthPadding } from '../utils/screen';
 import * as appActions from '../utils/store/appAction';
 
+type Props = {
+	configs?: Object,
+	animation?: any,
+	dispatch?: Function,
+};
+
 @connect(({ app }) => {
 	return {
 		configs: app.selectorConfigs,
 	};
 })
 
-export default class Selector extends Component {
-	static propTypes = {
-		configs: React.PropTypes.object,
-		animation: React.PropTypes.any,
-		dispatch: React.PropTypes.func,
-	};
+export default class Selector extends Component<any, Props, any> {
+	props: Props;
 
 	constructor(props) {
 		super(props);

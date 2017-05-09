@@ -5,15 +5,17 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import ResponsibleTouchArea from './ResponsibleTouchArea';
 import { colors, isAndroid } from '../utils';
 
-export default class SelectorItem extends Component {
-	static propTypes = {
-		onPress: React.PropTypes.func,
-		onSelect: React.PropTypes.func,
-		onChange: React.PropTypes.func,
-		getTitle: React.PropTypes.func,
-		activeInstance: React.PropTypes.any,
-		optionInstance: React.PropTypes.any,
-	};
+type Props = {
+	onPress?: Function,
+	onSelect?: Function,
+	onChange?: Function,
+	getTitle?: Function,
+	activeInstance?: Array<any>,
+	optionInstance?: Array<any>,
+};
+
+export default class SelectorItem extends Component<any, Props, any> {
+	props: Props;
 
 	render() {
 		const optionInstance = this.props.optionInstance,

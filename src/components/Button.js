@@ -2,30 +2,33 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import ResponsibleTouchArea from './ResponsibleTouchArea';
 import { colors } from '../utils';
+import { Style, Element } from '../typeDefinition';
 
-export default class Button extends Component {
-	static propTypes = {
-		wrapperStyle: React.PropTypes.any,
-		innerStyle: React.PropTypes.object,
-		color: React.PropTypes.string,
-		borderRadius: React.PropTypes.number,
-		ripple: React.PropTypes.bool,
-		rippleColor: React.PropTypes.string,
-		rippleInitialOpacity: React.PropTypes.number,
-		rippleInitialScale: React.PropTypes.number,
-		staticRipple: React.PropTypes.bool,
-		icon: React.PropTypes.any,
-		rightIcon: React.PropTypes.any,
-		title: React.PropTypes.string,
-		tooltip: React.PropTypes.string,
-		textStyle: React.PropTypes.object,
-		disabled: React.PropTypes.bool,
-		raise: React.PropTypes.bool,
-		fade: React.PropTypes.bool,
-		onPress: React.PropTypes.func,
-		fadeLevel: React.PropTypes.number,
-		children: React.PropTypes.element,
-	};
+type Props = {
+	wrapperStyle?: Style,
+	innerStyle?: Style,
+	color?: string,
+	borderRadius?: number,
+	ripple?: boolean,
+	rippleColor?: string,
+	rippleInitialOpacity?: number,
+	rippleInitialScale?: number,
+	staticRipple?: number,
+	icon?: Element,
+	rightIcon?: Element,
+	title?: string,
+	tooltip?: string,
+	textStyle?: Style,
+	disabled?: boolean,
+	raise?: boolean,
+	fade?: boolean,
+	onPress?: Function,
+	fadeLevel?: number,
+	children?: Element,
+};
+
+export default class Button extends Component<any, Props, any> {
+	props: Props;
 
 	static defaultProps = {
 		ripple: true,

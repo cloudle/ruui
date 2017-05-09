@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default class Picker extends Component {
-	static propTypes = {
-		selectorConfigs: React.PropTypes.object,
-	};
+type Props = {
+	selectorConfigs?: Object,
+};
+
+export default class Picker extends Component<any, Props, any> {
+	props: Props;
 
 	render() {
 		return <View>
