@@ -12,6 +12,8 @@ type Props = {
 	forceFloating?: boolean,
 	errorText?: string,
 	disabled?: boolean,
+	prefix?: Element,
+	suffix?: Element,
 
 	autoCapitalize?: boolean,
 	autoCorrect?: boolean,
@@ -69,31 +71,40 @@ export default class Input extends Component<any, Props, any> {
 			},
 			inputContainerStyles = this.buildInputContainerStyles(this.props.wrapperStyle),
 			hint = this.state.focus && this.state.empty ? this.props.hint : '',
-			platformProps = isAndroid ? { underlineColorAndroid: 'transparent' } : {};
+			platformProps = isAndroid ? { underlineColorAndroid: 'transparent' } : {},
+			dynamicProps = this.props.value ? { value: this.props.value } : {};
 
 		return <View pointerEvents={pointerEvents} style={[styles.container, inputContainerStyles]}>
-			<View style={{ marginLeft: 8, marginRight: 8 }}>
-				<TextInput
-					onChangeText={this.onChangeText}
-					onFocus={this.onInputFocus}
-					onBlur={this.onInputBlur}
-					autoCapitalize={this.props.autoCapitalize}
-					autoCorrect={this.props.autoCorrect}
-					autoFocus={this.props.autoFocus}
-					blurOnSubmit={this.props.blurOnSubmit}
-					editable={this.props.editable}
-					keyboardType={this.props.keyboardType}
-					maxLength={this.props.maxLength}
-					returnKeyType={this.props.returnKeyType}
-					secureTextEntry={this.props.secureTextEntry}
-					selectTextOnFocus={this.props.selectTextOnFocus}
-					onEndEditing={this.props.onEndEditing}
-					value={this.props.value}
-					defaultValue={this.props.defaultValue}
-					style={styles.textInput}
-					placeholder={hint}
-					placeholderTextColor={this.props.hintColor}
-					{...platformProps}/>
+			<View style={{ flexDirection: 'row', }}>
+				<View style={styles.addonContainer}>
+					{this.props.prefix}
+				</View>
+				<View style={styles.inputContainer}>
+					<TextInput
+						onChangeText={this.onChangeText}
+						onFocus={this.onInputFocus}
+						onBlur={this.onInputBlur}
+						autoCapitalize={this.props.autoCapitalize}
+						autoCorrect={this.props.autoCorrect}
+						autoFocus={this.props.autoFocus}
+						blurOnSubmit={this.props.blurOnSubmit}
+						editable={this.props.editable}
+						keyboardType={this.props.keyboardType}
+						maxLength={this.props.maxLength}
+						returnKeyType={this.props.returnKeyType}
+						secureTextEntry={this.props.secureTextEntry}
+						selectTextOnFocus={this.props.selectTextOnFocus}
+						onEndEditing={this.props.onEndEditing}
+						defaultValue={this.props.defaultValue}
+						style={styles.textInput}
+						placeholder={hint}
+						placeholderTextColor={this.props.hintColor}
+						{...platformProps}
+						{...dynamicProps}/>
+				</View>
+				<View style={styles.addonContainer}>
+					{this.props.suffix}
+				</View>
 				{this.renderFloatingLabel()}
 			</View>
 			<Animated.View style={[styles.inputUnderLine, underLineStyles]}/>
@@ -196,6 +207,16 @@ const styles = StyleSheet.create({
 		backgroundColor: 'transparent',
 		borderBottomWidth: 1,
 		borderColor: '#f5f5f5',
+	},
+	addonContainer: {
+		justifyContent: 'center',
+		alignItems: 'center',
+		paddingTop: 6,
+	},
+	inputContainer: {
+		flex: 1,
+		marginLeft: 8,
+		marginRight: 8,
 	},
 	textInput: {
 		height: 30,

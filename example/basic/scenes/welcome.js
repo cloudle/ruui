@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Button } from '../../../src';
+import { Button, Input } from '../../../src';
 import * as appActions from '../store/action/app';
 
 type Props = {
@@ -42,6 +42,8 @@ export default class app extends Component {
 				onPress={() => {
 					this.props.navigation.navigate('Welcome');
 				}}/>
+
+			<Input suffix={<Icon name="ios-beer-outline"/>}/>
 		</View>;
 	}
 }
