@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import ResponsibleTouchArea from './ResponsibleTouchArea';
+import RadioIcon from './RadioIcon';
 import { colors, isAndroid } from '../utils';
 
 type Props = {
@@ -22,12 +22,12 @@ export default class SelectorItem extends Component<any, Props, any> {
 			activeInstance = this.props.activeInstance,
 			wrapperStyles = {},
 			iconStyles = {};
-		let iconName = 'radio-button-unchecked';
+		let isActive = false;
 
 		if (JSON.stringify(activeInstance) === JSON.stringify(optionInstance)) {
 			wrapperStyles.backgroundColor = '#fcfcfc';
 			iconStyles.color = colors.iOsBlue;
-			iconName = 'radio-button-checked';
+			isActive = true;
 		}
 
 		return <ResponsibleTouchArea
@@ -38,9 +38,7 @@ export default class SelectorItem extends Component<any, Props, any> {
 			fadeLevel={0.04}>
 			<View style={styles.optionInnerWrapper}>
 				<View style={styles.optionIconWrapper}>
-					<Icon
-						style={[styles.optionIcon, iconStyles]}
-						name={iconName}/>
+					<RadioIcon active={isActive}/>
 				</View>
 				<View style={styles.optionTextWrapper}>
 					{this.renderOptionText()}
