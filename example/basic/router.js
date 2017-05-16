@@ -9,7 +9,10 @@ const backIcon = require('./images/white-back.png');
 
 export default StackNavigator({
 	Index: {
-		screen: Welcome,
+		screen: Login,
+		navigationOptions: {
+			title: 'Home'
+		},
 	},
 	Welcome: {
 		screen: Login,

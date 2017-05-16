@@ -3,7 +3,7 @@ import { StatusBar, View, Text, StyleSheet } from 'react-native';
 import { connect, Provider } from 'react-redux';
 import Drawer from 'react-native-drawer';
 
-import { Snackbar, utils } from '../../src';
+import { Snackbar, Modal, utils } from '../../src';
 import Router from './router';
 import Menu from './share/menu';
 import * as appActions from './store/action/app';
@@ -60,7 +60,8 @@ export class App extends Component {
 			tweenHandler={drawerTween}>
 
 			<Router/>
-			<Snackbar/>
+			<Modal/>
+			{/*<Snackbar/>*/}
 		</Drawer>;
 	}
 }

@@ -42,8 +42,6 @@ export default class app extends Component {
 				onPress={() => {
 					this.props.navigation.navigate('Welcome');
 				}}/>
-
-			<Input suffix={<Icon name="ios-beer-outline"/>}/>
 		</View>;
 	}
 }
