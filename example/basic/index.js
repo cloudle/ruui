@@ -5,7 +5,7 @@ import Drawer from 'react-native-drawer';
 
 import { Snackbar, Modal, utils } from '../../src';
 import Router from './router';
-import Menu from './share/menu';
+import Menu from './share/Menu';
 import * as appActions from './store/action/app';
 
 const { isIos, isAndroid } = utils;

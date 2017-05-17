@@ -2,9 +2,9 @@ import 'babel-polyfill';
 import React, { Component } from 'react';
 import ReactNative, { View, Text, AsyncStorage } from 'react-native';
 import { AppContainer } from 'react-hot-loader';
-import app from './example/basic';
-import configureStore from './example/basic/store';
-import * as appActions from './example/basic/store/action/app';
+import app from './example/legacy';
+import configureStore from './example/legacy/store';
+import * as appActions from './example/legacy/store/action/app';
 
 const store = configureStore();
 const render = (AppComponent) => {
@@ -21,8 +21,8 @@ const render = (AppComponent) => {
 render(app);
 
 if (module.hot) {
-	module.hot.accept('./example/basic', () => {
-		const App = require('./example/basic').default; //eslint-disable-line
+	module.hot.accept('./example/legacy', () => {
+		const App = require('./example/legacy').default; //eslint-disable-line
 		render(App);
 
 		/* Beautiful workaround:

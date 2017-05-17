@@ -15,3 +15,4 @@ export const Modal = modalImport;
 export const Select = selectImport;
 export const Snackbar = snackbarImport;
 export const Tooltip = tooltipImport;
+export * from './Navigation';
