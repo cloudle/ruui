@@ -2,7 +2,7 @@ import responsibleTouchAreaImport from './ResponsibleTouchArea';
 import rippleEffectImport from './RippleEffect';
 import buttonImport from './Button';
 import inputImport from './Input';
-import modalImport from './Modal';
+import modalImport from './Modals';
 import selectImport from './Select';
 import snackbarImport from './Snackbar';
 import tooltipImport from './Tooltip';

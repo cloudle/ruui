@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { routeAction } from '../../../src/utils';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-import { Button } from '../../../src';
+import { Button, Input, Select, appAction, routeAction } from '../../../src';
+import GreetingModal from '../modal/greeting';
 import * as appActions from '../store/action/app';
-import * as routes from '../utils/routes';
 
 type Props = {
 	dispatch?: Function,
+	counter?: number,
 };
 
 @connect(({ app }) => {
@@ -22,22 +23,35 @@ export default class app extends Component {
 
 	render() {
 		return <View style={styles.container}>
-			<Text style={styles.welcome}>
-				Welcome to React Native!! {this.props.counter}
-			</Text>
-			<Text style={styles.instructions}>
-				To get started, edit src/app.js
-			</Text>
-			<Text style={styles.instructions}>
-				Press Cmd+R to reload,{'\n'}
-				Cmd+D or shake for dev menu
-			</Text>
-			<Button
-				wrapperStyle={{ backgroundColor: '#00bcd4', width: 120 }}
-				tooltip="Yay!"
-				title="Click me!" onPress={() => {
-					this.props.dispatch(routeAction.push(routes.login));
-				}}/>
+			<View style={{ flexDirection: 'row', }}>
+				<View style={{ flex: 1, flexBasis: 0, }}>
+					<Input forceFloating floatingLabel="Hello"/>
+				</View>
+				<View style={{ flex: 1, flexBasis: 0, }}>
+					<Select options={selects} value={{ title: 'None', }}/>
+				</View>
+			</View>
+
+			<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+				<Text style={styles.welcome}>
+					Welcome to React Native!! {this.props.counter}
+				</Text>
+				<Text style={styles.instructions}>
+					To get started, edit src/app.js
+				</Text>
+				<Text style={styles.instructions}>
+					Press Cmd+R to reload,{'\n'}
+					Cmd+D or shake for dev menu
+				</Text>
+				<Button
+					wrapperStyle={{ backgroundColor: '#00bcd4', width: 120 }}
+					tooltip="Yay!"
+					title="Click me!" onPress={() => {
+						this.props.dispatch(appAction.toggleModal(true, {
+							Component: GreetingModal,
+						}));
+					}}/>
+			</View>
 		</View>;
 	}
 }
@@ -45,8 +59,8 @@ export default class app extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
+		// justifyContent: 'center',
+		// alignItems: 'center',
 	},
 	welcome: {
 		fontSize: 20,
@@ -59,3 +73,13 @@ const styles = StyleSheet.create({
 		marginBottom: 5,
 	},
 });
+
+const selects = [{
+	title: 'Selection 1',
+}, {
+	title: 'Selection 2',
+}, {
+	title: 'Selection 3',
+}, {
+	title: 'Selection 4',
+}];

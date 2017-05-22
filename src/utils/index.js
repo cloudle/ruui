@@ -10,5 +10,5 @@ export const isAndroid = os === 'android';
 
 export * from './colors';
 export * from './helpers';
-export * from './store';
+export * from './store'; // TODO: Deprecated on 1.0.0, remove this when time has come..
 export * from './screen';

@@ -3,7 +3,7 @@ import { AsyncStorage, View, Text, StyleSheet } from 'react-native';
 import { connect, Provider } from 'react-redux';
 import Drawer from 'react-native-drawer';
 
-import { NavigationCardStack, Snackbar, utils } from '../../src';
+import { NavigationCardStack, Snackbar, Modal, routeAction, appAction } from '../../src';
 import Menu from './share/Menu';
 import NavigationHeader from './share/NavigationHeader';
 import Welcome from './scenes/welcome';
@@ -52,7 +52,9 @@ export class App extends Component {
 				renderScene={this.renderScene}
 				renderHeader={this.renderHeader}
 				gestureResponseDistance={50}
-				onNavigateBack={() => this.props.dispatch(utils.routeAction.pop())}/>
+				onNavigateBack={() => this.props.dispatch(routeAction.pop())}/>
+
+			<Modal/>
 		</Drawer>;
 	}
 

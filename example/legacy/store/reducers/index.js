@@ -1,14 +1,15 @@
 import { combineReducers } from 'redux';
 
 import appReducer from './app';
-import { utils } from '../../../../src';
-import { initialRoute } from '../../utils';
+import { routeReducer } from '../../../../src';
+import routeConfigs from '../../routes';
 
 const initialRouterState = {
-	routes: [initialRoute],
+
 };
 
-const routeReducer = utils.routeReducer(
+const routerReducer = routeReducer(
+	routeConfigs,
 	(state = initialRouterState, action) => {
 		switch (action.type) {
 		default:
@@ -19,5 +20,5 @@ const routeReducer = utils.routeReducer(
 
 export default combineReducers({
 	app: appReducer,
-	router: routeReducer,
+	router: routerReducer,
 });

@@ -1,21 +1,17 @@
 import * as Actions from './actions';
 
-export function push(route) {
-	return { type: Actions.RouterPush, route };
+export function push(key, params = {}) {
+	return { type: Actions.RouterPush, key, params };
 }
 
-export function pop() {
-	return { type: Actions.RouterPop };
+export function replace(key, params = {}) {
+	return { type: Actions.RouterReplace, key, params };
 }
 
-export function reset() {
-	return { type: Actions.NativeRouterReset };
+export function pop(params = {}) {
+	return { type: Actions.RouterPop, params };
 }
 
-export function jumpTo(key: String) {
-	return { type: Actions.RouterJumpTo, key };
-}
-
-export function jupToIndex(index: Number) {
-	return { type: Actions.NativeRouterJumpToIndex, index };
+export function reset(key, params = {}) {
+	return { type: Actions.RouterReset, key, params };
 }

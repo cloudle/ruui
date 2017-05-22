@@ -6,11 +6,16 @@ const defaultSelectorConfigs = {
 	options: [{ title: 'Option 1' }, { title: 'Option 2' }],
 };
 
-export function appReducer(reducer: Reducer) {
+const defaultModalConfigs = {
+
+};
+
+export function appReducer(reducer) {
 	const initialState = {
-		activeModal: null,
-		selectorConfigs: defaultSelectorConfigs,
-		modalConfigs: {},
+		activeModals: {
+			defaultSelector: null,
+			defaultModal: null,
+		},
 		...reducer(undefined, { type: Actions.ReduxInit }),
 	};
 
@@ -29,18 +34,22 @@ export function appReducer(reducer: Reducer) {
 }
 
 function handleToggleSelect(state, action) {
-	const activeModal = action.flag === false
-		? null : action.flag === true
-			? 'select'
-			: state.activeModal === null ? 'select' : null;
+	const selectorName = action.id || 'default',
+		selectorConfigs = {
+			type: 'select',
+			active: action.flag === true,
+			configs: action.flag === true ? {
+				...defaultSelectorConfigs,
+				...action.configs
+			} : state.activeModals[`${selectorName}Selector`].configs,
+		};
 
 	return {
 		...state,
-		activeModal,
-		selectorConfigs: action.flag ? {
-			...defaultSelectorConfigs,
-			...action.configs,
-		} : state.selectorConfigs,
+		activeModals: {
+			...state.activeModals,
+			[`${selectorName}Selector`]: selectorConfigs,
+		},
 	};
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Animated, Easing, View, StyleSheet } from 'react-native';
+import { Animated, Easing, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import * as appActions from '../utils/store/appAction';
@@ -8,47 +8,42 @@ import LoadingMask from './LoadingMask';
 import CloseableModal from './CloseableModal';
 
 type Props = {
-	activeModal?: any,
+	active?: any,
+	type?: string,
+	configs?: Object,
 	dispatch?: Function,
 };
 
-@connect(({ app }) => {
-	return {
-		activeModal: app.activeModal,
-		selectorConfigs: app.selectorConfigs,
-	};
-})
-
-export default class Modal extends Component<any, Props, any> {
+export default class Modal extends Component {
 	props: Props;
 
 	constructor(props) {
 		super(props);
 		this.state = {
 			enterAnimation: new Animated.Value(0),
-			activeModal: this.props.activeModal,
+			active: this.props.active,
 		};
 	}
 
 	componentDidMount() {
-		this.playTransition(this.props.activeModal);
+		this.playTransition(this.props.active);
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.activeModal !== this.props.activeModal) {
-			this.playTransition(nextProps.activeModal);
+		if (nextProps.active !== this.props.active) {
+			this.playTransition(nextProps.active);
 		}
 	}
 
-	playTransition(activeModal) {
-		const nextValue = activeModal ? 1 : 0;
+	playTransition(active) {
+		const nextValue = active ? 1 : 0;
 
-		if (!activeModal) {
+		if (!active) {
 			this.playAnimation(nextValue, () => {
-				this.setState({ activeModal: null });
+				this.setState({ active: null });
 			});
 		} else {
-			this.setState({ activeModal });
+			this.setState({ active });
 			this.playAnimation(nextValue);
 		}
 	}
@@ -61,20 +56,20 @@ export default class Modal extends Component<any, Props, any> {
 				backgroundColor,
 			};
 
-		return this.state.activeModal ? <Animated.View
+		return this.state.active ? <Animated.View
 			style={[styles.container, containerStyles]}>
-			<View
-				style={styles.innerTouchable}
-				onPress={this.onBackdropPress}>
+			<View style={styles.innerTouchable}>
 				{this.renderModalInner()}
 			</View>
 		</Animated.View> : <View/>;
 	}
 
 	renderModalInner() {
-		switch (this.state.activeModal) {
+		switch (this.props.type) {
 		case 'select':
-			return <Selector animation={this.state.enterAnimation}/>;
+			return <Selector
+				animation={this.state.enterAnimation}
+				configs={this.props.configs}/>;
 		case 'modal':
 			return <CloseableModal animation={this.state.enterAnimation}/>;
 		case 'loading':

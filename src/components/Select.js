@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, Image, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { appAction } from '../../src/utils';
+import { appAction } from '../../src';
 
 type Props = {
 	floatingLabel?: string,

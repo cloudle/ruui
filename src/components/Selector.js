@@ -16,7 +16,7 @@ type Props = {
 
 @connect(({ app }) => {
 	return {
-		configs: app.selectorConfigs,
+
 	};
 })
 
@@ -99,7 +99,9 @@ export default class Selector extends Component<any, Props, any> {
 
 	cancelSelector = () => {
 		this.setState({ lock: true });
-		this.props.dispatch(appActions.toggleSelector(false));
+		this.props.dispatch(appActions.toggleSelector(false, {
+			id: this.props.configs.id,
+		}));
 		if (this.props.configs.onCancel) this.props.configs.onCancel();
 	}
 }

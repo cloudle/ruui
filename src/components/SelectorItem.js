@@ -10,8 +10,8 @@ type Props = {
 	onSelect?: Function,
 	onChange?: Function,
 	getTitle?: Function,
-	activeInstance?: Array<any>,
-	optionInstance?: Array<any>,
+	activeInstance?: Object,
+	optionInstance?: Object,
 };
 
 export default class SelectorItem extends Component<any, Props, any> {
