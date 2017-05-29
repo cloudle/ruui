@@ -1,9 +1,9 @@
 import tinyColor from 'tinycolor2';
 import React, { Component } from 'react';
-import { Animated, Easing, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { Animated, PanResponder, Easing, TouchableOpacity, View, StyleSheet } from 'react-native';
 import RippleEffect from './RippleEffect';
 import Tooltip from './Tooltip';
-import { debounce, isIos } from '../utils';
+import { debounce, isIos, isBrowser } from '../utils';
 import { Style, Element } from '../typeDefinition';
 
 type Props = {
@@ -107,7 +107,8 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 				shadowOffset: { width: 0, height: 2 },
 			} : {};
 
-		return <Animated.View style={[styles.fullSizeAbsolute, wrapperBorderRadius, shadow]}/>;
+		return <Animated.View
+			style={[styles.fullSizeAbsolute, shadow, wrapperBorderRadius]}/>;
 	}
 
 	renderFadeEffect(isLightBackground: Boolean, wrapperBorderRadius) {
@@ -170,13 +171,12 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 
 		this.playFadeAnimation(1);
 
-		const { locationX, locationY, pageX, pageY } = e.nativeEvent;
-
+		const { locationX, locationY, offsetX, offsetY, pageX, pageY } = e.nativeEvent;
 		this.wrapperView.measure((fx, fy, wrapperWidth, wrapperHeight, px, py) => {
 			let rippleRadius = 0, ripplePosition;
-			const touchX = locationX, touchY = locationY;
+			const touchX = locationX || offsetX, touchY = locationY || offsetY;
 
-			if (this.props.staticRipple) {
+			if (this.props.staticRipple || !touchX) {
 				rippleRadius = wrapperWidth / 2;
 				ripplePosition = {
 					top: (wrapperHeight / 2) - rippleRadius,

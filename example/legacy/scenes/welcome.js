@@ -44,7 +44,7 @@ export default class app extends Component {
 					Cmd+D or shake for dev menu
 				</Text>
 				<Button
-					wrapperStyle={{ backgroundColor: '#00bcd4', width: 120 }}
+					wrapperStyle={{ backgroundColor: '#00bcd4', width: 120, borderRadius: 6, }}
 					tooltip="Yay!"
 					title="Click me!" onPress={() => {
 						this.props.dispatch(appAction.toggleModal(true, {
