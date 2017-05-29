@@ -11,6 +11,7 @@ type Props = {
 	active?: any,
 	type?: string,
 	configs?: Object,
+	modalCount?: number,
 	dispatch?: Function,
 };
 
@@ -49,8 +50,9 @@ export default class Modal extends Component {
 	}
 
 	render() {
-		const backgroundColor = this.state.enterAnimation.interpolate({
-				inputRange: [0, 1], outputRange: ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.8)'],
+		const averageOpacity = (0.8 / this.props.modalCount) + (this.props.modalCount * 0.1),
+			backgroundColor = this.state.enterAnimation.interpolate({
+				inputRange: [0, 1], outputRange: ['rgba(0, 0, 0, 0)', `rgba(0, 0, 0, ${averageOpacity})`],
 			}),
 			containerStyles = {
 				backgroundColor,
@@ -71,9 +73,13 @@ export default class Modal extends Component {
 				animation={this.state.enterAnimation}
 				configs={this.props.configs}/>;
 		case 'modal':
-			return <CloseableModal animation={this.state.enterAnimation}/>;
+			return <CloseableModal
+				animation={this.state.enterAnimation}
+				configs={this.props.configs}/>;
 		case 'loading':
-			return <LoadingMask animation={this.state.enterAnimation}/>;
+			return <LoadingMask
+				animation={this.state.enterAnimation}
+				configs={this.props.configs}/>;
 		default:
 			return <View/>;
 		}

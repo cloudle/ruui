@@ -15,6 +15,7 @@ export function appReducer(reducer) {
 		activeModals: {
 			defaultSelector: null,
 			defaultModal: null,
+			loading: null,
 		},
 		...reducer(undefined, { type: Actions.ReduxInit }),
 	};
@@ -34,7 +35,7 @@ export function appReducer(reducer) {
 }
 
 function handleToggleSelect(state, action) {
-	const selectorName = action.id || 'default',
+	const selectorName = action.configs.id || 'default',
 		selectorConfigs = {
 			type: 'select',
 			active: action.flag === true,
@@ -54,26 +55,36 @@ function handleToggleSelect(state, action) {
 }
 
 function handleToggleModal(state, action) {
-	const activeModal = action.flag === false ? null : 'modal';
+	const modalName = action.configs.id || 'default',
+		modalConfigs = {
+			type: 'modal',
+			active: action.flag === true,
+			configs: action.flag === true ? {
+				...action.configs,
+			} : state.activeModals[`${modalName}Modal`].configs,
+		};
 
 	return {
 		...state,
-		activeModal,
-		modalConfigs: action.flag ? {
-			...action.configs,
-		} : state.modalConfigs,
+		activeModals: {
+			...state.activeModals,
+			[`${modalName}Modal`]: modalConfigs,
+		},
 	};
 }
 
 function handleToggleLoading(state, action) {
-	const activeModal = action.flag === false
-		? null : 'loading';
-
 	return {
 		...state,
-		activeModal,
-		loadingConfigs: action.flag ? {
-			...action.configs,
-		} : {},
+		activeModals: {
+			...state.activeModals,
+			loading: action.flag === true ? {
+				type: 'loading',
+				active: action.flag === true,
+				configs: action.flag ? {
+					...action.configs,
+				} : {},
+			} : null,
+		},
 	};
 }

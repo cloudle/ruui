@@ -18,12 +18,15 @@ export default class Modals extends Component {
 	props: Props;
 
 	render() {
+		const modalArray = Object.keys(this.props.modals)
+				.filter(key => this.props.modals[key] && this.props.modals[key].active) || [];
+
 		return <View
 			pointerEvents="none"
 			style={styles.container}>
-			{Object.keys(this.props.modals).map((modalKey) => {
+			{modalArray.map((modalKey) => {
 				const modalConfigs = this.props.modals[modalKey];
-				return <Modal key={modalKey} {...modalConfigs}/>;
+				return <Modal key={modalKey} modalCount={modalArray.length} {...modalConfigs}/>;
 			})}
 		</View>;
 	}

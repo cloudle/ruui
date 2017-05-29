@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import { Button, Input, Select, appAction, routeAction } from '../../../src';
 import GreetingModal from '../modal/greeting';
+import GoodByeModal from '../modal/goodbye';
 import * as appActions from '../store/action/app';
 
 type Props = {
@@ -21,6 +22,13 @@ type Props = {
 export default class app extends Component {
 	props: Props;
 
+	constructor (props) {
+		super(props);
+		this.state = {
+			activeSelect: selects[0],
+		};
+	}
+
 	render() {
 		return <View style={styles.container}>
 			<View style={{ flexDirection: 'row', }}>
@@ -28,7 +36,10 @@ export default class app extends Component {
 					<Input forceFloating floatingLabel="Hello"/>
 				</View>
 				<View style={{ flex: 1, flexBasis: 0, }}>
-					<Select options={selects} value={{ title: 'None', }}/>
+					<Select
+						options={selects}
+						value={this.state.activeSelect}
+						onSelect={next => this.setState({ activeSelect: next })}/>
 				</View>
 			</View>
 
@@ -47,9 +58,21 @@ export default class app extends Component {
 					wrapperStyle={{ backgroundColor: '#00bcd4', width: 120, borderRadius: 6, }}
 					tooltip="Yay!"
 					title="Click me!" onPress={() => {
-						this.props.dispatch(appAction.toggleModal(true, {
-							Component: GreetingModal,
-						}));
+						this.props.dispatch(appAction.toggleModal(true, { component: GreetingModal }));
+						setTimeout(() => {
+							this.props.dispatch(appAction.toggleModal(true, {
+								id: 'goodBye',
+								component: GoodByeModal,
+							}));
+						}, 2000);
+
+						setTimeout(() => {
+							this.props.dispatch(appAction.toggleModal(false, { id: 'goodBye', }));
+						}, 3000);
+
+						setTimeout(() => {
+							this.props.dispatch(appAction.toggleModal(false));
+						}, 4000);
 					}}/>
 			</View>
 		</View>;

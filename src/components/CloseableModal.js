@@ -7,12 +7,6 @@ type Props = {
 	animation?: any,
 };
 
-@connect(({ app }) => {
-	return {
-		configs: app.modalConfigs,
-	};
-})
-
 export default class CloseableModal extends Component<any, Props, any> {
 	props: Props;
 
@@ -23,7 +17,8 @@ export default class CloseableModal extends Component<any, Props, any> {
 			containerStyles = {
 				opacity: containerOpacity,
 			},
-			InnerComponent = this.props.configs.Component;
+			InnerComponent = this.props.configs.component || this.props.configs.Component;
+
 		return <Animated.View style={[styles.container, containerStyles]}>
 			{InnerComponent ? <InnerComponent /> : <View />}
 		</Animated.View>;

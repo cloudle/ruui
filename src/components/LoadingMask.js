@@ -8,12 +8,6 @@ type Props = {
 	dispatch?: Function,
 };
 
-@connect(({ app }) => {
-	return {
-		configs: app.loadingConfigs,
-	};
-})
-
 export default class LoadingModal extends Component<any, Props, any> {
 	props: Props;
 
