@@ -18,8 +18,7 @@ export default class Modals extends Component {
 	props: Props;
 
 	render() {
-		const modalArray = Object.keys(this.props.modals)
-				.filter(key => this.props.modals[key] && this.props.modals[key].active) || [];
+		const modalArray = Object.keys(this.props.modals) || [];
 
 		return <View
 			pointerEvents="none"
