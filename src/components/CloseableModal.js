@@ -20,7 +20,7 @@ export default class CloseableModal extends Component<any, Props, any> {
 			InnerComponent = this.props.configs.component || this.props.configs.Component;
 
 		return <Animated.View style={[styles.container, containerStyles]}>
-			{InnerComponent ? <InnerComponent /> : <View />}
+			{InnerComponent ? <InnerComponent configs={this.props.configs}/> : <View />}
 		</Animated.View>;
 	}
 }
