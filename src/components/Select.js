@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, Image, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { appAction } from '../../src';
+
+import { base64Icons } from '../utils';
+import { Style } from '../typeDefinition';
+import * as appAction from '../utils/store/appAction';
 
 type Props = {
 	floatingLabel?: string,
@@ -13,9 +16,9 @@ type Props = {
 	onChange?: Function,
 	onCancel?: Function,
 	dispatch?: Function,
+	iconSource?: any,
+	iconStyle?: Style,
 };
-
-const arrowDownImage = require('./arrow-down.png');
 
 @connect(({ app }) => {
 	return {
@@ -33,6 +36,8 @@ export default class Select extends Component<any, Props, any> {
 	};
 
 	render() {
+		const iconSource = this.props.iconSource || { uri: base64Icons.downArrow };
+
 		return <TouchableOpacity
 			onPress={this.activateSelector}
 			style={styles.container}
@@ -43,9 +48,9 @@ export default class Select extends Component<any, Props, any> {
 			</View>
 			<View style={styles.iconWrapper}>
 				<Image
-					style={styles.downIcon}
+					style={[styles.downIcon, this.props.iconStyle]}
 					resizeMode={Image.resizeMode.contain}
-					source={arrowDownImage}/>
+					source={iconSource}/>
 			</View>
 		</TouchableOpacity>;
 	}

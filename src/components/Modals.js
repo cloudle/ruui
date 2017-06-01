@@ -21,7 +21,7 @@ export default class Modals extends Component {
 		const modalArray = Object.keys(this.props.modals) || [];
 
 		return <View
-			pointerEvents="none"
+			pointerEvents="box-none"
 			style={styles.container}>
 			{modalArray.map((modalKey) => {
 				const modalConfigs = this.props.modals[modalKey];

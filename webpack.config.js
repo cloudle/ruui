@@ -14,7 +14,7 @@ const hot = [
 	'webpack/hot/only-dev-server',
 ];
 
-let plugins = [
+const plugins = [
 	new DefinePlugin({
 		ENV: JSON.stringify(env)
 	}),
@@ -32,15 +32,17 @@ if (env === 'dev') {
 
 module.exports = {
 	cache: true,
-	devtool: prod ? null : 'eval-source-map',
+	devtool: prod ? false : 'eval-source-map',
 	entry: {
 		app: prod ? [entry] : [...hot, entry]
 	},
 	output: {
 		publicPath,
-		path: path.join(__dirname, 'web'),
-		filename: '[name].bundle.js',
-		chunkFilename: '[name].js'
+		path: path.join(__dirname, prod ? 'dist' : 'web'),
+		filename: prod ? 'ruui.js' : '[name].bundle.js',
+		chunkFilename: '[name].js',
+		library: 'ruui',
+		libraryTarget: 'umd',
 	},
 	resolve: {
 		alias: {
@@ -58,8 +60,8 @@ module.exports = {
 			},
 			{ test: /\.css$/, loader: 'style-loader!css-loader' },
 			{
-				test: /\.(png|jpg|svg|ttf)$/,
-				loader: 'file-loader?name=[name].[ext]'
+				test: /\.(png|jpe?g|svg|ttf)$/,
+				loader: 'url-loader?name=[name].[ext]'
 			},
 			{
 				test: /\.json/,

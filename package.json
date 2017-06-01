@@ -7,12 +7,13 @@
     "src",
     "!**/__tests__"
   ],
-  "version": "0.0.98",
+  "version": "0.1.21",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "build": "babel ./src --out-dir ./dist",
-    "prepublish": "npm run build",
+    "bundle": "ENV=prod webpack --config webpack.config.js",
+    "release": "npm run build && npm run bundle && npm publish",
     "web-vendor": "webpack --config webpack.vendor.config.js --progress",
     "web": "node webpack.devserver",
     "ios": "react-native run-ios",
@@ -25,8 +26,10 @@
     "url": "git://github.com/cloudle/ruui.git"
   },
   "dependencies": {
-    "redux": "^3.6.0",
+    "react-native-drawer": "^2.3.0",
+    "react-native-web": "0.0.77",
     "react-redux": "^5.0.3",
+    "redux": "^3.6.0",
     "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
@@ -63,6 +66,7 @@
     "react-native-web": "0.0.77",
     "react-navigation": "github:cloudle/react-navigation",
     "react-test-renderer": "~15.4.0-rc.4",
+    "url-loader": "^0.5.8",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0"
   },

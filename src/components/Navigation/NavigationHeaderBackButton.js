@@ -11,9 +11,11 @@ type Props = {
 	onPress: Function,
 };
 
+const backArrow = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAeElEQVR4Ae2UJxJCQRBEW3FCFAoUDkXcQD7OvyHhkcZhu1btqxo5eab1T6dTGCsz6MhIdioTJe5KoMJMVhJTZR4R/Ooey1yJ5zd4pshKZqEEYSs5+QaM4N9EVjIlgj+/IwqaJ2g/Iv+S25+p4dEyFwXtpcIudp3OC08lc/MlMM5BAAAAAElFTkSuQmCC';
+
 const NavigationHeaderBackButton = (props: Props) => (
 	<TouchableOpacity style={styles.buttonContainer} onPress={props.onPress}>
-		<Image style={styles.button} source={require('./assets/back-icon.png')}/>
+		<Image style={styles.button} source={{ uri: backArrow }}/>
 	</TouchableOpacity>
 );
 

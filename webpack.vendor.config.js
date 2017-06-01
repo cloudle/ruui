@@ -9,7 +9,7 @@ const devVendors = [
 
 module.exports = {
 	entry: {
-		'vendor': [
+		vendor: [
 			'babel-polyfill',
 			'react', 'react-dom',
 			'react-native-web',
@@ -23,7 +23,7 @@ module.exports = {
 
 	resolve: {
 		alias: {
-			"react-native": "react-native-web",
+			'react-native': 'react-native-web',
 		},
 		modules: ['node_modules'],
 		extensions: ['.js']
@@ -35,7 +35,7 @@ module.exports = {
 				test: /\.js?$/,
 				loaders: ['babel-loader'],
 			},
-			{ test: /\.css$/, loader: "style-loader!css-loader" },
+			{ test: /\.css$/, loader: 'style-loader!css-loader' },
 			{
 				test: /\.(png|jpg|svg|ttf)$/,
 				loader: 'file-loader?name=[name].[ext]'
