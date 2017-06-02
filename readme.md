@@ -20,6 +20,7 @@ Cross-platform (**React Native** and **Web Browser**) [React][react-url], [React
 [react-native-url]: https://facebook.github.io/react-native/
 [react-native-web-url]: https://github.com/necolas/react-native-web
 [boilerplate-url]: https://github.com/cloudle/react-universal-ui-boilerplate
+[next-boilerplate-url]: https://github.com/cloudle/universal-ui-next-boilerplate
 [material-ui-url]: http://www.material-ui.com/
 [ionic-url]: http://ionicframework.com/docs/v2/components/#overview
 [react-native-vector-icon-url]: https://github.com/oblador/react-native-vector-icons
@@ -32,7 +33,7 @@ Cross-platform (**React Native** and **Web Browser**) [React][react-url], [React
 
 ### **Checkout [demo and detailed documentations][documentation-url] for live example.**  
 ### **Checkout [react-universal-ui boilerplate][boilerplate-url] for a complete starter boilerplate for [React Native][react-native-url]-first project**
-### **For Browser-first project, our boilerplate on Next.js (with full featured server-side rendering) is very close to ready.. We'll have it live ASAP :v**
+### **Checkout [universal-ui-next boilerplate][next-boilerplate-url] for Browser-first project**
 
 ## How it work
 #### React Native: 
