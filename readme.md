@@ -7,7 +7,7 @@ Cross-platform (**React Native** and **Web Browser**) [React][react-url], [React
 
 ## Platforms
 
-**Native platforms**: **iOs, Android** (we'll need more customize to make it run on another native places like Mac, Windows or Linux - currently I got no plan for those platforms).
+**Native platforms**: **iOs, Android** (for **Mac**, **Windows** or **Linux** we could just use Atom to bring our React Native code on it's web and have that same code-base run on Native environment when they got better support for React Native building block).
 
 **Browser support**: Chrome, Firefox, Safari >= 7, IE 10, Edge.
 
@@ -30,16 +30,18 @@ Cross-platform (**React Native** and **Web Browser**) [React][react-url], [React
 ## Overview
 "**React Universal UI**" is a cross-platform **React's UI Kit** - which could be run on both **Web Browser** and **React Native** environment, **write once and use everywhere**.
 
-### **Checkout [demo and detailed documentations][documentation-url] for live example.** 
+### **Checkout [demo and detailed documentations][documentation-url] for live example.**  
+### **Checkout [react-universal-ui boilerplate][boilerplate-url] for a complete starter boilerplate for [React Native][react-native-url]-first project**
+### **For Browser-first project, our boilerplate on Next.js (with full featured server-side rendering) is very close to ready.. We'll have it live ASAP :v**
 
 ## How it work
-####React Native: 
+#### React Native: 
 Essentially this is just a normal [React Native][react-native-url] UI Library - which absolutely work with [React Native][react-native-url]'s ecosystem. Feel free to use those UI with your favorite [React Native][react-native-url] library *even if you don't care about* **Browser** *yet (but believe me, you'll love it - Browser run give us tons of cool stuff)*. 
 
-####Browser:
+#### Browser:
 [React Native Web][react-native-web-url] let us run our [React Native][react-native-url] code on **Browser** and **[React Universal UI][github-url]** (this project) cares about behavior of those components on **Browser**.
 
-####Universal:
+#### Universal:
 There're some differences between **React Native** and **Web** building block - such as **Routing**, **Touch/Mouse handling**... this project cares and provide support for those differences (there're helpers under **utils** module), which save your time and let you focus on write your Universal App.
 
 ## Quick start
@@ -48,11 +50,10 @@ To install it in your app:
 npm install --save react-universal-ui
 ```
 
-####Alternatively, you can start with [react-universal-ui boilerplate][boilerplate-url] which have more complete structure to work on cross-platform [React Native][react-native-url] project.
-
 ## Status
+Most of the Component is pretty solid.. we should already able to do production Mobile Apps, Sites on this.
 
-This is a work in progress, right now here's what is done:
+I personally got dozen Apps built on this UI components. Next important thing for us is to make better Documentation, Demo (like IONIC does) - we do need reach there before back to those components.
 
 - [x] Cross-platform [react-native-vector-icon][react-native-vector-icon-url] with [my fork][cloud-vector-icons]
 - [x] ResponsibleTouchArea (Reuseable Ripple Effect).
