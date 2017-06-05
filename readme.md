@@ -82,12 +82,10 @@ I personally got dozen Apps built on this UI components. Next important thing fo
 - [x] Modal
 - [x] Loading Mask (mobile)
 - [ ] Radio
-- [ ] Snackbar
+- [x] Snackbar (on Alpha version)
 - [ ] Select field (mostly for **Web**)
 - [x] Selector API and Selector components for Native.  
-- [ ] Picker Components
-  - [ ] Datetime picker
-  - [ ] Scroll Picker
+- [ ] Datetime picker
 
 ## Related projects
 * [Material UI][material-ui-url], heavily inspired by their great component design for **Web**! My job is make it work in **Native** way.
