@@ -4,7 +4,7 @@ import buttonImport from './Button';
 import inputImport from './Input';
 import modalImport from './Modals';
 import selectImport from './Select';
-import snackbarImport from './Snackbar';
+import snackbarImport from './Snackbars';
 import tooltipImport from './Tooltip';
 
 export const ResponsibleTouchArea = responsibleTouchAreaImport;

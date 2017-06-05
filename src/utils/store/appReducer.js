@@ -1,4 +1,5 @@
 import * as Actions from './actions';
+import { collectionInsert, collectionDestroy } from '../collection';
 
 const defaultSelectorConfigs = {
 	selectText: 'Select',
@@ -17,6 +18,7 @@ export function appReducer(reducer) {
 			defaultModal: null,
 			loading: null,
 		},
+		snackBars: [],
 		...reducer(undefined, { type: Actions.ReduxInit }),
 	};
 
@@ -28,6 +30,10 @@ export function appReducer(reducer) {
 			return handleToggleModal(state, action);
 		case Actions.ToggleLoading:
 			return handleToggleLoading(state, action);
+		case Actions.InsertSnackBar:
+			return { ...state, snackBars: collectionInsert(state.snackBars, action.configs) };
+		case Actions.DestroySnackBar:
+			return { ...state, snackBars: collectionDestroy(state.snackBars, action.configs) };
 		default:
 			return reducer(state, action);
 		}
@@ -87,4 +93,12 @@ function handleToggleLoading(state, action) {
 			} : null,
 		},
 	};
+}
+
+function handleInsertSnackBar(state, action) {
+	return { ...state, snackBars: [action.configs, ...state.snackBars], };
+}
+
+function handleDestroySnackBar(state, action) {
+	return
 }

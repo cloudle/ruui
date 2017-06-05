@@ -53,7 +53,7 @@ export class App extends Component {
 				renderHeader={this.renderHeader}
 				gestureResponseDistance={50}
 				onNavigateBack={() => this.props.dispatch(routeAction.pop())}/>
-
+			<Snackbar/>
 			<Modal/>
 		</Drawer>;
 	}

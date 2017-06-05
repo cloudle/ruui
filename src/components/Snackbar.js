@@ -1,70 +1,50 @@
 import React, { Component } from 'react';
-import { Animated, Easing, View, Text, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
+import { View, Text, StyleSheet } from 'react-native';
 
-import { horizontalSnappings } from '../utils';
 import { Style } from '../typeDefinition';
 
 type Props = {
 	contentRenderer?: Function,
 	containerStyle?: Style,
-	minWidth?: number,
-	margin?: number,
+	closeable?: boolean,
+	timeout?: number,
+	onTimeout?: Function,
+	configs?: Object,
 };
 
-const snackbarRadius = 3;
-
-@connect(({ app }) => {
-	return {
-
-	};
-})
-
-export default class Snackbar extends Component<any, Props, any> {
+export default class Snackbar extends Component {
 	props: Props;
 
 	static defaultProps = {
 		contentRenderer: defaultContentRenderer,
-		minWidth: 300,
-		margin: 15,
+		timeout: 10000,
 	};
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			enterAnimation: new Animated.Value(0),
-		};
+	componentDidMount() {
+		if (this.props.onTimeout) {
+			this.timeout = setTimeout(() => {
+				this.props.onTimeout(this.props.configs);
+			}, this.props.timeout);
+		}
 	}
 
 	render() {
-		const snappingStyles = horizontalSnappings(this.props.margin, this.props.minWidth);
-
-		return <View
-			style={[styles.container, this.props.containerStyle, snappingStyles]}>
-			{this.props.contentRenderer()}
+		return <View style={[styles.container, this.props.containerStyle]}>
+			{this.props.contentRenderer(this.props.configs)}
 		</View>;
 	}
-
-	playEnterAnimation = () => {
-		if (this.enterAnimation) this.enterAnimation.clear();
-
-		this.enterAnimation = Animated.timing(this.state.enterAnimation, {
-			toValue: 1,
-			duration: 800,
-			easing: Easing.in(Easing.bezier(0, 0.48, 0.35, 1)),
-		});
-	};
 }
 
-function defaultContentRenderer() {
-	return <Text style={styles.message}>Snackbar</Text>;
+function defaultContentRenderer(configs) {
+	return <Text
+		numberOfLines={1}
+		style={styles.message}>{configs.message}</Text>;
 }
 
 const styles = StyleSheet.create({
 	container: {
-		position: 'absolute', bottom: 0,
-		padding: 14,
-		borderTopLeftRadius: snackbarRadius, borderTopRightRadius: snackbarRadius,
+		padding: 14, marginTop: 6,
+		borderRadius: 3,
 		backgroundColor: 'rgba(20, 20 , 20, 0.8)',
 	},
 	message: {

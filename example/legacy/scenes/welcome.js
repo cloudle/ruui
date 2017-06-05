@@ -55,24 +55,27 @@ export default class app extends Component {
 					Cmd+D or shake for dev menu
 				</Text>
 				<Button
-					wrapperStyle={{ backgroundColor: '#00bcd4', width: 120, borderRadius: 6, }}
+					wrapperStyle={{ backgroundColor: '#00bcd4', width: 120, }}
 					tooltip="Yay!"
 					title="Click me!" onPress={() => {
-						this.props.dispatch(appAction.toggleModal(true, { component: GreetingModal }));
-						setTimeout(() => {
-							this.props.dispatch(appAction.toggleModal(true, {
-								id: 'goodBye',
-								component: GoodByeModal,
-							}));
-						}, 2000);
-
-						setTimeout(() => {
-							this.props.dispatch(appAction.toggleModal(false, { id: 'goodBye', }));
-						}, 3000);
-
-						setTimeout(() => {
-							this.props.dispatch(appAction.toggleModal(false));
-						}, 4000);
+						this.props.dispatch(appAction.insertSnackBar({
+							message: 'Hmm...',
+						}));
+						// this.props.dispatch(appAction.toggleModal(true, { component: GreetingModal }));
+						// setTimeout(() => {
+						// 	this.props.dispatch(appAction.toggleModal(true, {
+						// 		id: 'goodBye',
+						// 		component: GoodByeModal,
+						// 	}));
+						// }, 2000);
+						//
+						// setTimeout(() => {
+						// 	this.props.dispatch(appAction.toggleModal(false, { id: 'goodBye', }));
+						// }, 3000);
+						//
+						// setTimeout(() => {
+						// 	this.props.dispatch(appAction.toggleModal(false));
+						// }, 4000);
 					}}/>
 			</View>
 		</View>;
