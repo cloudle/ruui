@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Animated, Easing, View, TouchableOpacity, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
+import { Animated, Easing, View, StyleSheet } from 'react-native';
 
-import * as appActions from '../utils/store/appAction';
 import Selector from './Selector';
 import LoadingMask from './LoadingMask';
 import CloseableModal from './CloseableModal';
+import * as appActions from '../utils/store/appAction';
 
 type Props = {
 	active?: any,
@@ -70,35 +69,39 @@ export default class Modal extends Component {
 		switch (this.props.type) {
 		case 'select':
 			return <Selector
+				onRequestClose={configs => this.props.dispatch(appActions.toggleSelector(false, configs))}
 				animation={this.state.enterAnimation}
+				active={this.props.active}
 				configs={this.props.configs}/>;
 		case 'modal':
 			return <CloseableModal
+				onRequestClose={configs => this.props.dispatch(appActions.toggleModal(false, configs))}
 				animation={this.state.enterAnimation}
+				active={this.props.active}
 				configs={this.props.configs}/>;
 		case 'loading':
 			return <LoadingMask
 				animation={this.state.enterAnimation}
+				active={this.props.active}
 				configs={this.props.configs}/>;
 		default:
 			return <View/>;
 		}
 	}
 
-	onBackdropPress = () => {
-		this.props.dispatch(appActions.toggleSelect(false));
-	};
-
 	playAnimation = (toValue: Number, callback) => {
 		if (this.animation) this.animation.clear();
 
-		const animations = [
-			Animated.timing(this.state.enterAnimation, {
-				toValue,
-				duration: 500,
-				easing: Easing.in(Easing.bezier(0, 0.48, 0.35, 1)),
-			}),
-		];
+		const easing = toValue === 0
+				? Easing.out(Easing.bezier(0, 0, 0.58, 1))
+				: Easing.in(Easing.bezier(0, 0.48, 0.35, 1)),
+			animations = [
+				Animated.timing(this.state.enterAnimation, {
+					toValue,
+					duration: 500,
+					easing,
+				}),
+			];
 
 		this.animation = Animated.parallel(animations).start(callback);
 	}
@@ -111,5 +114,9 @@ const styles = StyleSheet.create({
 	},
 	innerTouchable: {
 		flex: 1,
+	},
+	touchableMask: {
+		position: 'absolute',
+		top: 0, right: 0, left: 0, bottom: 0,
 	},
 });

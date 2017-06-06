@@ -6,6 +6,7 @@ import Modal from './Modal';
 
 type Props = {
 	modals?: Array<Object>,
+	dispatch?: Function,
 };
 
 @connect(({ app }) => {
@@ -25,7 +26,11 @@ export default class Modals extends Component {
 			style={styles.container}>
 			{modalArray.map((modalKey) => {
 				const modalConfigs = this.props.modals[modalKey];
-				return <Modal key={modalKey} modalCount={modalArray.length} {...modalConfigs}/>;
+				return <Modal
+					key={modalKey}
+					modalCount={modalArray.length}
+					dispatch={this.props.dispatch}
+					{...modalConfigs}/>;
 			})}
 		</View>;
 	}

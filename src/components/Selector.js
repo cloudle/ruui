@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Animated, ScrollView, View, Text, StyleSheet } from 'react-native';
+import { Animated, TouchableWithoutFeedback, ScrollView, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import ResponsibleTouchArea from './ResponsibleTouchArea';
@@ -11,7 +11,9 @@ import * as appActions from '../utils/store/appAction';
 type Props = {
 	configs?: Object,
 	animation?: any,
+	active?: boolean,
 	dispatch?: Function,
+	onRequestClose?: Function,
 };
 
 @connect(({ app }) => {
@@ -23,42 +25,41 @@ type Props = {
 export default class Selector extends Component<any, Props, any> {
 	props: Props;
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			lock: false,
-		};
-	}
-
 	render() {
 		const translateY = this.props.animation.interpolate({
 				inputRange: [0, 0.32, 1], outputRange: [maxContainerSize, maxContainerSize * 0.15, 0],
-			}), containerStyles = {
+			}), selectionContainerStyles = {
 				transform: [{ translateY }],
 			},
 			OptionWrapperElement = this.props.configs.options.length > 5 ? ScrollView : View,
-			pointerEvents = this.state.lock ? 'none' : 'auto';
+			pointerEvents = this.props.active ? 'auto' : 'none';
 
-		return <Animated.View
-			pointerEvents={pointerEvents}
-			style={[styles.container, containerStyles]}>
-			<View style={styles.optionWrapper}>
-				<View style={styles.selectTitle}>
-					<Text style={styles.selectTitleText}>
-						{this.props.configs.selectText}
-					</Text>
+		return <View pointerEvents={pointerEvents} style={styles.container}>
+			{this.props.configs.tapToClose ? <TouchableWithoutFeedback
+				onPress={() => this.props.onRequestClose(this.props.configs)}>
+				<View style={styles.touchableMask}/>
+			</TouchableWithoutFeedback> : <View/>}
+
+			<Animated.View
+				style={[styles.selectionContainer, selectionContainerStyles]}>
+				<View style={styles.optionWrapper}>
+					<View style={styles.selectTitle}>
+						<Text style={styles.selectTitleText}>
+							{this.props.configs.selectText}
+						</Text>
+					</View>
+					<View style={{ maxHeight: 255 }}>
+						<OptionWrapperElement style={{ backgroundColor: '#f9f9f9' }}>
+							{this.renderOptions()}
+						</OptionWrapperElement>
+						{!isAndroid && <View style={styles.optionTails}/>}
+					</View>
 				</View>
-				<View style={{ maxHeight: 255 }}>
-					<OptionWrapperElement style={{ backgroundColor: '#f9f9f9' }}>
-						{this.renderOptions()}
-					</OptionWrapperElement>
-					{!isAndroid && <View style={styles.optionTails}/>}
+				<View style={styles.commandWrapper}>
+					{this.renderCommands()}
 				</View>
-			</View>
-			<View style={styles.commandWrapper}>
-				{this.renderCommands()}
-			</View>
-		</Animated.View>;
+			</Animated.View>
+		</View>;
 	}
 
 	renderOptions() {
@@ -87,7 +88,6 @@ export default class Selector extends Component<any, Props, any> {
 	}
 
 	onItemPick = (item) => {
-		this.setState({ lock: true });
 		this.props.dispatch(appActions.toggleSelector(false));
 
 		if (this.props.configs.onSelect) this.props.configs.onSelect(item);
@@ -98,7 +98,6 @@ export default class Selector extends Component<any, Props, any> {
 	};
 
 	cancelSelector = () => {
-		this.setState({ lock: true });
 		this.props.dispatch(appActions.toggleSelector(false, {
 			id: this.props.configs.id,
 		}));
@@ -115,10 +114,17 @@ const maxContainerSize = 500,
 
 const styles = StyleSheet.create({
 	container: {
+		flex: 1,
+	},
+	selectionContainer: {
 		position: 'absolute',
 		bottom: 0, left: 0, right: 0,
 		maxHeight: maxContainerSize,
 		alignItems: 'center',
+	},
+	touchableMask: {
+		position: 'absolute',
+		top: 0, right: 0, left: 0, bottom: 0,
 	},
 	selectTitle: {
 		flex: 1,

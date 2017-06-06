@@ -78,14 +78,21 @@ I personally got dozen Apps built on this UI components. Next important thing fo
   - [x] Hint
   - [ ] Multi-line
   - [ ] Number, currency, datetime masking
-  - [ ] Tooltip (Web only)
-- [x] Modal
-- [x] Loading Mask (mobile)
-- [ ] Radio
-- [x] Snackbar (on Alpha version)
-- [ ] Select field (mostly for **Web**)
-- [x] Selector API and Selector components for Native.  
+  - [x] Tooltip (Web only - Alpha implementation)
+- [x] Modals with multilayer support (mobile)
+  - [x] Pop-up style (Alert, Prompt..)
+  - [ ] Full-screen style
+- [x] Loading Mask
+- [x] Snackbar (Alpha implementation)
+- [x] Selector Api, Select component (mobile)
+- [ ] Action sheets
+- [ ] Swipe-able segments
 - [ ] Datetime picker
+- [ ] Radio
+- [ ] Checkbox
+- [ ] Range
+- [ ] Select field (mostly for **Web**)
+- [ ] Theming..
 
 ## Related projects
 * [Material UI][material-ui-url], heavily inspired by their great component design for **Web**! My job is make it work in **Native** way.

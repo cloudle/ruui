@@ -18,6 +18,7 @@ type Props = {
 	dispatch?: Function,
 	iconSource?: any,
 	iconStyle?: Style,
+	tapToClose?: boolean,
 };
 
 @connect(({ app }) => {
@@ -33,6 +34,7 @@ export default class Select extends Component<any, Props, any> {
 		floatingLabel: 'Select',
 		cancelText: 'Cancel',
 		options: [{ title: 'Missing options param' }],
+		tapToClose: true,
 	};
 
 	render() {
@@ -75,6 +77,7 @@ export default class Select extends Component<any, Props, any> {
 			onChange: this.props.onChange,
 			onCancel: this.props.onCancel,
 			value: this.props.value,
+			tapToClose: this.props.tapToClose,
 		}));
 	}
 }
