@@ -58,14 +58,14 @@ export default class app extends Component {
 					wrapperStyle={{ backgroundColor: '#00bcd4', width: 120, }}
 					tooltip="Yay!"
 					title="Click me!" onPress={() => {
-						// this.props.dispatch(appAction.insertSnackBar({
-						// 	message: 'Hmm...',
-						// }));
-						this.props.dispatch(appAction.toggleModal(true, {
-							component: GreetingModal,
-							tapToClose: true,
-							// fullScreen: true,
+						this.props.dispatch(appAction.insertSnackBar({
+							message: 'Hmm...',
 						}));
+						// this.props.dispatch(appAction.toggleModal(true, {
+						// 	component: GreetingModal,
+						// 	tapToClose: true,
+						// 	// fullScreen: true,
+						// }));
 						// this.props.dispatch(appAction.toggleModal(true, { component: GreetingModal }));
 						// setTimeout(() => {
 						// 	this.props.dispatch(appAction.toggleModal(true, {

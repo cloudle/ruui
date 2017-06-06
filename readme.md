@@ -81,7 +81,7 @@ I personally got dozen Apps built on this UI components. Next important thing fo
   - [x] Tooltip (Web only - Alpha implementation)
 - [x] Modals with multilayer support (mobile)
   - [x] Pop-up style (Alert, Prompt..)
-  - [ ] Full-screen style
+  - [x] Full-screen style
 - [x] Loading Mask
 - [x] Snackbar (Alpha implementation)
 - [x] Selector Api, Select component (mobile)
