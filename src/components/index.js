@@ -6,6 +6,7 @@ import modalImport from './Modals';
 import selectImport from './Select';
 import snackbarImport from './Snackbars';
 import tooltipImport from './Tooltip';
+import tabViewImport from './TabView';
 
 export const ResponsibleTouchArea = responsibleTouchAreaImport;
 export const RippleEffect = rippleEffectImport;
@@ -15,4 +16,5 @@ export const Modal = modalImport;
 export const Select = selectImport;
 export const Snackbar = snackbarImport;
 export const Tooltip = tooltipImport;
+export const TabView = tabViewImport;
 export * from './Navigation';

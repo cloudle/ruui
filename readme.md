@@ -24,6 +24,7 @@ Cross-platform (**React Native** and **Web Browser**) [React][react-url], [React
 [material-ui-url]: http://www.material-ui.com/
 [ionic-url]: http://ionicframework.com/docs/v2/components/#overview
 [react-native-vector-icon-url]: https://github.com/oblador/react-native-vector-icons
+[react-native-tab-view-url]: https://github.com/react-native-community/react-native-tab-view
 [cloud-vector-icons]: https://github.com/cloudle/react-native-vector-icons
 [react-native-drawer-url]: https://github.com/root-two/react-native-drawer
 [documentation-url]: https://cloudle.github.io/
@@ -85,6 +86,11 @@ I personally got dozen Apps built on this UI components. Next important thing fo
 - [x] Loading Mask
 - [x] Snackbar (Alpha implementation)
 - [x] Selector Api, Select component (mobile)
+- [x] Animated Tab View
+  - [x] Essential module export - for generic use case
+  - [ ] App intro slider
+  - [ ] Tab View scene with headers
+  - [ ] Image slider
 - [ ] Action sheets
 - [ ] Swipe-able segments
 - [ ] Datetime picker
@@ -92,6 +98,7 @@ I personally got dozen Apps built on this UI components. Next important thing fo
 - [ ] Checkbox
 - [ ] Range
 - [ ] Select field (mostly for **Web**)
+- [ ] Network status (mask)
 - [ ] Theming..
 
 ## Related projects
@@ -99,6 +106,7 @@ I personally got dozen Apps built on this UI components. Next important thing fo
 * [Ionic 2][ionic-url], As a fan of Ionic - their **ecosystem** and **design** is a great reference for me when developing **this project**.
 * [React Native Drawer][react-native-drawer-url]
 * [React Native Vector Icons][react-native-vector-icon-url]
+* [React Native Tab View][react-native-tab-view-url], their great Animated Tab View component was clone and customized inside this package.
 
 # License
 
