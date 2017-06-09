@@ -4,8 +4,6 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Style } from '../typeDefinition';
 
 type Props = {
-	contentRenderer?: Function,
-	containerStyle?: Style,
 	closeable?: boolean,
 	timeout?: number,
 	onTimeout?: Function,
@@ -29,8 +27,10 @@ export default class Snackbar extends Component {
 	}
 
 	render() {
-		return <View style={[styles.container, this.props.containerStyle]}>
-			{this.props.contentRenderer(this.props.configs)}
+		const contentRenderer = this.props.configs.contentRenderer || defaultContentRenderer;
+
+		return <View style={[styles.container, this.props.configs.containerStyle]}>
+			{contentRenderer(this.props.configs)}
 		</View>;
 	}
 }

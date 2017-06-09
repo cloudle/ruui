@@ -57,17 +57,23 @@ export default class app extends Component {
 					Cmd+D or shake for dev menu
 				</Text>
 				<View style={{ width: 200, height: 50, }}>
-					{/*<Slider*/}
-						{/*value={this.state.sliderValue}*/}
-						{/*onValueChange={value => this.setState({ sliderValue: value })} />*/}
+					<Slider
+						value={this.state.sliderValue}
+						onValueChange={value => this.setState({ sliderValue: value })} />
 				</View>
 				<Button
 					wrapperStyle={{ backgroundColor: '#00bcd4', width: 120, }}
 					tooltip="Yay!"
 					title="Click me!" onPress={() => {
-						this.props.dispatch(routeAction.push('Login'));
+						// this.props.dispatch(routeAction.push('Login'));
 						// this.props.dispatch(appAction.insertSnackBar({
-						// 	message: 'Hmm...',
+						// 	contentRenderer: () => {
+						// 		return <Text>Dou ma</Text>;
+						// 	},
+						// 	message: 'Hello',
+						// 	containerStyle: {
+						// 		backgroundColor: 'red',
+						// 	},
 						// }));
 						// this.props.dispatch(appAction.toggleModal(true, {
 						// 	component: GreetingModal,
