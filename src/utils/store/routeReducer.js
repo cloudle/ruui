@@ -104,7 +104,11 @@ export function routeReducer(routeOptions: Object, reducer: Function) {
 		const nextRoute = routeConfigs[action.key];
 
 		if (nextRoute) {
-			return { ...state, routes: [nextRoute], index: 0, params: action.params };
+			return {
+				...state, index: 0, routes: [{
+					...nextRoute, params: action.params,
+				}],
+			};
 		} else {
 			console.warn(`There is no route for: ${action.key}!, please check for typo or add the missing RouteOption..`);
 			return state;
@@ -115,16 +119,17 @@ export function routeReducer(routeOptions: Object, reducer: Function) {
 function buildOptions(routeOptions: Object) {
 	return Object.keys(routeOptions).reduce((accumulate, nextKey, index) => {
 		/* Check for routeOptions for Index route, if it wasn't exist.. pick the first route as Index */
+
+		const result = {
+			...accumulate,
+			[nextKey]: { ...routeOptions[nextKey], key: nextKey, },
+		};
+
 		if (index === 0) {
 			const indexRoute = routeOptions.index || routeOptions.Index || routeOptions[nextKey];
-
-			return {
-				...accumulate,
-				[nextKey]: { ...routeOptions[nextKey], key: nextKey },
-				Index: { ...indexRoute, key: 'Index' },
-			};
-		} else {
-			return { ...accumulate, [nextKey]: { ...routeOptions[nextKey], key: nextKey } };
+			result.Index = { ...indexRoute, key: 'Index', };
 		}
+
+		return result;
 	}, {});
 }

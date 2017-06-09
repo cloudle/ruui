@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { connect } from 'react-redux';
 
 import { colors } from '../utils';
-import { NavigationHeader, utils } from '../../../src';
+import { NavigationHeader, routeAction } from '../../../src';
 import NavigationBackButton from './NavigationBackButton';
 
 @connect(({ app }) => {
@@ -34,7 +34,7 @@ export default class Header extends Component {
 	};
 
 	onNavigateBack = () => {
-		this.props.dispatch(utils.routeAction.pop());
+		this.props.dispatch(routeAction.pop());
 	}
 }
 

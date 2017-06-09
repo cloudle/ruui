@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import Slider from 'react-native-slider';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { Button, Input, Select, appAction, routeAction } from '../../../src';
@@ -22,10 +23,11 @@ type Props = {
 export default class app extends Component {
 	props: Props;
 
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		this.state = {
 			activeSelect: selects[0],
+			sliderValue: 0.5,
 		};
 	}
 
@@ -54,13 +56,19 @@ export default class app extends Component {
 					Press Cmd+R to reload,{'\n'}
 					Cmd+D or shake for dev menu
 				</Text>
+				<View style={{ width: 200, height: 50, }}>
+					{/*<Slider*/}
+						{/*value={this.state.sliderValue}*/}
+						{/*onValueChange={value => this.setState({ sliderValue: value })} />*/}
+				</View>
 				<Button
 					wrapperStyle={{ backgroundColor: '#00bcd4', width: 120, }}
 					tooltip="Yay!"
 					title="Click me!" onPress={() => {
-						this.props.dispatch(appAction.insertSnackBar({
-							message: 'Hmm...',
-						}));
+						this.props.dispatch(routeAction.push('Login'));
+						// this.props.dispatch(appAction.insertSnackBar({
+						// 	message: 'Hmm...',
+						// }));
 						// this.props.dispatch(appAction.toggleModal(true, {
 						// 	component: GreetingModal,
 						// 	tapToClose: true,
