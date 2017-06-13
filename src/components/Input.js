@@ -4,8 +4,10 @@ import { minGuard, isAndroid } from '../utils';
 import { Style, Element } from '../typeDefinition';
 
 type Props = {
+	style?: Style,
 	wrapperStyle?: Style,
 	underLineStyle?: Style,
+	underLine?: boolean,
 	hint?: string,
 	hintColor?: string,
 	floatingLabel?: string,
@@ -41,6 +43,7 @@ export default class Input extends Component<any, Props, any> {
 
 	static defaultProps = {
 		value: '',
+		underLine: true,
 	};
 
 	constructor(props) {
@@ -96,7 +99,7 @@ export default class Input extends Component<any, Props, any> {
 						selectTextOnFocus={this.props.selectTextOnFocus}
 						onEndEditing={this.props.onEndEditing}
 						defaultValue={this.props.defaultValue}
-						style={styles.textInput}
+						style={[styles.textInput, this.props.style]}
 						placeholder={hint}
 						placeholderTextColor={this.props.hintColor}
 						{...platformProps}
@@ -107,7 +110,9 @@ export default class Input extends Component<any, Props, any> {
 				</View>
 				{this.renderFloatingLabel()}
 			</View>
-			<Animated.View style={[styles.inputUnderLine, underLineStyles]}/>
+
+			{this.props.underLine && <Animated.View
+				style={[styles.inputUnderLine, underLineStyles]}/>}
 		</View>;
 	}
 
