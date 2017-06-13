@@ -6,8 +6,8 @@ import { Style, Element } from '../typeDefinition';
 type Props = {
 	style?: Style,
 	wrapperStyle?: Style,
-	underLineStyle?: Style,
-	underLine?: boolean,
+	underlineStyle?: Style,
+	underline?: boolean,
 	hint?: string,
 	hintColor?: string,
 	floatingLabel?: string,
@@ -43,7 +43,7 @@ export default class Input extends Component<any, Props, any> {
 
 	static defaultProps = {
 		value: '',
-		underLine: true,
+		underline: true,
 	};
 
 	constructor(props) {
@@ -52,7 +52,7 @@ export default class Input extends Component<any, Props, any> {
 			initialFloating = this.props.forceFloating || !empty ? 1 : 0;
 
 		this.state = {
-			underLineAnimation: new Animated.Value(0),
+			underlineAnimation: new Animated.Value(0),
 			floatingAnimation: new Animated.Value(initialFloating),
 			floatingLabelWidth: 0,
 			floatingLabelHeight: 0,
@@ -65,11 +65,15 @@ export default class Input extends Component<any, Props, any> {
 
 	render() {
 		const pointerEvents = this.props.disabled ? 'none' : 'auto',
-			scale = this.state.underLineAnimation.interpolate({
+			scale = this.state.underlineAnimation.interpolate({
 				inputRange: [0, 1], outputRange: [0.0001, 1],
 			}),
-			underLineStyles = {
-				...this.props.underLineStyle,
+			containerStyles = this.props.underline ? {
+				borderBottomWidth: 1,
+				borderColor: '#f5f5f5',
+			} : {},
+			underlineStyles = {
+				...this.props.underlineStyle,
 				transform: [{ scaleX: scale }],
 			},
 			inputContainerStyles = this.buildInputContainerStyles(this.props.wrapperStyle),
@@ -77,7 +81,9 @@ export default class Input extends Component<any, Props, any> {
 			platformProps = isAndroid ? { underlineColorAndroid: 'transparent' } : {},
 			dynamicProps = this.props.value ? { value: this.props.value } : {};
 
-		return <View pointerEvents={pointerEvents} style={[styles.container, inputContainerStyles]}>
+		return <View
+			pointerEvents={pointerEvents}
+			style={[styles.container, containerStyles, inputContainerStyles]}>
 			<View style={{ flexDirection: 'row', }}>
 				<View style={styles.addonContainer}>
 					{this.props.prefix}
@@ -111,8 +117,8 @@ export default class Input extends Component<any, Props, any> {
 				{this.renderFloatingLabel()}
 			</View>
 
-			{this.props.underLine && <Animated.View
-				style={[styles.inputUnderLine, underLineStyles]}/>}
+			{this.props.underline && <Animated.View
+				style={[styles.inputUnderline, underlineStyles]}/>}
 		</View>;
 	}
 
@@ -169,7 +175,7 @@ export default class Input extends Component<any, Props, any> {
 		this.setState({ focus: toValue === 1 });
 
 		const animations = [
-			Animated.timing(this.state.underLineAnimation, {
+			Animated.timing(this.state.underlineAnimation, {
 				toValue,
 				duration: easeInSpeed,
 				easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
@@ -210,8 +216,6 @@ export default class Input extends Component<any, Props, any> {
 const styles = StyleSheet.create({
 	container: {
 		backgroundColor: 'transparent',
-		borderBottomWidth: 1,
-		borderColor: '#f5f5f5',
 	},
 	addonContainer: {
 		justifyContent: 'center',
@@ -230,7 +234,7 @@ const styles = StyleSheet.create({
 		paddingBottom: 0,
 		color: '#444444',
 	},
-	inputUnderLine: {
+	inputUnderline: {
 		height: 2,
 		backgroundColor: '#F0871A',
 		bottom: -1,
