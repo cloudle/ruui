@@ -7,10 +7,6 @@ const defaultSelectorConfigs = {
 	options: [{ title: 'Option 1' }, { title: 'Option 2' }],
 };
 
-const defaultModalConfigs = {
-
-};
-
 export function initialAppState(initialState = {}) {
 	return {
 		activeModals: {
