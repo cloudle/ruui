@@ -11,16 +11,20 @@ const defaultModalConfigs = {
 
 };
 
-export function appReducer(reducer) {
-	const initialState = {
+export function initialAppState(initialState = {}) {
+	return {
 		activeModals: {
 			defaultSelector: null,
 			defaultModal: null,
 			loading: null,
 		},
 		snackBars: [],
-		...reducer(undefined, { type: Actions.ReduxInit }),
+		...initialState,
 	};
+}
+
+export function appReducer(reducer) {
+	const initialState = initialAppState(reducer(undefined, { type: Actions.ReduxInit }));
 
 	return function (state = initialState, action) {
 		switch (action.type) {
@@ -93,12 +97,4 @@ function handleToggleLoading(state, action) {
 			} : null,
 		},
 	};
-}
-
-function handleInsertSnackBar(state, action) {
-	return { ...state, snackBars: [action.configs, ...state.snackBars], };
-}
-
-function handleDestroySnackBar(state, action) {
-	return
 }
