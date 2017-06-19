@@ -1,10 +1,9 @@
-import React, { PropTypes } from 'react';
+import React  from 'react';
 import { View, StyleSheet, Animate } from 'react-native';
 
 import Card from './Card';
 import CardStackPanResponder from './CardStackPanResponder';
 import CardStackStyleInterpolator from './CardStackStyleInterpolator';
-import NavigationPropTypes from './NavigationPropTypes';
 import NavigationTransitioner from './NavigationTransitioner';
 
 import type {
@@ -30,7 +29,7 @@ type Props = {
 	cardStyle?: any,
 	style: any,
 	gestureResponseDistance?: ?number,
-	enableGestures: ?boolean
+	enableGestures: ?boolean,
 };
 
 type DefaultProps = {
@@ -91,72 +90,6 @@ type DefaultProps = {
 class NavigationCardStack extends React.Component<DefaultProps, Props, void> {
 	_render: NavigationSceneRenderer;
 	_renderScene: NavigationSceneRenderer;
-
-	static propTypes = {
-		/**
-		 * Custom style applied to the card.
-		 */
-		cardStyle: PropTypes.any,
-
-		/**
-		 * Direction of the cards movement. Value could be `horizontal` or
-		 * `vertical`. Default value is `horizontal`.
-		 */
-		direction: PropTypes.oneOf([Directions.HORIZONTAL, Directions.VERTICAL]),
-
-		/**
-		 * The distance from the edge of the card which gesture response can start
-		 * for. Defaults value is `30`.
-		 */
-		gestureResponseDistance: PropTypes.number,
-
-		/**
-		 * Enable gestures. Default value is true.
-		 *
-		 * When disabled, transition animations will be handled natively, which
-		 * improves performance of the animation. In future iterations, gestures
-		 * will also work with native-driven animation.
-		 */
-		enableGestures: PropTypes.bool,
-
-		/**
-		 * The controlled navigation state. Typically, the navigation state
-		 * look like this:
-		 *
-		 * ```js
-		 * const navigationState = {
-     *   index: 0, // the index of the selected route.
-     *   routes: [ // A list of routes.
-     *     {key: 'page 1'}, // The 1st route.
-     *     {key: 'page 2'}, // The second route.
-     *   ],
-     * };
-		 * ```
-		 */
-		navigationState: NavigationPropTypes.navigationState.isRequired,
-
-		/**
-		 * Callback that is called when the "back" action is performed.
-		 * This happens when the back button is pressed or the back gesture is
-		 * performed.
-		 */
-		onNavigateBack: PropTypes.func,
-
-		/**
-		 * Function that renders the header.
-		 */
-		renderHeader: PropTypes.func,
-
-		/**
-		 * Function that renders the a scene for a route.
-		 */
-		renderScene: PropTypes.func.isRequired,
-
-		/**
-		 * Custom style applied to the cards stack.
-		 */
-		style: View.propTypes.style,
-	};
 
 	static defaultProps: DefaultProps = {
 		direction: Directions.HORIZONTAL,

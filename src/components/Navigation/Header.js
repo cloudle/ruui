@@ -1,9 +1,9 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import ReactNative, { Animated, Platform, StyleSheet, View } from 'react-native';
 
 import NavigationHeaderTitle from './NavigationHeaderTitle';
 import NavigationHeaderBackButton from './NavigationHeaderBackButton';
-import NavigationPropTypes from './NavigationPropTypes';
+import { extractSceneRendererProps } from './NavigationPropTypes';
 import NavigationHeaderStyleInterpolator from './NavigationHeaderStyleInterpolator';
 
 import type {
@@ -67,22 +67,11 @@ class NavigationHeader extends React.Component<DefaultProps, Props, any> {
 		statusBarHeight: STATUSBAR_HEIGHT,
 	};
 
-	static propTypes = {
-		...NavigationPropTypes.SceneRendererProps,
-		onNavigateBack: PropTypes.func,
-		renderLeftComponent: PropTypes.func,
-		renderRightComponent: PropTypes.func,
-		renderTitleComponent: PropTypes.func,
-		style: View.propTypes.style,
-		statusBarHeight: PropTypes.number,
-		viewProps: PropTypes.shape(View.propTypes),
-	};
-
 	render(): React.Element<any> {
 		const { scenes, style, viewProps } = this.props;
 
-		const scenesProps = scenes.map(scene => {
-			const props = NavigationPropTypes.extractSceneRendererProps(this.props);
+		const scenesProps = scenes.map((scene) => {
+			const props = extractSceneRendererProps(this.props);
 			props.scene = scene;
 			return props;
 		});

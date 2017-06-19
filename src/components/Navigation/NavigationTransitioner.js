@@ -1,7 +1,6 @@
 import React from 'react';
 import { Animated, Easing, View, StyleSheet } from 'react-native';
 
-import NavigationPropTypes from './NavigationPropTypes';
 import NavigationScenesReducer from './NavigationScenesReducer';
 
 import type {
@@ -14,11 +13,12 @@ import type {
 } from './NavigationTypeDefinition';
 
 type Props = {
-	configureTransition: (a: NavigationTransitionProps,
-												b: ?NavigationTransitionProps,) => NavigationTransitionSpec,
-	navigationState: NavigationState,
-	onTransitionEnd: () => void,
-	onTransitionStart: () => void,
+	configureTransition: (
+		a: NavigationTransitionProps,
+		b: ?NavigationTransitionProps,) => NavigationTransitionSpec,
+	// navigationState: NavigationState,
+	onTransitionEnd?: () => void,
+	onTransitionStart?: () => void,
 	render: (a: NavigationTransitionProps, b: ?NavigationTransitionProps) => any,
 	style: any,
 };
@@ -29,8 +29,6 @@ type State = {
 	progress: NavigationAnimatedValue,
 	scenes: Array<NavigationScene>,
 };
-
-const { PropTypes } = React;
 
 const DefaultTransitionSpec = {
 	duration: 250,
@@ -47,14 +45,6 @@ class NavigationTransitioner extends React.Component<any, Props, State> {
 
 	props: Props;
 	state: State;
-
-	static propTypes = {
-		configureTransition: PropTypes.func,
-		navigationState: NavigationPropTypes.navigationState.isRequired,
-		onTransitionEnd: PropTypes.func,
-		onTransitionStart: PropTypes.func,
-		render: PropTypes.func.isRequired,
-	};
 
 	constructor(props: Props, context: any) {
 		super(props, context);

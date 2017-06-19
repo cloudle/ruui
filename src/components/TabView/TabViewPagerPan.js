@@ -1,7 +1,6 @@
 /* @flow */
 
 import React, { PureComponent, Children } from 'react';
-import PropTypes from 'prop-types';
 import {
 	Animated,
 	PanResponder,
@@ -10,7 +9,7 @@ import {
 	View,
 	I18nManager,
 } from 'react-native';
-import { SceneRendererPropType } from './TabViewPropTypes';
+import type { SceneRendererPropType } from './TabViewPropTypes';
 import type {
 	SceneRendererProps,
 	Route,
@@ -69,15 +68,7 @@ const DefaultTransitionSpec = {
 
 export default class TabViewPagerPan<T: Route<*>>
 	extends PureComponent<DefaultProps, Props<T>, void> {
-	static propTypes = {
-		...SceneRendererPropType,
-		configureTransition: PropTypes.func.isRequired,
-		animationEnabled: PropTypes.bool,
-		swipeEnabled: PropTypes.bool,
-		swipeDistanceThreshold: PropTypes.number.isRequired,
-		swipeVelocityThreshold: PropTypes.number.isRequired,
-		children: PropTypes.node,
-	};
+	props: Props;
 
 	static defaultProps = {
 		configureTransition: () => DefaultTransitionSpec,

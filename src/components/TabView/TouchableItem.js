@@ -1,7 +1,6 @@
 /* @flow */
 
 import React, { PureComponent, Children } from 'react';
-import PropTypes from 'prop-types';
 import {
 	TouchableNativeFeedback,
 	TouchableOpacity,
@@ -26,22 +25,14 @@ type DefaultProps = {
 	pressColor: string,
 };
 
-export default class TouchableItem
-	extends PureComponent<DefaultProps, Props, void> {
-	static propTypes = {
-		onPress: PropTypes.func.isRequired,
-		delayPressIn: PropTypes.number,
-		borderless: PropTypes.bool,
-		pressColor: PropTypes.string,
-		pressOpacity: PropTypes.number,
-		children: PropTypes.node.isRequired,
-	};
+export default class TouchableItem extends PureComponent<DefaultProps, Props, void> {
+	props: Props;
 
 	static defaultProps = {
 		pressColor: 'rgba(255, 255, 255, .4)',
 	};
 
-	_handlePress = () => {
+	handlePress = () => {
 		global.requestAnimationFrame(this.props.onPress);
 	};
 
@@ -53,7 +44,7 @@ export default class TouchableItem
 			return (
 				<TouchableNativeFeedback
 					{...rest}
-					onPress={this._handlePress}
+					onPress={this.handlePress}
 					background={TouchableNativeFeedback.Ripple(pressColor, borderless)}
 				>
 					<View style={style}>
@@ -65,7 +56,7 @@ export default class TouchableItem
 			return (
 				<TouchableOpacity
 					{...rest}
-					onPress={this._handlePress}
+					onPress={this.handlePress}
 					style={style}
 					activeOpacity={pressOpacity}
 				>

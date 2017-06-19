@@ -1,9 +1,8 @@
 /* @flow */
 
 import React, { PureComponent, Children } from 'react';
-import PropTypes from 'prop-types';
 import { Platform, View, ScrollView, StyleSheet } from 'react-native';
-import { SceneRendererPropType } from './TabViewPropTypes';
+import type { SceneRendererPropType } from './TabViewPropTypes';
 import type { SceneRendererProps, Route } from './TabViewTypeDefinitions';
 
 type ScrollEvent = {
@@ -27,12 +26,7 @@ type Props<T> = SceneRendererProps<T> & {
 
 export default class TabViewPagerScroll<T: Route<*>>
 	extends PureComponent<void, Props<T>, State> {
-	static propTypes = {
-		...SceneRendererPropType,
-		animationEnabled: PropTypes.bool,
-		swipeEnabled: PropTypes.bool,
-		children: PropTypes.node,
-	};
+	props: Props;
 
 	constructor(props: Props<T>) {
 		super(props);

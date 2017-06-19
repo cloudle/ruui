@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Animated } from 'react-native';
 
 import type {
@@ -13,74 +13,81 @@ import type {
  */
 
 /* NavigationAction */
-const action = PropTypes.shape({
-	type: PropTypes.string.isRequired,
-});
-
-/* NavigationAnimatedValue  */
-const animatedValue = PropTypes.instanceOf(Animated.Value);
-
-/* NavigationRoute  */
-const navigationRoute = PropTypes.shape({
-	key: PropTypes.string.isRequired,
-});
-
-/* navigationRoute  */
-const navigationState = PropTypes.shape({
-	index: PropTypes.number.isRequired,
-	routes: PropTypes.arrayOf(navigationRoute),
-});
-
-/* NavigationLayout */
-const layout = PropTypes.shape({
-	height: animatedValue,
-	initHeight: PropTypes.number.isRequired,
-	initWidth: PropTypes.number.isRequired,
-	isMeasured: PropTypes.bool.isRequired,
-	width: animatedValue,
-});
-
-/* NavigationScene */
-const scene = PropTypes.shape({
-	index: PropTypes.number.isRequired,
-	isActive: PropTypes.bool.isRequired,
-	isStale: PropTypes.bool.isRequired,
-	key: PropTypes.string.isRequired,
-	route: navigationRoute.isRequired,
-});
-
-/* NavigationSceneRendererProps */
-const SceneRendererProps = {
-	layout: layout.isRequired,
-	navigationState: navigationState.isRequired,
-	position: animatedValue.isRequired,
-	progress: animatedValue.isRequired,
-	scene: scene.isRequired,
-	scenes: PropTypes.arrayOf(scene).isRequired,
+export type action = {
+	type: string,
 };
 
-const SceneRenderer = PropTypes.shape(SceneRendererProps);
+/* NavigationAnimatedValue  */
+type animatedValue = Animated.Value;
+
+/* NavigationRoute  */
+export type navigationRoute = {
+	key: string,
+};
+
+/* navigationRoute  */
+export type navigationState = {
+	index: number,
+	routes?: Array<navigationRoute>,
+};
+
+/* NavigationLayout */
+export type layout = {
+	height?: animatedValue,
+	initHeight: number,
+	initWidth: number,
+	isMeasured: boolean,
+	width?: animatedValue,
+};
+
+/* NavigationScene */
+export type scene = {
+	index: number,
+	isActive: boolean,
+	isStale: boolean,
+	key: string,
+	route: navigationRoute,
+};
+
+/* NavigationSceneRendererProps */
+export type SceneRendererProps = {
+	layout: layout,
+	navigationState: navigationState,
+	position: animatedValue,
+	progress: animatedValue,
+	scene: scene,
+	scenes: Array<scene>,
+};
+
+export type SceneRenderer = {
+	layout: layout,
+	navigationState: navigationState,
+	position: animatedValue,
+	progress: animatedValue,
+	scene: scene,
+	scenes: Array<scene>,
+};
 
 /* NavigationPanPanHandlers */
-const panHandlers = PropTypes.shape({
-	onMoveShouldSetResponder: PropTypes.func.isRequired,
-	onMoveShouldSetResponderCapture: PropTypes.func.isRequired,
-	onResponderEnd: PropTypes.func.isRequired,
-	onResponderGrant: PropTypes.func.isRequired,
-	onResponderMove: PropTypes.func.isRequired,
-	onResponderReject: PropTypes.func.isRequired,
-	onResponderRelease: PropTypes.func.isRequired,
-	onResponderStart: PropTypes.func.isRequired,
-	onResponderTerminate: PropTypes.func.isRequired,
-	onResponderTerminationRequest: PropTypes.func.isRequired,
-	onStartShouldSetResponder: PropTypes.func.isRequired,
-	onStartShouldSetResponderCapture: PropTypes.func.isRequired,
-});
+export type panHandlers = {
+	onMoveShouldSetResponder: Function,
+	onMoveShouldSetResponderCapture: Function,
+	onResponderEnd: Function,
+	onResponderGrant: Function,
+	onResponderMove: Function,
+	onResponderReject: Function,
+	onResponderRelease: Function,
+	onResponderStart: Function,
+	onResponderTerminate: Function,
+	onResponderTerminationRequest: Function,
+	onStartShouldSetResponder: Function,
+	onStartShouldSetResponderCapture: Function,
+};
 
 /**
  * Helper function that extracts the props needed for scene renderer.
  */
-function extractSceneRendererProps(props: NavigationSceneRendererProps)
+export function extractSceneRendererProps(props: NavigationSceneRendererProps)
 : NavigationSceneRendererProps {
 	return {
 		layout: props.layout,
@@ -92,17 +99,17 @@ function extractSceneRendererProps(props: NavigationSceneRendererProps)
 	};
 }
 
-export default {
-	// helpers
-	extractSceneRendererProps,
-
-	// Bundled propTypes.
-	SceneRendererProps,
-
-	// propTypes
-	SceneRenderer,
-	action,
-	navigationState,
-	navigationRoute,
-	panHandlers,
-};
+// export default {
+// 	// helpers
+// 	extractSceneRendererProps,
+//
+// 	// Bundled propTypes.
+// 	SceneRendererProps,
+//
+// 	// propTypes
+// 	SceneRenderer,
+// 	action,
+// 	navigationState,
+// 	navigationRoute,
+// 	panHandlers,
+// };

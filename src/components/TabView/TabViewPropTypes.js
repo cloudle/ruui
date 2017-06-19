@@ -1,27 +1,26 @@
 /* @flow */
 
-import PropTypes from 'prop-types';
 import { Animated } from 'react-native';
 
-export const NavigationRoutePropType = PropTypes.shape({
-	title: PropTypes.string,
-	key: PropTypes.string.isRequired,
-});
+export type NavigationRoutePropType = {
+	title?: string,
+	key: string,
+};
 
-export const NavigationStatePropType = PropTypes.shape({
-	routes: PropTypes.arrayOf(NavigationRoutePropType).isRequired,
-	index: PropTypes.number.isRequired,
-});
+export type NavigationStatePropType = {
+	routes: Array<NavigationRoutePropType>,
+	index: number,
+};
 
-export const SceneRendererPropType = {
-	layout: PropTypes.shape({
-		measured: PropTypes.bool.isRequired,
-		height: PropTypes.number.isRequired,
-		width: PropTypes.number.isRequired,
-	}).isRequired,
-	navigationState: NavigationStatePropType.isRequired,
-	position: PropTypes.instanceOf(Animated.Value).isRequired,
-	jumpToIndex: PropTypes.func.isRequired,
-	getLastPosition: PropTypes.func.isRequired,
-	subscribe: PropTypes.func.isRequired,
+export type SceneRendererPropType = {
+	layout: {
+		measured: boolean,
+		height: number,
+		width: number,
+	},
+	navigationState: NavigationStatePropType,
+	position: Animated.Value,
+	jumpToIndex: Function,
+	getLastPosition: Function,
+	subscribe: Function,
 };

@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { Animated, Platform, View, StyleSheet } from 'react-native';
-import { NavigationStatePropType } from './TabViewPropTypes';
+import type { NavigationStatePropType } from './TabViewPropTypes';
 import type {
 	Scene,
 	SceneRendererProps,
@@ -55,21 +54,7 @@ default:
 
 export default class TabViewAnimated<T: Route<*>>
 	extends PureComponent<DefaultProps<T>, Props<T>, State> {
-	static propTypes = {
-		navigationState: NavigationStatePropType.isRequired,
-		onRequestChangeTab: PropTypes.func.isRequired,
-		onChangePosition: PropTypes.func,
-		initialLayout: PropTypes.shape({
-			height: PropTypes.number.isRequired,
-			width: PropTypes.number.isRequired,
-		}),
-		canJumpToTab: PropTypes.func,
-		renderPager: PropTypes.func.isRequired,
-		renderScene: PropTypes.func.isRequired,
-		renderHeader: PropTypes.func,
-		renderFooter: PropTypes.func,
-		lazy: PropTypes.bool,
-	};
+	props: Props;
 
 	static defaultProps = {
 		renderPager: (props: SceneRendererProps<*>) => <TabViewPager {...props} />,

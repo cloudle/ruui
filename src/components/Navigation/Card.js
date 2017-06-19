@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React  from 'react';
 import { Animated, StyleSheet } from 'react-native';
 
 import NavigationCardStackPanResponder from './CardStackPanResponder';
@@ -6,7 +6,6 @@ import NavigationCardStackStyleInterpolator from './CardStackStyleInterpolator';
 import NavigationPagerPanResponder from './PagerPanResponder';
 import NavigationPagerStyleInterpolator from './PagerStyleInterpolator';
 import NavigationPointerEventsContainer from './PointerEventsContainer';
-import NavigationPropTypes from './NavigationPropTypes';
 
 import type {
 	NavigationPanPanHandlers,
@@ -22,22 +21,11 @@ type Props = NavigationSceneRendererProps & {
 	renderScene: NavigationSceneRenderer,
 	style: any,
 };
-
 /**
  * Component that renders the scene as card for the <NavigationCardStack />.
  */
 class NavigationCard extends React.Component<any, Props, any> {
 	props: Props;
-
-	static propTypes = {
-		...NavigationPropTypes.SceneRendererProps,
-		onComponentRef: PropTypes.func.isRequired,
-		onNavigateBack: PropTypes.func,
-		panHandlers: NavigationPropTypes.panHandlers,
-		pointerEvents: PropTypes.string.isRequired,
-		renderScene: PropTypes.func.isRequired,
-		style: PropTypes.any,
-	};
 
 	render(): React.Element<any> {
 		const {

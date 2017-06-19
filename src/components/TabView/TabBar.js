@@ -1,7 +1,6 @@
 /* @flow */
 
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import {
 	Animated,
 	StyleSheet,
@@ -60,19 +59,7 @@ type State = {
 
 export default class TabBar<T: Route<*>>
 	extends PureComponent<DefaultProps<T>, Props<T>, State> {
-	static propTypes = {
-		...SceneRendererPropType,
-		scrollEnabled: PropTypes.bool,
-		pressColor: TouchableItem.propTypes.pressColor,
-		pressOpacity: TouchableItem.propTypes.pressOpacity,
-		getLabelText: PropTypes.func,
-		renderIcon: PropTypes.func,
-		renderLabel: PropTypes.func,
-		renderIndicator: PropTypes.func,
-		onTabPress: PropTypes.func,
-		labelStyle: Text.propTypes.style,
-		style: PropTypes.any,
-	};
+	props: Props;
 
 	static defaultProps = {
 		getLabelText: ({ route }) => (route.title ? route.title.toUpperCase() : null),
