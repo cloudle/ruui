@@ -1,6 +1,10 @@
 import * as Actions from './actions';
 import { uuid } from '../helpers';
 
+export function resetState() {
+	return { type: Actions.ResetState, };
+}
+
 export function toggleSelector(flag, configs = {}) {
 	return { type: Actions.ToggleSelect, flag, configs };
 }

@@ -34,6 +34,8 @@ export function appReducer(reducer) {
 			return { ...state, snackBars: collectionInsert(state.snackBars, action.configs) };
 		case Actions.DestroySnackBar:
 			return { ...state, snackBars: collectionDestroy(state.snackBars, action.configs) };
+		case Actions.ResetState:
+			return initialAppState(reducer(undefined, { type: Actions.ReduxInit }));
 		default:
 			return reducer(state, action);
 		}
