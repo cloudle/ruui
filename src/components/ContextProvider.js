@@ -16,9 +16,15 @@ export default class ContextProvider extends Component {
 	props: Props;
 
 	componentWillMount() {
-		/* Only watch System information if there is redux-store available*/
 		if (this.props.store) {
 			this.subscribeAndUpdateNetworkInfo();
+		}
+	}
+
+	componentWillUnmount() {
+		if (this.props.store) {
+			NetInfo.removeEventListener('change', this.handleConnectionTypeChange);
+			NetInfo.isConnected.removeEventListener('change', this.handleIsConnectedChange);
 		}
 	}
 
@@ -37,14 +43,16 @@ export default class ContextProvider extends Component {
 	};
 
 	subscribeAndUpdateNetworkInfo = () => {
-		NetInfo.addEventListener('change', (connectionType) => {
-			NetInfo.isConnected.fetch().then((isConnected) => {
-				this.props.store.dispatch(appActions.updateNetInfo({
-					isConnected,
-					connectionType,
-				}));
-			});
-		});
+		NetInfo.addEventListener('change', this.handleConnectionTypeChange);
+		NetInfo.isConnected.addEventListener('change', this.handleIsConnectedChange);
+	};
+
+	handleConnectionTypeChange = (connectionType) => {
+		this.props.store.dispatch(appActions.updateNetInfo({ connectionType, }));
+	};
+
+	handleIsConnectedChange = (isConnected) => {
+		this.props.store.dispatch(appActions.updateNetInfo({ isConnected, }));
 	};
 }
 

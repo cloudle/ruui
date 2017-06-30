@@ -32,10 +32,6 @@ export class App extends Component {
 		router: React.PropTypes.any,
 	};
 
-	async componentWillMount() {
-		const token = await AsyncStorage.getItem('sysConfig');
-	}
-
 	render() {
 		return <Drawer
 			type="overlay"

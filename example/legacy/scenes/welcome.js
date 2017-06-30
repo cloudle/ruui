@@ -68,15 +68,15 @@ export default class app extends Component {
 					tooltip="Yay!"
 					title="Click me!" onPress={() => {
 						// this.props.dispatch(routeAction.push('Login'));
-						// this.props.dispatch(appAction.insertSnackBar({
-						// 	contentRenderer: () => {
-						// 		return <Text>Dou ma</Text>;
-						// 	},
-						// 	message: 'Hello',
-						// 	containerStyle: {
-						// 		backgroundColor: 'red',
-						// 	},
-						// }));
+						this.props.dispatch(appAction.insertSnackBar({
+							contentRenderer: () => {
+								return <Text>Dou ma</Text>;
+							},
+							message: 'Hello',
+							containerStyle: {
+								backgroundColor: 'red',
+							},
+						}));
 						// this.props.dispatch(appAction.toggleModal(true, {
 						// 	component: GreetingModal,
 						// 	tapToClose: true,

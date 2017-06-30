@@ -69,8 +69,8 @@ export default class ConnectionMask extends Component {
 						title={this.props.retryButtonCaption}
 						icon={this.props.retryButtonIcon}
 						rightIcon={this.props.retryButtonRightIcon}
-						retryButtonWrapperStyle={this.props.retryButtonWrapperStyle}
-						retryButtonInnerStyle={this.props.retryButtonInnerStyle}
+						wrapperStyle={this.props.retryButtonWrapperStyle}
+						innerStyle={this.props.retryButtonInnerStyle}
 						onPress={this.retry}/>
 				</View>}
 		</Animated.View>;
