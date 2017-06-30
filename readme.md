@@ -64,6 +64,7 @@ I personally got dozen Apps built on this UI components. Next important thing fo
   - [x] Native Navigation (based on React Native's ExperimentalNavigation)
   - [x] React-Router for Web/Native (Full-featured Browser support, fallback to Memory Navigation History for [React Native][react-native-url])
   - [x] Redux helpers
+- [x] Context Provider - configurable theme, reactive device common info via ReduxStore (e.g Network info, Screen size..)
 - [x] Switches (exposed from [react-native-web][react-native-web-url])
 - [x] Button Component
   - [x] Ripple effect
@@ -98,7 +99,7 @@ I personally got dozen Apps built on this UI components. Next important thing fo
 - [ ] Checkbox
 - [ ] Range
 - [ ] Select field (mostly for **Web**)
-- [ ] Network status (mask)
+- [x] Connection status (mask)
 - [ ] Theming..
 
 ## Related projects

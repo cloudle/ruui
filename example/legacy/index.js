@@ -3,16 +3,16 @@ import { AsyncStorage, View, Text, StyleSheet } from 'react-native';
 import { connect, Provider } from 'react-redux';
 import Drawer from 'react-native-drawer';
 
-import { NavigationCardStack, Snackbar, Modal, routeAction, appAction } from '../../src';
+import { ContextProvider, ConnectionMask, NavigationCardStack, Snackbar, Modal, routeAction, appAction } from '../../src';
 import Menu from './share/Menu';
 import NavigationHeader from './share/NavigationHeader';
 import Welcome from './scenes/welcome';
 import * as appActions from './store/action/app';
 
 export default function AppContainer({ store }) {
-	return <Provider store={store}>
+	return <ContextProvider store={store}>
 		<App/>
-	</Provider>;
+	</ContextProvider>;
 }
 
 AppContainer.propTypes = {
@@ -53,8 +53,10 @@ export class App extends Component {
 				renderHeader={this.renderHeader}
 				gestureResponseDistance={50}
 				onNavigateBack={() => this.props.dispatch(routeAction.pop())}/>
+
 			<Snackbar/>
 			<Modal/>
+			<ConnectionMask/>
 		</Drawer>;
 	}
 

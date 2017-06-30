@@ -12,11 +12,13 @@ import * as appActions from '../store/action/app';
 type Props = {
 	dispatch?: Function,
 	counter?: number,
+	netInfo?: Object,
 };
 
 @connect(({ app }) => {
 	return {
 		counter: app.counter,
+		netInfo: app.netInfo,
 	};
 })
 
@@ -47,7 +49,7 @@ export default class app extends Component {
 
 			<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 				<Text style={styles.welcome}>
-					Welcome to React Native!! {this.props.counter}
+					Welcome to React Native!! {JSON.stringify(this.props.netInfo)}
 				</Text>
 				<Text style={styles.instructions}>
 					To get started, edit src/app.js

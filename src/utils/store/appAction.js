@@ -5,6 +5,18 @@ export function resetState() {
 	return { type: Actions.ResetState, };
 }
 
+export function updateThemeConfigs(configs = {}) {
+	return { type: Actions.UpdateThemeConfigs, configs };
+}
+
+export function updateScreenInfo(info = {}) {
+	return { type: Actions.UpdateScreenInfo, info };
+}
+
+export function updateNetInfo(info = {}) {
+	return { type: Actions.UpdateNetInfo, info };
+}
+
 export function toggleSelector(flag, configs = {}) {
 	return { type: Actions.ToggleSelect, flag, configs };
 }
