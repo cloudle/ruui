@@ -4,6 +4,7 @@ import { Animated, Easing, View, Text, StyleSheet } from 'react-native';
 import { Style } from '../typeDefinition';
 
 type Props = {
+	index: number,
 	aliveIndex?: number,
 	closeable?: boolean,
 	onStartTimeout: Function,
@@ -19,7 +20,7 @@ export default class Snackbar extends Component {
 		const initialPosition = this.props.aliveIndex - 1;
 		this.state = {
 			positionAnimation: new Animated.Value(initialPosition),
-			firstItemAnimation: new Animated.Value(this.props.aliveIndex === 0 ? 0 : 1),
+			firstItemAnimation: new Animated.Value(0),
 			lastPosition: initialPosition,
 			currentPosition: this.props.aliveIndex,
 		};
@@ -40,13 +41,14 @@ export default class Snackbar extends Component {
 				toValue: nextProps.aliveIndex, duration: 1000,
 				easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
 			}).start();
-		}
 
-		if (nextProps.aliveIndex === 0) {
-			Animated.timing(this.state.firstItemAnimation, {
-				toValue: 0, duration: 1000,
-				easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
-			}).start();
+			if (this.props.aliveIndex === 0 && nextProps.aliveIndex !== -1) {
+				Animated.timing(this.state.firstItemAnimation, {
+					toValue: nextProps.aliveIndex === 0 ? 0 : 1,
+					duration: 1000,
+					easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
+				}).start();
+			}
 		}
 	}
 
@@ -59,7 +61,7 @@ export default class Snackbar extends Component {
 				this.props.onStartTimeout(this.props.configs);
 
 				Animated.timing(this.state.positionAnimation, {
-					toValue: this.props.aliveIndex - 1, duration: 1000,
+					toValue: this.props.aliveIndex, duration: 1000,
 					easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
 				}).start(() => {
 					this.props.onTimeout(this.props.configs);
@@ -77,9 +79,10 @@ export default class Snackbar extends Component {
 				inputRange: [0, 1], outputRange: [0, 12],
 			}),
 			offset = this.state.positionAnimation.interpolate({
-				inputRange: [0, 20], outputRange: [0, 20 * -56],
+				inputRange: [0, 100], outputRange: [0, 100 * -56],
 			}),
 			containerStyles = {
+				zIndex: -this.props.index + 100,
 				borderRadius, marginHorizontal,
 				transform: [{ translateY: offset }],
 			};

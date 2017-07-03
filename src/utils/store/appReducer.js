@@ -34,7 +34,7 @@ export function appReducer(reducer) {
 		case Actions.ToggleLoading:
 			return handleToggleLoading(state, action);
 		case Actions.InsertSnackBar:
-			return { ...state, snackBars: collectionInsert(state.snackBars, action.configs, false) };
+			return { ...state, snackBars: collectionInsert(state.snackBars, action.configs, true) };
 		case Actions.StartDestroySnackBar:
 			return { ...state, snackBars: collectionMutate(state.snackBars, {
 				id: action.configs.id, destroying: true,

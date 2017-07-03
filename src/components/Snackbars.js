@@ -49,6 +49,7 @@ export default class Snackbars extends Component<any, Props, any> {
 			bars.push(<Snackbar
 				configs={barConfigs}
 				key={barConfigs.id}
+				index={i}
 				aliveIndex={aliveIndex}
 				onStartTimeout={this.onStartBarTimeout}
 				onTimeout={this.onBarTimeout}/>);
