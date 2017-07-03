@@ -64,7 +64,7 @@ export default class ConnectionMask extends Component {
 				? this.props.contentRenderer(this.props.netInfo)
 				: <View style={styles.innerContainer}>
 					{this.props.message}
-					<ActivityIndicator style={styles.activityIndicator}/>
+					<ActivityIndicator color="#ffffff" style={styles.activityIndicator}/>
 					<Button
 						title={this.props.retryButtonCaption}
 						icon={this.props.retryButtonIcon}

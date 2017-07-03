@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NetInfo, View, Text, StyleSheet } from 'react-native';
+import { NetInfo, Dimensions, View, Text, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 
 import * as appActions from '../utils/store/appAction';
@@ -17,6 +17,7 @@ export default class ContextProvider extends Component {
 
 	componentWillMount() {
 		if (this.props.store) {
+			this.subscribeAndUpdateScreenSizes();
 			this.subscribeAndUpdateNetworkInfo();
 		}
 	}
@@ -42,7 +43,14 @@ export default class ContextProvider extends Component {
 
 	};
 
+	handleScreenSizeChange = (data) => {
+
+	};
+
 	subscribeAndUpdateNetworkInfo = () => {
+		NetInfo.fetch().then(connectionType => this.handleConnectionTypeChange(connectionType));
+		NetInfo.isConnected.fetch().then(isConnected => this.handleIsConnectedChange(isConnected));
+
 		NetInfo.addEventListener('change', this.handleConnectionTypeChange);
 		NetInfo.isConnected.addEventListener('change', this.handleIsConnectedChange);
 	};

@@ -35,6 +35,10 @@ export function insertSnackBar(configs = {}) {
 	} };
 }
 
+export function startDestroySnackBar(configs = {}) {
+	return { type: Actions.StartDestroySnackBar, configs };
+}
+
 export function destroySnackBar(configs = {}) {
 	return { type: Actions.DestroySnackBar, configs };
 }

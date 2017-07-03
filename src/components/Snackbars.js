@@ -3,7 +3,6 @@ import { Animated, Easing, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import Snackbar from './Snackbar';
-import { horizontalSnappings } from '../utils';
 import * as appActions from '../utils/store/appAction';
 
 type Props = {
@@ -31,64 +30,35 @@ export default class Snackbars extends Component<any, Props, any> {
 		margin: 15,
 	};
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			enterAnimation: new Animated.Value(1),
-			currentBarLength: this.props.snackBars.length,
-			previousBarLength: 0,
-		};
-	}
-
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.snackBars.length !== this.props.snackBars.length) {
-			this.setState({
-				currentBarLength: nextProps.snackBars.length,
-				previousBarLength: this.props.snackBars.length,
-			});
-
-			const isInsert = nextProps.snackBars.length > this.props.snackBars.length;
-			this.playEnterAnimation(isInsert ? 0 : 1);
-		}
-	}
-
 	render() {
-		const snappingStyles = horizontalSnappings(this.props.margin, this.props.minWidth),
-			translateY = this.state.enterAnimation.interpolate({
-				inputRange: [0, 1], outputRange: [
-					53 * this.state.previousBarLength, 53 * this.state.currentBarLength],
-			}),
-			containerAnimationStyles = { transform: [{ translateY }], };
-
-		return <Animated.View
-			style={[styles.container, snappingStyles, containerAnimationStyles]}>
-			{this.props.snackBars.map((barOptions, i) => {
-				const containerStyles = i === this.props.snackBars.length - 1 ? {
-					borderBottomLeftRadius: 0,
-					borderBottomRightRadius: 0,
-				} : {};
-
-				return <Snackbar
-					key={barOptions.id} configs={barOptions}
-					containerStyle={containerStyles}
-					timeout={3000 + (i * 3000)}
-					onTimeout={this.onBarTimeout}/>;
-			})}
-		</Animated.View>;
+		return <View
+			pointerEvents="box-none"
+			style={styles.container}>
+			{this.renderBars()}
+		</View>;
 	}
 
-	playEnterAnimation = (toValue) => {
-		if (this.enterAnimation) this.enterAnimation.clear();
+	renderBars() {
+		let aliveIndex = -1; const bars = [];
 
-		const animations = [
-			Animated.timing(this.state.enterAnimation, {
-				toValue,
-				duration: this.props.animationSpeed,
-				easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
-			}),
-		];
+		for (let i = 0; i < this.props.snackBars.length; i += 1) {
+			const barConfigs = this.props.snackBars[i];
 
-		this.animation = Animated.parallel(animations).start();
+			if (!barConfigs.destroying) aliveIndex += 1;
+
+			bars.push(<Snackbar
+				configs={barConfigs}
+				key={barConfigs.id}
+				aliveIndex={aliveIndex}
+				onStartTimeout={this.onStartBarTimeout}
+				onTimeout={this.onBarTimeout}/>);
+		}
+
+		return bars;
+	}
+
+	onStartBarTimeout = (configs) => {
+		this.props.dispatch(appActions.startDestroySnackBar(configs));
 	};
 
 	onBarTimeout = (configs) => {
@@ -96,12 +66,9 @@ export default class Snackbars extends Component<any, Props, any> {
 	};
 }
 
-const snackBarHeight = 53;
-
 const styles = StyleSheet.create({
 	container: {
-		position: 'absolute', bottom: 0,
-		borderTopLeftRadius: snackbarRadius, borderTopRightRadius: snackbarRadius,
+		position: 'absolute', top: 0, bottom: 0, left: 0, right: 0,
 	},
 	message: {
 		color: '#ffffff',

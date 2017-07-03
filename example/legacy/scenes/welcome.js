@@ -49,14 +49,15 @@ export default class app extends Component {
 
 			<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 				<Text style={styles.welcome}>
-					Welcome to React Native!! {JSON.stringify(this.props.netInfo)}
+					Welcome to React Native!!
 				</Text>
 				<Text style={styles.instructions}>
 					To get started, edit src/app.js
 				</Text>
 				<Text style={styles.instructions}>
 					Press Cmd+R to reload,{'\n'}
-					Cmd+D or shake for dev menu
+					Cmd+D or shake for dev menu{'\n'}
+					{JSON.stringify(this.props.netInfo)}
 				</Text>
 				<View style={{ width: 200, height: 50, }}>
 					<Slider
@@ -69,13 +70,7 @@ export default class app extends Component {
 					title="Click me!" onPress={() => {
 						// this.props.dispatch(routeAction.push('Login'));
 						this.props.dispatch(appAction.insertSnackBar({
-							contentRenderer: () => {
-								return <Text>Dou ma</Text>;
-							},
-							message: 'Hello',
-							containerStyle: {
-								backgroundColor: 'red',
-							},
+							message: 'Snackbar content..',
 						}));
 						// this.props.dispatch(appAction.toggleModal(true, {
 						// 	component: GreetingModal,
