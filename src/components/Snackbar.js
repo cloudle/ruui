@@ -4,6 +4,9 @@ import { Animated, Easing, View, Text, StyleSheet } from 'react-native';
 import { Style } from '../typeDefinition';
 
 type Props = {
+	edge: 'bottom' | 'top',
+	edgeOffset: number,
+	itemHeight: number,
 	index: number,
 	aliveIndex?: number,
 	closeable?: boolean,
@@ -72,6 +75,7 @@ export default class Snackbar extends Component {
 
 	render() {
 		const contentRenderer = this.props.configs.contentRenderer || defaultContentRenderer,
+			velocity = this.props.edge === 'top' ? this.props.itemHeight : -this.props.itemHeight,
 			borderRadius = this.state.firstItemAnimation.interpolate({
 				inputRange: [0, 1], outputRange: [0, 3],
 			}),
@@ -79,13 +83,19 @@ export default class Snackbar extends Component {
 				inputRange: [0, 1], outputRange: [0, 12],
 			}),
 			offset = this.state.positionAnimation.interpolate({
-				inputRange: [0, 100], outputRange: [0, 100 * -56],
+				inputRange: [0, 100], outputRange: [0, 100 * velocity],
 			}),
 			containerStyles = {
 				zIndex: -this.props.index + 100,
 				borderRadius, marginHorizontal,
 				transform: [{ translateY: offset }],
 			};
+
+		if (this.props.edge === 'top') {
+			containerStyles.top = this.props.edgeOffset;
+		} else {
+			containerStyles.bottom = this.props.edgeOffset;
+		}
 
 		return <Animated.View
 			style={[styles.container, this.props.configs.containerStyle, containerStyles]}>
@@ -104,7 +114,7 @@ const styles = StyleSheet.create({
 	container: {
 		padding: 14, marginTop: 6,
 		backgroundColor: '#454545',
-		position: 'absolute', left: 0, right: 0, bottom: 0,
+		position: 'absolute', left: 0, right: 0,
 	},
 	message: {
 		color: '#ffffff',

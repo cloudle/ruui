@@ -6,6 +6,9 @@ import Snackbar from './Snackbar';
 import * as appActions from '../utils/store/appAction';
 
 type Props = {
+	edge: 'bottom' | 'top',
+	edgeOffset: number,
+	itemHeight: number,
 	dispatch?: Function,
 	margin?: number,
 	minWidth?: number,
@@ -24,7 +27,14 @@ const snackbarRadius = 3;
 export default class Snackbars extends Component<any, Props, any> {
 	props: Props;
 
+	static edge = {
+		top: 'top', bottom: 'bottom',
+	};
+
 	static defaultProps = {
+		edge: 'bottom',
+		edgeOffset: 0,
+		itemHeight: 56,
 		animationSpeed: 1000,
 		minWidth: 300,
 		margin: 15,
@@ -47,6 +57,9 @@ export default class Snackbars extends Component<any, Props, any> {
 			if (!barConfigs.destroying) aliveIndex += 1;
 
 			bars.push(<Snackbar
+				edge={this.props.edge}
+				edgeOffset={this.props.edgeOffset}
+				itemHeight={this.props.itemHeight}
 				configs={barConfigs}
 				key={barConfigs.id}
 				index={i}

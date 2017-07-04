@@ -85,7 +85,7 @@ I personally got dozen Apps built on this UI components. Next important thing fo
   - [x] Pop-up style (Alert, Prompt..)
   - [x] Full-screen style
 - [x] Loading Mask
-- [x] Snackbar (Alpha implementation)
+- [x] Snackbar
 - [x] Selector Api, Select component (mobile)
 - [x] Animated Tab View
   - [x] Essential module export - for generic use case
