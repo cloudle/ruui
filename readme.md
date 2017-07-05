@@ -7,11 +7,8 @@ Cross-platform (**React Native** and **Web Browser**) [React][react-url], [React
 
 <div>
   <img height="500" style="float: right;" alt="dx-01" src="https://github.com/cloudle/ruui/blob/master/screenshot/tabs.png?raw=true">
-  <img height="500" style="float: right;" alt="dx-01" src="https://github.com/cloudle/ruui/blob/master/screenshot/drawer.png?raw=true">
   <img height="500" style="float: right;" alt="dx-01" src="https://github.com/cloudle/ruui/blob/master/screenshot/snackbar.png?raw=true">
-  <img height="500" style="float: right;" alt="dx-01" src="https://github.com/cloudle/ruui/blob/master/screenshot/modal.png?raw=true">
   <img height="500" style="float: right;" alt="dx-01" src="https://github.com/cloudle/ruui/blob/master/screenshot/selector.png?raw=true">
-  <img height="500" style="float: right;" alt="dx-01" src="https://github.com/cloudle/ruui/blob/master/screenshot/connection-mask.png?raw=true">
 </div>
 
 ## Platforms
