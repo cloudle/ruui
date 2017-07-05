@@ -61,7 +61,7 @@ export class App extends Component {
 
 			<Router/>
 			<Modal/>
-			{/*<Snackbar/>*/}
+			<Snackbar/>
 		</Drawer>;
 	}
 }
