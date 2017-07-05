@@ -6,9 +6,9 @@
 Cross-platform (**React Native** and **Web Browser**) [React][react-url], [React Native][react-native-url]'s UI components to re-use everywhere.
 
 <div>
-  <img height="500" style="float: right;" alt="dx-01" src="https://github.com/cloudle/ruui/blob/master/screenshot/tabs.png?raw=true">
-  <img height="500" style="float: right;" alt="dx-01" src="https://github.com/cloudle/ruui/blob/master/screenshot/snackbar.png?raw=true">
-  <img height="500" style="float: right;" alt="dx-01" src="https://github.com/cloudle/ruui/blob/master/screenshot/selector.png?raw=true">
+  <img height="500" style="float: right;" alt="tabs" src="https://github.com/cloudle/ruui/blob/master/screenshot/tabs.png?raw=true">
+  <img height="500" style="float: right;" alt="button" src="https://github.com/cloudle/ruui/blob/master/screenshot/button.png?raw=true">
+  <img height="500" style="float: right;" alt="selector" src="https://github.com/cloudle/ruui/blob/master/screenshot/selector.png?raw=true">
 </div>
 
 ## Platforms
