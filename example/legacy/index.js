@@ -50,7 +50,7 @@ export class App extends Component {
 				gestureResponseDistance={50}
 				onNavigateBack={() => this.props.dispatch(routeAction.pop())}/>
 
-			<Snackbar/>
+			<Snackbar edge={Snackbar.edge.top} edgeOffset={-6}/>
 			<Modal/>
 			<ConnectionMask/>
 		</Drawer>;

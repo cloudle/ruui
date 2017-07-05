@@ -6,9 +6,9 @@ import Snackbar from './Snackbar';
 import * as appActions from '../utils/store/appAction';
 
 type Props = {
-	edge: 'bottom' | 'top',
-	edgeOffset: number,
-	itemHeight: number,
+	edge?: 'bottom' | 'top',
+	edgeOffset?: number,
+	itemHeight?: number,
 	dispatch?: Function,
 	margin?: number,
 	minWidth?: number,
