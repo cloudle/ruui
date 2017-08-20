@@ -12,10 +12,14 @@ export default class LoadingModal extends Component<any, Props, any> {
 	props: Props;
 
 	render() {
+		const configs = this.props.configs || {},
+			indicatorColor = configs.indicatorColor || '#ffffff',
+			indicatorSize = configs.indicatorSize || 20;
+
 		return <View
 			style={styles.container}>
 			<TouchableOpacity onPress={this.onMaskPress}>
-				<ActivityIndicator/>
+				<ActivityIndicator color={indicatorColor} size={indicatorSize}/>
 			</TouchableOpacity>
     </View>;
 	}

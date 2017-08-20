@@ -7,7 +7,7 @@
     "src",
     "!**/__tests__"
   ],
-  "version": "0.1.41",
+  "version": "0.1.42",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
