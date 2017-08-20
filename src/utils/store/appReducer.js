@@ -77,19 +77,20 @@ function handleToggleSelect(state, action) {
 
 function handleToggleModal(state, action) {
 	const modalName = action.configs.id || 'default',
+		currentModal = state.activeModals[modalName] || {},
 		modalConfigs = {
 			type: 'modal',
 			active: action.flag === true,
 			configs: action.flag === true ? {
 				...action.configs,
-			} : state.activeModals[`${modalName}Modal`].configs,
+			} : currentModal.configs,
 		};
 
 	return {
 		...state,
 		activeModals: {
 			...state.activeModals,
-			[`${modalName}Modal`]: modalConfigs,
+			[modalName]: modalConfigs,
 		},
 	};
 }

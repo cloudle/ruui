@@ -2,12 +2,36 @@ import React, { Component } from 'react';
 import { Animated, Easing, Text, StyleSheet } from 'react-native';
 import { isBrowser } from '../utils';
 
+import { Style } from '../typeDefinition';
+
 type Props = {
 	title?: string,
+	wrapperStyle?: Style,
 };
+
+const styles = StyleSheet.create({
+	container: {
+		zIndex: 12,
+		position: isBrowser ? 'fixed' : 'absolute',
+		backgroundColor: 'rgb(97, 97, 97)',
+		borderRadius: 3,
+		padding: 5, paddingHorizontal: 8,
+	},
+	offsetStyle: {
+		marginTop: -30, marginLeft: 0,
+	},
+	title: {
+		fontSize: 11, fontWeight: '300',
+		color: '#f5f5f5',
+	},
+});
 
 export default class Tooltip extends Component<any, Props, any> {
 	props: Props;
+
+	static defaultProps = {
+		wrapperStyle: styles.offsetStyle,
+	};
 
 	constructor(props) {
 		super(props);
@@ -40,22 +64,8 @@ export default class Tooltip extends Component<any, Props, any> {
 				opacity,
 			};
 
-		return <Animated.View style={[styles.container, containerStyles]}>
+		return <Animated.View style={[styles.container, containerStyles, this.props.wrapperStyle]}>
 			<Text style={styles.title}>{this.props.title}</Text>
 		</Animated.View>;
 	}
 }
-
-const styles = StyleSheet.create({
-	container: {
-		position: isBrowser ? 'fixed' : 'absolute',
-		marginTop: -30, marginLeft: 0,
-		backgroundColor: 'rgb(97, 97, 97)',
-		borderRadius: 3,
-		padding: 5, paddingLeft: 8, paddingRight: 8,
-	},
-	title: {
-		fontSize: 11, fontWeight: '300',
-		color: '#f5f5f5',
-	},
-});

@@ -9,6 +9,7 @@ import snackbarImport from './Snackbars';
 import tooltipImport from './Tooltip';
 import connectionMaskImport from './ConnectionMask';
 import tabViewImport from './TabView';
+import sliderImport from './Slider';
 
 export const ResponsibleTouchArea = responsibleTouchAreaImport;
 export const RippleEffect = rippleEffectImport;
@@ -21,4 +22,5 @@ export const Snackbar = snackbarImport;
 export const Tooltip = tooltipImport;
 export const ConnectionMask = connectionMaskImport;
 export const TabView = tabViewImport;
+export const Slider = sliderImport;
 export * from './Navigation';

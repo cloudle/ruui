@@ -10,6 +10,7 @@ type Props = {
 	wrapperStyle?: Style,
 	innerStyle?: Style,
 	tooltip?: string,
+	tooltipWrapperStyle?: Style,
 	ripple?: boolean,
 	staticRipple?: boolean,
 	rippleColor?: string,
@@ -149,7 +150,9 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 
 	renderTooltip() {
 		if (this.props.tooltip && this.state.mouseInside) {
-			return <Tooltip title={this.props.tooltip}/>;
+			return <Tooltip
+				title={this.props.tooltip}
+				wrapperStyle={this.props.tooltipWrapperStyle}/>;
 		} else {
 			return <View/>;
 		}

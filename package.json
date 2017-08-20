@@ -7,7 +7,7 @@
     "src",
     "!**/__tests__"
   ],
-  "version": "0.1.37",
+  "version": "0.1.41",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
@@ -61,7 +61,7 @@
     "react-hot-loader": "^3.0.0-beta.6",
     "react-native": "0.41.1",
     "react-native-drawer": "^2.3.0",
-    "react-native-slider": "^0.10.0",
+    "react-native-slider": "^0.11.0",
     "react-native-vector-icons": "github:cloudle/react-native-vector-icons",
     "react-native-web": "0.0.72",
     "react-navigation": "github:cloudle/react-navigation",

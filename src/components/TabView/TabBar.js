@@ -1,5 +1,3 @@
-/* @flow */
-
 import React, { PureComponent } from 'react';
 import {
 	Animated,
@@ -12,6 +10,7 @@ import {
 } from 'react-native';
 import TouchableItem from './TouchableItem';
 import { SceneRendererPropType } from './TabViewPropTypes';
+import { isAndroid } from '../../utils';
 import type {
 	Scene,
 	SceneRendererProps,
@@ -345,8 +344,12 @@ export default class TabBar<T: Route<*>>
 			overScrollMode: 'never',
 		};
 
+		const platformStyles = isAndroid ? {
+			elevation: 4,
+		} : {};
+
 		return (
-			<Animated.View style={[styles.tabBar, this.props.style]}>
+			<Animated.View style={[styles.tabBar, platformStyles, this.props.style]}>
 				<Animated.View
 					pointerEvents="none"
 					style={[
@@ -498,7 +501,6 @@ const styles = StyleSheet.create({
 	},
 	tabBar: {
 		backgroundColor: '#2196f3',
-		elevation: 4,
 		shadowColor: 'black',
 		shadowOpacity: 0.1,
 		shadowRadius: StyleSheet.hairlineWidth,
