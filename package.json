@@ -61,7 +61,6 @@
     "react-hot-loader": "^3.0.0-beta.6",
     "react-native": "0.41.1",
     "react-native-drawer": "^2.3.0",
-    "react-native-slider": "^0.11.0",
     "react-native-vector-icons": "github:cloudle/react-native-vector-icons",
     "react-native-web": "0.0.72",
     "react-navigation": "github:cloudle/react-navigation",

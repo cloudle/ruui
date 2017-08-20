@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import Slider from 'react-native-slider';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { Snackbar, Button, Input, Select, appAction, routeAction } from '../../../src';
+import { Snackbar, Button, Input, Select, Slider, appAction, routeAction } from '../../../src';
 import GreetingModal from '../modal/greeting';
 import GoodByeModal from '../modal/goodbye';
 import * as appActions from '../store/action/app';
