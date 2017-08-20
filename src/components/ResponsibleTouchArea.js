@@ -150,9 +150,9 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 
 	renderTooltip() {
 		if (this.props.tooltip && this.state.mouseInside) {
-			return <Tooltip
-				title={this.props.tooltip}
-				wrapperStyle={this.props.tooltipWrapperStyle}/>;
+			return <Tooltip wrapperStyle={this.props.tooltipWrapperStyle}>
+				{this.props.tooltip}
+			</Tooltip>;
 		} else {
 			return <View/>;
 		}

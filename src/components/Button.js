@@ -17,7 +17,7 @@ type Props = {
 	icon?: Element,
 	rightIcon?: Element,
 	title?: string,
-	tooltip?: string,
+	tooltip?: string | Element,
 	textStyle?: Style,
 	disabled?: boolean,
 	raise?: boolean,

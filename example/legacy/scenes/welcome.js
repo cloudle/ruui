@@ -65,7 +65,7 @@ export default class app extends Component {
 				</View>
 				<Button
 					wrapperStyle={{ backgroundColor: '#00bcd4', width: 120, }}
-					tooltip="Yay!"
+					tooltip="Welcome to tooltip world, this is a very very very very very very very long content.."
 					title="Click me!" onPress={() => {
 						// this.props.dispatch(routeAction.push('Login'));
 						this.props.dispatch(appAction.insertSnackBar({

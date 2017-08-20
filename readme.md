@@ -103,8 +103,8 @@ I personally got dozen Apps built on this UI components. Next important thing fo
 - [ ] Datetime picker
 - [ ] Radio
 - [ ] Checkbox
-- [ ] Range
-- [ ] Select field (mostly for **Web**)
+- [x] Range Slider
+- [ ] Select field (Dropdown - mostly for **Web**)
 - [x] Connection status (mask)
 - [ ] Theming..
 
