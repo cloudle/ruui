@@ -70,22 +70,22 @@ export function directionSnap(
 	case 'top-left':
 		return {
 			top: top - (spacing + height2),
-			left: left - (spacing + width2),
+			left,
 		};
 	case 'bottom-left':
 		return {
 			top: top + (spacing + height1),
-			left: left - (spacing + width2),
+			left,
 		};
 	case 'bottom-right':
 		return {
 			top: top + (spacing + height1),
-			left: left + (spacing + width1),
+			left: left - (width2 - width1),
 		};
 	case 'top-right':
 		return {
 			top: top - (spacing + height2),
-			left: left + (spacing + width1),
+			left: left - (width2 - width1),
 		};
 	default:
 		return { top: 0, left: 0 };
