@@ -34,14 +34,14 @@ export default class Tooltip extends Component<any, Props, any> {
 		const ScreenSize = Dimensions.get('window');
 
 		this.container.measure((a, b, width, height, px, py) => {
-			const rightEdgeDistance = (ScreenSize.width - 5) - (width + px),
-				leftEdgeDistance = px,
-				bottomEdgeDistance = (ScreenSize.height - 5) - (height + py),
-				topEdgeDistance = py,
-				containerSize = this.props.containerSize || { width: 0, height: 0 },
+			const containerSize = this.props.containerSize || { width: 0, height: 0 },
 				snappingPosition = directionSnap(
 					0, 0, containerSize.width, containerSize.height, width, height,
-					this.props.direction, this.props.positionSpacing);
+					this.props.direction, this.props.positionSpacing),
+				rightEdgeDistance = (ScreenSize.width - 5) - (px + snappingPosition.left + width),
+				leftEdgeDistance = px + snappingPosition.left,
+				bottomEdgeDistance = (ScreenSize.height - 5) - (py + snappingPosition.top + height),
+				topEdgeDistance = py + snappingPosition.top;
 
 			let topOffset = snappingPosition.top + this.props.positionOffset.top,
 				leftOffset = snappingPosition.left + this.props.positionOffset.left;
@@ -93,7 +93,9 @@ export default class Tooltip extends Component<any, Props, any> {
 				top: this.state.topOffset,
 			};
 
-		return <Animated.View style={[styles.container, containerStyles]}>
+		return <Animated.View
+			pointerEvents="box-none"
+			style={[styles.container, containerStyles]}>
 			<View style={edgeOffsets} ref={(container) => { this.container = container; }}>
 				<Animated.View style={[styles.innerContainer, innerStyles, this.props.wrapperStyle]}>
 					{children}
