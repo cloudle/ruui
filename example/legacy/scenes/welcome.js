@@ -30,6 +30,7 @@ export default class app extends Component {
 		this.state = {
 			activeSelect: selects[0],
 			sliderValue: 0.5,
+			buttonLayout: {},
 		};
 	}
 
@@ -59,7 +60,9 @@ export default class app extends Component {
 					Cmd+D or shake for dev menu{'\n'}
 					{JSON.stringify(this.props.netInfo)}
 				</Text>
-				<View style={{ width: 200, height: 50, }}>
+				<View
+					onLayout={({ nativeEvent }) => { this.setState({ buttonLayout: nativeEvent.layout }); }}
+					style={{ width: 200, height: 50, }}>
 					<Slider
 						value={this.state.sliderValue}
 						onValueChange={value => this.setState({ sliderValue: value })} />
@@ -97,6 +100,7 @@ export default class app extends Component {
 				<DropdownContainer
 					dropdownWrapperStyle={{ width: 200, borderRadius: 5, }}
 					dropdownComponent={ContextMenu}
+					dropdownDirection="right"
 					dropdownContext={{ name: 'Cloud' }}>
 					<Text>Drop</Text>
 				</DropdownContainer>

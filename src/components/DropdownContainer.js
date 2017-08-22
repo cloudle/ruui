@@ -3,13 +3,14 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import * as appActions from '../utils/store/appAction';
-import { Style, Element, SnappingDirection } from '../typeDefinition';
+import { Style, Element, SnappingDirection, Layout } from '../typeDefinition';
 
 type Props = {
 	dispatch?: Function,
 	onPress?: Function,
 	style?: Style,
 	children?: Element,
+	containerLayout?: Layout,
 	dropdownComponent?: any,
 	dropdownWrapperStyle?: Style,
 	dropdownContext?: Object,
@@ -50,11 +51,11 @@ export default class DropdownContainer extends Component {
 			this.props.dispatch(appActions.toggleDropdown(true, {
 				wrapperStyle: this.props.dropdownWrapperStyle,
 				component: this.props.dropdownComponent,
+				containerLayout: this.props.containerLayout || { x: px, y: py, width, height, },
 				direction: this.props.dropdownDirection,
 				spacing: this.props.dropdownSpacing,
 				offset: this.props.dropdownOffset,
 				context: this.props.dropdownContext,
-				position: { top: py, left: px, width, height },
 			}));
 		});
 	};

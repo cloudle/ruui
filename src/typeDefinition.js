@@ -14,14 +14,16 @@ export type Style =
 	| void
 	| Array<Style>;
 
+export type Layout = {
+	x: number,
+	y: number,
+	width: number,
+	height: number,
+};
+
 export type LayoutEvent = {
 	nativeEvent: {
-		layout: {
-			x: number,
-			y: number,
-			width: number,
-			height: number,
-		},
+		layout: Layout,
 	},
 };
 
@@ -30,10 +32,8 @@ export type SnappingDirection = 'top' | 'left' | 'bottom' | 'right' | 'top-left'
 export type DropdownConfigs = {
 	component?: any,
 	wrapperStyle?: Style,
+	containerLayout?: Layout,
 	direction: SnappingDirection,
 	spacing?: number,
-	position?: {
-		left: number, top: number,
-	},
 	context?: Object,
 };

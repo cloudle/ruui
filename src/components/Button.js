@@ -27,6 +27,7 @@ type Props = {
 	fade?: boolean,
 	onPress?: Function,
 	onLongPress?: Function,
+	onLayout?: Function,
 	fadeLevel?: number,
 	children?: Element,
 };
@@ -48,6 +49,7 @@ export default class Button extends Component<any, Props, any> {
 		return <ResponsibleTouchArea
 			onPress={this.props.onPress}
 			onLongPress={this.props.onLongPress}
+			onLayout={this.props.onLayout}
 			ripple={this.props.ripple}
 			staticRipple={this.props.staticRipple}
 			rippleColor={this.props.rippleColor}

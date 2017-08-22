@@ -56,7 +56,7 @@ export default class Dropdown extends Component {
 		const configs = this.props.configs,
 			context = configs.context || {},
 			positionOffset = configs.offset || { top: 0, left: 0 },
-			containerPosition = configs.position || { left: 0, top: 0, },
+			containerLayout = configs.containerLayout || { x: 0, y: 0, width: 0, height: 0 },
 			InnerComponent = configs.component || configs.Component || EmptyDropdown,
 			flattenWrapperStyle = StyleSheet.flatten(configs.wrapperStyle),
 			wrapperBorderRadius = flattenWrapperStyle.borderRadius || 3,
@@ -69,8 +69,8 @@ export default class Dropdown extends Component {
 				extrapolate: 'clamp',
 			}),
 			snappingPosition = directionSnap(
-				containerPosition.top, containerPosition.left,
-				containerPosition.width, containerPosition.height,
+				containerLayout.y, containerLayout.x,
+				containerLayout.width, containerLayout.height,
 				this.state.layout.width, this.state.layout.height,
 				configs.direction, configs.spacing),
 			wrapperStyles = {
