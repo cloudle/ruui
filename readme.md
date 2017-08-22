@@ -104,7 +104,7 @@ I personally got dozen Apps built on this UI components. Next important thing fo
 - [ ] Radio
 - [ ] Checkbox
 - [x] Range Slider
-- [ ] Select field (Dropdown - mostly for **Web**)
+- [x] Dropdown - in place dropdown mostly for **Web**
 - [x] Connection status (mask)
 - [ ] Theming..
 
