@@ -23,6 +23,7 @@ type Props = {
 	disabled?: boolean,
 	minActiveOpacity?: number,
 	onPress?: Function,
+	onLongPress?: Function,
 	onLayout?: Function,
 	onMouseEnter?: Function,
 	onMouseLeave?: Function,
@@ -63,7 +64,6 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 	}
 
 	render() {
-		const InnerComponent = this.props.disabled ? View : TouchableOpacity;
 		const flattenWrapperStyles = StyleSheet.flatten(this.props.wrapperStyle),
 			isLightBackground = tinyColor(flattenWrapperStyles.backgroundColor).getBrightness() > 180,
 			wrapperBorderRadius = extractBorderRadius(flattenWrapperStyles);
@@ -81,17 +81,19 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 			{this.renderRippleEffect(isLightBackground, wrapperBorderRadius)}
 			{this.renderTooltip()}
 
-			<InnerComponent
+			<TouchableOpacity
+				disabled={this.props.disabled}
 				activeOpacity={this.props.minActiveOpacity}
 				style={this.props.innerStyle}
 				onPressIn={this.onPressIn}
 				onPressOut={this.onPressOut}
-				onPress={this.onPress}
+				onPress={this.props.onPress}
+				onLongPress={this.props.onLongPress}
 				onStartShouldSetResponderCapture={() => true}>
 				<View pointerEvents="none">
 					{this.props.children}
 				</View>
-			</InnerComponent>
+			</TouchableOpacity>
 		</View>;
 	}
 
@@ -157,10 +159,6 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 			return <View/>;
 		}
 	}
-
-	onPress = (e) => {
-		!this.props.disabled && this.props.onPress && this.props.onPress(e);
-	};
 
 	onPressIn = (e) => {
 		if (this.props.disabled) return;
