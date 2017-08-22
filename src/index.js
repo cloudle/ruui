@@ -10,4 +10,5 @@ export * from './utils/store/routeReducer';
 export const utils = utilsImport;
 export const actions = actionsImport;
 export const appAction = appActionImport;
+export const ruuiActions = appActionImport;
 export const routeAction = routeActionImport;

@@ -3,7 +3,7 @@ import { AsyncStorage, View, Text, StyleSheet } from 'react-native';
 import { connect, Provider } from 'react-redux';
 import Drawer from 'react-native-drawer';
 
-import { ContextProvider, ConnectionMask, NavigationCardStack, Snackbar, Modal, routeAction, appAction } from '../../src';
+import { ContextProvider, ConnectionMask, NavigationCardStack, Snackbar, Modal, Dropdown, routeAction, appAction } from '../../src';
 import Menu from './share/Menu';
 import NavigationHeader from './share/NavigationHeader';
 import Welcome from './scenes/welcome';
@@ -53,6 +53,7 @@ export class App extends Component {
 			<Snackbar/>
 			<Modal/>
 			<ConnectionMask/>
+			<Dropdown/>
 		</Drawer>;
 	}
 

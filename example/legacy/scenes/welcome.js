@@ -3,9 +3,10 @@ import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { Snackbar, Button, Input, Select, Slider, appAction, routeAction } from '../../../src';
+import { DropdownContainer, Button, Input, Select, Slider, appAction, routeAction } from '../../../src';
 import GreetingModal from '../modal/greeting';
 import GoodByeModal from '../modal/goodbye';
+import ContextMenu from '../modal/contextMenu';
 import * as appActions from '../store/action/app';
 
 type Props = {
@@ -63,6 +64,12 @@ export default class app extends Component {
 						value={this.state.sliderValue}
 						onValueChange={value => this.setState({ sliderValue: value })} />
 				</View>
+				<DropdownContainer
+					dropdownWrapperStyle={{ width: 200, borderRadius: 5, }}
+					dropdownComponent={ContextMenu}
+					dropdownContext={{ name: 'Cloud' }}>
+					<Text>Drop</Text>
+				</DropdownContainer>
 				<Button
 					wrapperStyle={{ backgroundColor: '#00bcd4', width: 120, }}
 					tooltip="Welcome to tooltip world, this is a very very very very very very very long content.."

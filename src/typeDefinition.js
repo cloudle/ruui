@@ -24,3 +24,12 @@ export type LayoutEvent = {
 		},
 	},
 };
+
+export type DropdownConfigs = {
+	component?: any,
+	wrapperStyle?: Style,
+	position?: {
+		left: number, top: number,
+	},
+	context?: Object,
+};

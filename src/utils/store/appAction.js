@@ -25,6 +25,10 @@ export function toggleModal(flag, configs = {}) {
 	return { type: Actions.ToggleModal, flag, configs };
 }
 
+export function toggleDropdown(flag, configs = {}) {
+	return { type: Actions.ToggleDropdown, flag, configs };
+}
+
 export function toggleLoading(flag, configs = {}) {
 	return { type: Actions.ToggleLoading, flag, configs };
 }

@@ -14,6 +14,12 @@ export function initialAppState(initialState = {}, previousState = {}) {
 			defaultModal: null,
 			loading: null,
 		},
+		activeDropdown: {
+			active: false,
+			configs: {
+				tapToClose: true,
+			},
+		},
 		snackBars: [],
 		themeConfigs: previousState.themeConfigs || {},
 		netInfo: previousState.netInfo || {},
@@ -31,6 +37,8 @@ export function appReducer(reducer) {
 			return handleToggleSelect(state, action);
 		case Actions.ToggleModal:
 			return handleToggleModal(state, action);
+		case Actions.ToggleDropdown:
+			return handleToggleDropdown(state, action);
 		case Actions.ToggleLoading:
 			return handleToggleLoading(state, action);
 		case Actions.InsertSnackBar:
@@ -107,6 +115,19 @@ function handleToggleLoading(state, action) {
 					...action.configs,
 				} : {},
 			} : null,
+		},
+	};
+}
+
+function handleToggleDropdown(state, action) {
+	return {
+		...state,
+		activeDropdown: {
+			active: action.flag === true,
+			configs: action.flag === true ? {
+				...action.configs,
+				tapToClose: action.configs.tapToClose || true,
+			} : state.activeDropdown.configs,
 		},
 	};
 }
