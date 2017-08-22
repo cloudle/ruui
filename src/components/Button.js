@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import ResponsibleTouchArea from './ResponsibleTouchArea';
 import { colors } from '../utils';
-import { Style, Element } from '../typeDefinition';
+import { Style, Element, SnappingDirection } from '../typeDefinition';
 
 type Props = {
 	wrapperStyle?: Style,
@@ -18,6 +18,9 @@ type Props = {
 	rightIcon?: Element,
 	title?: string,
 	tooltip?: string | Element,
+	tooltipDirection?: SnappingDirection,
+	tooltipPositionSpacing?: number,
+	tooltipPositionOffset?: Object,
 	textStyle?: Style,
 	disabled?: boolean,
 	raise?: boolean,
@@ -55,6 +58,9 @@ export default class Button extends Component<any, Props, any> {
 			fade={this.props.fade}
 			fadeLevel={this.props.fadeLevel}
 			tooltip={this.props.tooltip}
+			tooltipDirection={this.props.tooltipDirection}
+			tooltipPositionSpacing={this.props.tooltipPositionSpacing}
+			tooltipPositionOffset={this.props.tooltipPositionOffset}
 			wrapperStyle={[styles.wrapper, this.props.wrapperStyle]}
 			innerStyle={[styles.contentContainer, this.props.innerStyle]}>
 			{this.renderContent()}

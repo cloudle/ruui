@@ -4,13 +4,16 @@ import { Animated, PanResponder, Easing, TouchableOpacity, View, StyleSheet } fr
 import RippleEffect from './RippleEffect';
 import Tooltip from './Tooltip';
 import { debounce, isIos, isBrowser } from '../utils';
-import { Style, Element } from '../typeDefinition';
+import { Style, Element, SnappingDirection } from '../typeDefinition';
 
 type Props = {
 	wrapperStyle?: Style,
 	innerStyle?: Style,
 	tooltip?: string,
 	tooltipWrapperStyle?: Style,
+	tooltipDirection?: SnappingDirection,
+	tooltipPositionSpacing?: number,
+	tooltipPositionOffset?: Object,
 	ripple?: boolean,
 	staticRipple?: boolean,
 	rippleColor?: string,
@@ -56,6 +59,7 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 			raiseAnimation: new Animated.Value(0),
 			fadeAnimation: new Animated.Value(0),
 			mouseInside: false,
+			layout: { width: 0, height: 0 },
 		};
 
 		if (this.props.debounce) {
@@ -74,7 +78,7 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 			className="touchable"
 			ref={(instance) => { this.wrapperView = instance; }} collapsable={false}
 			style={[this.props.wrapperStyle]}
-			onLayout={this.props.onLayout}>
+			onLayout={this.onLayout}>
 
 			{this.renderShadowEffect(isLightBackground, wrapperBorderRadius)}
 			{this.renderFadeEffect(isLightBackground, wrapperBorderRadius)}
@@ -152,13 +156,30 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 
 	renderTooltip() {
 		if (this.props.tooltip && this.state.mouseInside) {
-			return <Tooltip wrapperStyle={this.props.tooltipWrapperStyle}>
+			const containerSize = {
+				width: this.state.layout.width,
+				height: this.state.layout.height,
+			};
+
+			return <Tooltip
+				wrapperStyle={this.props.tooltipWrapperStyle}
+				direction={this.props.tooltipDirection}
+				positionSpacing={this.props.tooltipPositionSpacing}
+				positionOffset={this.props.tooltipPositionOffset}
+				containerSize={containerSize}>
 				{this.props.tooltip}
 			</Tooltip>;
 		} else {
 			return <View/>;
 		}
 	}
+
+	onLayout = (e) => {
+		const layout = e.nativeEvent.layout;
+
+		if (this.props.onLayout) this.props.onLayout(e);
+		this.setState({ layout });
+	};
 
 	onPressIn = (e) => {
 		if (this.props.disabled) return;

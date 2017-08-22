@@ -1,41 +1,26 @@
 import React, { Component } from 'react';
 import { Dimensions, Animated, Easing, View, Text, StyleSheet } from 'react-native';
 
-import { isBrowser } from '../utils';
-import { Style, Element } from '../typeDefinition';
+import { isBrowser, directionSnap } from '../utils';
+import { Style, Element, SnappingDirection } from '../typeDefinition';
 
 type Props = {
 	wrapperStyle?: Style,
+	direction?: SnappingDirection,
+	positionSpacing?: number,
+	positionOffset?: Object,
+	containerSize?: Object,
 	children?: string | Element,
 };
-
-const styles = StyleSheet.create({
-	container: {
-		zIndex: 12,
-		position: isBrowser ? 'fixed' : 'absolute',
-	},
-	innerContainer: {
-		padding: 5, paddingHorizontal: 8,
-		backgroundColor: 'rgb(97, 97, 97)',
-		borderRadius: 3,
-	},
-	contentContainer: {
-		position: 'absolute',
-	},
-	offsetStyle: {
-		marginTop: -30, marginLeft: 0,
-	},
-	title: {
-		fontSize: 11, fontWeight: '300',
-		color: '#f5f5f5',
-	},
-});
 
 export default class Tooltip extends Component<any, Props, any> {
 	props: Props;
 
 	static defaultProps = {
-		wrapperStyle: styles.offsetStyle,
+		direction: 'top',
+		positionSpacing: 10,
+		containerSize: { width: 0, height: 0 },
+		positionOffset: { top: 0, left: 0 },
 	};
 
 	constructor(props) {
@@ -52,9 +37,14 @@ export default class Tooltip extends Component<any, Props, any> {
 			const rightEdgeDistance = (ScreenSize.width - 5) - (width + px),
 				leftEdgeDistance = px,
 				bottomEdgeDistance = (ScreenSize.height - 5) - (height + py),
-				topEdgeDistance = py;
+				topEdgeDistance = py,
+				containerSize = this.props.containerSize || { width: 0, height: 0 },
+				snappingPosition = directionSnap(
+					0, 0, containerSize.width, containerSize.height, width, height,
+					this.props.direction, this.props.positionSpacing);
 
-			let leftOffset = 0, topOffset = 0;
+			let topOffset = snappingPosition.top + this.props.positionOffset.top,
+				leftOffset = snappingPosition.left + this.props.positionOffset.left;
 
 			if (leftEdgeDistance < 0) {
 				leftOffset = leftEdgeDistance + 5;
@@ -112,3 +102,22 @@ export default class Tooltip extends Component<any, Props, any> {
 		</Animated.View>;
 	}
 }
+
+const styles = StyleSheet.create({
+	container: {
+		zIndex: 12,
+		position: isBrowser ? 'fixed' : 'absolute',
+	},
+	innerContainer: {
+		padding: 5, paddingHorizontal: 8,
+		backgroundColor: 'rgb(97, 97, 97)',
+		borderRadius: 3,
+	},
+	contentContainer: {
+		position: 'absolute',
+	},
+	title: {
+		fontSize: 11, fontWeight: '300',
+		color: '#f5f5f5',
+	},
+});

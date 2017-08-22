@@ -67,6 +67,7 @@ export default class app extends Component {
 				<Button
 					wrapperStyle={{ backgroundColor: '#00bcd4', width: 120, }}
 					tooltip="Welcome to tooltip world, this is a very very very very very very very long content.."
+					tooltipDirection="top-right"
 					title="Click me!" onPress={() => {
 						// this.props.dispatch(routeAction.push('Login'));
 						this.props.dispatch(appAction.insertSnackBar({
@@ -96,7 +97,7 @@ export default class app extends Component {
 				<DropdownContainer
 					dropdownWrapperStyle={{ width: 200, borderRadius: 5, }}
 					dropdownComponent={ContextMenu}
-					dropdownDirection="bottom"
+					dropdownDirection="top-right"
 					dropdownContext={{ name: 'Cloud' }}>
 					<Text>Drop</Text>
 				</DropdownContainer>
