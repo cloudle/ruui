@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Animated, Easing, View, TouchableWithoutFeedback, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
+import { directionSnap } from '../utils';
 import * as appActions from '../utils/store/appAction';
 import { Style, Element, DropdownConfigs } from '../typeDefinition';
 
@@ -25,6 +26,7 @@ export default class Dropdown extends Component {
 		super(props);
 		this.state = {
 			enterAnimation: new Animated.Value(0),
+			layout: {},
 		};
 	}
 
@@ -53,7 +55,8 @@ export default class Dropdown extends Component {
 	renderDropDown() {
 		const configs = this.props.configs,
 			context = configs.context || {},
-			initialPosition = configs.position || { left: 0, top: 0, },
+			positionOffset = configs.offset || { top: 0, left: 0 },
+			containerPosition = configs.position || { left: 0, top: 0, },
 			InnerComponent = configs.component || configs.Component || EmptyDropdown,
 			flattenWrapperStyle = StyleSheet.flatten(configs.wrapperStyle),
 			wrapperBorderRadius = flattenWrapperStyle.borderRadius || 3,
@@ -65,7 +68,16 @@ export default class Dropdown extends Component {
 				inputRange: [0, 1], outputRange: [0.2, 1],
 				extrapolate: 'clamp',
 			}),
-			wrapperStyles = { top: initialPosition.top, left: initialPosition.left },
+			snappingPosition = directionSnap(
+				containerPosition.top, containerPosition.left,
+				containerPosition.width, containerPosition.height,
+				this.state.layout.width, this.state.layout.height,
+				configs.direction, configs.spacing),
+			wrapperStyles = {
+				position: 'absolute',
+				top: snappingPosition.top + positionOffset.top,
+				left: snappingPosition.left + positionOffset.left,
+			},
 			containerStyles = {
 				transform: [{ translateY: translate }],
 				borderBottomLeftRadius: borderRadius,
@@ -73,19 +85,19 @@ export default class Dropdown extends Component {
 				opacity,
 			};
 
-		return <View
-			style={wrapperStyles}
-			ref={(container) => { this.container = container; }}>
+		return <View style={wrapperStyles} onLayout={this.onLayout}>
 			<Animated.View style={[styles.dropdownContainer, configs.wrapperStyle, containerStyles]}>
-				<InnerComponent
-					animation={this.state.enterAnimation}
-					context={context}/>
+				<InnerComponent animation={this.state.enterAnimation} context={context}/>
 			</Animated.View>
 		</View>;
 	}
 
 	closeModal = () => {
 		this.props.dispatch(appActions.toggleDropdown(false));
+	};
+
+	onLayout = ({ nativeEvent }) => {
+		this.setState({ layout: nativeEvent.layout });
 	};
 }
 

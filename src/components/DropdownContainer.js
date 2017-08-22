@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import * as appActions from '../utils/store/appAction';
-import { Style, Element } from '../typeDefinition';
+import { Style, Element, SnappingDirection } from '../typeDefinition';
 
 type Props = {
 	dispatch?: Function,
@@ -13,6 +13,9 @@ type Props = {
 	dropdownComponent?: any,
 	dropdownWrapperStyle?: Style,
 	dropdownContext?: Object,
+	dropdownDirection?: SnappingDirection,
+	dropdownSpacing?: number,
+	dropdownOffset?: Object,
 };
 
 @connect(({ app }) => {
@@ -23,6 +26,12 @@ type Props = {
 
 export default class DropdownContainer extends Component {
 	props: Props;
+
+	static defaultProps = {
+		dropdownDirection: 'bottom',
+		dropdownSpacing: 10,
+		offset: { top: 0, left: 0 },
+	};
 
 	render() {
 		return <TouchableOpacity
@@ -41,8 +50,11 @@ export default class DropdownContainer extends Component {
 			this.props.dispatch(appActions.toggleDropdown(true, {
 				wrapperStyle: this.props.dropdownWrapperStyle,
 				component: this.props.dropdownComponent,
+				direction: this.props.dropdownDirection,
+				spacing: this.props.dropdownSpacing,
+				offset: this.props.dropdownOffset,
 				context: this.props.dropdownContext,
-				position: { top: py + height, left: px, },
+				position: { top: py, left: px, width, height },
 			}));
 		});
 	};

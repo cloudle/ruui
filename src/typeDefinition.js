@@ -25,9 +25,13 @@ export type LayoutEvent = {
 	},
 };
 
+export type SnappingDirection = 'top' | 'left' | 'bottom' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+
 export type DropdownConfigs = {
 	component?: any,
 	wrapperStyle?: Style,
+	direction: SnappingDirection,
+	spacing?: number,
 	position?: {
 		left: number, top: number,
 	},

@@ -1,3 +1,5 @@
+import type { SnappingDirection } from '../typeDefinition';
+
 export function debounce(fn, duration) {
 	let timeout;
 	return function () {
@@ -37,4 +39,55 @@ export function clamp(value: Number, min: Number, max: Number) {
 	return min < max
 		? (value < min ? min : value > max ? max : value)
 		: (value < max ? max : value > min ? min : value);
+}
+
+export function directionSnap(
+	top: number = 0, left: number = 0, width1: number = 0, height1: number = 0,
+	width2: number = 0, height2: number = 0,
+	position: SnappingDirection = 'bottom',
+	spacing = 10) {
+	switch (position) {
+	case 'top':
+		return {
+			top: top - (spacing + height2),
+			left: left + ((width1 / 2) - (width2 / 2)),
+		};
+	case 'left':
+		return {
+			top: top + ((height1 / 2) - (height2 / 2)),
+			left: left - (spacing + width2),
+		};
+	case 'bottom':
+		return {
+			top: top + (spacing + height1),
+			left: left + ((width1 / 2) - (width2 / 2)),
+		};
+	case 'right':
+		return {
+			top: top + ((height1 / 2) - (height2 / 2)),
+			left: left + (spacing + width1),
+		};
+	case 'top-left':
+		return {
+			top: top - (spacing + height2),
+			left: left - (spacing + width2),
+		};
+	case 'bottom-left':
+		return {
+			top: top + (spacing + height1),
+			left: left - (spacing + width2),
+		};
+	case 'bottom-right':
+		return {
+			top: top + (spacing + height1),
+			left: left + (spacing + width1),
+		};
+	case 'top-right':
+		return {
+			top: top - (spacing + height2),
+			left: left + (spacing + width1),
+		};
+	default:
+		return { top: 0, left: 0 };
+	}
 }

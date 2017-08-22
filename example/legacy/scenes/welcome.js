@@ -64,12 +64,6 @@ export default class app extends Component {
 						value={this.state.sliderValue}
 						onValueChange={value => this.setState({ sliderValue: value })} />
 				</View>
-				<DropdownContainer
-					dropdownWrapperStyle={{ width: 200, borderRadius: 5, }}
-					dropdownComponent={ContextMenu}
-					dropdownContext={{ name: 'Cloud' }}>
-					<Text>Drop</Text>
-				</DropdownContainer>
 				<Button
 					wrapperStyle={{ backgroundColor: '#00bcd4', width: 120, }}
 					tooltip="Welcome to tooltip world, this is a very very very very very very very long content.."
@@ -99,6 +93,13 @@ export default class app extends Component {
 						// 	this.props.dispatch(appAction.toggleModal(false));
 						// }, 4000);
 					}}/>
+				<DropdownContainer
+					dropdownWrapperStyle={{ width: 200, borderRadius: 5, }}
+					dropdownComponent={ContextMenu}
+					dropdownDirection="bottom"
+					dropdownContext={{ name: 'Cloud' }}>
+					<Text>Drop</Text>
+				</DropdownContainer>
 			</View>
 		</View>;
 	}
