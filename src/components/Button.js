@@ -26,7 +26,13 @@ type Props = {
 	raise?: boolean,
 	fade?: boolean,
 	onPress?: Function,
+	onPressIn?: Function,
+	onPressOut?: Function,
 	onLongPress?: Function,
+	delayPressIn?: number,
+	delayPressOut?: number,
+	delayLongPress?: number,
+	hitSlop?: Object,
 	onLayout?: Function,
 	fadeLevel?: number,
 	children?: Element,
@@ -48,7 +54,13 @@ export default class Button extends Component<any, Props, any> {
 	render() {
 		return <ResponsibleTouchArea
 			onPress={this.props.onPress}
+			onPressIn={this.props.onPressIn}
+			onPressOut={this.props.onPressOut}
 			onLongPress={this.props.onLongPress}
+			delayPressIn={this.props.delayPressIn}
+			delayPressOut={this.props.delayPressOut}
+			delayLongPress={this.props.delayLongPress}
+			hitSlop={this.props.hitSlop}
 			onLayout={this.props.onLayout}
 			ripple={this.props.ripple}
 			staticRipple={this.props.staticRipple}

@@ -26,13 +26,18 @@ type Props = {
 	disabled?: boolean,
 	minActiveOpacity?: number,
 	onPress?: Function,
+	onPressIn?: Function,
+	onPressOut?: Function,
 	onLongPress?: Function,
+	delayPressIn?: number,
+	delayPressOut?: number,
+	delayLongPress?: number,
+	hitSlop?: Object,
 	onLayout?: Function,
 	onMouseEnter?: Function,
 	onMouseLeave?: Function,
 	fadeLevel?: number,
 	children?: Element,
-	onPressIn?: Function,
 };
 
 const MAX_PARTICLE_COUNT = 5;
@@ -93,6 +98,10 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 				onPressOut={this.onPressOut}
 				onPress={this.props.onPress}
 				onLongPress={this.props.onLongPress}
+				delayPressIn={this.props.delayPressIn}
+				delayPressOut={this.props.delayPressOut}
+				delayLongPress={this.props.delayLongPress}
+				hitSlop={this.props.hitSlop}
 				onStartShouldSetResponderCapture={() => true}>
 				<View pointerEvents="none">
 					{this.props.children}
@@ -258,8 +267,10 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 		if (this.props.onPressIn) this.props.onPressIn(e);
 	};
 
-	onPressOut = (forceFade = false) => {
+	onPressOut = (e, forceFade = false) => {
 		if (this.props.raise) this.playRaiseAnimation(0);
+		if (this.props.onPressOut && e) this.props.onPressOut(e);
+
 		if (forceFade === true || !this.state.mouseInside) {
 			this.playFadeAnimation(0);
 		}
@@ -271,7 +282,7 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 	};
 
 	onMouseLeave = () => {
-		this.onPressOut(true);
+		this.onPressOut(null, true);
 		this.setState({ mouseInside: false });
 	};
 
