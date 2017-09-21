@@ -72,20 +72,40 @@ export function directionSnap(
 			top: top - (spacing + height2),
 			left,
 		};
+	case 'left-top':
+		return {
+			top,
+			left: left - (spacing + width2),
+		};
 	case 'bottom-left':
 		return {
 			top: top + (spacing + height1),
 			left,
+		};
+	case 'left-bottom':
+		return {
+			top: top + (height1 - height2),
+			left: left - (spacing + width2),
 		};
 	case 'bottom-right':
 		return {
 			top: top + (spacing + height1),
 			left: left - (width2 - width1),
 		};
+	case 'right-bottom':
+		return {
+			top: top + (height1 - height2),
+			left: left + (spacing + width1),
+		};
 	case 'top-right':
 		return {
 			top: top - (spacing + height2),
 			left: left - (width2 - width1),
+		};
+	case 'right-top':
+		return {
+			top,
+			left: left + (spacing + width1),
 		};
 	default:
 		return { top: 0, left: 0 };

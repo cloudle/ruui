@@ -27,7 +27,7 @@ export type LayoutEvent = {
 	},
 };
 
-export type SnappingDirection = 'top' | 'left' | 'bottom' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+export type SnappingDirection = 'top' | 'left' | 'bottom' | 'right' | 'top-left' | 'left-top' | 'top-right' | 'right-top' | 'bottom-left' | 'left-bottom' | 'bottom-right' | 'right-bottom';
 
 export type DropdownConfigs = {
 	component?: any,
