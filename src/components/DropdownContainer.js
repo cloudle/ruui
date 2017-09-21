@@ -31,6 +31,11 @@ type Props = {
 export default class DropdownContainer extends Component {
 	props: Props;
 
+	static DropdownEvents = {
+		onPress: 'onPress',
+		onLongPress: 'onLongPress',
+	};
+
 	static defaultProps = {
 		dropdownEvent: 'onPress',
 		dropdownDirection: 'bottom',

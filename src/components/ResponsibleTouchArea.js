@@ -1,6 +1,6 @@
 import tinyColor from 'tinycolor2';
 import React, { Component } from 'react';
-import { Animated, PanResponder, Easing, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { Animated, Easing, TouchableOpacity, View, StyleSheet } from 'react-native';
 import RippleEffect from './RippleEffect';
 import Tooltip from './Tooltip';
 import { debounce, isIos, isBrowser } from '../utils';
@@ -102,7 +102,7 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 				delayPressOut={this.props.delayPressOut}
 				delayLongPress={this.props.delayLongPress}
 				hitSlop={this.props.hitSlop}
-				onStartShouldSetResponderCapture={() => true}>
+				onStartShouldSetResponderCapture={() => !this.props.disabled}>
 				<View pointerEvents="none">
 					{this.props.children}
 				</View>
@@ -164,7 +164,7 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 	}
 
 	renderTooltip() {
-		if (this.props.tooltip && this.state.mouseInside) {
+		if (!this.props.disabled && this.props.tooltip && this.state.mouseInside) {
 			const containerSize = {
 				width: this.state.layout.width,
 				height: this.state.layout.height,
@@ -277,7 +277,7 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 	};
 
 	onMouseEnter = () => {
-		this.playFadeAnimation(1);
+		!this.props.disabled && this.playFadeAnimation(1);
 		this.setState({ mouseInside: true });
 	};
 
