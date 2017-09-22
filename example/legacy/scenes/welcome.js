@@ -100,7 +100,7 @@ export default class app extends Component {
 				<DropdownContainer
 					dropdownWrapperStyle={{ width: 200, borderRadius: 5, }}
 					dropdownComponent={ContextMenu}
-					dropdownDirection="right"
+					dropdownDirection="left-top"
 					dropdownContext={{ name: 'Cloud' }}>
 					<Text>Drop</Text>
 				</DropdownContainer>
