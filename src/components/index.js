@@ -12,6 +12,7 @@ import tooltipImport from './Tooltip';
 import connectionMaskImport from './ConnectionMask';
 import tabViewImport from './TabView';
 import sliderImport from './Slider';
+import radioIconImport from './RadioIcon';
 
 export const ResponsibleTouchArea = responsibleTouchAreaImport;
 export const RippleEffect = rippleEffectImport;
@@ -27,4 +28,6 @@ export const Tooltip = tooltipImport;
 export const ConnectionMask = connectionMaskImport;
 export const TabView = tabViewImport;
 export const Slider = sliderImport;
+export const RadioIcon = radioIconImport;
+
 export * from './Navigation';
