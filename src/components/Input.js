@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
 	floatingLabelWrapper: {
 		position: 'absolute',
 		justifyContent: 'center',
-		height: 30,
+		height: 30, marginLeft: 8,
 	},
 	floatingLabelText: {
 		backgroundColor: 'transparent',
