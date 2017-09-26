@@ -5,18 +5,25 @@ import { colors } from '../utils';
 
 type Props = {
 	active?: boolean,
+	color?: string,
 };
 
 export default class RadioIcon extends Component {
 	props: Props;
 
+	defaultProps = {
+		color: colors.iOsBlue,
+	};
+
 	render() {
-		const wrapperStyle = this.props.active ? {} : {
-			borderColor: '#dedede',
-		};
+		const wrapperStyle = {
+				borderColor: this.props.active ? this.props.color : '#dedede',
+			}, innerStyle = {
+				backgroundColor: this.props.color,
+			};
 
 		return <View style={[styles.container, wrapperStyle]}>
-			{this.props.active ? <View style={styles.inner}/> : <View/>}
+			{this.props.active ? <View style={[styles.inner, innerStyle]}/> : <View/>}
 		</View>;
 	}
 }
