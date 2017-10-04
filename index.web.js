@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 import React, { Component } from 'react';
-import ReactNative, { View, Text, AsyncStorage } from 'react-native';
+import { render as NativeRender, View, Text, AsyncStorage } from 'react-native';
 import { AppContainer } from 'react-hot-loader';
 import app from './example/legacy';
 import configureStore from './example/legacy/store';
@@ -10,7 +10,7 @@ const store = configureStore();
 const render = (AppComponent) => {
 	const rootEl = document.getElementById('root');
 
-	ReactNative.render(
+	NativeRender(
 		<AppContainer>
 			<AppComponent store={store}/>
 		</AppContainer>,

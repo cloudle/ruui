@@ -7,7 +7,7 @@
     "src",
     "!**/__tests__"
   ],
-  "version": "0.1.55",
+  "version": "0.1.58",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
@@ -26,9 +26,9 @@
     "url": "git://github.com/cloudle/ruui.git"
   },
   "dependencies": {
-    "react-native-drawer": "^2.3.0",
-    "react-redux": "^5.0.3",
-    "redux": "^3.6.0",
+    "react-native-drawer": "^2.5.0",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
     "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
@@ -56,21 +56,20 @@
     "file-loader": "^0.10.0",
     "jest": "18.1.0",
     "json-loader": "^0.5.4",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "react-hot-loader": "^3.0.0-beta.6",
-    "react-native": "0.41.1",
+    "react-native": "^0.48.4",
     "react-native-drawer": "^2.3.0",
-    "react-native-vector-icons": "github:cloudle/react-native-vector-icons",
-    "react-native-web": "^0.0.120",
-    "react-navigation": "github:cloudle/react-navigation",
+    "react-native-web": "^0.1.4",
     "react-test-renderer": "~15.4.0-rc.4",
+    "universal-vector-icons": "^4.4.12",
     "url-loader": "^0.5.8",
-    "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.3.0"
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.9.1"
   },
   "peerDependencies": {
-    "react": "^15.4.2"
+    "react": "^16.0.0"
   },
   "jest": {
     "preset": "react-native"
