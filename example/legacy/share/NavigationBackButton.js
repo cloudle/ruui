@@ -13,10 +13,6 @@ const NavigationHeaderBackButton = (props: Props) => (
 	</TouchableOpacity>
 );
 
-NavigationHeaderBackButton.propTypes = {
-	onPress: React.PropTypes.func.isRequired
-};
-
 const styles = StyleSheet.create({
 	buttonContainer: {
 		flex: 1,

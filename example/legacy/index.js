@@ -9,14 +9,19 @@ import NavigationHeader from './share/NavigationHeader';
 import Welcome from './scenes/welcome';
 import * as appActions from './store/action/app';
 
-export default function AppContainer({ store }) {
+type AppContainerProps = {
+	store?: Object,
+};
+
+export default function AppContainer({ store }: AppContainerProps) {
 	return <ContextProvider store={store}>
 		<App/>
 	</ContextProvider>;
 }
 
-AppContainer.propTypes = {
-	store: React.PropTypes.any,
+type Props = {
+	dispatch?: Function,
+	router?: Object,
 };
 
 @connect(({ router, app }) => {
@@ -27,10 +32,7 @@ AppContainer.propTypes = {
 })
 
 export class App extends Component {
-	static propTypes = {
-		dispatch: React.PropTypes.func,
-		router: React.PropTypes.any,
-	};
+	props: Props;
 
 	render() {
 		return <Drawer
