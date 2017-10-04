@@ -11,7 +11,7 @@ type Props = {
 export default class RadioIcon extends Component {
 	props: Props;
 
-	defaultProps = {
+	static defaultProps = {
 		color: colors.iOsBlue,
 	};
 
