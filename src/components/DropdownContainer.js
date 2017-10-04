@@ -2,10 +2,18 @@ import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
+import { isBrowser } from '../utils';
 import * as appActions from '../utils/store/appAction';
 import { Style, Element, SnappingDirection, Layout } from '../typeDefinition';
 
 type Props = {
+	id?: string,
+	nativeID?: string,
+	testID?: string,
+	accessible?: boolean,
+	accessibilityLabel?: any,
+	accessibilityComponentType?: AccessibilityComponentType,
+	accessibilityTraits?: AccessibilityTrait,
 	dispatch?: Function,
 	dropdownEvent?: 'onPress' | 'onLongPress',
 	onPress?: Function,
@@ -44,11 +52,23 @@ export default class DropdownContainer extends Component {
 	};
 
 	render() {
+		const nativeProps = isBrowser ? {} : {
+			nativeID: this.props.nativeID,
+			testID: this.props.testID,
+		};
+
 		return <TouchableOpacity
 			onPress={this.onPress}
 			onLongPress={this.onLongPress}
 			delayLongPress={this.props.delayLongPress}>
 			<View
+				id={this.props.id} {...nativeProps}
+				accessible={this.props.accessible}
+				accessibilityLabel={this.props.accessibilityLabel}
+				accessibilityComponentType={this.props.accessibilityComponentType}
+				accessibilityTraits={this.props.accessibilityTraits}
+				onAccessibilityTap={this.props.onAccessibilityTap}
+				onMagicTap={this.props.onMagicTap}
 				style={this.props.style}
 				ref={(container) => { this.container = container; }}>
 				{this.props.children}

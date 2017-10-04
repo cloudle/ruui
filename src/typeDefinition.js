@@ -27,6 +27,38 @@ export type LayoutEvent = {
 	},
 };
 
+export type AccessibilityTrait =
+	'none' |
+	'button' |
+	'link' |
+	'header' |
+	'search' |
+	'image' |
+	'selected' |
+	'plays' |
+	'key' |
+	'text' |
+	'summary' |
+	'disabled' |
+	'frequentUpdates' |
+	'startsMedia' |
+	'adjustable' |
+	'allowsDirectInteraction' |
+	'pageTurn';
+
+export type AccessibilityComponentType =
+	'none' |
+	'button' |
+	'radiobutton_checked' |
+	'radiobutton_unchecked';
+
+export type Corners = {
+	top: number,
+	left: number,
+	bottom: number,
+	right: number
+};
+
 export type SnappingDirection = 'top' | 'left' | 'bottom' | 'right' | 'top-left' | 'left-top' | 'top-right' | 'right-top' | 'bottom-left' | 'left-bottom' | 'bottom-right' | 'right-bottom';
 
 export type DropdownConfigs = {

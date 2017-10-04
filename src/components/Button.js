@@ -2,9 +2,25 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import ResponsibleTouchArea from './ResponsibleTouchArea';
 import { colors } from '../utils';
-import { Style, Element, SnappingDirection } from '../typeDefinition';
+import type {
+	Style,
+	Element,
+	SnappingDirection,
+	AccessibilityComponentType,
+	AccessibilityTrait,
+	Corners,
+} from '../typeDefinition';
 
 type Props = {
+	id?: string,
+	nativeID?: string,
+	testID?: string,
+	accessible?: boolean,
+	accessibilityLabel?: any,
+	accessibilityComponentType?: AccessibilityComponentType,
+	accessibilityTraits?: AccessibilityTrait,
+	onAccessibilityTap?: Function,
+	onMagicTap?: Function,
 	wrapperStyle?: Style,
 	innerStyle?: Style,
 	color?: string,
@@ -32,7 +48,8 @@ type Props = {
 	delayPressIn?: number,
 	delayPressOut?: number,
 	delayLongPress?: number,
-	hitSlop?: Object,
+	hitSlop?: Corners,
+	pressRetentionOffset?: Corners,
 	onLayout?: Function,
 	fadeLevel?: number,
 	children?: Element,
@@ -53,6 +70,15 @@ export default class Button extends Component<any, Props, any> {
 
 	render() {
 		return <ResponsibleTouchArea
+			id={this.props.id}
+			nativeID={this.props.nativeID}
+			testID={this.props.testID}
+			accessible={this.props.accessible}
+			accessibilityLabel={this.props.accessibilityLabel}
+			accessibilityComponentType={this.props.accessibilityComponentType}
+			accessibilityTraits={this.props.accessibilityTraits}
+			onAccessibilityTap={this.props.onAccessibilityTap}
+			onMagicTap={this.props.onMagicTap}
 			onPress={this.props.onPress}
 			onPressIn={this.props.onPressIn}
 			onPressOut={this.props.onPressOut}
@@ -61,6 +87,7 @@ export default class Button extends Component<any, Props, any> {
 			delayPressOut={this.props.delayPressOut}
 			delayLongPress={this.props.delayLongPress}
 			hitSlop={this.props.hitSlop}
+			pressRetentionOffset={this.props.pressRetentionOffset}
 			onLayout={this.props.onLayout}
 			ripple={this.props.ripple}
 			staticRipple={this.props.staticRipple}

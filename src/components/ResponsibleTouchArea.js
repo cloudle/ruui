@@ -1,12 +1,29 @@
 import tinyColor from 'tinycolor2';
 import React, { Component } from 'react';
 import { Animated, Easing, TouchableOpacity, View, StyleSheet } from 'react-native';
+
 import RippleEffect from './RippleEffect';
 import Tooltip from './Tooltip';
 import { debounce, isIos, isBrowser } from '../utils';
-import { Style, Element, SnappingDirection } from '../typeDefinition';
+import type {
+	Style,
+	Element,
+	SnappingDirection,
+	AccessibilityComponentType,
+	AccessibilityTrait,
+	Corners,
+} from '../typeDefinition';
 
 type Props = {
+	id?: string,
+	nativeID?: string,
+	testID?: string,
+	accessible?: boolean,
+	accessibilityLabel?: any,
+	accessibilityComponentType?: AccessibilityComponentType,
+	accessibilityTraits?: AccessibilityTrait,
+	onAccessibilityTap?: Function,
+	onMagicTap?: Function,
 	wrapperStyle?: Style,
 	innerStyle?: Style,
 	tooltip?: string,
@@ -32,7 +49,8 @@ type Props = {
 	delayPressIn?: number,
 	delayPressOut?: number,
 	delayLongPress?: number,
-	hitSlop?: Object,
+	hitSlop?: Corners,
+	pressRetentionOffset?: Corners,
 	onLayout?: Function,
 	onMouseEnter?: Function,
 	onMouseLeave?: Function,
@@ -73,11 +91,22 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 	}
 
 	render() {
-		const flattenWrapperStyles = StyleSheet.flatten(this.props.wrapperStyle),
+		const nativeProps = isBrowser ? {} : {
+				nativeID: this.props.nativeID,
+				testID: this.props.testID,
+			},
+			flattenWrapperStyles = StyleSheet.flatten(this.props.wrapperStyle),
 			isLightBackground = tinyColor(flattenWrapperStyles.backgroundColor).getBrightness() > 180,
 			wrapperBorderRadius = extractBorderRadius(flattenWrapperStyles);
 
 		return <View
+			id={this.props.id} {...nativeProps}
+			accessible={this.props.accessible}
+			accessibilityLabel={this.props.accessibilityLabel}
+			accessibilityComponentType={this.props.accessibilityComponentType}
+			accessibilityTraits={this.props.accessibilityTraits}
+			onAccessibilityTap={this.props.onAccessibilityTap}
+			onMagicTap={this.props.onMagicTap}
 			onMouseLeave={this.onMouseLeave}
 			onMouseEnter={this.onMouseEnter}
 			className="touchable"
@@ -102,6 +131,7 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 				delayPressOut={this.props.delayPressOut}
 				delayLongPress={this.props.delayLongPress}
 				hitSlop={this.props.hitSlop}
+				pressRetentionOffset={this.props.pressRetentionOffset}
 				onStartShouldSetResponderCapture={() => !this.props.disabled}>
 				<View pointerEvents="none">
 					{this.props.children}
