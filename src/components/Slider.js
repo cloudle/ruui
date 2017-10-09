@@ -137,6 +137,7 @@ type Props = {
 	 */
   trackStyle?: Style,
 
+	thumbId?: string, // for Unit testing..
 	/**
 	 * The style applied to the thumb.
 	 */
@@ -269,6 +270,7 @@ export default class Slider extends PureComponent {
           {...androidViewProps}
           style={[mainStyles.track, trackStyle, minimumTrackStyle]} />
         <Animated.View
+					id={this.props.thumbId}
           onLayout={this._measureThumb}
           {...androidViewProps}
           style={[
