@@ -15,7 +15,7 @@ export default function ({
 			}
 
 			componentDidMount() {
-				this.state.positionAnimation.setValue(0);
+				this.state.enterAnimation.setValue(0);
 
 				setTimeout(() => {
 					Animated.timing(this.state.enterAnimation, {
