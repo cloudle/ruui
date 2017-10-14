@@ -4,7 +4,7 @@ import { Animated, Easing, TouchableOpacity, View, StyleSheet } from 'react-nati
 
 import RippleEffect from './RippleEffect';
 import Tooltip from './Tooltip';
-import { debounce, isIos, isBrowser } from '../utils';
+import { debounce, isIos, isWeb, isBrowser } from '../utils';
 import type {
 	Style,
 	Element,
@@ -91,7 +91,7 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 	}
 
 	render() {
-		const nativeProps = isBrowser ? {} : {
+		const nativeProps = isWeb ? {} : {
 				nativeID: this.props.nativeID,
 				testID: this.props.testID,
 			},
