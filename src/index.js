@@ -6,6 +6,7 @@ import * as appActionImport from './utils/store/appAction';
 import * as routeActionImport from './utils/store/routeAction';
 
 export * from './components';
+export * from './decorators';
 export * from './utils/store/appReducer';
 export * from './utils/store/routeReducer';
 
