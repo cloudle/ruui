@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
-import { isBrowser } from '../utils';
+import { isWeb } from '../utils';
 import * as appActions from '../utils/store/appAction';
 import { Style, Element, SnappingDirection, Layout } from '../typeDefinition';
 
@@ -52,7 +52,7 @@ export default class DropdownContainer extends Component {
 	};
 
 	render() {
-		const nativeProps = isBrowser ? {} : {
+		const nativeProps = isWeb ? {} : {
 			nativeID: this.props.nativeID,
 			testID: this.props.testID,
 		};

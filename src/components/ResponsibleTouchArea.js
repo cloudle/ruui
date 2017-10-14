@@ -4,7 +4,7 @@ import { Animated, Easing, TouchableOpacity, View, StyleSheet } from 'react-nati
 
 import RippleEffect from './RippleEffect';
 import Tooltip from './Tooltip';
-import { debounce, isIos, isWeb, isBrowser } from '../utils';
+import { debounce, isIos, isWeb } from '../utils';
 import type {
 	Style,
 	Element,
