@@ -1480,10 +1480,6 @@ circular-json@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.3.1.tgz#be8b36aefccde8b3ca7aa2d6afc07a37242c0d2d"
 
-clamp@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/clamp/-/clamp-1.0.1.tgz#66a0e64011816e37196828fdc8c8c147312c8634"
-
 cli-cursor@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/cli-cursor/-/cli-cursor-1.0.2.tgz#64da3f7d56a54412e59794bd62dc35295e8f2987"
@@ -2608,18 +2604,6 @@ fbjs@^0.8.16, fbjs@^0.8.4, fbjs@^0.8.9:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.9"
 
-fbjs@^0.8.5:
-  version "0.8.9"
-  resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.9.tgz#180247fbd347dcc9004517b904f865400a0c8f14"
-  dependencies:
-    core-js "^1.0.0"
-    isomorphic-fetch "^2.1.1"
-    loose-envify "^1.0.0"
-    object-assign "^4.1.0"
-    promise "^7.1.1"
-    setimmediate "^1.0.5"
-    ua-parser-js "^0.7.9"
-
 figures@^1.3.5:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/figures/-/figures-1.7.0.tgz#cbe1e3affcf1cd44b80cadfed28dc793a9701d2e"
@@ -3042,10 +3026,6 @@ hmac-drbg@^1.0.0:
 hoek@2.x.x:
   version "2.16.3"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
-
-hoist-non-react-statics@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
 
 hoist-non-react-statics@^2.2.1:
   version "2.3.1"
@@ -4792,12 +4772,6 @@ path-to-regexp@0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
 
-path-to-regexp@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-1.7.0.tgz#59fde0f435badacba103a84e9d3bc64e96b9937d"
-  dependencies:
-    isarray "0.0.1"
-
 path-type@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-1.1.0.tgz#59c44f7ee491da704da415da5a4070ba4f8fe441"
@@ -5090,22 +5064,6 @@ react-hot-loader@^3.0.0-beta.6:
     redbox-react "^1.3.6"
     source-map "^0.4.4"
 
-react-native-dismiss-keyboard@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-dismiss-keyboard/-/react-native-dismiss-keyboard-1.0.0.tgz#32886242b3f2317e121f3aeb9b0a585e2b879b49"
-
-react-native-drawer-layout-polyfill@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-drawer-layout-polyfill/-/react-native-drawer-layout-polyfill-1.2.0.tgz#0d77bd3af8964ffe7fd0f1f6550d6be328a5b567"
-  dependencies:
-    react-native-drawer-layout "1.2.0"
-
-react-native-drawer-layout@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-drawer-layout/-/react-native-drawer-layout-1.2.0.tgz#ae274ee17fadce58d9d7ecef4797d9fad672af74"
-  dependencies:
-    react-native-dismiss-keyboard "1.0.0"
-
 react-native-drawer@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/react-native-drawer/-/react-native-drawer-2.5.0.tgz#022cba5c0516126a9fc9cce3185cb46c644b51c4"
@@ -5113,22 +5071,9 @@ react-native-drawer@^2.5.0:
     prop-types "^15.5.8"
     tween-functions "^1.0.1"
 
-react-native-tab-view@^0.0.61:
-  version "0.0.61"
-  resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-0.0.61.tgz#9f5446c9ad33158b87f0bccf5004fbff79ca1f92"
-  dependencies:
-    prop-types "^15.5.8"
-
-"react-native-vector-icons@github:cloudle/react-native-vector-icons":
-  version "4.0.0"
-  resolved "https://codeload.github.com/cloudle/react-native-vector-icons/tar.gz/25ccab57076d494134c8d45c8e0d2a501cf713b8"
-  dependencies:
-    lodash "^4.0.0"
-    yargs "^6.3.0"
-
-react-native-web@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.1.4.tgz#dbe6aee8d5549cb8d961fe1a6d1eb76f26d9d59f"
+react-native-web@^0.1.13:
+  version "0.1.13"
+  resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.1.13.tgz#9a24fab792a81d8c462c7576e949ec8ebed60303"
   dependencies:
     animated "^0.2.0"
     array-find-index "^1.0.2"
@@ -5230,18 +5175,6 @@ react-native@^0.48.4:
     xpipe "^1.0.5"
     xtend ">=4.0.0 <4.1.0-0"
     yargs "^6.4.0"
-
-"react-navigation@github:cloudle/react-navigation":
-  version "1.0.0-beta.9"
-  resolved "https://codeload.github.com/cloudle/react-navigation/tar.gz/4528b5a9d82ed14e7d4d3ee7ec4f08aefec22b4d"
-  dependencies:
-    clamp "^1.0.1"
-    fbjs "^0.8.5"
-    hoist-non-react-statics "^1.2.0"
-    path-to-regexp "^1.7.0"
-    prop-types "^15.5.8"
-    react-native-drawer-layout-polyfill "1.2.0"
-    react-native-tab-view "^0.0.61"
 
 react-proxy@^1.1.7:
   version "1.1.8"
