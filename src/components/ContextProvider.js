@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NetInfo, Dimensions, View, Text, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 
+import { isServer } from '../utils';
 import * as appActions from '../utils/store/appAction';
 import type { Element, Style } from '../typeDefinition';
 
@@ -16,14 +17,14 @@ export default class ContextProvider extends Component {
 	props: Props;
 
 	componentWillMount() {
-		if (this.props.store) {
+		if (!isServer && this.props.store) {
 			this.subscribeAndUpdateScreenSizes();
 			this.subscribeAndUpdateNetworkInfo();
 		}
 	}
 
 	componentWillUnmount() {
-		if (this.props.store) {
+		if (!isServer && this.props.store) {
 			NetInfo.removeEventListener('connectionChange', this.handleConnectionTypeChange);
 			NetInfo.isConnected.removeEventListener('connectionChange', this.handleIsConnectedChange);
 		}

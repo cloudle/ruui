@@ -5071,9 +5071,9 @@ react-native-drawer@^2.5.0:
     prop-types "^15.5.8"
     tween-functions "^1.0.1"
 
-react-native-web@^0.1.13:
-  version "0.1.13"
-  resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.1.13.tgz#9a24fab792a81d8c462c7576e949ec8ebed60303"
+react-native-web@^0.1.16:
+  version "0.1.16"
+  resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.1.16.tgz#e0d1a43b3b59a8371cdb538c11088d206b29f2b1"
   dependencies:
     animated "^0.2.0"
     array-find-index "^1.0.2"
