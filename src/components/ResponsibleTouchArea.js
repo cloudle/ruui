@@ -223,7 +223,7 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 	onPressIn = (e) => {
 		if (this.props.disabled) return;
 
-		const flattenWrapperStyles = StyleSheet.flatten(this.props.wrapperStyle),
+		const flattenWrapperStyles = StyleSheet.flatten(this.props.wrapperStyle) || {},
 			isLightBackground = tinyColor(flattenWrapperStyles.backgroundColor).getBrightness() > 180;
 
 		if (this.props.raise) {
