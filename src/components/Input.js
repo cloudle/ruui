@@ -165,7 +165,7 @@ export default class Input extends Component<any, Props, any> {
 		}
 	};
 
-	onChangeText = (nextValue) => {
+	onChangeText = (nextValue = '') => {
 		this.setState({ value: nextValue, empty: !nextValue.length });
 		if (this.props.onChangeText) this.props.onChangeText(nextValue);
 	};
