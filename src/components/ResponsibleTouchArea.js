@@ -26,7 +26,7 @@ type Props = {
 	onMagicTap?: Function,
 	wrapperStyle?: Style,
 	innerStyle?: Style,
-	tooltip?: string,
+	tooltip?: String | Element,
 	tooltipWrapperStyle?: Style,
 	tooltipDirection?: SnappingDirection,
 	tooltipPositionSpacing?: number,
