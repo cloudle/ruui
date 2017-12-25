@@ -4,25 +4,31 @@ import { connect } from 'react-redux';
 
 import { isWeb } from '../utils';
 import * as appActions from '../utils/store/appAction';
-import { Style, Element, SnappingDirection, Layout } from '../typeDefinition';
+import { Style, Element, SnappingDirection, Layout,
+	AccessibilityComponentType, AccessibilityTrait,
+} from '../typeDefinition';
 
 type Props = {
-	id?: string,
-	nativeID?: string,
-	testID?: string,
-	accessible?: boolean,
+	id?: String,
+	nativeID?: String,
+	testID?: String,
+	accessible?: Boolean,
 	accessibilityLabel?: any,
 	accessibilityComponentType?: AccessibilityComponentType,
 	accessibilityTraits?: AccessibilityTrait,
+	className?: String,
 	dispatch?: Function,
 	dropdownEvent?: 'onPress' | 'onLongPress',
 	onPress?: Function,
 	onLongPress?: Function,
-	delayLongPress?: number,
+	onMagicTap?: Function,
+	onAccessibilityTap?: Function,
+	delayLongPress?: Number,
 	style?: Style,
+	wrapperStyle?: Style,
 	children?: Element,
 	containerLayout?: Layout,
-	dropdownComponent?: any,
+	dropdownComponent?: Component,
 	dropdownWrapperStyle?: Style,
 	dropdownContext?: Object,
 	dropdownDirection?: SnappingDirection,
@@ -58,10 +64,12 @@ export default class DropdownContainer extends Component {
 		};
 
 		return <TouchableOpacity
+			style={this.props.wrapperStyle}
 			onPress={this.onPress}
 			onLongPress={this.onLongPress}
 			delayLongPress={this.props.delayLongPress}>
 			<View
+				className={this.props.className}
 				id={this.props.id} {...nativeProps}
 				accessible={this.props.accessible}
 				accessibilityLabel={this.props.accessibilityLabel}
