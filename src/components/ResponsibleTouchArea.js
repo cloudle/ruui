@@ -95,7 +95,7 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 				nativeID: this.props.nativeID,
 				testID: this.props.testID,
 			},
-			flattenWrapperStyles = StyleSheet.flatten(this.props.wrapperStyle),
+			flattenWrapperStyles = StyleSheet.flatten(this.props.wrapperStyle) || {},
 			isLightBackground = tinyColor(flattenWrapperStyles.backgroundColor).getBrightness() > 180,
 			wrapperBorderRadius = extractBorderRadius(flattenWrapperStyles);
 
