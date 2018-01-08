@@ -10,6 +10,7 @@ export default function ({
 			constructor(props) {
 				super(props);
 				this.state = {
+					...super.state,
 					enterAnimation: new Animated.Value(toValue),
 				};
 			}
