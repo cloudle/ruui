@@ -25,8 +25,10 @@ export default class ContextProvider extends Component {
 
 	componentWillUnmount() {
 		if (!isServer && this.props.store) {
-			NetInfo.removeEventListener('connectionChange', this.handleConnectionTypeChange);
-			NetInfo.isConnected.removeEventListener('connectionChange', this.handleIsConnectedChange);
+			NetInfo.removeEventListener && NetInfo.removeEventListener(
+				'connectionChange', this.handleConnectionTypeChange);
+			NetInfo.isConnected && NetInfo.isConnected.removeEventListener(
+				'connectionChange', this.handleIsConnectedChange);
 		}
 	}
 
@@ -49,14 +51,16 @@ export default class ContextProvider extends Component {
 	};
 
 	subscribeAndUpdateNetworkInfo = () => {
-		NetInfo.getConnectionInfo()
+		NetInfo.getConnectionInfo && NetInfo.getConnectionInfo()
 			.then(connectionInfo => this.handleConnectionTypeChange(connectionInfo));
 
-		NetInfo.isConnected.getConnectionInfo()
+		NetInfo.isConnected && NetInfo.isConnected.getConnectionInfo()
 			.then(isConnected => this.handleIsConnectedChange(isConnected));
 
-		NetInfo.addEventListener('connectionChange', this.handleConnectionTypeChange);
-		NetInfo.isConnected.addEventListener('connectionChange', this.handleIsConnectedChange);
+		NetInfo.addEventListener && NetInfo.addEventListener(
+			'connectionChange', this.handleConnectionTypeChange);
+		NetInfo.isConnected && NetInfo.isConnected.addEventListener(
+			'connectionChange', this.handleIsConnectedChange);
 	};
 
 	handleConnectionTypeChange = (connectionType) => {
