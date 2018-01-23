@@ -2,7 +2,7 @@ export const ReduxInit											= '@@redux/INIT';
 
 export const ResetState											= '@RUUI:RESET-STATE';
 export const UpdateThemeConfigs							= '@RUUI:UPDATE-THEME-CONFIGS';
-export const UpdateScreenInfo								= '@RUUI:UPDATE-SCREEN-INFO';
+export const UpdateDimensionInfo						= '@RUUI:UPDATE-DIMENSIONS-INFO';
 export const UpdateNetInfo									= '@RUUI:UPDATE-NET-INFO';
 export const ToggleSelect										= '@RUUI:TOGGLE-SELECT';
 export const ToggleModal										= '@RUUI:TOGGLE-MODAL';

@@ -9,8 +9,8 @@ export function updateThemeConfigs(configs = {}) {
 	return { type: Actions.UpdateThemeConfigs, configs };
 }
 
-export function updateScreenInfo(info = {}) {
-	return { type: Actions.UpdateScreenInfo, info };
+export function updateDimensionsInfo(info = {}) {
+	return { type: Actions.UpdateDimensionInfo, info };
 }
 
 export function updateNetInfo(info = {}) {

@@ -18,16 +18,16 @@ export default class ContextProvider extends Component {
 
 	componentWillMount() {
 		if (!isServer && this.props.store) {
-			this.subscribeAndUpdateScreenSizes();
+			this.subscribeAndUpdateDimensions();
 			this.subscribeAndUpdateNetworkInfo();
 		}
 	}
 
 	componentWillUnmount() {
 		if (!isServer && this.props.store) {
-			NetInfo.removeEventListener && NetInfo.removeEventListener(
+			NetInfo.removeEventListener(
 				'connectionChange', this.handleConnectionTypeChange);
-			NetInfo.isConnected && NetInfo.isConnected.removeEventListener(
+			NetInfo.isConnected.removeEventListener(
 				'connectionChange', this.handleIsConnectedChange);
 		}
 	}
@@ -42,24 +42,29 @@ export default class ContextProvider extends Component {
 		</View>;
 	}
 
-	subscribeAndUpdateScreenSizes = () => {
+	subscribeAndUpdateDimensions = () => {
+		this.handleDimensionChange({
+			window: Dimensions.get('window'),
+			screen: Dimensions.get('screen'),
+		});
 
+		Dimensions.addEventListener('change', this.handleDimensionChange);
 	};
 
-	handleScreenSizeChange = (data) => {
-
+	handleDimensionChange = (data) => {
+		this.props.store.dispatch(appActions.updateDimensionsInfo(data));
 	};
 
 	subscribeAndUpdateNetworkInfo = () => {
 		NetInfo.getConnectionInfo && NetInfo.getConnectionInfo()
 			.then(connectionInfo => this.handleConnectionTypeChange(connectionInfo));
 
-		NetInfo.isConnected && NetInfo.isConnected.getConnectionInfo()
+		NetInfo.isConnected.getConnectionInfo && NetInfo.isConnected.getConnectionInfo()
 			.then(isConnected => this.handleIsConnectedChange(isConnected));
 
-		NetInfo.addEventListener && NetInfo.addEventListener(
+		NetInfo.addEventListener(
 			'connectionChange', this.handleConnectionTypeChange);
-		NetInfo.isConnected && NetInfo.isConnected.addEventListener(
+		NetInfo.isConnected.addEventListener(
 			'connectionChange', this.handleIsConnectedChange);
 	};
 

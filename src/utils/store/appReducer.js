@@ -23,7 +23,7 @@ export function initialAppState(initialState = {}, previousState = {}) {
 		snackBars: [],
 		themeConfigs: previousState.themeConfigs || {},
 		netInfo: previousState.netInfo || {},
-		screenInfo: previousState.screenInfo || {},
+		dimensions: previousState.dimensions || {},
 		...initialState,
 	};
 }
@@ -51,8 +51,8 @@ export function appReducer(reducer) {
 			return { ...state, snackBars: collectionDestroy(state.snackBars, action.configs) };
 		case Actions.UpdateThemeConfigs:
 			return { ...state, themeConfigs: { ...state.themeConfigs, ...action.configs } };
-		case Actions.UpdateScreenInfo:
-			return { ...state, screenInfo: { ...state.screenInfo, ...action.info } };
+		case Actions.UpdateDimensionInfo:
+			return { ...state, dimensions: { ...state.dimensions, ...action.info } };
 		case Actions.UpdateNetInfo:
 			return { ...state, netInfo: { ...state.netInfo, ...action.info } };
 		case Actions.ResetState:
