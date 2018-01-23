@@ -13,12 +13,14 @@ type Props = {
 	dispatch?: Function,
 	counter?: number,
 	netInfo?: Object,
+	dimensions?: Object,
 };
 
 @connect(({ app }) => {
 	return {
 		counter: app.counter,
 		netInfo: app.netInfo,
+		dimensions: app.dimensions,
 	};
 })
 
@@ -58,7 +60,7 @@ export default class app extends Component {
 				<Text style={styles.instructions}>
 					Press Cmd+R to reload,{'\n'}
 					Cmd+D or shake for dev menu{'\n'}
-					{JSON.stringify(this.props.netInfo)}
+					{JSON.stringify(this.props.dimensions)}
 				</Text>
 				<View
 					onLayout={({ nativeEvent }) => { this.setState({ buttonLayout: nativeEvent.layout }); }}
