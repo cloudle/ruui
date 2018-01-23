@@ -9,6 +9,7 @@ export * from './components';
 export * from './decorators';
 export * from './utils/store/appReducer';
 export * from './utils/store/routeReducer';
+export * from './utils/collection';
 
 export const connect = redux.connect;
 export const connectAdvanced = redux.connectAdvanced;
@@ -16,4 +17,5 @@ export const utils = utilsImport;
 export const actions = actionsImport;
 export const appAction = appActionImport;
 export const ruuiActions = appActionImport;
+export const routeActions = routeActionImport;
 export const routeAction = routeActionImport;
