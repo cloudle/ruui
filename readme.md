@@ -38,7 +38,7 @@ Cross-platform (**React Native** and **Web Browser**) [React][react-url], [React
 "**React Universal UI**" is a cross-platform **React's UI Kit** - which could be run on both **Web Browser** and **React Native** environment, **write once and use everywhere**.
 
 ### **See our [demo and detailed documentations][documentation-url] for more details**  
-### **Checkout [react-universal-ui boilerplate][boilerplate-url] for a complete starter boilerplate for [React Native][react-native-url]-first project**
+### **Quick start using [react-universal-ui boilerplate][boilerplate-url], which contain essential structure for both Native and full-stack Web (`fullstack-ssr` branch) project.**
 
 ## How it work
 #### React Native: 
