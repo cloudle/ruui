@@ -5,12 +5,6 @@
 
 Cross-platform (**React Native** and **Web Browser**) [React][react-url], [React Native][react-native-url]'s UI components to re-use everywhere.
 
-<div>
-  <img height="500" style="float: right;" alt="tabs" src="https://github.com/cloudle/ruui/blob/master/screenshot/tabs.png?raw=true">
-  <img height="500" style="float: right;" alt="button" src="https://github.com/cloudle/ruui/blob/master/screenshot/button.png?raw=true">
-  <img height="500" style="float: right;" alt="selector" src="https://github.com/cloudle/ruui/blob/master/screenshot/selector.png?raw=true">
-</div>
-
 ## Platforms
 
 **Native platforms**: **iOs, Android** (for **Mac**, **Windows** or **Linux** we could just use Atom to bring our React Native code on it's web and have that same code-base run on Native environment when they got better support for React Native building block).
@@ -34,6 +28,7 @@ Cross-platform (**React Native** and **Web Browser**) [React][react-url], [React
 [cloud-vector-icons]: https://github.com/cloudle/react-native-vector-icons
 [react-native-drawer-url]: https://github.com/root-two/react-native-drawer
 [documentation-url]: https://cloudle.github.io/
+[rooxim-url]: https://www.rooxim.com/
 
 ## Overview
 "**React Universal UI**" is a cross-platform **React's UI Kit** - which could be run on both **Web Browser** and **React Native** environment, **write once and use everywhere**.
@@ -117,4 +112,9 @@ I personally got dozen Apps built on this UI components. Next important thing fo
 
 # License
 
-MIT
+This project is licensed under the MIT License.
+
+# Contributing
+This project under main support of [Rooxim Company.](https://www.rooxim.com/) 
+
+We're exciting to see more contribution from community, by contributing your code to [ruui][github-url] you agree to license your contribution under the MIT license.
