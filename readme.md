@@ -29,13 +29,16 @@ Cross-platform (**React Native** and **Web Browser**) [React][react-url], [React
 [react-native-drawer-url]: https://github.com/root-two/react-native-drawer
 [documentation-url]: https://cloudle.github.io/
 [rooxim-url]: https://www.rooxim.com/
+[ruui-home]: https://github.com/cloudle/ruuiHome
+
+# Big update is coming!
+### We're very near to release the official documentation page (source code under development [here][ruui-home]), which have detailed instruction, component usages and video tutorials.
 
 ## Overview
 "**React Universal UI**" is a cross-platform **React's UI Kit** - which could be run on both **Web Browser** and **React Native** environment, **write once and use everywhere**.
 
-### **Checkout [demo and detailed documentations][documentation-url] for live example.**  
+### **See our [demo and detailed documentations][documentation-url] for more details**  
 ### **Checkout [react-universal-ui boilerplate][boilerplate-url] for a complete starter boilerplate for [React Native][react-native-url]-first project**
-### **Checkout [universal-ui-next boilerplate][next-boilerplate-url] for Browser-first project**
 
 ## How it work
 #### React Native: 
