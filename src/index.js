@@ -9,7 +9,7 @@ export * from './utils/store/appReducer';
 export * from './utils/store/routeReducer';
 export * from './utils/collection';
 
-export * from './store';
+export { store, reduxRuuiMiddleware } from './store';
 export const utils = utilsImport;
 export const actions = actionsImport;
 export const appAction = appActionImport;
