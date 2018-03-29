@@ -12,25 +12,17 @@ export default class CloseableModal extends Component<any, Props, any> {
 	props: Props;
 
 	render() {
-		const containerOpacity = this.props.animation.interpolate({
-				inputRange: [0, 1], outputRange: [0, 1],
-			}),
-			scale = this.props.animation.interpolate({
-				inputRange: [0, 1], outputRange: [this.props.active ? 1.4 : 0.9, 1],
-			}),
-			translateY = this.props.animation.interpolate({
-				inputRange: [0, 1], outputRange: [150, 0],
-			}),
-			fullScreenStyles = this.props.configs.fullScreen ? {} : {
-				alignItems: 'center', justifyContent: 'center',
-			},
-			containerStyles = {
-				opacity: containerOpacity,
-				transform: this.props.configs.fullScreen ? [{ translateY }] : [{ scale }],
-			},
+		const { configs = {}, animation, } = this.props,
+			containerPropsGenerator = configs.containerProps || defaultContainerPropsGenerator,
+			containerProps = containerPropsGenerator(animation, configs, this.props.active),
 			InnerComponent = this.props.configs.component || this.props.configs.Component;
 
-		return <Animated.View style={[styles.container, fullScreenStyles, containerStyles]}>
+		if (configs.containerProps && !containerProps.style) {
+			containerProps.style = defaultContainerPropsGenerator(
+				animation, configs, this.props.active).style;
+		}
+
+		return <Animated.View {...containerProps}>
 			{this.props.configs.tapToClose ? <TouchableWithoutFeedback
 				onPress={() => this.props.onRequestClose(this.props.configs)}>
 					<View style={styles.touchableMask}/>
@@ -42,6 +34,27 @@ export default class CloseableModal extends Component<any, Props, any> {
 				: <View />}
 		</Animated.View>;
 	}
+}
+
+export function defaultContainerPropsGenerator(animation, configs, isOpening) {
+	const containerOpacity = animation.interpolate({
+			inputRange: [0, 1], outputRange: [0, 1],
+		}),
+		scale = animation.interpolate({
+			inputRange: [0, 1], outputRange: [isOpening ? 1.4 : 0.9, 1],
+		}),
+		translateY = animation.interpolate({
+			inputRange: [0, 1], outputRange: [150, 0],
+		}),
+		fullScreenStyles = configs.fullScreen ? {} : {
+			alignItems: 'center', justifyContent: 'center',
+		},
+		containerStyles = {
+			opacity: containerOpacity,
+			transform: configs.fullScreen ? [{ translateY }] : [{ scale }],
+		};
+
+	return { style: [styles.container, fullScreenStyles, containerStyles], };
 }
 
 const styles = StyleSheet.create({

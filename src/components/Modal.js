@@ -49,16 +49,16 @@ export default class Modal extends Component {
 	}
 
 	render() {
-		const averageOpacity = (0.8 / this.props.modalCount) + (this.props.modalCount * 0.1),
-			backgroundColor = this.state.enterAnimation.interpolate({
-				inputRange: [0, 1], outputRange: ['rgba(0, 0, 0, 0)', `rgba(0, 0, 0, ${averageOpacity})`],
-			}),
-			containerStyles = {
-				backgroundColor,
-			};
+		const { configs = {}, modalCount } = this.props,
+			containerPropsGenerator = configs.maskProps || defaultMaskPropsGenerator,
+			containerProps = containerPropsGenerator(this.state.enterAnimation, configs, modalCount);
 
-		return this.state.active ? <Animated.View
-			style={[styles.container, containerStyles]}>
+		if (configs.maskProps && !containerProps.style) {
+			containerProps.style = defaultMaskPropsGenerator(
+				this.state.enterAnimation, configs, modalCount).style;
+		}
+
+		return this.state.active ? <Animated.View {...containerProps}>
 			<View style={styles.innerTouchable}>
 				{this.renderModalInner()}
 			</View>
@@ -105,6 +105,16 @@ export default class Modal extends Component {
 
 		this.animation = Animated.parallel(animations).start(callback);
 	}
+}
+
+export function defaultMaskPropsGenerator(animation, configs, modalCount) {
+	const averageOpacity = (0.8 / modalCount) + (modalCount * 0.1),
+		backgroundColor = animation.interpolate({
+			inputRange: [0, 1], outputRange: ['rgba(0, 0, 0, 0)', `rgba(0, 0, 0, ${averageOpacity})`],
+		}),
+		style = [styles.container, { backgroundColor, }];
+
+	return { style, };
 }
 
 const styles = StyleSheet.create({
