@@ -32,7 +32,8 @@ Cross-platform (**React Native** and **Web Browser**) [React][react-url], [React
 [ruui-home]: https://github.com/cloudle/ruuiHome
 
 # Big update is coming!
-### We're very near to release the official documentation page (source code under development [here][ruui-home]), which have detailed instruction, component doc and video tutorials.
+### We're very near to release the official [ruui.cool](http://ruui.cool/) page (source code under development [here][ruui-home]), which have detailed instruction, component doc and video tutorials.
+
 
 ## Overview
 "**React Universal UI**" is a cross-platform **React's UI Kit** - which could be run on both **Web Browser** and **React Native** environment, **write once and use everywhere**.
