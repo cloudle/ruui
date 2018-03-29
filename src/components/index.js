@@ -1,6 +1,5 @@
 import responsibleTouchAreaImport from './ResponsibleTouchArea';
 import rippleEffectImport from './RippleEffect';
-import contextProviderImport from './ContextProvider';
 import ruuiProviderImport from './ruuiProvider';
 import buttonImport from './Button';
 import inputImport from './Input';
@@ -17,7 +16,6 @@ import radioIconImport from './RadioIcon';
 
 export const ResponsibleTouchArea = responsibleTouchAreaImport;
 export const RippleEffect = rippleEffectImport;
-export const ContextProvider = contextProviderImport;
 export const RuuiProvider = ruuiProviderImport;
 export const Button = buttonImport;
 export const Input = inputImport;

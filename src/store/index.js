@@ -1,14 +1,14 @@
 import { createStore } from '../utils/ruuiStore';
 import appReducer from './appReducer';
 
-const ruuiStore = createStore(appReducer);
+export const store = createStore(appReducer);
 
-export const reduxRuui = (store = ruuiStore) => {
+export const reduxRuuiMiddleware = (ruuiStore = store) => {
 	return reduxStore => next => (action) => {
 		store.dispatch(action);
 		next(action);
 	};
 };
 
-export default ruuiStore;
-global.ruuiStore = ruuiStore;
+export default store;
+global.ruuiStore = store;

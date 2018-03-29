@@ -1,5 +1,5 @@
 import { createStore, compose, applyMiddleware } from 'redux';
-import { reduxRuui } from '../../../src/store';
+import { reduxRuuiMiddleware } from '../../../src';
 import * as Actions from './actions';
 
 import reducers from './reducers';
@@ -9,7 +9,7 @@ const DEVTOOLS = '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__',
 
 export function configureStore(initialState) {
 	const enhancers = composeEnhancers(
-		applyMiddleware(reduxRuui())
+		applyMiddleware(reduxRuuiMiddleware())
 	);
 
 	const store = initialState
