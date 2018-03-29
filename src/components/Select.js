@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, Image, View, Text, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
 
 import { base64Icons } from '../utils';
+import { connect } from '../utils/ruuiStore';
 import { Style } from '../typeDefinition';
 import * as appAction from '../utils/store/appAction';
 
@@ -21,7 +21,7 @@ type Props = {
 	tapToClose?: boolean,
 };
 
-@connect(({ app }) => {
+@connect(() => {
 	return {
 
 	};

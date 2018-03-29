@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
 
 import { isWeb } from '../utils';
+import { connect } from '../utils/ruuiStore';
 import * as appActions from '../utils/store/appAction';
 import { Style, Element, SnappingDirection, Layout,
 	AccessibilityComponentType, AccessibilityTrait,
@@ -36,7 +36,7 @@ type Props = {
 	dropdownOffset?: Object,
 };
 
-@connect(({ app }) => {
+@connect(() => {
 	return {
 
 	};

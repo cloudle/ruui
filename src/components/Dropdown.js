@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Animated, Easing, View, TouchableWithoutFeedback, Text, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
 
 import { directionSnap } from '../utils';
+import { connect } from '../utils/ruuiStore';
 import * as appActions from '../utils/store/appAction';
 import { Style, Element, DropdownConfigs } from '../typeDefinition';
 
@@ -12,10 +12,10 @@ type Props = {
 	configs?: DropdownConfigs,
 };
 
-@connect(({ app }) => {
+@connect(({ activeDropdown }) => {
 	return {
-		active: app.activeDropdown.active,
-		configs: app.activeDropdown.configs,
+		active: activeDropdown.active,
+		configs: activeDropdown.configs,
 	};
 })
 

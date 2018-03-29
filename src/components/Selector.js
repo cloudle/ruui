@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Animated, TouchableWithoutFeedback, ScrollView, View, Text, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
 
 import ResponsibleTouchArea from './ResponsibleTouchArea';
 import SelectorItem from './SelectorItem';
 import { isAndroid, colors } from '../utils';
+import { connect } from '../utils/ruuiStore';
 import { screenWidthPadding } from '../utils/screen';
 import * as appActions from '../utils/store/appAction';
 
@@ -16,7 +16,7 @@ type Props = {
 	onRequestClose?: Function,
 };
 
-@connect(({ app }) => {
+@connect(() => {
 	return {
 
 	};

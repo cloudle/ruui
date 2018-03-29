@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { PanResponder, View, Text, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
+import { connect } from '../utils/ruuiStore';
 
 import Modal from './Modal';
 
@@ -9,9 +9,9 @@ type Props = {
 	dispatch?: Function,
 };
 
-@connect(({ app }) => {
+@connect(({ activeModals }) => {
 	return {
-		modals: app.activeModals,
+		modals: activeModals,
 	};
 })
 

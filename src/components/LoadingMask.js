@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, View, TouchableOpacity, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
 import * as appActions from '../utils/store/appAction';
 
 type Props = {
