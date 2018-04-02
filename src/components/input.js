@@ -42,13 +42,13 @@ export default class RuuiInput extends Component<any, Props, any> {
 	props: Props;
 
 	static defaultProps = {
-		value: '',
 		underline: true,
 	};
 
 	constructor(props) {
 		super(props);
-		const empty = !this.props.value.length,
+		const initialValue = this.props.value || this.props.defaultValue || '',
+			empty = !initialValue.length,
 			initialFloating = this.props.forceFloating || !empty ? 1 : 0;
 
 		this.state = {
@@ -57,9 +57,8 @@ export default class RuuiInput extends Component<any, Props, any> {
 			floatingLabelWidth: 0,
 			floatingLabelHeight: 0,
 			inputContainerLocation: { x: 0, y: 0 },
-			value: this.props.value,
-			empty,
-			focus: false,
+			value: initialValue,
+			empty, focus: false,
 		};
 	}
 
@@ -78,8 +77,7 @@ export default class RuuiInput extends Component<any, Props, any> {
 			},
 			inputContainerStyles = this.buildInputContainerStyles(this.props.wrapperStyle),
 			hint = this.state.focus && this.state.empty ? this.props.hint : '',
-			platformProps = isAndroid ? { underlineColorAndroid: 'transparent' } : {},
-			dynamicProps = this.props.value ? { value: this.props.value } : {};
+			platformProps = isAndroid ? { underlineColorAndroid: 'transparent' } : {};
 
 		return <View
 			pointerEvents={pointerEvents}
@@ -104,12 +102,11 @@ export default class RuuiInput extends Component<any, Props, any> {
 						secureTextEntry={this.props.secureTextEntry}
 						selectTextOnFocus={this.props.selectTextOnFocus}
 						onEndEditing={this.props.onEndEditing}
-						defaultValue={this.props.defaultValue}
 						style={[styles.textInput, this.props.style]}
 						placeholder={hint}
 						placeholderTextColor={this.props.hintColor}
-						{...platformProps}
-						{...dynamicProps}/>
+						value={this.state.value}
+						{...platformProps}/>
 				</View>
 				<View style={styles.addonContainer}>
 					{this.props.suffix}
