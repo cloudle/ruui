@@ -8,7 +8,7 @@ import dropdownImport from './Dropdown';
 import dropdownContainerImport from './DropdownContainer';
 import selectImport from './Select';
 import snackbarImport from './Snackbars';
-import tooltipImport from './Tooltip';
+import tooltipImport from './tooltip';
 import connectionMaskImport from './ConnectionMask';
 import tabViewImport from './TabView';
 import sliderImport from './Slider';

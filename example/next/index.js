@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, View, Text, } from 'react-native';
 import { Provider, connect } from 'react-redux';
-import { ruuiActions, RuuiProvider, Button, Modal, Snackbar, Dropdown, DropdownContainer, Select } from '../../src';
+import { ruuiActions, RuuiProvider, Button, Modal, Snackbar, Dropdown, Tooltip, DropdownContainer, Select } from '../../src';
 
 import store from './store';
 import ContextMenu from '../legacy/modal/contextMenu';
@@ -64,10 +64,23 @@ class App extends Component {
 				<Text>Drop</Text>
 			</DropdownContainer>
 			<Button title="hey!!"/>
+			<Button title="top" tooltipDirection="top" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>
+			<Button title="left" tooltipDirection="left" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>
+			<Button title="bottom" tooltipDirection="bottom" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>
+			<Button title="right" tooltipDirection="right" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>
+			<Button title="top-left" tooltipDirection="top-left" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>
+			<Button title="left-top" tooltipDirection="left-top" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>
+			<Button title="bottom-left" tooltipDirection="bottom-left" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>
+			<Button title="left-bottom" tooltipDirection="left-bottom" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>
+			<Button title="bottom-right" tooltipDirection="bottom-right" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>
+			<Button title="right-bottom" tooltipDirection="right-bottom" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>
+			<Button title="top-right" tooltipDirection="top-right" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>
+			<Button title="right-top" tooltipDirection="right-top" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>
 
 			<Snackbar/>
 			<Modal/>
 			<Dropdown/>
+			<Tooltip/>
 		</View>;
 	}
 }
@@ -83,21 +96,21 @@ const styles = StyleSheet.create({
 });
 
 const configs = {
-	button: {
-		styles: {
-			wrapper: {
-				backgroundColor: 'red',
-				borderRadius: 4,
-			}
-		}
-	},
-	modal: {
-		maskProps: () => ({
-			style: {
-				position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-			},
-		}),
-	},
+	// button: {
+	// 	styles: {
+	// 		wrapper: {
+	// 			backgroundColor: 'red',
+	// 			borderRadius: 4,
+	// 		}
+	// 	}
+	// },
+	// modal: {
+	// 	maskProps: () => ({
+	// 		style: {
+	// 			position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+	// 		},
+	// 	}),
+	// },
 };
 
 function fillArray(len) {

@@ -21,6 +21,10 @@ const initialState = {
 			tapToClose: true,
 		},
 	},
+	tooltip: {
+		active: false,
+		configs: {}
+	},
 	snackBars: [],
 	netInfo: {},
 	dimensions: {},

@@ -1,18 +1,13 @@
-import tinyColor from 'tinycolor2';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import tinyColor from 'tinycolor2';
 import { Animated, Easing, TouchableOpacity, View, StyleSheet } from 'react-native';
 
 import RippleEffect from './RippleEffect';
-import Tooltip from './Tooltip';
+import Tooltip from './tooltip';
 import { debounce, isIos, isWeb } from '../utils';
-import type {
-	Style,
-	Element,
-	SnappingDirection,
-	AccessibilityComponentType,
-	AccessibilityTrait,
-	Corners,
-} from '../typeDefinition';
+import * as appActions from '../store/action/app';
+import type { Style, Element, SnappingDirection, AccessibilityComponentType, AccessibilityTrait, Corners, } from '../typeDefinition';
 
 type Props = {
 	id?: string,
@@ -61,7 +56,10 @@ type Props = {
 const MAX_PARTICLE_COUNT = 5;
 
 export default class ResponsibleTouchArea extends Component<any, Props, any> {
-	props: Props;
+	static props: Props;
+	static contextTypes = {
+		ruuiStore: PropTypes.object,
+	};
 
 	static defaultProps = {
 		staticRipple: false,
@@ -117,7 +115,6 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 			{this.renderShadowEffect(isLightBackground, wrapperBorderRadius)}
 			{this.renderFadeEffect(isLightBackground, wrapperBorderRadius)}
 			{this.renderRippleEffect(isLightBackground, wrapperBorderRadius)}
-			{this.renderTooltip()}
 
 			<TouchableOpacity
 				disabled={this.props.disabled}
@@ -191,26 +188,6 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 				initialScale={this.props.rippleInitialScale}
 				speed={this.props.rippleAnimationSpeed}/>;
 		});
-	}
-
-	renderTooltip() {
-		if (!this.props.disabled && this.props.tooltip && this.state.mouseInside) {
-			const containerSize = {
-				width: this.state.layout.width,
-				height: this.state.layout.height,
-			};
-
-			return <Tooltip
-				wrapperStyle={this.props.tooltipWrapperStyle}
-				direction={this.props.tooltipDirection}
-				positionSpacing={this.props.tooltipPositionSpacing}
-				positionOffset={this.props.tooltipPositionOffset}
-				containerSize={containerSize}>
-				{this.props.tooltip}
-			</Tooltip>;
-		} else {
-			return <View/>;
-		}
 	}
 
 	onLayout = (e) => {
@@ -309,11 +286,28 @@ export default class ResponsibleTouchArea extends Component<any, Props, any> {
 	onMouseEnter = () => {
 		!this.props.disabled && this.playFadeAnimation(1);
 		this.setState({ mouseInside: true });
+
+		if (!this.props.disabled && this.props.tooltip) {
+			this.wrapperView.measure((x, y, width, height, pageX, pageY) => {
+				this.context.ruuiStore.dispatch(appActions.toggleTooltip(true, {
+					targetLayout: { x: pageX, y: pageY, width, height },
+					direction: this.props.tooltipDirection,
+					positionSpacing: this.props.tooltipPositionSpacing,
+					positionOffset: this.props.tooltipPositionOffset,
+					content: this.props.tooltip,
+					wrapperStyle: this.props.tooltipWrapperStyle,
+				}));
+			});
+		}
 	};
 
 	onMouseLeave = () => {
 		this.onPressOut(null, true);
 		this.setState({ mouseInside: false });
+
+		if (!this.props.disabled && this.props.tooltip) {
+			this.context.ruuiStore.dispatch(appActions.toggleTooltip(false));
+		}
 	};
 
 	playRaiseAnimation = (toValue: Number) => {

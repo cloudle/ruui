@@ -27,6 +27,18 @@ export type LayoutEvent = {
 	},
 };
 
+export type Dimension = {
+	width?: Number,
+	height?: Number,
+	scale?: Number,
+	fontScale?: Number,
+};
+
+export type Dimensions = {
+	window?: Dimension,
+	screen?: Dimension,
+};
+
 export type AccessibilityTrait =
 	'none' |
 	'button' |
@@ -60,6 +72,11 @@ export type Corners = {
 };
 
 export type SnappingDirection = 'top' | 'left' | 'bottom' | 'right' | 'top-left' | 'left-top' | 'top-right' | 'right-top' | 'bottom-left' | 'left-bottom' | 'bottom-right' | 'right-bottom';
+
+export type PositionOffset = {
+	top: Number,
+	left: Number,
+};
 
 export type DropdownConfigs = {
 	component?: any,

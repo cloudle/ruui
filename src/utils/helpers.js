@@ -144,3 +144,175 @@ export function directionSnap(
 		return { top: 0, left: 0 };
 	}
 }
+
+export function directionAnimatedConfigs(direction, translateDistance, animation) {
+	const borderRadius = animation.interpolate({
+			inputRange: [0, 0.5, 1], outputRange: [50, 15, 3],
+		}),
+		opacity = animation.interpolate({
+			inputRange: [0, 1], outputRange: [0, 1],
+			extrapolate: 'clamp',
+		});
+
+	switch (direction) {
+	case 'top':
+		return {
+			borderRadius: {
+				borderTopLeftRadius: borderRadius,
+				borderTopRightRadius: borderRadius,
+			},
+			transform: [{
+				translateY: animation.interpolate({
+					inputRange: [0, 1], outputRange: [translateDistance, 0],
+				}),
+			}],
+			opacity,
+		};
+	case 'left':
+		return {
+			borderRadius: {
+				borderTopLeftRadius: borderRadius,
+			},
+			transform: [{
+				translateY: animation.interpolate({
+					inputRange: [0, 1], outputRange: [translateDistance, 0],
+				}),
+			}],
+			opacity,
+		};
+	case 'bottom':
+		return {
+			borderRadius: {
+				borderBottomLeftRadius: borderRadius,
+				borderBottomRightRadius: borderRadius,
+			},
+			transform: [{
+				translateY: animation.interpolate({
+					inputRange: [0, 1], outputRange: [-translateDistance, 0],
+				}),
+			}],
+			opacity,
+		};
+	case 'right':
+		return {
+			borderRadius: {
+				borderTopRightRadius: borderRadius,
+			},
+			transform: [{
+				translateY: animation.interpolate({
+					inputRange: [0, 1], outputRange: [translateDistance, 0],
+				}),
+			}],
+			opacity,
+		};
+	case 'top-left':
+		return {
+			borderRadius: {
+				borderTopRightRadius: borderRadius,
+			},
+			transform: [{
+				translateY: animation.interpolate({
+					inputRange: [0, 1], outputRange: [translateDistance, 0],
+				}),
+			}],
+			opacity,
+		};
+	case 'left-top':
+		return {
+			borderRadius: {
+				borderTopLeftRadius: borderRadius,
+			},
+			transform: [{
+				translateY: animation.interpolate({
+					inputRange: [0, 1], outputRange: [translateDistance, 0],
+				}),
+			}],
+			opacity,
+		};
+	case 'bottom-left':
+		return {
+			borderRadius: {
+				borderBottomRightRadius: borderRadius,
+			},
+			transform: [{
+				translateY: animation.interpolate({
+					inputRange: [0, 1], outputRange: [-translateDistance, 0],
+				}),
+			}],
+			opacity,
+		};
+	case 'left-bottom':
+		return {
+			borderRadius: {
+				borderBottomLeftRadius: borderRadius,
+			},
+			transform: [{
+				translateY: animation.interpolate({
+					inputRange: [0, 1], outputRange: [-translateDistance, 0],
+				}),
+			}],
+			opacity,
+		};
+	case 'bottom-right':
+		return {
+			borderRadius: {
+				borderBottomLeftRadius: borderRadius,
+			},
+			transform: [{
+				translateY: animation.interpolate({
+					inputRange: [0, 1], outputRange: [-translateDistance, 0],
+				}),
+			}],
+			opacity,
+		};
+	case 'right-bottom':
+		return {
+			borderRadius: {
+				borderBottomRightRadius: borderRadius,
+			},
+			transform: [{
+				translateY: animation.interpolate({
+					inputRange: [0, 1], outputRange: [-translateDistance, 0],
+				}),
+			}],
+			opacity,
+		};
+	case 'top-right':
+		return {
+			borderRadius: {
+				borderTopLeftRadius: borderRadius,
+			},
+			transform: [{
+				translateY: animation.interpolate({
+					inputRange: [0, 1], outputRange: [translateDistance, 0],
+				}),
+			}],
+			opacity,
+		};
+	case 'right-top':
+		return {
+			borderRadius: {
+				borderTopRightRadius: borderRadius,
+			},
+			transform: [{
+				translateY: animation.interpolate({
+					inputRange: [0, 1], outputRange: [translateDistance, 0],
+				}),
+			}],
+			opacity,
+		};
+	default:
+		return {
+			borderRadius: {
+				borderTopLeftRadius: borderRadius,
+				borderTopRightRadius: borderRadius,
+			},
+			transform: [{
+				translateY: animation.interpolate({
+					inputRange: [0, 1], outputRange: [-translateDistance, 0],
+				}),
+			}],
+			opacity,
+		};
+	}
+}
