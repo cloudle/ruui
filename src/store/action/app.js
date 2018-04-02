@@ -5,10 +5,6 @@ export function resetState() {
 	return { type: Actions.ResetState, };
 }
 
-export function updateThemeConfigs(configs = {}) {
-	return { type: Actions.UpdateThemeConfigs, configs };
-}
-
 export function updateDimensionsInfo(info = {}) {
 	return { type: Actions.UpdateDimensionInfo, info };
 }
@@ -31,6 +27,10 @@ export function toggleDropdown(flag, configs = {}) {
 
 export function toggleLoading(flag, configs = {}) {
 	return { type: Actions.ToggleLoading, flag, configs };
+}
+
+export function toggleTooltip(flag, configs = {}) {
+	return { type: Actions.ToggleTooltip, flag, configs };
 }
 
 export function insertSnackBar(configs = {}) {

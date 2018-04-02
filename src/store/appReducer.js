@@ -8,7 +8,7 @@ const defaultSelectorConfigs = {
 };
 
 const initialState = {
-	counter: 1,
+	counter: 0,
 	message: 'Hello, Stranger!',
 	activeModals: {
 		defaultSelector: null,
@@ -22,7 +22,6 @@ const initialState = {
 		},
 	},
 	snackBars: [],
-	themeConfigs: {},
 	netInfo: {},
 	dimensions: {},
 };
@@ -41,6 +40,8 @@ export default function (state = initialState, action) {
 		return handleToggleDropdown(state, action);
 	case Actions.ToggleLoading:
 		return handleToggleLoading(state, action);
+	case Actions.ToggleTooltip:
+		return handleToggleTooltip(state, action);
 	case Actions.InsertSnackBar:
 		return { ...state, snackBars: collectionInsert(state.snackBars, action.configs, true) };
 	case Actions.StartDestroySnackBar:
@@ -49,15 +50,12 @@ export default function (state = initialState, action) {
 		}) };
 	case Actions.DestroySnackBar:
 		return { ...state, snackBars: collectionDestroy(state.snackBars, action.configs) };
-	case Actions.UpdateThemeConfigs:
-		return { ...state, themeConfigs: { ...state.themeConfigs, ...action.configs } };
 	case Actions.UpdateDimensionInfo:
 		return { ...state, dimensions: { ...state.dimensions, ...action.info } };
 	case Actions.UpdateNetInfo:
 		return { ...state, netInfo: { ...state.netInfo, ...action.info } };
 	case Actions.ResetState:
-		return initialAppState(reducer(undefined, { type: Actions.ReduxInit }), state);
-	case Actions.ToggleLoading:
+		return { ...initialState, netInfo: state.netInfo, dimensions: state.dimensions };
 	default:
 		return state;
 	}
@@ -129,6 +127,16 @@ function handleToggleDropdown(state, action) {
 				...action.configs,
 				tapToClose: action.configs.tapToClose || true,
 			} : state.activeDropdown.configs,
+		},
+	};
+}
+
+function handleToggleTooltip(state, action) {
+	return {
+		...state,
+		tooltip: {
+			active: action.flag === true,
+			configs: action.flag === true ? action.configs : state.tooltip.configs,
 		},
 	};
 }
