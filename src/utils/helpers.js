@@ -145,9 +145,10 @@ export function directionSnap(
 	}
 }
 
-export function directionAnimatedConfigs(direction, translateDistance, animation) {
+export function directionAnimatedConfigs(
+	direction, translateDistance, animation, finalBorderRadius = 3) {
 	const borderRadius = animation.interpolate({
-			inputRange: [0, 0.5, 1], outputRange: [50, 15, 3],
+			inputRange: [0, 0.5, 1], outputRange: [50, 15, finalBorderRadius],
 		}),
 		opacity = animation.interpolate({
 			inputRange: [0, 1], outputRange: [0, 1],

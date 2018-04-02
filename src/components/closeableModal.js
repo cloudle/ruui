@@ -9,7 +9,7 @@ type Props = {
 	onRequestClose: Function,
 };
 
-export default class CloseableModal extends Component<any, Props, any> {
+export default class RuuiCloseableModal extends Component<any, Props, any> {
 	static props: Props;
 	static contextTypes = {
 		ruuiConfigs: PropTypes.object,

@@ -15,7 +15,7 @@ type Props = {
 	};
 })
 
-export default class Modals extends Component {
+export default class RuuiModals extends Component {
 	props: Props;
 
 	render() {

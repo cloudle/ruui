@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Animated, Easing, View, TouchableWithoutFeedback, Text, StyleSheet } from 'react-native';
 
-import { directionSnap } from '../utils';
+import { directionSnap, directionAnimatedConfigs } from '../utils';
 import { connect } from '../utils/ruuiStore';
 import * as appActions from '../utils/store/appAction';
 import { Style, Element, DropdownConfigs } from '../typeDefinition';
@@ -19,23 +19,23 @@ type Props = {
 	};
 })
 
-export default class Dropdown extends Component {
+export default class RuuiDropdown extends Component {
 	props: Props;
 
 	constructor(props) {
 		super(props);
+		this.enterAnimation = new Animated.Value(0);
 		this.state = {
-			enterAnimation: new Animated.Value(0),
 			layout: {},
 		};
 	}
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.active === true) {
-			this.state.enterAnimation.setValue(0);
-			Animated.timing(this.state.enterAnimation, {
+			this.enterAnimation.setValue(0);
+			Animated.timing(this.enterAnimation, {
 				toValue: 1,
-				duration: 500,
+				duration: 800,
 				easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
 			}).start();
 		}
@@ -47,7 +47,6 @@ export default class Dropdown extends Component {
 				onPress={this.closeModal}>
 				<View style={styles.touchableMask}/>
 			</TouchableWithoutFeedback> : <View/>}
-
 			{this.renderDropDown()}
 		</View> : <View/>;
 	}
@@ -59,15 +58,9 @@ export default class Dropdown extends Component {
 			containerLayout = configs.containerLayout || { x: 0, y: 0, width: 0, height: 0 },
 			InnerComponent = configs.component || configs.Component || EmptyDropdown,
 			flattenWrapperStyle = StyleSheet.flatten(configs.wrapperStyle),
-			wrapperBorderRadius = flattenWrapperStyle.borderRadius || 3,
-			translate = this.state.enterAnimation.interpolate({
-				inputRange: [0, 1], outputRange: [-15, 0],
-			}), borderRadius = this.state.enterAnimation.interpolate({
-				inputRange: [0, 0.5, 1], outputRange: [80, 20, wrapperBorderRadius],
-			}), opacity = this.state.enterAnimation.interpolate({
-				inputRange: [0, 1], outputRange: [0.2, 1],
-				extrapolate: 'clamp',
-			}),
+			finalBorderRadius = flattenWrapperStyle.borderRadius || 3,
+			animatedConfigs = directionAnimatedConfigs(
+				configs.direction, 10, this.enterAnimation, finalBorderRadius),
 			snappingPosition = directionSnap(
 				containerLayout.y, containerLayout.x,
 				containerLayout.width, containerLayout.height,
@@ -79,15 +72,14 @@ export default class Dropdown extends Component {
 				left: snappingPosition.left + positionOffset.left,
 			},
 			containerStyles = {
-				transform: [{ translateY: translate }],
-				borderBottomLeftRadius: borderRadius,
-				borderBottomRightRadius: borderRadius,
-				opacity,
+				transform: animatedConfigs.transform,
+				opacity: animatedConfigs.opacity,
+				...animatedConfigs.borderRadius,
 			};
 
 		return <View style={wrapperStyles} onLayout={this.onLayout}>
 			<Animated.View style={[styles.dropdownContainer, configs.wrapperStyle, containerStyles]}>
-				<InnerComponent animation={this.state.enterAnimation} context={context}/>
+				<InnerComponent animation={this.enterAnimation} context={context}/>
 			</Animated.View>
 		</View>;
 	}

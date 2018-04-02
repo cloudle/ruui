@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { TouchableOpacity, Image, View, Text, StyleSheet } from 'react-native';
 
-import { base64Icons } from '../utils';
-import { connect } from '../utils/ruuiStore';
+import { base64Icons, } from '../utils';
 import { Style } from '../typeDefinition';
 import * as appAction from '../utils/store/appAction';
 
@@ -15,20 +15,16 @@ type Props = {
 	onSelect?: Function,
 	onChange?: Function,
 	onCancel?: Function,
-	dispatch?: Function,
 	iconSource?: any,
 	iconStyle?: Style,
 	tapToClose?: boolean,
 };
 
-@connect(() => {
-	return {
-
+export default class RuuiSelect extends Component<any, Props, any> {
+	static props: Props;
+	static contextTypes = {
+		ruuiStore: PropTypes.object,
 	};
-})
-
-export default class Select extends Component<any, Props, any> {
-	props: Props;
 
 	static defaultProps = {
 		floatingLabel: 'Select',
@@ -36,6 +32,11 @@ export default class Select extends Component<any, Props, any> {
 		options: [{ title: 'Missing options param' }],
 		tapToClose: true,
 	};
+
+	constructor(props, context) {
+		super(props);
+		this.store = context.ruuiStore;
+	}
 
 	render() {
 		const iconSource = this.props.iconSource || { uri: base64Icons.downArrow };
@@ -67,7 +68,7 @@ export default class Select extends Component<any, Props, any> {
 	}
 
 	activateSelector = () => {
-		this.props.dispatch(appAction.toggleSelector(true, {
+		this.store.dispatch(appAction.toggleSelector(true, {
 			selectText: this.props.floatingLabel,
 			cancelText: this.props.cancelText,
 			options: this.props.options,

@@ -1,18 +1,18 @@
-import responsibleTouchAreaImport from './ResponsibleTouchArea';
-import rippleEffectImport from './RippleEffect';
+import responsibleTouchAreaImport from './responsibleTouchArea';
+import rippleEffectImport from './rippleEffect';
 import ruuiProviderImport from './ruuiProvider';
 import buttonImport from './button';
-import inputImport from './Input';
+import inputImport from './input';
 import modalImport from './modals';
-import dropdownImport from './Dropdown';
-import dropdownContainerImport from './DropdownContainer';
-import selectImport from './Select';
-import snackbarImport from './Snackbars';
+import dropdownImport from './dropdown';
+import dropdownContainerImport from './dropdownContainer';
+import selectImport from './select';
+import snackbarImport from './snackbars';
 import tooltipImport from './tooltip';
-import connectionMaskImport from './ConnectionMask';
+import connectionMaskImport from './connectionMask';
 import tabViewImport from './TabView';
-import sliderImport from './Slider';
-import radioIconImport from './RadioIcon';
+import sliderImport from './slider';
+import radioIconImport from './radioIcon';
 
 export const ResponsibleTouchArea = responsibleTouchAreaImport;
 export const RippleEffect = rippleEffectImport;

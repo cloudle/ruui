@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-import ResponsibleTouchArea from './ResponsibleTouchArea';
-import RadioIcon from './RadioIcon';
+import ResponsibleTouchArea from './responsibleTouchArea';
+import RadioIcon from './radioIcon';
 import { colors, isAndroid } from '../utils';
 
 type Props = {

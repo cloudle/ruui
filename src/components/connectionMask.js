@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Animated, Easing, NetInfo, ActivityIndicator, View, Text, StyleSheet } from 'react-native';
 
 import Button from '../components/button';
-import { connect } from '../utils/ruuiStore';
+import { connect } from '../utils';
 import * as appActions from '../utils/store/appAction';
 import type { Style, Element } from '../typeDefinition';
 
@@ -25,7 +25,7 @@ type Props = {
 	};
 })
 
-export default class ConnectionMask extends Component {
+export default class RuuiConnectionMask extends Component {
 	props: Props;
 
 	static defaultProps = {

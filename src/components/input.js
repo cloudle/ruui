@@ -38,7 +38,7 @@ type Props = {
 
 const easeInSpeed = 450;
 
-export default class Input extends Component<any, Props, any> {
+export default class RuuiInput extends Component<any, Props, any> {
 	props: Props;
 
 	static defaultProps = {

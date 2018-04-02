@@ -8,7 +8,7 @@ type Props = {
 	color?: string,
 };
 
-export default class RadioIcon extends Component {
+export default class RuuiRadioIcon extends Component {
 	props: Props;
 
 	static defaultProps = {

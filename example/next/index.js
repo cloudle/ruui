@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, View, Text, } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, ScrollView, Text, } from 'react-native';
 import { Provider, connect } from 'react-redux';
 import { ruuiActions, RuuiProvider, Button, Modal, Snackbar, Dropdown, Tooltip, DropdownContainer, Select } from '../../src';
 
@@ -59,7 +59,7 @@ class App extends Component {
 			<DropdownContainer
 				dropdownWrapperStyle={{ width: 200, borderRadius: 5, }}
 				dropdownComponent={ContextMenu}
-				dropdownDirection="left-top"
+				dropdownDirection="right"
 				dropdownContext={{ name: 'Cloud' }}>
 				<Text>Drop</Text>
 			</DropdownContainer>
@@ -88,6 +88,7 @@ class App extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1, alignItems: 'center', justifyContent: 'center',
+		backgroundColor: '#888888',
 	},
 	buttonWrapper: {
 		backgroundColor: 'red',

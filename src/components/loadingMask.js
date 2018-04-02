@@ -7,7 +7,7 @@ type Props = {
 	dispatch?: Function,
 };
 
-export default class LoadingModal extends Component<any, Props, any> {
+export default class RuuiLoadingModal extends Component<any, Props, any> {
 	props: Props;
 
 	render() {

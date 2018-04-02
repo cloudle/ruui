@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import tinyColor from 'tinycolor2';
 import { Animated, Easing, TouchableOpacity, View, StyleSheet } from 'react-native';
 
-import RippleEffect from './RippleEffect';
+import RippleEffect from './rippleEffect';
 import Tooltip from './tooltip';
 import { debounce, isIos, isWeb } from '../utils';
 import * as appActions from '../store/action/app';
@@ -55,7 +55,7 @@ type Props = {
 
 const MAX_PARTICLE_COUNT = 5;
 
-export default class ResponsibleTouchArea extends Component<any, Props, any> {
+export default class RuuiResponsibleTouchArea extends Component<any, Props, any> {
 	static props: Props;
 	static contextTypes = {
 		ruuiStore: PropTypes.object,

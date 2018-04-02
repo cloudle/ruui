@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Animated, Easing, View, StyleSheet } from 'react-native';
 
-import Selector from './Selector';
-import LoadingMask from './LoadingMask';
+import Selector from './selector';
+import LoadingMask from './loadingMask';
 import CloseableModal from './closeableModal';
 import * as appActions from '../utils/store/appAction';
 
@@ -15,7 +15,7 @@ type Props = {
 	dispatch?: Function,
 };
 
-export default class Modal extends Component {
+export default class RuuiModal extends Component {
 	static props: Props;
 	static contextTypes = {
 		ruuiConfigs: PropTypes.object,
