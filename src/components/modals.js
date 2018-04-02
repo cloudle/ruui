@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { PanResponder, View, Text, StyleSheet } from 'react-native';
 import { connect } from '../utils/ruuiStore';
 
-import Modal from './Modal';
+import Modal from './modal';
 
 type Props = {
 	modals?: Array<Object>,

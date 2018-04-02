@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, View, Text, } from 'react-native';
 import { Provider, connect } from 'react-redux';
-import { ruuiActions, RuuiProvider, Modal, Snackbar, Dropdown, DropdownContainer, Select } from '../../src';
+import { ruuiActions, RuuiProvider, Button, Modal, Snackbar, Dropdown, DropdownContainer, Select } from '../../src';
 
 import store from './store';
 import ContextMenu from '../legacy/modal/contextMenu';
@@ -12,7 +12,7 @@ type ContainerProps = {
 };
 
 export default function AppContainer(props: ContainerProps) {
-	return <RuuiProvider>
+	return <RuuiProvider configs={configs}>
 		<Provider store={store}>
 			<App/>
 		</Provider>
@@ -63,6 +63,7 @@ class App extends Component {
 				dropdownContext={{ name: 'Cloud' }}>
 				<Text>Drop</Text>
 			</DropdownContainer>
+			<Button title="hey!!"/>
 
 			<Snackbar/>
 			<Modal/>
@@ -75,7 +76,29 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1, alignItems: 'center', justifyContent: 'center',
 	},
+	buttonWrapper: {
+		backgroundColor: 'red',
+		borderRadius: 4,
+	},
 });
+
+const configs = {
+	button: {
+		styles: {
+			wrapper: {
+				backgroundColor: 'red',
+				borderRadius: 4,
+			}
+		}
+	},
+	modal: {
+		maskProps: () => ({
+			style: {
+				position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+			},
+		}),
+	},
+};
 
 function fillArray(len) {
 	const res = [];

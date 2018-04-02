@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Animated, Easing, View, StyleSheet } from 'react-native';
 
 import Selector from './Selector';
 import LoadingMask from './LoadingMask';
-import CloseableModal from './CloseableModal';
+import CloseableModal from './closeableModal';
 import * as appActions from '../utils/store/appAction';
 
 type Props = {
@@ -15,7 +16,10 @@ type Props = {
 };
 
 export default class Modal extends Component {
-	props: Props;
+	static props: Props;
+	static contextTypes = {
+		ruuiConfigs: PropTypes.object,
+	};
 
 	constructor(props) {
 		super(props);
@@ -49,12 +53,13 @@ export default class Modal extends Component {
 	}
 
 	render() {
-		const { configs = {}, modalCount } = this.props,
-			containerPropsGenerator = configs.maskProps || defaultMaskPropsGenerator,
+		const ruuiConfigs = this.context.ruuiConfigs.modal,
+			{ configs = {}, modalCount } = this.props,
+			containerPropsGenerator = configs.maskProps || ruuiConfigs.maskProps,
 			containerProps = containerPropsGenerator(this.state.enterAnimation, configs, modalCount);
 
 		if (configs.maskProps && !containerProps.style) {
-			containerProps.style = defaultMaskPropsGenerator(
+			containerProps.style = ruuiConfigs.maskProps(
 				this.state.enterAnimation, configs, modalCount).style;
 		}
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Animated, Easing, NetInfo, ActivityIndicator, View, Text, StyleSheet } from 'react-native';
 
-import Button from '../components/Button';
+import Button from '../components/button';
 import { connect } from '../utils/ruuiStore';
 import * as appActions from '../utils/store/appAction';
 import type { Style, Element } from '../typeDefinition';
