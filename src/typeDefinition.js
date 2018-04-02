@@ -69,3 +69,14 @@ export type DropdownConfigs = {
 	spacing?: number,
 	context?: Object,
 };
+
+export type RuuiConfigs = {
+	button?: {
+		styles?: Object,
+	},
+	modal?: {
+		styles?: Object,
+		maskProps?: Function,
+		containerProps?: Function,
+	},
+};
