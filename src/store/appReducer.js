@@ -7,7 +7,7 @@ const defaultSelectorConfigs = {
 	options: [{ title: 'Option 1' }, { title: 'Option 2' }],
 };
 
-const initialState = {
+export const initialState = {
 	counter: 0,
 	message: 'Hello, Stranger!',
 	activeModals: {

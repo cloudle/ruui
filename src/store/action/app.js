@@ -5,6 +5,10 @@ export function resetState() {
 	return { type: Actions.ResetState, };
 }
 
+export function reduxSync(state = {}) {
+	return { type: Actions.ReduxSync, state };
+}
+
 export function updateDimensionsInfo(info = {}) {
 	return { type: Actions.UpdateDimensionInfo, info };
 }

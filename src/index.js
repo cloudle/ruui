@@ -3,7 +3,7 @@ import * as actionsImport from './utils/store/actions';
 import * as appActionImport from './utils/store/appAction';
 import * as routeActionImport from './utils/store/routeAction';
 
-export { store, reduxRuuiMiddleware } from './store';
+export { store, reduxRuuiMiddleware, ruuiReducer } from './store';
 export { connect } from './utils/ruuiStore';
 
 export * from './components';
