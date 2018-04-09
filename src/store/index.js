@@ -14,7 +14,7 @@ export const ruuiReducer = (state = initialState, action) => {
 	}
 };
 
-export const reduxRuuiMiddleware = (ruuiStore = store) => {
+export const ruuiMiddleware = (ruuiStore = store) => {
 	return (reduxStore) => {
 		ruuiStore.subscribe(() => {
 			reduxStore.dispatch(appActions.reduxSync(ruuiStore.getState()));
