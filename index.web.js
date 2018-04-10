@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React, { Component } from 'react';
 import { render as NativeRender, View, Text, AsyncStorage } from 'react-native';
 import { AppContainer } from 'react-hot-loader';
-import app from './example/legacy';
+import app from './example/next';
 import configureStore from './example/legacy/store';
 import * as appActions from './example/legacy/store/action/app';
 

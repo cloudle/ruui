@@ -10,6 +10,7 @@ export const isBrowser = isWeb && !isServer;
 export const isIos = os === 'ios';
 export const isAndroid = os === 'android';
 
+export { connect } from './ruuiStore';
 export * from './colors';
 export * from './helpers';
 export * from './screen';

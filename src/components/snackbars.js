@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Animated, Easing, View, Text, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
 
-import Snackbar from './Snackbar';
+import Snackbar from './snackbar';
+import { connect } from '../utils/ruuiStore';
 import * as appActions from '../utils/store/appAction';
 
 type Props = {
@@ -18,9 +18,9 @@ type Props = {
 
 const snackbarRadius = 3;
 
-@connect(({ app }) => {
+@connect(({ snackBars }) => {
 	return {
-		snackBars: app.snackBars,
+		snackBars,
 	};
 })
 

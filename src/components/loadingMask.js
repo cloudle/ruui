@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, View, TouchableOpacity, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
 import * as appActions from '../utils/store/appAction';
 
 type Props = {
@@ -8,7 +7,7 @@ type Props = {
 	dispatch?: Function,
 };
 
-export default class LoadingModal extends Component<any, Props, any> {
+export default class RuuiLoadingModal extends Component<any, Props, any> {
 	props: Props;
 
 	render() {

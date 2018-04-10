@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
 
 import { isWeb } from '../utils';
 import * as appActions from '../utils/store/appAction';
@@ -36,14 +36,11 @@ type Props = {
 	dropdownOffset?: Object,
 };
 
-@connect(({ app }) => {
-	return {
-
+export default class RuuiDropdownContainer extends Component {
+	static props: Props;
+	static contextTypes = {
+		ruuiStore: PropTypes.object,
 	};
-})
-
-export default class DropdownContainer extends Component {
-	props: Props;
 
 	static DropdownEvents = {
 		onPress: 'onPress',
@@ -56,6 +53,11 @@ export default class DropdownContainer extends Component {
 		dropdownSpacing: 10,
 		offset: { top: 0, left: 0 },
 	};
+
+	constructor(props, context) {
+		super(props);
+		this.store = context.ruuiStore;
+	}
 
 	render() {
 		const nativeProps = isWeb ? {} : {
@@ -96,7 +98,7 @@ export default class DropdownContainer extends Component {
 
 	toggleDropdown = () => {
 		this.container.measure((a, b, width, height, px, py) => {
-			this.props.dispatch(appActions.toggleDropdown(true, {
+			this.store.dispatch(appActions.toggleDropdown(true, {
 				wrapperStyle: this.props.dropdownWrapperStyle,
 				component: this.props.dropdownComponent,
 				containerLayout: this.props.containerLayout || { x: px, y: py, width, height, },

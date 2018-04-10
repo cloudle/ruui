@@ -1,20 +1,43 @@
 import React, { Component } from 'react';
-import { NetInfo, Dimensions, View, Text, StyleSheet } from 'react-native';
-import { Provider } from 'react-redux';
+import { NetInfo, Dimensions } from 'react-native';
+import PropTypes from 'prop-types';
+import { merge } from 'lodash';
 
+import store from '../store';
 import { isServer } from '../utils';
-import * as appActions from '../utils/store/appAction';
-import type { Element, Style } from '../typeDefinition';
+import coreConfigs from '../configs/core';
+import * as appActions from '../store/action/app';
+import { Element, RuuiConfigs } from '../typeDefinition';
 
 type Props = {
 	children?: Element,
 	store?: Object,
-	styles?: Style,
-	themeConfigs?: Object,
+	configs?: RuuiConfigs,
 };
 
-export default class ContextProvider extends Component {
-	props: Props;
+export default class RuuiProvider extends Component {
+	static props: Props;
+	static defaultProps = {
+		store,
+		configs: {},
+	};
+	static childContextTypes = {
+		ruuiStore: PropTypes.object,
+		ruuiConfigs: PropTypes.object,
+	};
+
+	constructor(props) {
+		super(props);
+		this.store = this.props.store;
+		this.configs = merge({}, coreConfigs, this.props.configs);
+	}
+
+	getChildContext() {
+		return {
+			ruuiStore: this.store,
+			ruuiConfigs: this.configs,
+		};
+	}
 
 	componentWillMount() {
 		if (!isServer && this.props.store) {
@@ -33,13 +56,7 @@ export default class ContextProvider extends Component {
 	}
 
 	render() {
-		const reduxStore = this.props.store;
-
-		return <View style={[styles.container, this.props.styles]}>
-			{reduxStore ? <Provider store={reduxStore}>
-				{this.props.children}
-			</Provider> : this.props.children}
-		</View>;
+		return this.props.children;
 	}
 
 	subscribeAndUpdateDimensions = () => {
@@ -52,7 +69,7 @@ export default class ContextProvider extends Component {
 	};
 
 	handleDimensionChange = (data) => {
-		this.props.store.dispatch(appActions.updateDimensionsInfo(data));
+		this.store.dispatch(appActions.updateDimensionsInfo(data));
 	};
 
 	subscribeAndUpdateNetworkInfo = () => {
@@ -69,16 +86,10 @@ export default class ContextProvider extends Component {
 	};
 
 	handleConnectionTypeChange = (connectionType) => {
-		this.props.store.dispatch(appActions.updateNetInfo({ connectionType, }));
+		this.store.dispatch(appActions.updateNetInfo({ connectionType, }));
 	};
 
 	handleIsConnectedChange = (isConnected) => {
 		this.props.store.dispatch(appActions.updateNetInfo({ isConnected, }));
 	};
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
-});

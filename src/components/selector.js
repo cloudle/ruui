@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Animated, TouchableWithoutFeedback, ScrollView, View, Text, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
 
-import ResponsibleTouchArea from './ResponsibleTouchArea';
-import SelectorItem from './SelectorItem';
+import ResponsibleTouchArea from './responsibleTouchArea';
+import SelectorItem from './selectorItem';
 import { isAndroid, colors } from '../utils';
 import { screenWidthPadding } from '../utils/screen';
 import * as appActions from '../utils/store/appAction';
@@ -16,14 +16,16 @@ type Props = {
 	onRequestClose?: Function,
 };
 
-@connect(({ app }) => {
-	return {
-
-	};
-})
-
 export default class Selector extends Component<any, Props, any> {
-	props: Props;
+	static props: Props;
+	static contextTypes = {
+		ruuiStore: PropTypes.object,
+	};
+
+	constructor(props, context) {
+		super(props);
+		this.store = context.ruuiStore;
+	}
 
 	render() {
 		const translateY = this.props.animation.interpolate({
@@ -88,7 +90,7 @@ export default class Selector extends Component<any, Props, any> {
 	}
 
 	onItemPick = (item) => {
-		this.props.dispatch(appActions.toggleSelector(false));
+		this.store.dispatch(appActions.toggleSelector(false));
 
 		if (this.props.configs.onSelect) this.props.configs.onSelect(item);
 		if (this.props.configs.onChange
@@ -98,7 +100,7 @@ export default class Selector extends Component<any, Props, any> {
 	};
 
 	cancelSelector = () => {
-		this.props.dispatch(appActions.toggleSelector(false, {
+		this.store.dispatch(appActions.toggleSelector(false, {
 			id: this.props.configs.id,
 		}));
 		if (this.props.configs.onCancel) this.props.configs.onCancel();

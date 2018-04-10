@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import { PanResponder, View, Text, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
+import { connect } from '../utils/ruuiStore';
 
-import Modal from './Modal';
+import Modal from './modal';
 
 type Props = {
 	modals?: Array<Object>,
 	dispatch?: Function,
 };
 
-@connect(({ app }) => {
+@connect(({ activeModals }) => {
 	return {
-		modals: app.activeModals,
+		modals: activeModals,
 	};
 })
 
-export default class Modals extends Component {
+export default class RuuiModals extends Component {
 	props: Props;
 
 	render() {

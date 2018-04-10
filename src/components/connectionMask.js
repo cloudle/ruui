@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Animated, Easing, NetInfo, ActivityIndicator, View, Text, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
 
-import Button from '../components/Button';
+import Button from '../components/button';
+import { connect } from '../utils';
 import * as appActions from '../utils/store/appAction';
 import type { Style, Element } from '../typeDefinition';
 
@@ -19,13 +19,13 @@ type Props = {
 	retryButtonInnerStyle?: Style,
 };
 
-@connect(({ app }) => {
+@connect(({ netInfo }) => {
 	return {
-		netInfo: app.netInfo,
+		netInfo,
 	};
 })
 
-export default class ConnectionMask extends Component {
+export default class RuuiConnectionMask extends Component {
 	props: Props;
 
 	static defaultProps = {

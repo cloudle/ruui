@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Animated, TouchableWithoutFeedback, View, StyleSheet } from 'react-native';
 
 type Props = {
@@ -8,17 +9,22 @@ type Props = {
 	onRequestClose: Function,
 };
 
-export default class CloseableModal extends Component<any, Props, any> {
-	props: Props;
+export default class RuuiCloseableModal extends Component<any, Props, any> {
+	static props: Props;
+	static contextTypes = {
+		ruuiConfigs: PropTypes.object,
+	};
 
 	render() {
-		const { configs = {}, animation, } = this.props,
-			containerPropsGenerator = configs.containerProps || defaultContainerPropsGenerator,
+		const ruuiConfigs = this.context.ruuiConfigs.modal,
+			styles = ruuiConfigs.styles,
+			{ configs = {}, animation, } = this.props,
+			containerPropsGenerator = configs.containerProps || ruuiConfigs.containerProps,
 			containerProps = containerPropsGenerator(animation, configs, this.props.active),
 			InnerComponent = this.props.configs.component || this.props.configs.Component;
 
 		if (configs.containerProps && !containerProps.style) {
-			containerProps.style = defaultContainerPropsGenerator(
+			containerProps.style = ruuiConfigs.containerProps(
 				animation, configs, this.props.active).style;
 		}
 
@@ -57,7 +63,7 @@ export function defaultContainerPropsGenerator(animation, configs, isOpening) {
 	return { style: [styles.container, fullScreenStyles, containerStyles], };
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
 	container: {
 		position: 'absolute',
 		top: 0, right: 0, left: 0, bottom: 0,

@@ -5,7 +5,7 @@ type Props = {
 	selectorConfigs?: Object,
 };
 
-export default class Picker extends Component<any, Props, any> {
+export default class RuuiPicker extends Component<any, Props, any> {
 	props: Props;
 
 	render() {

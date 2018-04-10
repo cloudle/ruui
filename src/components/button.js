@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { View, Text, StyleSheet } from 'react-native';
-import ResponsibleTouchArea from './ResponsibleTouchArea';
+import ResponsibleTouchArea from './responsibleTouchArea';
 import { colors } from '../utils';
-import type {
-	Style,
-	Element,
-	SnappingDirection,
-	AccessibilityComponentType,
-	AccessibilityTrait,
-	Corners,
-} from '../typeDefinition';
+import type { Style, Element, SnappingDirection, AccessibilityComponentType, AccessibilityTrait, Corners, } from '../typeDefinition';
 
 type Props = {
 	id?: String,
@@ -55,8 +49,11 @@ type Props = {
 	children?: Element,
 };
 
-export default class Button extends Component<any, Props, any> {
+export default class RuuiButton extends Component<any, Props, any> {
 	props: Props;
+	static contextTypes = {
+		ruuiConfigs: PropTypes.object,
+	};
 
 	static defaultProps = {
 		ripple: true,
@@ -69,6 +66,8 @@ export default class Button extends Component<any, Props, any> {
 	};
 
 	render() {
+		const styles = this.context.ruuiConfigs.button.styles || styles;
+
 		return <ResponsibleTouchArea
 			id={this.props.id}
 			nativeID={this.props.nativeID}
@@ -109,7 +108,8 @@ export default class Button extends Component<any, Props, any> {
 	}
 
 	renderContent() {
-		const title = this.props.title,
+		const styles = this.context.ruuiConfigs.button.styles || styles,
+			title = this.props.title,
 			textStyles = [styles.titleText, this.props.textStyle];
 
 		if (this.props.children) {
@@ -124,7 +124,7 @@ export default class Button extends Component<any, Props, any> {
 	}
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
 	wrapper: {
 		backgroundColor: colors.iOsBlue,
 		borderRadius: 3,

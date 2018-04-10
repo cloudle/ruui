@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
-import App from './example/legacy';
+import App from './example/next';
 import configureStore from './example/legacy/store';
 
 const store = configureStore();
