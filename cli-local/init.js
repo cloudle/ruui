@@ -5,7 +5,7 @@ function rnCliModule(ext) {
 }
 
 function ruuiCliModule(ext) {
-	return path.resolve(process.cwd(), 'node_modules', 'react-universal-ui', 'local-cli', ext);
+	return path.resolve(process.cwd(), 'node_modules', 'react-universal-ui', 'cli-local', ext);
 }
 
 function init(root, argsOrName) {
