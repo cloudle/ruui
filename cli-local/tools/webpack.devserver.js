@@ -1,13 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
-const chalk = require('chalk');
 const config = require('./webpack.config');
 
 const port = 3000;
 const optimizeMode = process.env.OPTIMIZE !== undefined;
-
-console.log('Preparing super awesome dev-server at', chalk.bgGreen(` localhost:${port} `), ':p');
 
 const compiler = webpack(config);
 

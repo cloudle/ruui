@@ -1,14 +1,22 @@
 const path = require('path');
 const childProcess = require('child_process');
+const chalk = require('chalk');
+
+const port = process.env.ENV || 3000;
 
 function run() {
-	const root = process.cwd(),
-		devServer = require(path.resolve(process.cwd(), 'node_modules', 'react-universal-ui', 'cli-local', 'tools', 'webpack.devserver.js'));
+	const root = process.cwd();
 
-	devServer.listen(3000, 'localhost', (err, result) => {
-		if (err) console.log(err);
-		return true;
-	});
+	console.log('Preparing super awesome dev-server at', chalk.whiteBright(`localhost:${port}`), ':p');
+
+	setTimeout(() => {
+		const devServer = require('../tools/webpack.devserver');
+
+		devServer.listen(3000, 'localhost', (err, result) => {
+			if (err) console.log(err);
+			return true;
+		});
+	}, 0);
 }
 
 module.exports = {

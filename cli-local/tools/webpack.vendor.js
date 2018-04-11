@@ -5,8 +5,6 @@ const webpack = require('webpack');
 const chalk = require('chalk');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
-console.log(chalk.bgMagenta('Building common chunks... Grab a cup of coffee while this is running ;)'));
-
 const devVendors = [
 	'react-hot-loader',
 	'sockjs-client',
@@ -52,20 +50,20 @@ module.exports = {
 
 	output: {
 		filename: '[name].cache.js',
-		path: path.join(__dirname, 'web'),
+		path: path.resolve(process.cwd(), 'web'),
 		library: '[name]_lib',
 	},
 
 	plugins: [
 		new webpack.DllPlugin({
-			path: path.join(__dirname, 'web/[name]-manifest.json'),
+			path: path.resolve(process.cwd(), 'web', '[name]-manifest.json'),
 			name: '[name]_lib'
 		}),
 		new ProgressBarPlugin({
-			width: 39, complete: chalk.green.bgGreen('▓'), incomplete: chalk.green.bgWhite(' '),
-			format: 'Build (:bar) (:elapsed seconds)',
+			width: 32, complete: chalk.green.bgGreen('▓'), incomplete: chalk.green.bgWhite(' '),
+			format: 'building (:bar) (:elapsed seconds)',
 			summary: false, customSummary: (buildTime) => {
-				console.log(chalk.bgGreen('Build completed after', ` ${buildTime} `));
+				console.log('｢ruui｣ cache built successfully after', chalk.whiteBright(`[${buildTime}]`));
 			},
 		}),
 	],

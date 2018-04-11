@@ -20,6 +20,7 @@ const env = process.env.ENV || 'dev',
 		'webpack/hot/only-dev-server',
 	];
 
+let brightFlag = false;
 if (!isProduction) {
 	const cachePath = path.resolve(process.cwd(), 'web', 'vendor-manifest.json');
 
@@ -35,15 +36,19 @@ if (!isProduction) {
 	}
 
 	if (!htmlOptions.useVendorChunks) {
-		console.log(chalk.gray('(serving without ') + chalk.green('common-library-cache') +
-			chalk.gray(', run ') + chalk.magenta('yarn vendor') + chalk.gray(' once to boost up build speed)'));
+		console.log(chalk.whiteBright('｢ruui｣'), chalk.gray('not using ') + chalk.green('cache') +
+			chalk.gray(', run ') + chalk.magenta('ruui vendor') + chalk.gray(' once to boost up build speed..'));
 	}
 
 	optionalPlugins.push(new ProgressBarPlugin({
-		width: 39, complete: chalk.green.bgGreen('▓'), incomplete: chalk.green.bgWhite(' '),
-		format: 'Build (:bar) (:elapsed seconds)',
+		width: 32, complete: chalk.green.bgGreen('▓'), incomplete: chalk.green.bgWhite(' '),
+		format: 'building (:bar) (:elapsed seconds)',
 		summary: false, customSummary: (buildTime) => {
-			console.log(chalk.white.bgGreen('Build completed after', ` ${buildTime} `));
+			const alternatedColor = brightFlag ? chalk.whiteBright : chalk.gray,
+				ruuiBullet = `${chalk.whiteBright('｢')}${alternatedColor('ruui')}${chalk.whiteBright('｣')}`;
+
+			console.log(ruuiBullet, 'build completed after', chalk.whiteBright(`[${buildTime}]`));
+			brightFlag = !brightFlag;
 		},
 	}));
 }
