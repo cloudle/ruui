@@ -60,8 +60,8 @@ module.exports = {
 			name: '[name]_lib'
 		}),
 		new ProgressBarPlugin({
-			width: 32, complete: chalk.green.bgGreen('▓'), incomplete: chalk.green.bgWhite(' '),
-			format: 'building (:bar) (:elapsed seconds)',
+			width: 32, complete: chalk.whiteBright('░'), incomplete: chalk.gray('░'),
+			format: 'building ⸨:bar⸩ (:elapsed seconds)',
 			summary: false, customSummary: (buildTime) => {
 				console.log('｢ruui｣ cache built successfully after', chalk.whiteBright(`[${buildTime}]`));
 			},

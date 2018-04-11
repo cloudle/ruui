@@ -5,7 +5,7 @@ const webpack = require('webpack');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 
 function run() {
-	console.log(chalk.whiteBright('Building common chunks, this may take a while...'));
+	console.log(chalk.whiteBright('Building common chunk cache, this may take a while...'));
 	console.log(chalk.gray("It's time to take a cup of coffee while this is running ;)\n"));
 
 	setTimeout(() => {
@@ -19,7 +19,7 @@ function run() {
 }
 
 module.exports = {
-	name: 'vendor',
+	name: 'cache',
 	description: 'cache common chunks.. boost up build speed!',
 	func: run,
 };
