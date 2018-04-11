@@ -234,8 +234,8 @@ function run(root, projectName, opts) {
 	const rnCli = require(CLI_MODULE_PATH()),
 		ruuiCli = require(CLI_MODULE_PATH('react-universal-ui'));
 
+	rnCli.init(root, projectName);
 	ruuiCli.init(root, projectName);
-	// rnCli.init(root, projectName);
 }
 
 function checkNodeVersion() {
