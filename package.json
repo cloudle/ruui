@@ -9,7 +9,7 @@
     "cli.js",
     "!**/__tests__"
   ],
-  "version": "0.9.01",
+  "version": "0.9.02",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
@@ -73,7 +73,7 @@
     "universal-vector-icons": "^4.4.12",
     "url-loader": "^0.5.8",
     "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.9.1"
+    "webpack-dev-server": "^2.11.1"
   },
   "peerDependencies": {
     "react": "^16.0.0"
