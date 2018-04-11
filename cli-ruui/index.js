@@ -197,6 +197,7 @@ function run(root, projectName, opts) {
 	const rnPackage = opts.version; // e.g. '0.38' or '/path/to/archive.tgz'
 	const forceNpmClient = opts.npm;
 	const yarnVersion = (!forceNpmClient) && getYarnVersionIfAvailable();
+	const extraDependencies = 'react-universal-ui react-native-web react react-dom redux react-redux';
 	let installCommand;
 
 	if (opts.installCommand) {
@@ -207,7 +208,7 @@ function run(root, projectName, opts) {
 		if (yarnVersion) {
 			console.log(`Using yarn v ${yarnVersion}`);
 			console.log(`Installing ${getInstallPackage(rnPackage)}...`);
-			installCommand = `yarn add react-universal-ui ${getInstallPackage(rnPackage)} --exact`;
+			installCommand = `yarn add ${extraDependencies} ${getInstallPackage(rnPackage)} --exact`;
 			if (opts.verbose) {
 				installCommand += ' --verbose';
 			}
@@ -216,7 +217,7 @@ function run(root, projectName, opts) {
 			if (!forceNpmClient) {
 				console.log('Consider installing yarn to make this faster: https://yarnpkg.com');
 			}
-			installCommand = `npm install --save --save-exact react-universal-ui ${getInstallPackage(rnPackage)}`;
+			installCommand = `npm install --save --save-exact ${extraDependencies} ${getInstallPackage(rnPackage)}`;
 			if (opts.verbose) {
 				installCommand += ' --verbose';
 			}
@@ -231,7 +232,7 @@ function run(root, projectName, opts) {
 	}
 	checkNodeVersion();
 	const rnCli = require(CLI_MODULE_PATH()),
-		ruuiCli = require(CLI_MODULE_PATH('react-universal-ui'));
+		ruuiCli = require('../cli-local/cli');
 
 	ruuiCli.init(root, projectName);
 	// rnCli.init(root, projectName);
