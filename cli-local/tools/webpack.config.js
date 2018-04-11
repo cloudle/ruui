@@ -43,7 +43,7 @@ if (!isProduction) {
 		width: 39, complete: chalk.green.bgGreen('▓'), incomplete: chalk.green.bgWhite(' '),
 		format: 'Build (:bar) (:elapsed seconds)',
 		summary: false, customSummary: (buildTime) => {
-			console.log(chalk.bgGreen('Build completed after', ` ${buildTime} `));
+			console.log(chalk.white.bgGreen('Build completed after', ` ${buildTime} `));
 		},
 	}));
 }

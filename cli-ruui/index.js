@@ -236,6 +236,7 @@ function run(root, projectName, opts) {
 
 	rnCli.init(root, projectName);
 	ruuiCli.init(root, projectName);
+	fs.unlinkSync(path.resolve(root, projectName, 'App.js'));
 }
 
 function checkNodeVersion() {
