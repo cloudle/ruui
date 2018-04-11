@@ -20,19 +20,17 @@ const env = process.env.ENV || 'dev',
 		'webpack/hot/only-dev-server',
 	];
 
-let webIndex;
-const localIndexPath = path.resolve(process.cwd(), 'node_modules'),
-	cliIndexPath = path.resolve(process.cwd(), 'node_modules', 'react-universal-ui', 'cli-local', 'tools', 'index.ejs');
-
 if (!isProduction) {
+	const cachePath = path.resolve(process.cwd(), 'web', 'vendor-manifest.json');
+
 	optionalPlugins.push(new webpack.HotModuleReplacementPlugin());
 	optionalPlugins.push(new webpack.NamedModulesPlugin());
 	optionalPlugins.push(new webpack.NoEmitOnErrorsPlugin());
 
-	if (fs.existsSync('./web/vendor-manifest.json')) {
+	if (fs.existsSync(cachePath)) {
 		htmlOptions.useVendorChunks = true;
 		optionalPlugins.push(new webpack.DllReferencePlugin({
-			context: '.', manifest: require('./web/vendor-manifest.json'),
+			context: '.', manifest: require(cachePath),
 		}));
 	}
 
@@ -42,7 +40,7 @@ if (!isProduction) {
 	}
 
 	optionalPlugins.push(new ProgressBarPlugin({
-		width: 39, complete: '▓'.green.bgGreen, incomplete: ' '.green.bgWhite,
+		width: 39, complete: chalk.green.bgGreen('▓'), incomplete: chalk.green.bgWhite(' '),
 		format: 'Build (:bar) (:elapsed seconds)',
 		summary: false, customSummary: (buildTime) => {
 			console.log(chalk.bgGreen('Build completed after', ` ${buildTime} `));
@@ -51,13 +49,15 @@ if (!isProduction) {
 }
 
 module.exports = {
+	context: process.cwd(),
 	cache: true,
 	devtool: isProduction ? false : 'eval-source-map',
 	entry: {
-		app: isProduction ? [...polyfills, ...entry] : [...polyfills, ...hot, ...entry]
+		app: isProduction ? [...polyfills, ...entries] : [...polyfills, ...hot, ...entries]
 	},
 	output: {
-		publicPath, path: path.join(__dirname, 'web'),
+		publicPath,
+		path: path.resolve(process.cwd(), 'web'),
 		filename: '[name].bundle-[hash].js',
 		chunkFilename: '[name].js',
 	},

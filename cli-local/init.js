@@ -4,6 +4,10 @@ function rnCliModule(ext) {
 	return path.resolve(process.cwd(), 'node_modules', 'react-native', 'local-cli', ext);
 }
 
+function ruuiCliModule(ext) {
+	return path.resolve(process.cwd(), 'node_modules', 'react-universal-ui', 'local-cli', ext);
+}
+
 function init(root, argsOrName) {
 	const walk = require(rnCliModule('util/walk.js')),
 		copyAndReplace = require(rnCliModule('util/copyAndReplace.js')),
@@ -12,11 +16,11 @@ function init(root, argsOrName) {
 			: [argsOrName].concat(process.argv.slice(4)), // argsOrName was e.g. 'AwesomeApp'
 		newProjectName = args[0];
 
-	const srcPath = path.resolve('../../example/next');
+	const srcPath = path.resolve(ruuiCliModule('templates/core'));
 	walk(srcPath).forEach((absoluteSrcPath) => {
 		const relativeFilePath = path.relative(srcPath, absoluteSrcPath),
 			relativeRenamedPath = dotFilePath(relativeFilePath),
-			absoluteDestinationPath = path.resolve(root, 'src', relativeRenamedPath);
+			absoluteDestinationPath = path.resolve(root, relativeRenamedPath);
 
 		copyAndReplace(absoluteSrcPath, absoluteDestinationPath, {
 			'Hello App Display Name': newProjectName,

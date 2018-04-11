@@ -7,13 +7,13 @@ const config = require('./webpack.config');
 const port = 3000;
 const optimizeMode = process.env.OPTIMIZE !== undefined;
 
-console.log('Preparing super awesome dev-server at', chalk.gbGreen(` localhost:${port} `), ':p');
+console.log('Preparing super awesome dev-server at', chalk.bgGreen(` localhost:${port} `), ':p');
 
 const compiler = webpack(config);
 
 const devServer = new WebpackDevServer(compiler, {
 	publicPath: config.output.publicPath,
-	port, contentBase: path.resolve(process.cwd(), 'web'), hot: true,
+	port, contentBase: 'web', hot: true,
 	historyApiFallback: true,
 	headers: {
 		'Access-Control-Allow-Origin': '*',
