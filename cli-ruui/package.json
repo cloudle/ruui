@@ -1,12 +1,13 @@
 {
 	"name": "ruui-cli",
-	"version": "1.0.0",
-	"license": "MIT",
-	"description": "React Universal UI's CLI tools",
+	"version": "1.0.2",
+	"description": "react-universal-ui's cli tools",
 	"main": "index.js",
 	"engines": {
 		"node": ">=8"
 	},
+	"license": "MIT",
+	"author": "Cloud Le",
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/cloudle/ruui.git"
