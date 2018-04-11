@@ -1,6 +1,6 @@
 {
 	"name": "ruui-cli",
-	"version": "1.0.14",
+	"version": "1.0.16",
 	"description": "react-universal-ui's cli tools",
 	"main": "index.js",
 	"engines": {
