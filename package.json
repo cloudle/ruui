@@ -9,7 +9,7 @@
     "cli.js",
     "!**/__tests__"
   ],
-  "version": "0.9.07",
+  "version": "0.9.10",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
@@ -74,6 +74,7 @@
     "react-native-drawer": "^2.3.0",
     "react-native-web": "^0.1.16",
     "react-test-renderer": "~15.4.0-rc.4",
+    "redux-logger": "^3.0.6",
     "universal-vector-icons": "^4.4.12",
     "url-loader": "^0.5.8",
     "webpack": "^3.10.0",

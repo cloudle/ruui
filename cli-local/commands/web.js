@@ -12,7 +12,7 @@ function run() {
 }
 
 module.exports = {
-	name: 'run-web',
+	name: 'dev',
 	description: 'run your app in Browser',
 	func: run,
 };

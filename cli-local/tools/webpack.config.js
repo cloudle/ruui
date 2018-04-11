@@ -13,7 +13,7 @@ const env = process.env.ENV || 'dev',
 	htmlOptions = { isProduction, publicPath, useVendorChunks: false },
 	optionalPlugins = [],
 	polyfills = ['babel-polyfill'],
-	entry = ['./index.web.js'],
+	entries = ['./index.web.js'],
 	hot = [
 		'react-hot-loader/patch',
 		`webpack-dev-server/client?${publicPath}`,
@@ -97,7 +97,7 @@ module.exports = {
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new HtmlWebpackPlugin({
 			...htmlOptions,
-			template: 'index.ejs',
+			template: path.resolve(process.cwd(), 'node_modules', 'react-universal-ui', 'cli-local', 'tools', 'index.ejs'),
 			filename: 'index.html',
 		}),
 		...optionalPlugins,
