@@ -64,7 +64,7 @@ class App extends Component {
 				dropdownContext={{ name: 'Cloud' }}>
 				<Text>Drop</Text>
 			</DropdownContainer>
-			<Button title="hey!!"/>
+			<Button title="hey!!" tooltip="hey, this is a tooltip" tooltipDirection="top"/>
 			{/*<Button title="top" tooltipDirection="top" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>*/}
 			{/*<Button title="left" tooltipDirection="left" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>*/}
 			{/*<Button title="bottom" tooltipDirection="bottom" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>*/}

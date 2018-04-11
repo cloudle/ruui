@@ -1,0 +1,26 @@
+{
+	"name": "ruui-cli",
+	"version": "1.0.0",
+	"license": "MIT",
+	"description": "React Universal UI's CLI tools",
+	"main": "index.js",
+	"engines": {
+		"node": ">=8"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/cloudle/ruui.git"
+	},
+	"scripts": {
+		"test": "mocha"
+	},
+	"bin": {
+		"ruui": "index.js"
+	},
+	"dependencies": {
+		"chalk": "^1.1.1",
+		"minimist": "^1.2.0",
+		"prompt": "^1.0.0",
+		"semver": "^5.0.3"
+	}
+}

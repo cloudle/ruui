@@ -5,9 +5,11 @@
   "files": [
     "dist",
     "src",
+    "cli-local",
+    "cli.js",
     "!**/__tests__"
   ],
-  "version": "0.2.14",
+  "version": "0.9.01",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
@@ -26,7 +28,9 @@
     "url": "git://github.com/cloudle/ruui.git"
   },
   "dependencies": {
+    "commander": "^2.15.1",
     "lodash": "^4.17.5",
+    "minimist": "^1.2.0",
     "react-native-drawer": "^2.5.0",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
@@ -55,11 +59,13 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
     "file-loader": "^0.10.0",
+    "html-webpack-plugin": "^2.30.1",
+    "progress-bar-webpack-plugin": "^1.10.0",
     "jest": "18.1.0",
     "json-loader": "^0.5.4",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-hot-loader": "^3.0.0-beta.6",
+    "react-hot-loader": "3.0.0-beta.7",
     "react-native": "^0.48.4",
     "react-native-drawer": "^2.3.0",
     "react-native-web": "^0.1.16",
