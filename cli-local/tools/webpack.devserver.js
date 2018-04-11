@@ -1,17 +1,19 @@
+const path = require('path');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
+const chalk = require('chalk');
 const config = require('./webpack.config');
-const colors = require('colors');
+
 const port = 3000;
 const optimizeMode = process.env.OPTIMIZE !== undefined;
 
-console.log('Preparing super awesome dev-server at', ` localhost:${port} `.bgGreen, ':p');
+console.log('Preparing super awesome dev-server at', chalk.gbGreen(` localhost:${port} `), ':p');
 
 const compiler = webpack(config);
 
-new WebpackDevServer(compiler, {
+const devServer = new WebpackDevServer(compiler, {
 	publicPath: config.output.publicPath,
-	port, contentBase: 'web', hot: true,
+	port, contentBase: path.resolve(process.cwd(), 'web'), hot: true,
 	historyApiFallback: true,
 	headers: {
 		'Access-Control-Allow-Origin': '*',
@@ -38,7 +40,6 @@ new WebpackDevServer(compiler, {
 	quiet: !optimizeMode,
 	noInfo: !optimizeMode,
 	overlay: true,
-}).listen(port, 'localhost', (err, result) => {
-	if (err) console.log(err);
-	return true;
 });
+
+module.exports = devServer;

@@ -1,11 +1,10 @@
-console.log(process.cwd(), '<<<');
-
 const path = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const colors = require('colors');
+const chalk = require('chalk');
 
 const env = process.env.ENV || 'dev',
 	port = process.env.PORT || 3000,
@@ -21,12 +20,16 @@ const env = process.env.ENV || 'dev',
 		'webpack/hot/only-dev-server',
 	];
 
+let webIndex;
+const localIndexPath = path.resolve(process.cwd(), 'node_modules'),
+	cliIndexPath = path.resolve(process.cwd(), 'node_modules', 'react-universal-ui', 'cli-local', 'tools', 'index.ejs');
+
 if (!isProduction) {
 	optionalPlugins.push(new webpack.HotModuleReplacementPlugin());
 	optionalPlugins.push(new webpack.NamedModulesPlugin());
 	optionalPlugins.push(new webpack.NoEmitOnErrorsPlugin());
 
-	if (require('fs').existsSync('./web/vendor-manifest.json')) {
+	if (fs.existsSync('./web/vendor-manifest.json')) {
 		htmlOptions.useVendorChunks = true;
 		optionalPlugins.push(new webpack.DllReferencePlugin({
 			context: '.', manifest: require('./web/vendor-manifest.json'),
@@ -34,15 +37,15 @@ if (!isProduction) {
 	}
 
 	if (!htmlOptions.useVendorChunks) {
-		console.log('(serving without '.grey + 'common-library-cache'.green +
-			', run '.grey + 'yarn vendor'.magenta + ' once to boost up build speed)'.grey);
+		console.log(chalk.gray('(serving without ') + chalk.green('common-library-cache') +
+			chalk.gray(', run ') + chalk.magenta('yarn vendor') + chalk.gray(' once to boost up build speed)'));
 	}
 
 	optionalPlugins.push(new ProgressBarPlugin({
 		width: 39, complete: '▓'.green.bgGreen, incomplete: ' '.green.bgWhite,
 		format: 'Build (:bar) (:elapsed seconds)',
 		summary: false, customSummary: (buildTime) => {
-			console.log('Build completed after', ` ${buildTime} `.bgGreen);
+			console.log(chalk.bgGreen('Build completed after', ` ${buildTime} `));
 		},
 	}));
 }

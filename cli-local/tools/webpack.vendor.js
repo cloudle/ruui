@@ -1,10 +1,11 @@
 /* eslint-disable */
+
 const path = require('path');
 const webpack = require('webpack');
-const colors = require('colors');
+const chalk = require('chalk');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
-console.log('Building common chunks... Grab a cup of coffee while this is running ;)'.bgMagenta);
+console.log(chalk.bgMagenta('Building common chunks... Grab a cup of coffee while this is running ;)'));
 
 const devVendors = [
 	'react-hot-loader',
@@ -64,7 +65,7 @@ module.exports = {
 			width: 39, complete: '▓'.green.bgGreen, incomplete: ' '.green.bgWhite,
 			format: 'Build (:bar) (:elapsed seconds)',
 			summary: false, customSummary: (buildTime) => {
-				console.log('Build completed after', ` ${buildTime} `.bgGreen);
+				console.log(chalk.bgGreen('Build completed after', ` ${buildTime} `));
 			},
 		}),
 	],
