@@ -25,7 +25,7 @@ if (!isProduction) {
 
 	optionalPlugins.push(new webpack.HotModuleReplacementPlugin());
 	optionalPlugins.push(new webpack.NamedModulesPlugin());
-	optionalPlugins.push(new webpack.NoEmitOnErrorsPlugin());
+	// optionalPlugins.push(new webpack.NoEmitOnErrorsPlugin());
 
 	if (fs.existsSync(cachePath)) {
 		htmlOptions.useVendorChunks = true;
