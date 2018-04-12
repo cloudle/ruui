@@ -17,7 +17,6 @@ export default class RuuiCloseableModal extends Component<any, Props, any> {
 
 	render() {
 		const ruuiConfigs = this.context.ruuiConfigs.modal,
-			styles = ruuiConfigs.styles,
 			{ configs = {}, animation, } = this.props,
 			containerPropsGenerator = configs.containerProps || ruuiConfigs.containerProps,
 			containerProps = containerPropsGenerator(animation, configs, this.props.active),
@@ -31,8 +30,8 @@ export default class RuuiCloseableModal extends Component<any, Props, any> {
 		return <Animated.View {...containerProps}>
 			{this.props.configs.tapToClose ? <TouchableWithoutFeedback
 				onPress={() => this.props.onRequestClose(this.props.configs)}>
-					<View style={styles.touchableMask}/>
-				</TouchableWithoutFeedback> : <View/>}
+				<View style={styles.touchableMask}/>
+			</TouchableWithoutFeedback> : <View/>}
 
 			{InnerComponent ? <InnerComponent
 				animation={this.props.animation}

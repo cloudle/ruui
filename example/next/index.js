@@ -5,6 +5,7 @@ import { ruuiActions, RuuiProvider, Button, Input, Modal, Snackbar, Dropdown, To
 
 import store from './store';
 import ContextMenu from '../legacy/modal/contextMenu';
+import TestModal from './components/modal';
 import * as appActions from './store/action/app';
 
 type ContainerProps = {
@@ -64,7 +65,14 @@ class App extends Component {
 				dropdownContext={{ name: 'Cloud' }}>
 				<Text>Drop</Text>
 			</DropdownContainer>
-			<Button title="hey!!" tooltip="hey, this is a tooltip" tooltipDirection="top"/>
+			<Button
+				title="hey!!"
+				tooltip="hey, this is a tooltip"
+				tooltipDirection="top"
+				onPress={() => { this.props.dispatch(ruuiActions.toggleModal(true, {
+					component: TestModal,
+					tapToClose: true,
+				})); }}/>
 			{/*<Button title="top" tooltipDirection="top" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>*/}
 			{/*<Button title="left" tooltipDirection="left" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>*/}
 			{/*<Button title="bottom" tooltipDirection="bottom" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>*/}

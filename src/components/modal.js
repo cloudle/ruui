@@ -12,7 +12,6 @@ type Props = {
 	type?: string,
 	configs?: Object,
 	modalCount?: number,
-	modalKey?: String,
 	dispatch?: Function,
 };
 
@@ -57,17 +56,12 @@ export default class RuuiModal extends Component {
 		const ruuiConfigs = this.context.ruuiConfigs.modal,
 			{ configs = {}, modalCount } = this.props,
 			containerPropsGenerator = configs.maskProps || ruuiConfigs.maskProps,
-			containerProps = containerPropsGenerator(this.state.enterAnimation, configs, modalCount);
+			containerProps = containerPropsGenerator(
+				this.state.enterAnimation, configs, modalCount, this.props.type);
 
 		if (configs.maskProps && !containerProps.style) {
 			containerProps.style = ruuiConfigs.maskProps(
-				this.state.enterAnimation, configs, modalCount).style;
-		}
-
-		if (this.props.modalKey === 'defaultSelector') {
-			containerProps.style.zIndex = 10;
-		} else if (this.props.modalKey === 'loading') {
-			containerProps.style.zIndex = 11;
+				this.state.enterAnimation, configs, modalCount, this.props.type).style;
 		}
 
 		return this.state.active ? <Animated.View {...containerProps}>
@@ -119,14 +113,26 @@ export default class RuuiModal extends Component {
 	}
 }
 
-export function defaultMaskPropsGenerator(animation, configs, modalCount) {
+export function defaultMaskPropsGenerator(animation, configs, modalCount, modalType) {
 	const averageOpacity = (0.8 / modalCount) + (modalCount * 0.1),
 		backgroundColor = animation.interpolate({
 			inputRange: [0, 1], outputRange: ['rgba(0, 0, 0, 0)', `rgba(0, 0, 0, ${averageOpacity})`],
 		}),
-		style = [styles.container, { backgroundColor, }];
+		style = [styles.container, {
+			backgroundColor,
+			zIndex: modalDepth(modalType),
+		}];
 
 	return { style, };
+}
+
+export function modalDepth(modalType) {
+	switch (modalType) {
+	case 'select':
+		return 2;
+	default:
+		return 1;
+	}
 }
 
 const styles = StyleSheet.create({
