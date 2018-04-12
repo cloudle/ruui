@@ -6,6 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
 
+let brightFlag = false, initialBuild = true;
 const env = process.env.ENV || 'dev',
 	port = process.env.PORT || 3000,
 	isProduction = env === 'production',
@@ -20,7 +21,6 @@ const env = process.env.ENV || 'dev',
 		'webpack/hot/only-dev-server',
 	];
 
-let brightFlag = false, initialBuild = true;
 if (!isProduction) {
 	const cachePath = path.resolve(process.cwd(), 'web', 'vendor-manifest.json');
 
@@ -39,21 +39,8 @@ if (!isProduction) {
 		console.log(chalk.whiteBright('｢ruui｣'), chalk.gray('not using ') + chalk.green('cache') +
 			chalk.gray(', run ') + chalk.magenta('ruui cache') + chalk.gray(' once to boost up build speed..'));
 	}
-
-	optionalPlugins.push(new ProgressBarPlugin({
-		width: 32, complete: chalk.whiteBright('░'), incomplete: chalk.gray('░'),
-		format: 'building ⸨:bar⸩ (:elapsed seconds)',
-		summary: false, customSummary: (buildTime) => {
-			const alternatedColor = brightFlag ? chalk.whiteBright : chalk.gray,
-				ruuiBullet = `${chalk.whiteBright('｢')}${alternatedColor('ruui')}${chalk.whiteBright('｣')}`,
-				buildAction = initialBuild ? 'initial build' : 'hot rebuild',
-				trailingSpace = initialBuild ? '' : '  ';
-
-			console.log(ruuiBullet, chalk.gray(`${buildAction} completed after${trailingSpace}`), chalk.whiteBright(`${buildTime}`));
-			brightFlag = !brightFlag;
-			initialBuild = false;
-		},
-	}));
+} else {
+	optionalPlugins.push(new webpack.optimize.UglifyJsPlugin());
 }
 
 module.exports = {
@@ -107,6 +94,21 @@ module.exports = {
 			...htmlOptions,
 			template: path.resolve(process.cwd(), 'node_modules', 'react-universal-ui', 'cli-local', 'tools', 'index.ejs'),
 			filename: 'index.html',
+		}),
+		new ProgressBarPlugin({
+			width: 32, complete: chalk.whiteBright('░'), incomplete: chalk.gray('░'),
+			format: 'building ⸨:bar⸩ (:elapsed seconds)',
+			summary: false, customSummary: (buildTime) => {
+				const alternatedColor = brightFlag ? chalk.whiteBright : chalk.gray,
+					ruuiBullet = `${chalk.whiteBright('｢')}${alternatedColor('ruui')}${chalk.whiteBright('｣')}`,
+					buildType = initialBuild ? 'initial build' : 'hot rebuild',
+					buildFlag = isProduction ? 'production bundle' : buildType,
+					trailingSpace = initialBuild ? '' : '  ';
+
+				console.log(ruuiBullet, chalk.gray(`${buildFlag} completed after${trailingSpace}`), chalk.whiteBright(`${buildTime}`));
+				brightFlag = !brightFlag;
+				initialBuild = false;
+			},
 		}),
 		...optionalPlugins,
 	]

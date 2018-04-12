@@ -1,8 +1,6 @@
 const path = require('path');
 const chalk = require('chalk');
-const childProcess = require('child_process');
 const webpack = require('webpack');
-const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 
 function run() {
 	console.log(chalk.whiteBright('Building common chunk cache, this may take a while...'));
