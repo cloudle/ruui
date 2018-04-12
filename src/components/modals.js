@@ -28,6 +28,7 @@ export default class RuuiModals extends Component {
 				const modalConfigs = this.props.modals[modalKey];
 				return <Modal
 					key={modalKey}
+					modalKey={modalKey}
 					modalCount={modalArray.length}
 					dispatch={this.props.dispatch}
 					{...modalConfigs}/>;

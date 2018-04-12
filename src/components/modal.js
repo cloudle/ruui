@@ -12,6 +12,7 @@ type Props = {
 	type?: string,
 	configs?: Object,
 	modalCount?: number,
+	modalKey?: String,
 	dispatch?: Function,
 };
 
@@ -61,6 +62,12 @@ export default class RuuiModal extends Component {
 		if (configs.maskProps && !containerProps.style) {
 			containerProps.style = ruuiConfigs.maskProps(
 				this.state.enterAnimation, configs, modalCount).style;
+		}
+
+		if (this.props.modalKey === 'defaultSelector') {
+			containerProps.style.zIndex = 10;
+		} else if (this.props.modalKey === 'loading') {
+			containerProps.style.zIndex = 11;
 		}
 
 		return this.state.active ? <Animated.View {...containerProps}>
