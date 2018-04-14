@@ -12,7 +12,7 @@ const devVendors = [
 ];
 
 module.exports = {
-	devtool: 'eval-source-map',
+	mode: 'development',
 	entry: {
 		'vendor': [
 			...devVendors, 'lodash',
@@ -21,7 +21,6 @@ module.exports = {
 			'babel-polyfill', 'tinycolor2',
 		],
 	},
-
 	resolve: {
 		alias: {
 			'react-native': 'react-native-web',
@@ -29,7 +28,6 @@ module.exports = {
 		modules: ['node_modules'],
 		extensions: ['.js']
 	},
-
 	module: {
 		rules: [
 			{
@@ -40,20 +38,14 @@ module.exports = {
 			{
 				test: /\.(png|jpg|svg|ttf)$/,
 				loader: 'file-loader?name=[name].[ext]'
-			},
-			{
-				test: /\.json/,
-				loader: 'json-loader'
 			}
 		],
 	},
-
 	output: {
 		filename: '[name].cache.js',
 		path: path.resolve(process.cwd(), 'web'),
 		library: '[name]_lib',
 	},
-
 	plugins: [
 		new webpack.DllPlugin({
 			path: path.resolve(process.cwd(), 'web', '[name]-manifest.json'),

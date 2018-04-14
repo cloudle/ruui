@@ -26,7 +26,6 @@ if (!isProduction) {
 
 	optionalPlugins.push(new webpack.HotModuleReplacementPlugin());
 	optionalPlugins.push(new webpack.NamedModulesPlugin());
-	// optionalPlugins.push(new webpack.NoEmitOnErrorsPlugin());
 
 	if (fs.existsSync(cachePath)) {
 		htmlOptions.useVendorChunks = true;
@@ -45,8 +44,7 @@ if (!isProduction) {
 
 module.exports = {
 	context: process.cwd(),
-	cache: true,
-	devtool: isProduction ? false : 'eval-source-map',
+	cache: true, mode: 'development',
 	entry: {
 		app: isProduction ? [...polyfills, ...entries] : [...polyfills, ...hot, ...entries]
 	},
@@ -77,10 +75,6 @@ module.exports = {
 			{
 				test: /\.(png|jpg|svg|ttf)$/,
 				loader: 'file-loader?name=[name].[ext]'
-			},
-			{
-				test: /\.json/,
-				loader: 'json-loader'
 			}
 		],
 	},
@@ -89,7 +83,6 @@ module.exports = {
 			ENV: JSON.stringify(env),
 			'process.env.NODE_ENV': JSON.stringify(env),
 		}),
-		new webpack.optimize.OccurrenceOrderPlugin(),
 		new HtmlWebpackPlugin({
 			...htmlOptions,
 			template: path.resolve(process.cwd(), 'node_modules', 'react-universal-ui', 'cli-local', 'tools', 'index.ejs'),
