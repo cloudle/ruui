@@ -8,6 +8,7 @@ const devVendors = [
 ];
 
 module.exports = {
+	mode: 'development',
 	entry: {
 		vendor: [
 			'babel-polyfill',
@@ -39,10 +40,6 @@ module.exports = {
 			{
 				test: /\.(png|jpg|svg|ttf)$/,
 				loader: 'file-loader?name=[name].[ext]'
-			},
-			{
-				test: /\.json/,
-				loader: 'json-loader'
 			}
 		],
 	},

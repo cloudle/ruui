@@ -32,7 +32,7 @@ if (env === 'dev') {
 
 module.exports = {
 	cache: true,
-	devtool: prod ? false : 'eval-source-map',
+	mode: 'development',
 	entry: {
 		app: prod ? [entry] : [...hot, entry]
 	},
@@ -56,16 +56,16 @@ module.exports = {
 		rules: [
 			{
 				test: /\.js?$/,
-				loaders: prod ? ['babel-loader'] : ['react-hot-loader/webpack', 'babel-loader'],
+				loader: 'babel-loader',
+				options: {
+					cacheDirectory: true,
+					plugins: ['react-hot-loader/babel', ]
+				}
 			},
 			{ test: /\.css$/, loader: 'style-loader!css-loader' },
 			{
 				test: /\.(png|jpe?g|svg|ttf)$/,
 				loader: 'url-loader?name=[name].[ext]'
-			},
-			{
-				test: /\.json/,
-				loader: 'json-loader'
 			}
 		],
 	},
