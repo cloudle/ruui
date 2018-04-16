@@ -13,7 +13,7 @@ export default class RuuiLoadingModal extends Component<any, Props, any> {
 	render() {
 		const configs = this.props.configs || {},
 			indicatorColor = configs.indicatorColor || '#ffffff',
-			indicatorSize = configs.indicatorSize || 20;
+			indicatorSize = configs.indicatorSize || 'small';
 
 		return <View
 			style={styles.container}>
