@@ -1,15 +1,14 @@
-const path = require('path');
-const webpack = require('webpack');
-const WebpackDevServer = require('webpack-dev-server');
-const config = require('./webpack.config');
+const path = require('path'),
+	fs = require('fs'),
+	webpack = require('webpack'),
+	WebpackDevServer = require('webpack-dev-server'),
+	webpackConfigs = require('./webpack.config'),
+	port = 3000,
+	optimizeMode = process.env.OPTIMIZE !== undefined,
+	ruuiConfigsPath = path.resolve(process.cwd(), 'ruui.config.js');
 
-const port = 3000;
-const optimizeMode = process.env.OPTIMIZE !== undefined;
-
-const compiler = webpack(config);
-
-const devServer = new WebpackDevServer(compiler, {
-	publicPath: config.output.publicPath,
+const defaultServerConfigs = {
+	publicPath: webpackConfigs.output.publicPath,
 	port, contentBase: 'web', hot: true,
 	historyApiFallback: true,
 	headers: {
@@ -37,6 +36,18 @@ const devServer = new WebpackDevServer(compiler, {
 	quiet: !optimizeMode,
 	noInfo: !optimizeMode,
 	overlay: true,
-});
+};
 
-module.exports = devServer;
+let serverConfigs = defaultServerConfigs;
+const compiler = webpack(webpackConfigs);
+
+function defaultConfigurator(configs) { return configs; }
+
+if (fs.existsSync(ruuiConfigsPath)) {
+	const ruuiConfigs = require(ruuiConfigsPath),
+		configureDev = ruuiConfigs.dev || defaultConfigurator;
+
+	serverConfigs = configureDev(defaultServerConfigs, webpack);
+}
+
+module.exports = new WebpackDevServer(compiler, serverConfigs);

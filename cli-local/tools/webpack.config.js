@@ -7,11 +7,18 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
 
 let brightFlag = false, initialBuild = true;
-const env = process.env.ENV || 'dev',
+const env = process.env.ENV || 'development',
+	appJsonPath = path.resolve(process.cwd(), 'app.json'),
+	ruuiConfigsPath = path.resolve(process.cwd(), 'ruui.config.js'),
 	port = process.env.PORT || 3000,
 	isProduction = env === 'production',
 	publicPath = '/',
-	htmlOptions = { isProduction, publicPath, useVendorChunks: false },
+	htmlOptions = {
+		isProduction,
+		publicPath,
+		appName: 'ruui-app',
+		useVendorChunks: false
+	},
 	optionalPlugins = [],
 	polyfills = ['babel-polyfill'],
 	entries = ['./index.web.js'],
@@ -20,6 +27,11 @@ const env = process.env.ENV || 'dev',
 		`webpack-dev-server/client?${publicPath}`,
 		'webpack/hot/only-dev-server',
 	];
+
+if (fs.existsSync(appJsonPath)) {
+	const appInfo = require(appJsonPath);
+	htmlOptions.appName = appInfo.displayName || appInfo.name || 'ruui-app';
+}
 
 if (!isProduction) {
 	const cachePath = path.resolve(process.cwd(), 'web', 'vendor-manifest.json');
@@ -38,20 +50,21 @@ if (!isProduction) {
 		console.log(chalk.whiteBright('｢ruui｣'), chalk.gray('not using ') + chalk.green('cache') +
 			chalk.gray(', run ') + chalk.magenta('ruui cache') + chalk.gray(' once to boost up build speed..'));
 	}
-} else {
-	optionalPlugins.push(new webpack.optimize.UglifyJsPlugin());
 }
 
-module.exports = {
+const defaultWebpackConfigs = {
 	context: process.cwd(),
 	cache: true, mode: 'development',
 	entry: {
 		app: isProduction ? [...polyfills, ...entries] : [...polyfills, ...hot, ...entries]
 	},
+	optimization: {
+		minimize: isProduction,
+	},
 	output: {
 		publicPath,
 		path: path.resolve(process.cwd(), 'web'),
-		filename: '[name].bundle-[hash].js',
+		filename: isProduction ? '[name]-[hash:8].js' : '[name].js',
 		chunkFilename: '[name].js',
 	},
 	resolve: {
@@ -106,3 +119,16 @@ module.exports = {
 		...optionalPlugins,
 	]
 };
+
+let webpackConfigs = defaultWebpackConfigs;
+
+function defaultConfigurator(configs) { return configs; }
+
+if (fs.existsSync(ruuiConfigsPath)) {
+	const ruuiConfigs = require(ruuiConfigsPath),
+		configureWebpack = ruuiConfigs.webpack || defaultConfigurator;
+
+	webpackConfigs = configureWebpack(defaultWebpackConfigs, webpack);
+}
+
+module.exports = webpackConfigs;

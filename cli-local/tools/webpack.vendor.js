@@ -4,6 +4,7 @@ const path = require('path');
 const webpack = require('webpack');
 const chalk = require('chalk');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const ruuiConfigsPath = path.resolve(process.cwd(), 'ruui.config.js');
 
 const devVendors = [
 	'react-hot-loader',
@@ -11,15 +12,25 @@ const devVendors = [
 	'url', 'strip-ansi', 'ansi-regex',
 ];
 
+let vendors = [
+	...devVendors, 'lodash',
+	'react', 'react-dom', 'react-native-web',
+	'redux', 'react-redux',
+	'babel-polyfill', 'tinycolor2',
+];
+
+try {
+	const ruuiConfigs = require(ruuiConfigsPath),
+		extraVendors = ruuiConfigs.extraVendors || [];
+
+	vendors.concat(extraVendors);
+	if (ruuiConfigs.vendors) vendors = ruuiConfigs.vendors;
+} catch (e) {}
+
 module.exports = {
 	mode: 'development',
 	entry: {
-		'vendor': [
-			...devVendors, 'lodash',
-			'react', 'react-dom', 'react-native-web',
-			'redux', 'react-redux',
-			'babel-polyfill', 'tinycolor2',
-		],
+		vendor: vendors,
 	},
 	resolve: {
 		alias: {
