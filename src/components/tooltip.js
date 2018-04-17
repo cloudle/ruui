@@ -41,7 +41,7 @@ export default class RuuiTooltip extends Component {
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.tooltip.active !== this.props.tooltip.active) {
 			this.container.measure((x, y, width, height) => {
-				const { targetLayout, direction, positionSpacing } = this.props.tooltip.configs;
+				const { targetLayout, direction, positionSpacing } = nextProps.tooltip.configs;
 
 				this.setState(directionSnap(
 					targetLayout.y, targetLayout.x,
