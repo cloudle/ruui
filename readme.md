@@ -27,85 +27,67 @@ Cross-platform (**React Native** and **Web Browser**) [React][react-url], [React
 [react-native-tab-view-url]: https://github.com/react-native-community/react-native-tab-view
 [cloud-vector-icons]: https://github.com/cloudle/react-native-vector-icons
 [react-native-drawer-url]: https://github.com/root-two/react-native-drawer
-[documentation-url]: https://cloudle.github.io/
+[home-url]: http://ruui.cool
 [rooxim-url]: https://www.rooxim.com/
 [ruui-home]: https://github.com/cloudle/ruuiHome
-
-# Big update is coming!
-### We're very near to release the official [ruui.cool](http://ruui.cool/) page (source code under development [here][ruui-home]), which have detailed instruction, component doc and video tutorials.
-
 
 ## Overview
 "**React Universal UI**" is a cross-platform **React's UI Kit** - which could be run on both **Web Browser** and **React Native** environment, **write once and use everywhere**.
 
-### **See our [demo and detailed documentations][documentation-url] for more details**  
-### **Quick start using [react-universal-ui boilerplate][boilerplate-url], which contain essential structure for both Native and full-stack Web (`fullstack-ssr` branch) project.**
+#### **See [home page][home-url] for detailed documentation and tutorials (the site is under construction and will be ready soon)**
+
+## Quick start
+### Existing Web or React Native project:
+1. Install `react-universal-ui` package (no further config required)
+```
+npm install --save react-universal-ui
+```
+2. Install and configure react-native-web using [their instruction](https://github.com/necolas/react-native-web) (optional, only need on Web project)
+
+3. Wrap your root component under RuuiProvider
+```
+import { RuuiProvider } from 'react-universal-ui';
+import App from './app';
+
+const AppContainer = () => {
+  return <RuuiProvider>
+    <App/>
+  </RuuiProvider>;
+};
+```
+
+### New project:
+React Universal UI come with it's own `cli` (command line interface), install it by..
+```
+npm install -g ruui-cli
+```
+
+With `ruui-cli` installed globally.. we should now able to use `ruui` command to *create a new project*:
+```
+ruui init SuperCoolProject
+```
+_This will take a while when `cli` create the project structure for us as well as install necessary dependencies.._
+
+Run `ruui dev` under your React Universal UI project folder..
+```
+cd SuperCoolProject
+ruui dev
+```
+*note: the project totally generated using `react-native-cli`, which mean it is a valid `React Native` project.. we could run it normally with:
+```
+react-native run-ios
+react-native run-android
+```
 
 ## How it work
-#### React Native: 
-Essentially this is just a normal [React Native][react-native-url] UI Library - which absolutely work with [React Native][react-native-url]'s ecosystem. Feel free to use those UI with your favorite [React Native][react-native-url] library *even if you don't care about* **Browser** *yet (but believe me, you'll love it - Browser run give us tons of cool stuff)*. 
+#### React Native:
+Essentially this is just a normal [React Native][react-native-url] UI Library - which absolutely work with [React Native][react-native-url]'s ecosystem. Feel free to use those UI with your favorite [React Native][react-native-url] library *even if you don't care about* **Browser** *yet (but believe me, you'll love it - Browser run give us tons of cool stuff)*.
 
 #### Browser:
 [React Native Web][react-native-web-url] let us run our [React Native][react-native-url] code on **Browser** and **[React Universal UI][github-url]** (this project) cares about behavior of those components on **Browser**.
 
 #### Universal:
 There're some differences between **React Native** and **Web** building block - such as **Routing**, **Touch/Mouse handling**... this project cares and provide support for those differences (there're helpers under **utils** module), which save your time and let you focus on write your Universal App.
-
-## Quick start
-To install it in your app:
-```
-npm install --save react-universal-ui
-```
-
-## Status
-Most of the Component is pretty solid.. we should already able to do production Mobile Apps, Sites on this.
-
-I personally got dozen Apps built on this UI components. Next important thing for us is to make better Documentation, Demo (like IONIC does) - we do need reach there before back to those components.
-
-- [x] Cross-platform [react-native-vector-icon][react-native-vector-icon-url] with [my fork][cloud-vector-icons]
-- [x] ResponsibleTouchArea (Reuseable Ripple Effect).
-- [x] Cross-platform Drawer (Aka Side Menus - based on [react-native-drawer][react-native-drawer-url])
-- [x] Cross-platform Navigation, Routing integration
-  - [x] Native Navigation (based on React Native's ExperimentalNavigation)
-  - [x] React-Router for Web/Native (Full-featured Browser support, fallback to Memory Navigation History for [React Native][react-native-url])
-  - [x] Redux helpers
-- [x] Context Provider - configurable theme, reactive device common info via ReduxStore (e.g Network info, Screen size..)
-- [x] Switches (exposed from [react-native-web][react-native-web-url])
-- [x] Button Component
-  - [x] Ripple effect
-  - [x] Fade effect
-  - [x] Raised style
-  - [x] Icon Button
-  - [x] Tooltip (Web only)
-- [x] Text Input Component (Material-inspired, but highly customizable)
-  - [x] Underline effect
-  - [x] Floating label
-  - [x] Force label-floating
-  - [ ] Field Error
-  - [x] Hint
-  - [ ] Multi-line
-  - [ ] Number, currency, datetime masking
-  - [x] Tooltip (Web only - Alpha implementation)
-- [x] Modals with multilayer support (mobile)
-  - [x] Pop-up style (Alert, Prompt..)
-  - [x] Full-screen style
-- [x] Loading Mask
-- [x] Snackbar
-- [x] Selector Api, Select component (mobile)
-- [x] Animated Tab View
-  - [x] Essential module export - for generic use case
-  - [ ] App intro slider
-  - [ ] Tab View scene with headers
-  - [ ] Image slider
-- [ ] Action sheets
-- [ ] Swipe-able segments
-- [ ] Datetime picker
-- [ ] Radio
-- [ ] Checkbox
-- [x] Range Slider
-- [x] Dropdown - in place dropdown mostly for **Web**
-- [x] Connection status (mask)
-- [ ] Theming..
 
 ## Related projects
 * [Material UI][material-ui-url], heavily inspired by their great component design for **Web**! My job is make it work in **Native** way.
