@@ -3,29 +3,27 @@
 const path = require('path');
 const webpack = require('webpack');
 const chalk = require('chalk');
+const lodash = require('lodash');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const ruuiConfigsPath = path.resolve(process.cwd(), 'ruui.config.js');
+const packageJson = require(path.resolve(process.cwd(), 'package.json'));
+const dependencies = packageJson.dependencies || {};
 
 const devVendors = [
 	'react-hot-loader',
 	'sockjs-client',
 	'url', 'strip-ansi', 'ansi-regex',
+	'webpack', 'webpack-dev-server', 'html-webpack-plugin',
 ];
 
 let vendors = [
-	...devVendors, 'lodash',
+	...devVendors, 'lodash', 'lodash/loadash.js',
 	'react', 'react-dom', 'react-native-web',
 	'redux', 'react-redux',
 	'babel-polyfill', 'tinycolor2',
 ];
 
-try {
-	const ruuiConfigs = require(ruuiConfigsPath),
-		extraVendors = ruuiConfigs.extraVendors || [];
-
-	vendors.concat(extraVendors);
-	if (ruuiConfigs.vendors) vendors = ruuiConfigs.vendors;
-} catch (e) {}
+vendors.concat(dependencies);
+vendors = lodash.uniq(vendors);
 
 module.exports = {
 	mode: 'development',
@@ -43,7 +41,10 @@ module.exports = {
 		rules: [
 			{
 				test: /\.js?$/,
-				loaders: ['babel-loader'],
+				loader: 'babel-loader',
+				options: {
+					cacheDirectory: true,
+				}
 			},
 			{ test: /\.css$/, loader: "style-loader!css-loader" },
 			{

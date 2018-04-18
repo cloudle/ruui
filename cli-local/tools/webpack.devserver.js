@@ -17,6 +17,7 @@ const defaultServerConfigs = {
 		'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
 	},
 	stats: { /* https://webpack.js.org/configuration/stats/#stats */
+		all: true,
 		assets:					optimizeMode,
 		colors:					true,
 		version:				true,
