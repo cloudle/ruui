@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const chalk = require('chalk');
 
 let brightFlag = false, initialBuild = true;
@@ -38,6 +39,7 @@ if (!isProduction) {
 
 	optionalPlugins.push(new webpack.HotModuleReplacementPlugin());
 	optionalPlugins.push(new webpack.NamedModulesPlugin());
+	optionalPlugins.push(new HardSourceWebpackPlugin());
 
 	if (fs.existsSync(cachePath)) {
 		htmlOptions.useVendorChunks = true;

@@ -16,7 +16,7 @@ const devVendors = [
 ];
 
 let vendors = [
-	...devVendors, 'lodash', 'lodash/loadash.js',
+	...devVendors, 'lodash',
 	'react', 'react-dom', 'react-native-web',
 	'redux', 'react-redux',
 	'babel-polyfill', 'tinycolor2',
