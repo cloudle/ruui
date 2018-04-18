@@ -89,6 +89,52 @@ Essentially this is just a normal [React Native][react-native-url] UI Library - 
 #### Universal:
 There're some differences between **React Native** and **Web** building block - such as **Routing**, **Touch/Mouse handling**... this project cares and provide support for those differences (there're helpers under **utils** module), which save your time and let you focus on write your Universal App.
 
+## Components and status
+- [x] Cross-platform Navigation, Routing integration
+  - [x] Native Navigation (based on React Native's ExperimentalNavigation)
+  - [x] React-Router for Web/Native (Full-featured Browser support, fallback to Memory Navigation History for [React Native][react-native-url])
+  - [x] Redux helpers
+- [x] Context Provider
+ - [x] Reactive device common info (e.g Network info, Screen size..)
+ - [x] Configurable theme (skin)
+- [x] Switches (exposed from [react-native-web][react-native-web-url])
+- [x] Button Component
+  - [x] Ripple effect
+  - [x] Fade effect
+  - [x] Raised style
+  - [x] Icon Button
+  - [x] Tooltip (from 12 directions - Web only)
+- [x] Text Input Component (Material-inspired, but highly customizable)
+  - [x] Underline effect
+  - [x] Floating label
+  - [x] Force label-floating
+  - [ ] Field Error
+  - [x] Hint
+  - [ ] Multi-line
+  - [ ] Number, currency, datetime masking
+  - [x] Tooltip (Web only - Alpha implementation)
+- [x] Multi layer modals
+  - [x] Pop-up style (Alert, Prompt..)
+  - [x] Full-screen style
+- [x] Dropdown
+  - [x] DropdownContainer (similar to a View, but could host a Dropdown component)
+  - [x] Configurable dropdown from 12 directions, passing context..
+- [x] Loading Mask
+- [x] Snackbar
+- [x] Selector Api, Select component
+- [x] Animated Tab View
+  - [x] Essential module export - for generic use case
+  - [ ] App intro slider
+  - [ ] Tab View scene with headers
+  - [ ] Image slider
+- [ ] Action sheets
+- [ ] Swipe-able segments
+- [ ] Datetime picker
+- [ ] Radio
+- [ ] Checkbox
+- [x] Range Slider
+- [x] Connection status (mask)
+
 ## Related projects
 * [Material UI][material-ui-url], heavily inspired by their great component design for **Web**! My job is make it work in **Native** way.
 * [Ionic 2][ionic-url], As a fan of Ionic - their **ecosystem** and **design** is a great reference for me when developing **this project**.
