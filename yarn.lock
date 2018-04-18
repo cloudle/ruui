@@ -1066,14 +1066,7 @@ babel-helpers@^6.24.1:
     babel-runtime "^6.22.0"
     babel-template "^6.24.1"
 
-babel-jest@22.1.0:
-  version "22.1.0"
-  resolved "https://registry.yarnpkg.com/babel-jest/-/babel-jest-22.1.0.tgz#7fae6f655fffe77e818a8c2868c754a42463fdfd"
-  dependencies:
-    babel-plugin-istanbul "^4.1.5"
-    babel-preset-jest "^22.1.0"
-
-babel-jest@^22.4.3:
+babel-jest@22.4.3, babel-jest@^22.4.3:
   version "22.4.3"
   resolved "https://registry.yarnpkg.com/babel-jest/-/babel-jest-22.4.3.tgz#4b7a0b6041691bbd422ab49b3b73654a49a6627a"
   dependencies:
@@ -1691,7 +1684,7 @@ babel-preset-fbjs@^2.1.2, babel-preset-fbjs@^2.1.4:
     babel-plugin-transform-react-display-name "^6.8.0"
     babel-plugin-transform-react-jsx "^6.8.0"
 
-babel-preset-jest@^22.1.0, babel-preset-jest@^22.4.3:
+babel-preset-jest@^22.4.3:
   version "22.4.3"
   resolved "https://registry.yarnpkg.com/babel-preset-jest/-/babel-preset-jest-22.4.3.tgz#e92eef9813b7026ab4ca675799f37419b5a44156"
   dependencies:
@@ -3746,7 +3739,7 @@ fbjs-scripts@^0.8.1:
     semver "^5.1.0"
     through2 "^2.0.0"
 
-fbjs@^0.8.14, fbjs@^0.8.16, fbjs@^0.8.4, fbjs@^0.8.9:
+fbjs@^0.8.14, fbjs@^0.8.16, fbjs@^0.8.9:
   version "0.8.16"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.16.tgz#5e67432f550dc41b572bf55847b8aca64e5337db"
   dependencies:
@@ -5149,7 +5142,7 @@ jest-changed-files@^22.4.3:
   dependencies:
     throat "^4.0.0"
 
-jest-cli@^22.1.4:
+jest-cli@^22.4.3:
   version "22.4.3"
   resolved "https://registry.yarnpkg.com/jest-cli/-/jest-cli-22.4.3.tgz#bf16c4a5fb7edc3fa5b9bb7819e34139e88a72c7"
   dependencies:
@@ -5419,11 +5412,12 @@ jest-worker@^22.2.2, jest-worker@^22.4.3:
   dependencies:
     merge-stream "^1.0.1"
 
-jest@22.1.4:
-  version "22.1.4"
-  resolved "https://registry.yarnpkg.com/jest/-/jest-22.1.4.tgz#9ec71373a38f40ff92a3e5e96ae85687c181bb72"
+jest@22.4.3:
+  version "22.4.3"
+  resolved "https://registry.yarnpkg.com/jest/-/jest-22.4.3.tgz#2261f4b117dc46d9a4a1a673d2150958dee92f16"
   dependencies:
-    jest-cli "^22.1.4"
+    import-local "^1.0.0"
+    jest-cli "^22.4.3"
 
 jodid25519@^1.0.0:
   version "1.0.2"
@@ -7407,6 +7401,10 @@ react-hot-loader@^4.0.1:
     prop-types "^15.6.1"
     shallowequal "^1.0.2"
 
+react-is@^16.3.1:
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.3.2.tgz#f4d3d0e2f5fbb6ac46450641eb2e25bf05d36b22"
+
 react-native-drawer@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/react-native-drawer/-/react-native-drawer-2.5.0.tgz#022cba5c0516126a9fc9cce3185cb46c644b51c4"
@@ -7511,12 +7509,14 @@ react-redux@^5.0.6:
     loose-envify "^1.1.0"
     prop-types "^15.5.10"
 
-react-test-renderer@~15.4.0-rc.4:
-  version "15.4.2"
-  resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-15.4.2.tgz#27e1dff5d26d0e830f99614c487622bc831416f3"
+react-test-renderer@16.3.1:
+  version "16.3.1"
+  resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.3.1.tgz#d9257936d8535bd40f57f3d5a84e7b0452fb17f2"
   dependencies:
-    fbjs "^0.8.4"
-    object-assign "^4.1.0"
+    fbjs "^0.8.16"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
+    react-is "^16.3.1"
 
 react-timer-mixin@^0.13.2, react-timer-mixin@^0.13.3:
   version "0.13.3"

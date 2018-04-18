@@ -64,7 +64,7 @@ export function shallowEqual(objA, objB) {
 
 	if (keysA.length !== keysB.length) return false;
 
-	for (let i = 0; i < keysA.length; i++) {
+	for (let i = 0; i < keysA.length; i += 1) {
 		if (!hasOwn.call(objB, keysA[i]) ||
 			!is(objA[keysA[i]], objB[keysA[i]])) {
 			return false;
@@ -72,6 +72,22 @@ export function shallowEqual(objA, objB) {
 	}
 
 	return true;
+}
+
+export function valueAt(root = {}, path, defaultValue) {
+	let currentLevel = root;
+	const paths = path.split('.');
+
+	for (let i = 0; i < paths.length; i += 1) {
+		if (i === paths.length - 1) {
+			return currentLevel[paths[i]] || defaultValue;
+		} else {
+			currentLevel = currentLevel[paths[i]];
+			if (!currentLevel) return defaultValue;
+		}
+	}
+
+	return defaultValue;
 }
 
 export function directionSnap(

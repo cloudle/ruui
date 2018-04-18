@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Animated, TouchableWithoutFeedback, View, StyleSheet } from 'react-native';
 
+import { valueAt } from '../utils';
+
 type Props = {
 	configs?: any,
 	animation?: any,
@@ -16,14 +18,14 @@ export default class RuuiCloseableModal extends Component<any, Props, any> {
 	};
 
 	render() {
-		const ruuiConfigs = this.context.ruuiConfigs.modal,
+		const globalConfigs = valueAt(this, 'context.ruuiConfigs.modal'),
 			{ configs = {}, animation, } = this.props,
-			containerPropsGenerator = configs.containerProps || ruuiConfigs.containerProps,
+			containerPropsGenerator = configs.containerProps || globalConfigs.containerProps,
 			containerProps = containerPropsGenerator(animation, configs, this.props.active),
 			InnerComponent = this.props.configs.component || this.props.configs.Component;
 
 		if (configs.containerProps && !containerProps.style) {
-			containerProps.style = ruuiConfigs.containerProps(
+			containerProps.style = globalConfigs.containerProps(
 				animation, configs, this.props.active).style;
 		}
 

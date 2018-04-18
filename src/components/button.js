@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, StyleSheet } from 'react-native';
 import ResponsibleTouchArea from './responsibleTouchArea';
-import { colors } from '../utils';
+import { colors, valueAt } from '../utils';
 import type { Style, Element, SnappingDirection, AccessibilityComponentType, AccessibilityTrait, Corners, } from '../typeDefinition';
 
 type Props = {
@@ -66,7 +66,7 @@ export default class RuuiButton extends Component<any, Props, any> {
 	};
 
 	render() {
-		const styles = this.context.ruuiConfigs.button.styles || styles;
+		const ruuiStyles = valueAt(this, 'context.ruuiConfigs.button.styles', styles);
 
 		return <ResponsibleTouchArea
 			id={this.props.id}
@@ -101,24 +101,24 @@ export default class RuuiButton extends Component<any, Props, any> {
 			tooltipDirection={this.props.tooltipDirection}
 			tooltipPositionSpacing={this.props.tooltipPositionSpacing}
 			tooltipPositionOffset={this.props.tooltipPositionOffset}
-			wrapperStyle={[styles.wrapper, this.props.wrapperStyle]}
-			innerStyle={[styles.contentContainer, this.props.innerStyle]}>
+			wrapperStyle={[ruuiStyles.wrapper, this.props.wrapperStyle]}
+			innerStyle={[ruuiStyles.contentContainer, this.props.innerStyle]}>
 			{this.renderContent()}
 		</ResponsibleTouchArea>;
 	}
 
 	renderContent() {
-		const styles = this.context.ruuiConfigs.button.styles || styles,
-			title = this.props.title,
-			textStyles = [styles.titleText, this.props.textStyle];
+		const ruuiStyles = valueAt(this, 'context.ruuiConfigs.button.styles', styles),
+			{ title } = this.props,
+			textStyles = [ruuiStyles.titleText, this.props.textStyle];
 
 		if (this.props.children) {
 			return this.props.children;
 		} else {
-			return <View style={styles.innerContainer}>
-				<View style={styles.leftContainer}>{this.props.icon}</View>
+			return <View style={ruuiStyles.innerContainer}>
+				<View style={ruuiStyles.leftContainer}>{this.props.icon}</View>
 				<Text style={textStyles}>{title}</Text>
-				<View style={styles.rightContainer}>{this.props.rightIcon}</View>
+				<View style={ruuiStyles.rightContainer}>{this.props.rightIcon}</View>
 			</View>;
 		}
 	}

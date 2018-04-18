@@ -5,6 +5,7 @@ import { Animated, Easing, View, StyleSheet } from 'react-native';
 import Selector from './selector';
 import LoadingMask from './loadingMask';
 import CloseableModal from './closeableModal';
+import { valueAt } from '../utils';
 import * as appActions from '../utils/store/appAction';
 
 type Props = {
@@ -53,14 +54,14 @@ export default class RuuiModal extends Component {
 	}
 
 	render() {
-		const ruuiConfigs = this.context.ruuiConfigs.modal,
+		const globalConfigs = valueAt(this, 'context.ruuiConfigs.modal'),
 			{ configs = {}, modalCount } = this.props,
-			containerPropsGenerator = configs.maskProps || ruuiConfigs.maskProps,
+			containerPropsGenerator = configs.maskProps || globalConfigs.maskProps,
 			containerProps = containerPropsGenerator(
 				this.state.enterAnimation, configs, modalCount, this.props.type);
 
 		if (configs.maskProps && !containerProps.style) {
-			containerProps.style = ruuiConfigs.maskProps(
+			containerProps.style = globalConfigs.maskProps(
 				this.state.enterAnimation, configs, modalCount, this.props.type).style;
 		}
 
