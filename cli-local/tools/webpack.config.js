@@ -5,10 +5,12 @@ const DefinePlugin = require('webpack/lib/DefinePlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const chalk = require('chalk');
 
 let brightFlag = false, initialBuild = true;
 const env = process.env.ENV || 'development',
+	analyzeMode = process.env.ANALYZE === 'true',
 	appJsonPath = path.resolve(process.cwd(), 'app.json'),
 	ruuiConfigsPath = path.resolve(process.cwd(), 'ruui.config.js'),
 	port = process.env.PORT || 3000,
@@ -40,6 +42,10 @@ if (!isProduction) {
 	optionalPlugins.push(new webpack.HotModuleReplacementPlugin());
 	optionalPlugins.push(new webpack.NamedModulesPlugin());
 	optionalPlugins.push(new HardSourceWebpackPlugin());
+
+	if (analyzeMode) {
+		optionalPlugins.push(new BundleAnalyzerPlugin());
+	}
 
 	if (fs.existsSync(cachePath)) {
 		htmlOptions.useVendorChunks = true;
