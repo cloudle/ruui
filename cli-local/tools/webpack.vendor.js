@@ -9,20 +9,14 @@ const packageJson = require(path.resolve(process.cwd(), 'package.json'));
 const dependencies = packageJson.dependencies || {};
 
 const devVendors = [
-	'react-hot-loader',
-	'sockjs-client',
+	'react-hot-loader', 'sockjs-client',
 	'url', 'strip-ansi', 'ansi-regex',
 	'webpack', 'webpack-dev-server', 'html-webpack-plugin',
 ];
 
-let vendors = [
-	...devVendors, 'lodash',
-	'react', 'react-dom', 'react-native-web',
-	'redux', 'react-redux',
-	'babel-polyfill', 'tinycolor2',
-];
+let vendors = [...devVendors, 'redux-logger', 'babel-polyfill', 'lodash', 'tinycolor2',];
 
-vendors.concat(dependencies);
+vendors = vendors.concat(Object.keys(dependencies));
 vendors = lodash.uniq(vendors);
 
 module.exports = {
