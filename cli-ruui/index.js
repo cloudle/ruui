@@ -180,24 +180,26 @@ function createProject(name, opts) {
 	run(root, projectName, opts);
 }
 
-function getInstallPackage(rnPackage) {
-	let packageToInstall = 'react-native';
-	const isValidSemver = semver.valid(rnPackage);
+function getInstallPackage(chosenPackage, defaultPackage = 'react-native') {
+	let packageToInstall = defaultPackage;
+	const isValidSemver = semver.valid(chosenPackage);
 
 	if (isValidSemver) {
 		packageToInstall += `@${isValidSemver}`;
-	} else if (rnPackage) {
+	} else if (chosenPackage) {
 		// for tar.gz or alternative paths
-		packageToInstall = rnPackage;
+		packageToInstall = chosenPackage;
 	}
 	return packageToInstall;
 }
 
 function run(root, projectName, opts) {
+	const rnTemplate = opts.template; delete opts.template;
+	if (rnTemplate) opts['ruui-template'] = rnTemplate;
+
 	const rnPackage = opts.version; // e.g. '0.38' or '/path/to/archive.tgz'
 	const forceNpmClient = opts.npm;
 	const yarnVersion = (!forceNpmClient) && getYarnVersionIfAvailable();
-	const extraDependencies = 'react-universal-ui react-native-web react react-dom redux react-redux';
 	let installCommand;
 
 	if (opts.installCommand) {
@@ -208,7 +210,7 @@ function run(root, projectName, opts) {
 		if (yarnVersion) {
 			console.log(`Using yarn v ${yarnVersion}`);
 			console.log(`Installing ${getInstallPackage(rnPackage)}...`);
-			installCommand = `yarn add ${extraDependencies} ${getInstallPackage(rnPackage)} --exact`;
+			installCommand = `yarn add ${getInstallPackage('react-universal-ui')} ${getInstallPackage(rnPackage)} --exact`;
 			if (opts.verbose) {
 				installCommand += ' --verbose';
 			}
@@ -234,8 +236,8 @@ function run(root, projectName, opts) {
 	const rnCli = require(CLI_MODULE_PATH()),
 		ruuiCli = require(CLI_MODULE_PATH('react-universal-ui'));
 
-	rnCli.init(root, projectName);
-	ruuiCli.init(root, projectName);
+	rnCli.init(root, projectName, opts);
+	ruuiCli.init(root, projectName, opts);
 	fs.unlinkSync(path.resolve(root, 'App.js'));
 }
 
