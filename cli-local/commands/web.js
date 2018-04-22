@@ -4,36 +4,16 @@ const childProcess = require('child_process');
 const webpack = require('webpack');
 const chalk = require('chalk');
 const dotenv = require('dotenv');
+const buildCache = require('../util/cache');
+const paths = require('../util/paths');
 
 function run(argv, config, args) {
-	const cachePath = path.resolve(process.cwd(), 'web', 'vendor-manifest.json');
-
-	if (args.analyze) {
-		dotenv.config({ path: path.resolve(process.cwd(), 'node_modules', 'react-universal-ui', 'cli-local', 'env', 'analyze.env') });
-	}
-
-	setTimeout(() => {
-		if (fs.existsSync(cachePath)) {
-			runServer(args.port);
-		} else {
-			console.log(chalk.whiteBright('Building common chunk cache, this may take a while...'));
-			console.log(chalk.gray("(caching build will only run once on project's first time run)\n"));
-
-			setTimeout(() => {
-				const configs = require('../tools/webpack.vendor'),
-					compiler = webpack(configs);
-
-				compiler.run((error, stats) => {
-					if (error) console.log(error);
-					runServer(args.port, '\n');
-				});
-			}, 0);
-		}
-	}, 50);
+	if (args.analyze) dotenv.config({ path: paths.getEnv('analyze') });
+	buildCache((cached) => runServer(args.port, cached), false, true);
 }
 
-function runServer(port, prefix = '') {
-	console.log(`${prefix}Preparing super awesome dev-server at`, chalk.whiteBright(`localhost:${port}`), ':p');
+function runServer(port, cached) {
+	console.log(`${cached ? '' : '\n'}Preparing super awesome dev-server at`, chalk.whiteBright(`localhost:${port}`), ':p');
 
 	setTimeout(() => {
 		const devServer = require('../tools/webpack.devserver');

@@ -1,23 +1,18 @@
 const path = require('path');
 const chalk = require('chalk');
 const webpack = require('webpack');
+const buildCache = require('../util/cache');
 
-function run() {
-	console.log(chalk.whiteBright('Building common chunk cache, this may take a while...'));
-	console.log(chalk.gray("It's time to take a cup of coffee while this is running ;)\n"));
-
-	setTimeout(() => {
-		const configs = require('../tools/webpack.vendor'),
-			compiler = webpack(configs);
-
-		compiler.run((error, stats) => {
-			if (error) console.log(error);
-		});
-	}, 0);
+function run(argv, config, args) {
+	buildCache(null, args.force);
 }
 
 module.exports = {
 	name: 'cache',
 	description: 'cache common chunks.. boost up build speed!',
 	func: run,
+	options: [{
+		command: '--force',
+		description: 'Force rebuild cache without further checking..',
+	}],
 };
