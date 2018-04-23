@@ -1,12 +1,26 @@
+<%
+const isSSR = typeof ssrContext !== 'undefined';
+
+function get(name, defaultValue) {
+  if (typeof htmlWebpackPlugin !== 'undefined') {
+  	return htmlWebpackPlugin.options[name];
+  } else {
+    return ssrContext[name] || defaultValue;
+  }
+}
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%=htmlWebpackPlugin.options.appName%></title>
+  <title><%= get('appName', '')%></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
+  <%- get('appMeta', '')%>
 
   <style>
+    <%- get('preStyle', '')%>
     :focus { outline: none; }
     body {
       font-family: "Avenir Next",Nunito,"Helvetica Neue",Helvetica,sans-serif;
@@ -24,14 +38,25 @@
       cursor: pointer;
       user-select: none;
     }
+    <%- get('postStyle', '')%>
   </style>
+  <%- get('initialStyles', '')%>
 </head>
 
 <body>
-<div id="root"></div>
+  <div id="root"><%- get('initialHtml', '')%></div>
+  <%- get('preContent', '')%>
 
-<%if (htmlWebpackPlugin.options.useVendorChunks) { %>
-<script src="<%=htmlWebpackPlugin.options.publicPath%>vendor.cache.js"></script>
-<% } %>
+  <%if (isSSR) { %>
+    <% if (get('isProduction') === true) { %>
+      <script src="/<%=gitHash%>.js"></script>
+    <% } else { %>
+      <script src="<%= get('publicPath')%>vendor.cache.js"></script>
+      <script src="<%= get('publicPath')%>app.js"></script>
+    <% } %>
+  <% } else { %>
+    <script src="<%= get('publicPath')%>vendor.cache.js"></script>
+  <% } %>
+  <%- get('postContent', '')%>
 </body>
 </html>

@@ -7,19 +7,25 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const chalk = require('chalk');
+const paths = require('../util/paths');
 
-let brightFlag = false, initialBuild = true;
+let brightFlag = false,
+	initialBuild = true,
+	appJson = {},
+	ruuiConfigs = {};
+
+if (fs.existsSync(paths.appJson)) appJson = require(paths.appJson);
+if (fs.existsSync(paths.ruuiConfig)) ruuiConfigs = require(paths.ruuiConfig);
+
 const env = process.env.ENV || 'development',
 	analyzeMode = process.env.ANALYZE === 'true',
-	appJsonPath = path.resolve(process.cwd(), 'app.json'),
-	ruuiConfigsPath = path.resolve(process.cwd(), 'ruui.config.js'),
 	port = process.env.PORT || 3000,
 	isProduction = env === 'production',
-	publicPath = '/',
+	publicPath = ruuiConfigs.publicPath || '/',
 	htmlOptions = {
 		isProduction,
 		publicPath,
-		appName: 'ruui-app',
+		appName: appJson.displayName || appJson.name || 'ruui-app',
 		useVendorChunks: false
 	},
 	optionalPlugins = [],
@@ -31,26 +37,19 @@ const env = process.env.ENV || 'development',
 		'webpack/hot/only-dev-server',
 	];
 
-if (fs.existsSync(appJsonPath)) {
-	const appInfo = require(appJsonPath);
-	htmlOptions.appName = appInfo.displayName || appInfo.name || 'ruui-app';
-}
-
 if (!isProduction) {
-	const cachePath = path.resolve(process.cwd(), 'web', 'vendor-manifest.json');
-
 	optionalPlugins.push(new webpack.HotModuleReplacementPlugin());
 	optionalPlugins.push(new webpack.NamedModulesPlugin());
-	optionalPlugins.push(new HardSourceWebpackPlugin());
+	// optionalPlugins.push(new HardSourceWebpackPlugin());
 
 	if (analyzeMode) {
 		optionalPlugins.push(new BundleAnalyzerPlugin());
 	}
 
-	if (fs.existsSync(cachePath)) {
+	if (fs.existsSync(paths.cache)) {
 		htmlOptions.useVendorChunks = true;
 		optionalPlugins.push(new webpack.DllReferencePlugin({
-			context: '.', manifest: require(cachePath),
+			context: '.', manifest: require(paths.cache),
 		}));
 	}
 
@@ -71,7 +70,7 @@ const defaultWebpackConfigs = {
 	},
 	output: {
 		publicPath,
-		path: path.resolve(process.cwd(), 'web'),
+		path: paths.web,
 		filename: isProduction ? '[name]-[hash:8].js' : '[name].js',
 		chunkFilename: '[name].js',
 	},
@@ -89,7 +88,7 @@ const defaultWebpackConfigs = {
 				loader: 'babel-loader',
 				options: {
 					cacheDirectory: true,
-					plugins: ['react-hot-loader/babel', ]
+					plugins: ['react-hot-loader/babel']
 				}
 			},
 			{ test: /\.css$/, loader: 'style-loader!css-loader' },
@@ -106,7 +105,7 @@ const defaultWebpackConfigs = {
 		}),
 		new HtmlWebpackPlugin({
 			...htmlOptions,
-			template: path.resolve(process.cwd(), 'node_modules', 'react-universal-ui', 'cli-local', 'tools', 'index.ejs'),
+			template: paths.getEjsTemplate(),
 			filename: 'index.html',
 		}),
 		new ProgressBarPlugin({
@@ -128,15 +127,7 @@ const defaultWebpackConfigs = {
 	]
 };
 
-let webpackConfigs = defaultWebpackConfigs;
-
 function defaultConfigurator(configs) { return configs; }
+const configureWebpack = ruuiConfigs.webpack || defaultConfigurator;
 
-if (fs.existsSync(ruuiConfigsPath)) {
-	const ruuiConfigs = require(ruuiConfigsPath),
-		configureWebpack = ruuiConfigs.webpack || defaultConfigurator;
-
-	webpackConfigs = configureWebpack(defaultWebpackConfigs, webpack);
-}
-
-module.exports = webpackConfigs;
+module.exports = configureWebpack(defaultWebpackConfigs, webpack);
