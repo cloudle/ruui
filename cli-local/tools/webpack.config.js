@@ -75,6 +75,7 @@ const defaultWebpackConfigs = {
 		chunkFilename: '[name].js',
 	},
 	resolve: {
+		mainFields: ['browser', 'main', 'module'],
 		alias: {
 			'react-native': 'react-native-web',
 		},
