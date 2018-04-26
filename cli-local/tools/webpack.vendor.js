@@ -1,12 +1,12 @@
 /* eslint-disable */
 
+const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const chalk = require('chalk');
 const lodash = require('lodash');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const packageJson = require(path.resolve(process.cwd(), 'package.json'));
-const dependencies = packageJson.dependencies || {};
+const paths = require('../util/paths');
 
 const devVendors = [
 	'react-hot-loader', 'sockjs-client',
@@ -14,9 +14,20 @@ const devVendors = [
 	'webpack', 'webpack-dev-server', 'html-webpack-plugin',
 ];
 
-let vendors = [...devVendors, 'redux-logger', 'babel-polyfill', 'lodash', 'tinycolor2',];
+let packageJson = {},
+	ruuiConfigs = {},
+	vendors = [...devVendors, 'redux-logger', 'babel-polyfill', 'lodash', 'tinycolor2',];
+
+if (fs.existsSync(paths.packageJson)) packageJson = require(paths.packageJson);
+if (fs.existsSync(paths.ruuiConfig)) ruuiConfigs = require(paths.ruuiConfig);
+
+const dependencies = packageJson.dependencies || {},
+	extraCaches = ruuiConfigs.extraCaches || [],
+	excludeCaches = ruuiConfigs.excludeCaches  || [];
 
 vendors = vendors.concat(Object.keys(dependencies));
+vendors = vendors.concat(extraCaches);
+vendors = vendors.filter(item => excludeCaches.indexOf(item) < 0);
 vendors = lodash.uniq(vendors);
 
 module.exports = {
