@@ -3,19 +3,12 @@ import { Animated, StyleSheet, View, Text, Easing, } from 'react-native';
 import { isString } from 'lodash';
 
 import { connect, isBrowser, directionSnap, directionAnimatedConfigs } from '../utils';
-import type { Dimension, Layout, PositionOffset, Element, Style, } from '../typeDefinition';
+import type { Dimension, TooltipConfigs } from '../typeDefinition';
 
 type Props = {
 	tooltip?: {
 		active?: Boolean,
-		configs?: {
-			targetLayout: Layout,
-			direction: String,
-			positionSpacing?: Number,
-			positionOffset?: PositionOffset,
-			wrapperStyle?: Style,
-			content?: String | Element,
-		},
+		configs?: TooltipConfigs,
 	},
 	screenSize?: Dimension,
 };
@@ -38,19 +31,20 @@ export default class RuuiTooltip extends Component {
 		};
 	}
 
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.tooltip.active !== this.props.tooltip.active) {
+	componentDidUpdate(previousProps, previousState, snapshot) {
+		if (previousProps.tooltip.active !== this.props.tooltip.active) {
 			this.container.measure((x, y, width, height) => {
-				const { targetLayout, direction, positionSpacing } = nextProps.tooltip.configs;
+				const { targetLayout, direction, positionSpacing } = this.props.tooltip.configs;
 
 				this.setState(directionSnap(
 					targetLayout.y, targetLayout.x,
 					targetLayout.width, targetLayout.height,
 					width, height,
-					direction, positionSpacing));
+					direction, positionSpacing,
+				));
 
 				Animated.timing(this.enterAnimation, {
-					toValue: nextProps.tooltip.active ? 1 : 0,
+					toValue: this.props.tooltip.active ? 1 : 0,
 					duration: 500,
 					easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
 				}).start();
@@ -78,7 +72,7 @@ export default class RuuiTooltip extends Component {
 	}
 
 	renderContent = () => {
-		const content = this.props.tooltip.configs.content;
+		const { content } = this.props.tooltip.configs;
 
 		if (isString(content)) {
 			return <Text style={styles.title}>{content}</Text>;

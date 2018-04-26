@@ -97,3 +97,12 @@ export type RuuiConfigs = {
 		containerProps?: Function,
 	},
 };
+
+export type TooltipConfigs = {
+	targetLayout: Layout,
+	direction: String,
+	positionSpacing?: Number,
+	positionOffset?: PositionOffset,
+	wrapperStyle?: Style,
+	content?: String | Element,
+};
