@@ -11,7 +11,7 @@ const getDirectories = source => fs.readdirSync(source)
 	.filter(isDirectory);
 
 function init(root, argsOrName, opts) {
-	const template = opts['ruui-template'] || 'default',
+	const template = opts['base'] || 'default',
 		availableTemplates = getDirectories(path.resolve(ruuiCliModule('templates')))
 			.map(source => path.relative(ruuiCliModule('templates'), source))
 			.filter(name => name !== 'core'),
