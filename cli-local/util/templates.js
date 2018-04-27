@@ -2,6 +2,25 @@ const fs = require('fs');
 const path = require('path');
 const execSync = require('child_process').execSync;
 
+function installDependencies(dependencies, yarnVersion, isDev = false) {
+	const dependencyType = isDev ? 'develop dependencies' : 'dependencies';
+
+	console.log(`Adding ${dependencyType} for the project...`);
+
+	for (let depName in dependencies) {
+		const depVersion = dependencies[depName];
+		const depToInstall = depName + '@' + depVersion;
+		console.log('Adding ' + depToInstall + '...');
+		if (yarnVersion) {
+			const saveType = isDev ? ' -D' : ' ';
+			execSync(`yarn add ${depToInstall}${saveType}`, {stdio: 'inherit'});
+		} else {
+			const saveType = isDev ? '--save-dev' : '--save';
+			execSync(`npm install ${depToInstall} ${saveType} --save-exact`, {stdio: 'inherit'});
+		}
+	}
+}
+
 function installTemplateDependencies(templatePath, yarnVersion) {
 	// dependencies.json is a special file that lists additional dependencies
 	// that are required by this template
@@ -59,6 +78,7 @@ function installTemplateDevDependencies(templatePath, yarnVersion) {
 }
 
 module.exports = {
+	installDependencies,
 	installTemplateDependencies,
 	installTemplateDevDependencies,
 };

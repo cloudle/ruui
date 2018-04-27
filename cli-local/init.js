@@ -32,7 +32,21 @@ function init(root, argsOrName, opts) {
 			helloworld: newProjectName.toLowerCase(),
 		};
 
-	const coreTemplatePath = path.resolve(ruuiCliModule('templates/core'));
+	let dependencies = {}, devDependencies = {};
+	const coreTemplatePath = path.resolve(ruuiCliModule('templates/core')),
+		coreDependenciesPath = path.resolve(coreTemplatePath, 'dependencies.json'),
+		coreDevDependenciesPath = path.resolve(coreTemplatePath, 'devDependencies.json');
+
+	if (fs.existsSync(coreDependenciesPath)) {
+		const coreDependencies = require(coreDependenciesPath);
+		dependencies = { ...dependencies, ...coreDependencies };
+	}
+
+	if (fs.existsSync(coreDevDependenciesPath)) {
+		const coreDevDependencies = require(coreDevDependenciesPath);
+		devDependencies = { ...devDependencies, ...coreDevDependencies };
+	}
+
 	walk(coreTemplatePath).forEach((absoluteSrcPath) => {
 		const relativeFilePath = path.relative(coreTemplatePath, absoluteSrcPath),
 			relativeRenamedPath = dotFilePath(relativeFilePath),
@@ -42,28 +56,37 @@ function init(root, argsOrName, opts) {
 		copyAndReplace(absoluteSrcPath, absoluteDestinationPath, templateReplacements);
 	});
 
-	templates.installTemplateDependencies(coreTemplatePath, yarnVersion);
-	templates.installTemplateDevDependencies(coreTemplatePath, yarnVersion);
+	if (template !== 'core') {
+		if (availableTemplates.indexOf(template) >= 0) {
+			const childTemplatePath = path.resolve(ruuiCliModule(`templates/${template}`)),
+				childDependenciesPath = path.resolve(childTemplatePath, 'dependencies.json'),
+				childDevDependenciesPath = path.resolve(childTemplatePath, 'dependencies.json');
 
-	if (template === 'core') return;
+			walk(childTemplatePath).forEach((absoluteSrcPath) => {
+				const relativeFilePath = path.relative(childTemplatePath, absoluteSrcPath),
+					relativeRenamedPath = dotFilePath(relativeFilePath),
+					absoluteDestinationPath = path.resolve(root, relativeRenamedPath);
 
-	if (availableTemplates.indexOf(template) >= 0) {
-		const childTemplatePath = path.resolve(ruuiCliModule(`templates/${template}`));
+				if (templateExclustions.indexOf(relativeRenamedPath) >= 0) return;
+				copyAndReplace(absoluteSrcPath, absoluteDestinationPath, templateReplacements);
+			});
 
-		walk(childTemplatePath).forEach((absoluteSrcPath) => {
-			const relativeFilePath = path.relative(childTemplatePath, absoluteSrcPath),
-				relativeRenamedPath = dotFilePath(relativeFilePath),
-				absoluteDestinationPath = path.resolve(root, relativeRenamedPath);
+			if (fs.existsSync(childDependenciesPath)) {
+				const childDependencies = require(childDependenciesPath);
+				dependencies = { ...dependencies, ...childDependencies };
+			}
 
-			if (templateExclustions.indexOf(relativeRenamedPath) >= 0) return;
-			copyAndReplace(absoluteSrcPath, absoluteDestinationPath, templateReplacements);
-		});
-
-		templates.installTemplateDependencies(childTemplatePath, yarnVersion);
-		templates.installTemplateDevDependencies(childTemplatePath, yarnVersion);
-	} else {
-		console.log(chalk.yellow(`Couldn't found template with name "${template}". The project currently use default (essential) template!`));
+			if (fs.existsSync(coreDevDependenciesPath)) {
+				const childDevDependencies = require(childDevDependenciesPath);
+				devDependencies = { ...devDependencies, ...childDevDependencies };
+			}
+		} else {
+			console.log(chalk.yellow(`Couldn't found template with name "${template}". The project currently use default (essential) template!`));
+		}
 	}
+
+	templates.installDependencies(dependencies, yarnVersion, false);
+	templates.installDependencies(devDependencies, yarnVersion, true);
 }
 
 function dotFilePath(filePath) {

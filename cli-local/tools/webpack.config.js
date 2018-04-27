@@ -40,7 +40,7 @@ const env = process.env.ENV || 'development',
 if (!isProduction) {
 	optionalPlugins.push(new webpack.HotModuleReplacementPlugin());
 	optionalPlugins.push(new webpack.NamedModulesPlugin());
-	// optionalPlugins.push(new HardSourceWebpackPlugin());
+	optionalPlugins.push(new HardSourceWebpackPlugin());
 
 	if (analyzeMode) {
 		optionalPlugins.push(new BundleAnalyzerPlugin());
