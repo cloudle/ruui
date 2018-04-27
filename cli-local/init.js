@@ -11,7 +11,7 @@ const getDirectories = source => fs.readdirSync(source)
 	.filter(isDirectory);
 
 function init(root, argsOrName, opts) {
-	const template = opts['ruui-template'],
+	const template = opts['ruui-template'] || 'default',
 		availableTemplates = getDirectories(path.resolve(ruuiCliModule('templates')))
 			.map(source => path.relative(ruuiCliModule('templates'), source))
 			.filter(name => name !== 'core'),
@@ -45,24 +45,24 @@ function init(root, argsOrName, opts) {
 	templates.installTemplateDependencies(coreTemplatePath, yarnVersion);
 	templates.installTemplateDevDependencies(coreTemplatePath, yarnVersion);
 
-	if (template) {
-		if (availableTemplates.indexOf(template) >= 0) {
-			const childTemplatePath = path.resolve(ruuiCliModule(`templates/${template}`));
+	if (template === 'core') return;
 
-			walk(childTemplatePath).forEach((absoluteSrcPath) => {
-				const relativeFilePath = path.relative(childTemplatePath, absoluteSrcPath),
-					relativeRenamedPath = dotFilePath(relativeFilePath),
-					absoluteDestinationPath = path.resolve(root, relativeRenamedPath);
+	if (availableTemplates.indexOf(template) >= 0) {
+		const childTemplatePath = path.resolve(ruuiCliModule(`templates/${template}`));
 
-				if (templateExclustions.indexOf(relativeRenamedPath) >= 0) return;
-				copyAndReplace(absoluteSrcPath, absoluteDestinationPath, templateReplacements);
-			});
+		walk(childTemplatePath).forEach((absoluteSrcPath) => {
+			const relativeFilePath = path.relative(childTemplatePath, absoluteSrcPath),
+				relativeRenamedPath = dotFilePath(relativeFilePath),
+				absoluteDestinationPath = path.resolve(root, relativeRenamedPath);
 
-			templates.installTemplateDependencies(childTemplatePath, yarnVersion);
-			templates.installTemplateDevDependencies(childTemplatePath, yarnVersion);
-		} else {
-			console.log(chalk.yellow(`Couldn't found template with name "${template}". The project currently use default (essential) template!`));
-		}
+			if (templateExclustions.indexOf(relativeRenamedPath) >= 0) return;
+			copyAndReplace(absoluteSrcPath, absoluteDestinationPath, templateReplacements);
+		});
+
+		templates.installTemplateDependencies(childTemplatePath, yarnVersion);
+		templates.installTemplateDevDependencies(childTemplatePath, yarnVersion);
+	} else {
+		console.log(chalk.yellow(`Couldn't found template with name "${template}". The project currently use default (essential) template!`));
 	}
 }
 
