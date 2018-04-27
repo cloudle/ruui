@@ -194,9 +194,6 @@ function getInstallPackage(chosenPackage, defaultPackage = 'react-native') {
 }
 
 function run(root, projectName, opts) {
-	const rnTemplate = opts.template; delete opts.template;
-	if (rnTemplate) opts['ruui-template'] = rnTemplate;
-
 	const rnPackage = opts.version; // e.g. '0.38' or '/path/to/archive.tgz'
 	const forceNpmClient = opts.npm;
 	const yarnVersion = (!forceNpmClient) && getYarnVersionIfAvailable();
