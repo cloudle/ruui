@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
-import { RuuiProvider, Button, Tooltip } from 'react-universal-ui';
+import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui';
+import { connect, Provider } from 'react-redux';
+
+import { store } from './store';
+import * as appActions from './store/action/app';
 
 const instructions = Platform.select({
 	ios: 'Press Cmd+R to reload,\n' +
@@ -11,13 +15,19 @@ const instructions = Platform.select({
 	'\nAnd in Browser, we have great advantage\nwhen using Chrome Developer Tool\ncompare to the poor native-dev-menu!',
 });
 
+type Props = {
+	counter?: string,
+	dispatch?: Function,
+};
+
+@connect(({ app }) => {
+	return {
+		counter: app.counter,
+	};
+})
+
 class App extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			counter: 0,
-		};
-	}
+	props: Props;
 
 	render() {
 		return <View style={styles.container}>
@@ -32,7 +42,7 @@ class App extends Component {
 			</Text>
 			<Button
 				wrapperStyle={styles.buttonWrapper}
-				title={`Increase counter [${this.state.counter}]`}
+				title={`Increase counter [${this.props.counter}]`}
 				tooltip="Increase counter.."
 				tooltipDirection="top"
 				onPress={this.increaseCounter}/>
@@ -40,13 +50,15 @@ class App extends Component {
 	}
 
 	increaseCounter = () => {
-		this.setState({ counter: this.state.counter + 1 });
+		this.props.dispatch(appActions.increaseCounter());
 	};
 }
 
 export default function AppContainer(props) {
 	return <RuuiProvider>
-		<App/>
+		<Provider store={store}>
+			<App/>
+		</Provider>
 
 		<Tooltip/>
 	</RuuiProvider>;
