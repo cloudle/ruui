@@ -2,11 +2,11 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = {
-	ruui: path.resolve(process.cwd(), 'node_modules', '.cache', 'ruui'),
+	ruui: path.resolve(process.cwd(), 'web'),
 	ruuiConfig: path.resolve(process.cwd(), 'ruui.config.js'),
 	packageJson: path.resolve(process.cwd(), 'package.json'),
 	appJson: path.resolve(process.cwd(), 'app.json'),
-	previousPackageJson: path.resolve(process.cwd(), 'node_modules', '.cache', 'ruui', 'previousPackage.json'),
+	previousPackageJson: path.resolve(process.cwd(), 'web', 'previous-package.json'),
 	web: path.resolve(process.cwd(), 'web'),
 	cache: path.resolve(process.cwd(), 'web', 'vendor-manifest.json'),
 	getEnv: name => path.resolve(process.cwd(), 'node_modules', 'react-universal-ui', 'cli-local', 'env', `${name}.env`),
