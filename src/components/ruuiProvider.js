@@ -13,13 +13,18 @@ type Props = {
 	children?: Element,
 	store?: Object,
 	configs?: RuuiConfigs,
+	subscribeNetInfo?: Boolean,
 };
+
+const navigator = global.navigator || {},
+	connectionModule = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 
 export default class RuuiProvider extends Component {
 	static props: Props;
 	static defaultProps = {
 		store,
 		configs: {},
+		subscribeNetInfo: true,
 	};
 	static childContextTypes = {
 		ruuiStore: PropTypes.object,
@@ -39,19 +44,26 @@ export default class RuuiProvider extends Component {
 		};
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		if (!isServer && this.props.store) {
 			this.subscribeAndUpdateDimensions();
-			this.subscribeAndUpdateNetworkInfo();
+
+			if (this.props.subscribeNetInfo && connectionModule) {
+				this.subscribeAndUpdateNetworkInfo();
+			}
 		}
 	}
 
 	componentWillUnmount() {
 		if (!isServer && this.props.store) {
-			NetInfo.removeEventListener(
-				'connectionChange', this.handleConnectionTypeChange);
-			NetInfo.isConnected.removeEventListener(
-				'connectionChange', this.handleIsConnectedChange);
+			Dimensions.removeEventListener('change', this.handleDimensionChange);
+
+			if (this.props.subscribeNetInfo && connectionModule) {
+				NetInfo.removeEventListener(
+					'connectionChange', this.handleConnectionTypeChange);
+				NetInfo.isConnected.removeEventListener(
+					'connectionChange', this.handleIsConnectedChange);
+			}
 		}
 	}
 
