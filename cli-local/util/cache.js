@@ -15,10 +15,9 @@ module.exports = (callback, force = false, silent = false) => {
 	} else if (previousConfigExist) {
 		const previousConfigJson = require(paths.previousPackageJson),
 			isDependencyEqual = lodash.isEqual(currentPackageJson.dependencies, previousConfigJson.dependencies),
-			isDevDependencyEqual = lodash.isEqual(currentPackageJson.devDependencies, previousConfigJson.devDependencies),
 			isCacheExist = fs.existsSync(paths.cache);
 
-		if (!isDependencyEqual || !isDevDependencyEqual || !isCacheExist) {
+		if (!isDependencyEqual || !isCacheExist) {
 			buildCache(callback, silent, 'changed');
 		} else {
 			if (!silent) console.log(chalk.gray('No changes detected, keep using old cache..'));
