@@ -4,10 +4,18 @@ const childProcess = require('child_process');
 const chalk = require('chalk');
 
 function run(argv, config, args) {
-	const electronCliPath = path.resolve(process.cwd(), 'node_modules', 'electron', 'cli.js');
+	const electronPath = path.resolve(process.cwd(), 'node_modules', 'electron', 'index.js');
 
-	if (fs.existsSync(electronCliPath)) {
-		childProcess.spawn('electron', ['-r', 'babel-register', './electron']);
+	if (fs.existsSync(electronPath)) {
+		const electron = require(electronPath),
+			child = childProcess.spawn(electron, ['-r', 'babel-register', './electron'], {
+				cwd: process.cwd(),
+				stdio: 'inherit',
+			});
+
+		child.on('close', function (code) {
+			process.exit(code);
+		});
 	} else {
 		console.log('Cannot locate "electron" package, please install it and try again..');
 	}
