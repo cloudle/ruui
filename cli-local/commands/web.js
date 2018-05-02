@@ -26,8 +26,8 @@ function runServer(port, cached) {
 }
 
 module.exports = {
-	name: 'web',
-	description: 'run your app in Browser',
+	name: 'dev',
+	description: 'run Development server',
 	func: run,
 	examples: [{
 		desc: 'Run on different port, e.g. localhost:3005',
