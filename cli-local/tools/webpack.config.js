@@ -8,24 +8,19 @@ const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const chalk = require('chalk');
 const paths = require('../util/paths');
+const configs = require('../util/configs');
 
-let brightFlag = false,
-	initialBuild = true,
-	appJson = {},
-	ruuiConfigs = {};
-
-if (fs.existsSync(paths.appJson)) appJson = require(paths.appJson);
-if (fs.existsSync(paths.ruuiConfig)) ruuiConfigs = require(paths.ruuiConfig);
+let brightFlag = false, initialBuild = true;
 
 const env = process.env.ENV || 'development',
 	analyzeMode = process.env.ANALYZE === 'true',
 	port = process.env.PORT || 3000,
 	isProduction = env === 'production',
-	publicPath = ruuiConfigs.publicPath || '/',
+	publicPath = configs.ruui.publicPath || '/',
 	htmlOptions = {
 		isProduction,
 		publicPath,
-		appName: appJson.displayName || appJson.name || 'ruui-app',
+		appName: configs.appJson.displayName || configs.appJson.name || 'ruui-app',
 		useVendorChunks: false
 	},
 	optionalPlugins = [],
@@ -128,7 +123,7 @@ const defaultWebpackConfigs = {
 	]
 };
 
-function defaultConfigurator(configs) { return configs; }
-const configureWebpack = ruuiConfigs.webpack || defaultConfigurator;
+function defaultConfigurator(baseConfig) { return baseConfig; }
+const configureWebpack = configs.ruui.webpack || defaultConfigurator;
 
 module.exports = configureWebpack(defaultWebpackConfigs, webpack);

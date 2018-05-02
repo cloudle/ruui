@@ -3,12 +3,12 @@ const path = require('path'),
 	webpack = require('webpack'),
 	WebpackDevServer = require('webpack-dev-server'),
 	webpackConfigs = require('./webpack.config'),
+	configs = require('../util/configs'),
 	port = 3000,
-	optimizeMode = process.env.OPTIMIZE !== undefined,
-	ruuiConfigsPath = path.resolve(process.cwd(), 'ruui.config.js');
+	optimizeMode = process.env.OPTIMIZE !== undefined;
 
 const defaultServerConfigs = {
-	publicPath: webpackConfigs.output.publicPath,
+	publicPath: configs.ruui.publicPath || '/',
 	port, contentBase: 'web', hot: true,
 	historyApiFallback: true,
 	headers: {
@@ -39,16 +39,10 @@ const defaultServerConfigs = {
 	overlay: true,
 };
 
-let serverConfigs = defaultServerConfigs;
-const compiler = webpack(webpackConfigs);
+function defaultConfigurator(baseConfig) { return baseConfig; }
 
-function defaultConfigurator(configs) { return configs; }
-
-if (fs.existsSync(ruuiConfigsPath)) {
-	const ruuiConfigs = require(ruuiConfigsPath),
-		configureDev = ruuiConfigs.dev || defaultConfigurator;
-
-	serverConfigs = configureDev(defaultServerConfigs, webpack);
-}
+const compiler = webpack(webpackConfigs),
+	serverConfigurator = configs.ruui.dev || defaultConfigurator,
+	serverConfigs = serverConfigurator(defaultServerConfigs);
 
 module.exports = new WebpackDevServer(compiler, serverConfigs);
