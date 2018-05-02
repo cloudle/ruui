@@ -26,12 +26,15 @@ function runServer(port, cached) {
 }
 
 module.exports = {
-	name: 'dev',
+	name: 'web',
 	description: 'run your app in Browser',
 	func: run,
 	examples: [{
 		desc: 'Run on different port, e.g. localhost:3005',
-		cmd: 'ruui dev --port 3005',
+		cmd: 'ruui web --port 3005',
+	}, {
+		desc: 'Run bundle analyzer tool (on browser) to optimize cache',
+		cmd: 'ruui web --analyze',
 	}],
 	options: [{
 		command: '--port [number]',
