@@ -3,6 +3,7 @@ const init = require('../init');
 
 module.exports = [
 	require('./web'),
+	require('./electron'),
 	require('./cache'),
 	require('./bundle'),
 	{
