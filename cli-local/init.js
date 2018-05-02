@@ -60,7 +60,7 @@ function init(root, argsOrName, opts) {
 		if (availableTemplates.indexOf(template) >= 0) {
 			const childTemplatePath = path.resolve(ruuiCliModule(`templates/${template}`)),
 				childDependenciesPath = path.resolve(childTemplatePath, 'dependencies.json'),
-				childDevDependenciesPath = path.resolve(childTemplatePath, 'dependencies.json');
+				childDevDependenciesPath = path.resolve(childTemplatePath, 'devDependencies.json');
 
 			walk(childTemplatePath).forEach((absoluteSrcPath) => {
 				const relativeFilePath = path.relative(childTemplatePath, absoluteSrcPath),
@@ -76,7 +76,7 @@ function init(root, argsOrName, opts) {
 				dependencies = { ...dependencies, ...childDependencies };
 			}
 
-			if (fs.existsSync(coreDevDependenciesPath)) {
+			if (fs.existsSync(childDevDependenciesPath)) {
 				const childDevDependencies = require(childDevDependenciesPath);
 				devDependencies = { ...devDependencies, ...childDevDependencies };
 			}
