@@ -52,7 +52,7 @@ export default class RuuiDropdown extends Component {
 	}
 
 	renderDropDown() {
-		const configs = this.props.configs,
+		const { configs } = this.props,
 			context = configs.context || {},
 			positionOffset = configs.offset || { top: 0, left: 0 },
 			containerLayout = configs.containerLayout || { x: 0, y: 0, width: 0, height: 0 },

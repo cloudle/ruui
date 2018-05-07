@@ -20,13 +20,11 @@ export default class RuuiRippleEffect extends Component<any, Props, any> {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			expandAnimation: new Animated.Value(0),
-		};
+		this.expandAnimation = new Animated.Value(0);
 	}
 
 	componentDidMount() {
-		Animated.timing(this.state.expandAnimation, {
+		Animated.timing(this.expandAnimation, {
 			toValue: 1,
 			duration: this.props.speed,
 			easing: Easing.out(Easing.bezier(0.445, 0.05, 0.55, 0.95)),
@@ -34,9 +32,9 @@ export default class RuuiRippleEffect extends Component<any, Props, any> {
 	}
 
 	render() {
-		const opacity = this.state.expandAnimation.interpolate({
+		const opacity = this.expandAnimation.interpolate({
 				inputRange: [0, 0.5, 1], outputRange: [this.props.initialOpacity, 0.1, 0],
-			}), scale = this.state.expandAnimation.interpolate({
+			}), scale = this.expandAnimation.interpolate({
 				inputRange: [0, 0.25, 1], outputRange: [this.props.initialScale, 0.8, 1],
 			}), styles = {
 				position: 'absolute',

@@ -4,9 +4,7 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 import { isWeb } from '../utils';
 import * as appActions from '../utils/store/appAction';
-import { Style, Element, SnappingDirection, Layout,
-	AccessibilityComponentType, AccessibilityTrait,
-} from '../typeDefinition';
+import { Style, Element, SnappingDirection, Layout, AccessibilityComponentType, AccessibilityTrait, } from '../typeDefinition';
 
 type Props = {
 	id?: String,
@@ -34,6 +32,7 @@ type Props = {
 	dropdownDirection?: SnappingDirection,
 	dropdownSpacing?: number,
 	dropdownOffset?: Object,
+	offset?: Object,
 };
 
 export default class RuuiDropdownContainer extends Component {

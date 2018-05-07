@@ -14,6 +14,8 @@
     "comma-dangle": "off",
     "indent": [2, "tab"],
     "object-property-newline": "off",
+    "object-curly-newline": "off",
+    "function-paren-newline": "off",
     "no-unused-expressions": "warn",
     "no-unused-vars": "warn",
     "no-else-return": "off",
@@ -37,7 +39,9 @@
     "react/jsx-indent": "off",
     "react/jsx-closing-bracket-location": "off",
     "react/jsx-space-before-closing": "off",
-    "react/jsx-tag-spacing": "off"
+    "react/jsx-tag-spacing": "off",
+    "react/jsx-closing-tag-location": "off",
+    "react/jsx-max-props-per-line": "off"
   },
   "globals": {
     "document": true,

@@ -77,11 +77,12 @@ export default class RuuiResponsibleTouchArea extends Component<any, Props, any>
 		super(props);
 		this.state = {
 			ripples: [],
-			raiseAnimation: new Animated.Value(0),
-			fadeAnimation: new Animated.Value(0),
 			mouseInside: false,
 			layout: { width: 0, height: 0 },
 		};
+
+		this.raiseAnimation = new Animated.Value(0);
+		this.fadeAnimation = new Animated.Value(0);
 
 		if (this.props.debounce) {
 			this.handlePress = debounce(this.handlePress.bind(this), this.props.debounce);
@@ -138,7 +139,7 @@ export default class RuuiResponsibleTouchArea extends Component<any, Props, any>
 	}
 
 	renderShadowEffect(isLightBackground: Boolean, wrapperBorderRadius) {
-		const shadowOpacity = this.state.raiseAnimation.interpolate({
+		const shadowOpacity = this.raiseAnimation.interpolate({
 				inputRange: [0, 1], outputRange: [this.props.raise ? 0.15 : 0, 0.6],
 			}),
 			shadow = this.props.raise ? {
@@ -157,7 +158,7 @@ export default class RuuiResponsibleTouchArea extends Component<any, Props, any>
 	renderFadeEffect(isLightBackground: Boolean, wrapperBorderRadius) {
 		if (!this.props.fade) return <View/>;
 
-		const opacity = this.state.fadeAnimation.interpolate({
+		const opacity = this.fadeAnimation.interpolate({
 				inputRange: [0, 1],
 				outputRange: [0, this.props.fadeLevel],
 				extrapolate: 'clamp',
@@ -210,6 +211,7 @@ export default class RuuiResponsibleTouchArea extends Component<any, Props, any>
 		this.playFadeAnimation(1);
 
 		const { locationX, locationY, offsetX, offsetY, pageX, pageY } = e.nativeEvent;
+
 		this.wrapperView.measure((fx, fy, wrapperWidth, wrapperHeight, px, py) => {
 			let rippleRadius = 0, ripplePosition;
 			const touchX = locationX || offsetX, touchY = locationY || offsetY;
@@ -311,23 +313,23 @@ export default class RuuiResponsibleTouchArea extends Component<any, Props, any>
 	};
 
 	playRaiseAnimation = (toValue: Number) => {
-		if (this.raiseAnimation) this.raiseAnimation.clear();
+		if (this.raisingAnimation) this.raisingAnimation.clear();
 
 		const animations = [
-			Animated.timing(this.state.raiseAnimation, {
+			Animated.timing(this.raiseAnimation, {
 				toValue,
 				duration: 500,
 				easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
 			}),
 		];
 
-		this.raiseAnimation = Animated.parallel(animations).start();
+		this.raisingAnimation = Animated.parallel(animations).start();
 	};
 
 	playFadeAnimation = (toValue: Number) => {
-		if (this.fadeAnimation) this.fadeAnimation.clear();
+		if (this.fadingAnimation) this.fadingAnimation.clear();
 
-		this.fadeAnimation = Animated.timing(this.state.fadeAnimation, {
+		this.fadingAnimation = Animated.timing(this.fadeAnimation, {
 			toValue,
 			duration: 800,
 			easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
