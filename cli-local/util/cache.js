@@ -5,43 +5,67 @@ const lodash = require('lodash');
 const webpack = require('webpack');
 const paths = require('./paths');
 const mkdirp = require('mkdirp');
+const configs = require('./configs');
 
-module.exports = (callback, force = false, silent = false) => {
+module.exports = (callback, force = false, isAutoRun = false) => {
 	const currentPackageJson = require(paths.packageJson),
-		previousConfigExist = fs.existsSync(paths.previousPackageJson);
+		previousConfigExist = fs.existsSync(paths.previousPackageJson),
+		cacheExist = fs.existsSync(paths.cache),
+		isAutoCache = !configs.ruui.autoCache;
 
 	if (force) {
-		buildCache(callback, silent, 'force');
-	} else if (previousConfigExist) {
+		buildCache(callback, isAutoRun, 'force');
+	} else if (previousConfigExist && cacheExist) {
 		const previousConfigJson = require(paths.previousPackageJson),
-			isDependencyEqual = lodash.isEqual(currentPackageJson.dependencies, previousConfigJson.dependencies),
-			isCacheExist = fs.existsSync(paths.cache);
+			isDependencyChange = !lodash.isEqual(
+				currentPackageJson.dependencies, previousConfigJson.dependencies);
 
-		if (!isDependencyEqual || !isCacheExist) {
-			buildCache(callback, silent, 'changed');
+		if (isDependencyChange) {
+			if (isAutoCache && isAutoRun) { /* is autoCache mode and auto-run with [dev] command */
+				console.log(
+					chalk.gray('Dependency change detected, run'),
+					chalk.black('ruui cache'),
+					chalk.gray('to keep cached dependencies in sync!'));
+				console.log(
+					chalk.gray('(turn on'),
+					chalk.black('autoCache mode'),
+					chalk.gray('in ruui.configs.js to automatically rebuild cache when dependency change detected)'));
+
+				if (lodash.isFunction(callback)) callback(true);
+			} else {
+				buildCache(callback, isAutoRun, 'changed');
+			}
 		} else {
-			if (!silent) console.log(chalk.gray('No changes detected, keep using old cache..'));
+			if (!isAutoRun) {
+				console.log(
+					chalk.gray('No changes detected, keep using old cache.\nUse'),
+					chalk.black('ruui cache --force'),
+					chalk.gray('to force rebuild without checking dependency changes!'));
+			}
+
 			if (lodash.isFunction(callback)) callback(true);
 		}
 	} else {
-		buildCache(callback, silent, 'initial');
+		buildCache(callback, isAutoRun, 'initial');
 	}
 };
 
-function buildCache(callback, slient = false, cacheType = 'nope') {
-	console.log(chalk.whiteBright('Building common chunk cache, this may take a while...'));
+function buildCache(callback, isAutoRun = false, cacheType = 'nope') {
+	console.log(chalk.whiteBright('Building common chunks (cache), this may take a while...'));
 
 	if (cacheType === 'initial') {
-		console.log(chalk.gray("It's seem that no previous cache was built,\nfirst time cache may take longer time than normal!\n"));
+		console.log(
+			chalk.gray('No previous cache found, first time cache will take longer time than normal!\n'),
+			chalk.gray('Grab a cup of coffee and enjoy while waiting for this ;)\n'));
 	} else if (cacheType === 'changed') {
-		console.log(chalk.gray('Dependencies changed or cache removed, rebuilding cache..\n'));
+		console.log(chalk.gray('Dependency change detected, rebuilding cache..\n'));
 	} else if (cacheType === 'force') {
 		console.log(chalk.gray('Using force option, building cache..\n'));
 	}
 
 	setTimeout(() => {
-		const configs = require('../tools/webpack.vendor'),
-			compiler = webpack(configs);
+		const vendorConfigs = require('../tools/webpack.vendor'),
+			compiler = webpack(vendorConfigs);
 
 		compiler.run((error, stats) => {
 			if (error) console.log(error);

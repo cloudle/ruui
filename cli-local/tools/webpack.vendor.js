@@ -69,10 +69,10 @@ module.exports = {
 			name: '[name]_lib'
 		}),
 		new ProgressBarPlugin({
-			width: 32, complete: chalk.whiteBright('░'), incomplete: chalk.gray('░'),
+			width: 32, complete: chalk.black('░'), incomplete: chalk.gray('░'),
 			format: 'building ⸨:bar⸩ (:elapsed seconds)',
 			summary: false, customSummary: (buildTime) => {
-				console.log('｢ruui｣ cache built successfully after', chalk.whiteBright(`[${buildTime}]`));
+				console.log('｢ruui｣ cache built successfully after', chalk.black(`[${buildTime}]`));
 			},
 		}),
 	],

@@ -49,7 +49,7 @@ if (!isProduction) {
 	}
 
 	if (!htmlOptions.useVendorChunks) {
-		console.log(chalk.whiteBright('｢ruui｣'), chalk.gray('not using ') + chalk.green('cache') +
+		console.log(chalk.black('｢ruui｣'), chalk.gray('not using ') + chalk.green('cache') +
 			chalk.gray(', run ') + chalk.magenta('ruui cache') + chalk.gray(' once to boost up build speed..'));
 	}
 }
@@ -105,16 +105,16 @@ const defaultWebpackConfigs = {
 			filename: 'index.html',
 		}),
 		new ProgressBarPlugin({
-			width: 32, complete: chalk.whiteBright('░'), incomplete: chalk.gray('░'),
+			width: 32, complete: chalk.black('░'), incomplete: chalk.gray('░'),
 			format: 'building ⸨:bar⸩ (:elapsed seconds)',
 			summary: false, customSummary: (buildTime) => {
-				const alternatedColor = brightFlag ? chalk.whiteBright : chalk.gray,
-					ruuiBullet = `${chalk.whiteBright('｢')}${alternatedColor('ruui')}${chalk.whiteBright('｣')}`,
+				const alternatedColor = brightFlag ? chalk.black : chalk.gray,
+					ruuiBullet = `${chalk.black('｢')}${alternatedColor('ruui')}${chalk.black('｣')}`,
 					buildType = initialBuild ? 'initial build' : 'hot rebuild',
 					buildFlag = isProduction ? 'production bundle' : buildType,
 					trailingSpace = initialBuild ? '' : '  ';
 
-				console.log(ruuiBullet, chalk.gray(`${buildFlag} completed after${trailingSpace}`), chalk.whiteBright(`${buildTime}`));
+				console.log(ruuiBullet, chalk.gray(`${buildFlag} completed after${trailingSpace}`), chalk.black(`${buildTime}`));
 				brightFlag = !brightFlag;
 				initialBuild = false;
 			},
