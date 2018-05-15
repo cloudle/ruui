@@ -29,7 +29,9 @@ module.exports = (callback, force = false, isAutoRun = false) => {
 				console.log(
 					chalk.gray('(turn on'),
 					chalk.black('autoCache mode'),
-					chalk.gray('in ruui.configs.js to automatically rebuild cache when dependency change detected)'));
+					chalk.gray('in'),
+					chalk.black('ruui.configs.js'),
+					chalk.gray('to automatically rebuild cache when dependency change detected)'));
 
 				if (lodash.isFunction(callback)) callback(true);
 			} else {
