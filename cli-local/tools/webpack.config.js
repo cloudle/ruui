@@ -57,13 +57,6 @@ if (!isProduction) {
 			chalk.gray(', run ') + chalk.magenta('ruui cache') + chalk.gray(' once to boost up build speed..'));
 	}
 } else {
-	const lastBuildPath = path.resolve(paths.ruui, `${configs.ruuiJson.buildId}.js`),
-		keepPreviousBuild = configs.ruui.keepPreviousBuild;
-
-	if (!keepPreviousBuild && configs.ruuiJson.buildId && fs.existsSync(lastBuildPath)) {
-		fs.unlinkSync(lastBuildPath);
-	}
-
 	mkdirp.sync(paths.ruui);
 	fs.writeFileSync(paths.ruuiJson, JSON.stringify({
 		...configs.ruuiJson,
