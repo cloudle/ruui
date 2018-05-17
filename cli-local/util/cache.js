@@ -71,16 +71,11 @@ function buildCache(callback, isAutoRun = false, cacheType = 'nope') {
 		compiler.run((error, stats) => {
 			if (error) console.log(error);
 			else {
-				let ruuiJson = {};
 				const currentPackageJson = require(paths.packageJson);
-
-				if (fs.existsSync(paths.ruuiJson)) {
-					ruuiJson = require(paths.ruuiJson);
-				}
 
 				mkdirp.sync(paths.ruui);
 				fs.writeFileSync(paths.ruuiJson, JSON.stringify({
-					...ruuiJson,
+					...configs.ruuiJson,
 					dependencies: currentPackageJson.dependencies || {},
 					devDependencies: currentPackageJson.devDependencies || {},
 				}, null, 2));
