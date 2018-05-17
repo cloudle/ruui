@@ -54,7 +54,7 @@ function get(name, defaultValue) {
       <script src="<%= get('publicPath')%>vendor.cache.js"></script>
       <script src="<%= get('publicPath')%>app.js"></script>
     <% } %>
-  <% } else { %>
+  <% } else if(!get('isProduction')) { %>
     <script src="<%= get('publicPath')%>vendor.cache.js"></script>
   <% } %>
   <%- get('postContent', '')%>
