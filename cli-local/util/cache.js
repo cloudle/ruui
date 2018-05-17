@@ -9,16 +9,15 @@ const configs = require('./configs');
 
 module.exports = (callback, force = false, isAutoRun = false) => {
 	const currentPackageJson = require(paths.packageJson),
-		previousConfigExist = fs.existsSync(paths.previousPackageJson),
+		ruuiJsonExist = fs.existsSync(paths.ruuiJson),
 		cacheExist = fs.existsSync(paths.cache),
 		isAutoCache = !configs.ruui.autoCache;
 
 	if (force) {
 		buildCache(callback, isAutoRun, 'force');
-	} else if (previousConfigExist && cacheExist) {
-		const previousConfigJson = require(paths.previousPackageJson),
-			isDependencyChange = !lodash.isEqual(
-				currentPackageJson.dependencies, previousConfigJson.dependencies);
+	} else if (ruuiJsonExist && cacheExist) {
+		const ruuiJson = require(paths.ruuiJson),
+			isDependencyChange = !lodash.isEqual(currentPackageJson.dependencies, ruuiJson.dependencies);
 
 		if (isDependencyChange) {
 			if (isAutoCache && isAutoRun) { /* is autoCache mode and auto-run with [dev] command */
@@ -57,7 +56,7 @@ function buildCache(callback, isAutoRun = false, cacheType = 'nope') {
 
 	if (cacheType === 'initial') {
 		console.log(
-			chalk.gray('No previous cache found, first time cache will take longer time than normal!\n'),
+			chalk.gray('No previous cache was found, first time cache will take longer time than normal!\n'),
 			chalk.gray('Grab a cup of coffee and enjoy while waiting for this ;)\n'));
 	} else if (cacheType === 'changed') {
 		console.log(chalk.gray('Dependency change detected, rebuilding cache..\n'));
@@ -72,10 +71,20 @@ function buildCache(callback, isAutoRun = false, cacheType = 'nope') {
 		compiler.run((error, stats) => {
 			if (error) console.log(error);
 			else {
+				let ruuiJson = {};
 				const currentPackageJson = require(paths.packageJson);
 
+				if (fs.existsSync(paths.ruuiJson)) {
+					ruuiJson = require(paths.ruuiJson);
+				}
+
 				mkdirp.sync(paths.ruui);
-				fs.writeFileSync(paths.previousPackageJson, JSON.stringify(currentPackageJson, null, 2));
+				fs.writeFileSync(paths.ruuiJson, JSON.stringify({
+					...ruuiJson,
+					dependencies: currentPackageJson.dependencies || {},
+					devDependencies: currentPackageJson.devDependencies || {},
+				}, null, 2));
+
 				if (lodash.isFunction(callback)) callback();
 			}
 		});
