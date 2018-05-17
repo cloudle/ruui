@@ -45,6 +45,7 @@
     "react-hot-loader": "^4.0.1",
     "tinycolor2": "^1.4.1",
     "url-loader": "^1.0.1",
+    "uuid": "^3.2.1",
     "webpack": "^4.6.0",
     "webpack-bundle-analyzer": "^2.11.1",
     "webpack-cli": "^2.0.14",
