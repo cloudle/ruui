@@ -13,7 +13,7 @@ function run(argv, config, args) {
 }
 
 function runServer(port, cached) {
-	console.log(`${cached ? '' : '\n'}Preparing super awesome dev-server at`, chalk.whiteBright(`localhost:${port}`), ':p');
+	console.log(`${cached ? '' : '\n'}Preparing super awesome dev-server at`, chalk.black(`localhost:${port}`), ':p');
 
 	setTimeout(() => {
 		const devServer = require('../tools/webpack.devserver');

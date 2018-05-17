@@ -52,7 +52,7 @@ module.exports = (callback, force = false, isAutoRun = false) => {
 };
 
 function buildCache(callback, isAutoRun = false, cacheType = 'nope') {
-	console.log(chalk.whiteBright('Building common chunks (cache), this may take a while...'));
+	console.log(chalk.black('Building common chunks (cache), this may take a while...'));
 
 	if (cacheType === 'initial') {
 		console.log(
