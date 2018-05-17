@@ -1,5 +1,7 @@
 const path = require('path');
 const fs = require('fs');
+const mkdirp = require('mkdirp');
+const uuid = require('uuid');
 const webpack = require('webpack');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -23,6 +25,8 @@ const env = process.env.ENV || 'development',
 		appName: configs.appJson.displayName || configs.appJson.name || 'ruui-app',
 		useVendorChunks: false
 	},
+	uniqueId = configs.ruui.buildId || uuid.v4,
+	buildId = uniqueId(),
 	optionalPlugins = [],
 	polyfills = ['babel-polyfill'],
 	entries = ['./index.web.js'],
@@ -52,11 +56,25 @@ if (!isProduction) {
 		console.log(chalk.black('｢ruui｣'), chalk.gray('not using ') + chalk.green('cache') +
 			chalk.gray(', run ') + chalk.magenta('ruui cache') + chalk.gray(' once to boost up build speed..'));
 	}
+} else {
+	const lastBuildPath = path.resolve(paths.ruui, `${configs.ruuiJson.buildId}.js`),
+		keepPreviousBuild = configs.ruui.keepPreviousBuild;
+
+	if (!keepPreviousBuild && configs.ruuiJson.buildId && fs.existsSync(lastBuildPath)) {
+		fs.unlinkSync(lastBuildPath);
+	}
+
+	mkdirp.sync(paths.ruui);
+	fs.writeFileSync(paths.ruuiJson, JSON.stringify({
+		...configs.ruuiJson,
+		buildId,
+	}, null, 2));
 }
 
 const defaultWebpackConfigs = {
 	context: process.cwd(),
-	cache: true, mode: 'development',
+	mode: isProduction ? 'production' : 'development',
+	cache: true,
 	entry: {
 		app: isProduction ? [...polyfills, ...entries] : [...polyfills, ...hot, ...entries]
 	},
@@ -66,7 +84,7 @@ const defaultWebpackConfigs = {
 	output: {
 		publicPath,
 		path: paths.web,
-		filename: isProduction ? '[name]-[hash:8].js' : '[name].js',
+		filename: isProduction ? `${buildId}.js` : '[name].js',
 		chunkFilename: '[name].js',
 	},
 	resolve: {

@@ -49,7 +49,7 @@ function get(name, defaultValue) {
 
   <%if (isSSR) { %>
     <% if (get('isProduction') === true) { %>
-      <script src="/<%=gitHash%>.js"></script>
+      <script src="<%= get('publicPath') + get('buildId')%>.js"></script>
     <% } else { %>
       <script src="<%= get('publicPath')%>vendor.cache.js"></script>
       <script src="<%= get('publicPath')%>app.js"></script>
