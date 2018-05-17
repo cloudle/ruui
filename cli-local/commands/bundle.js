@@ -4,12 +4,12 @@ const webpack = require('webpack');
 const dotenv = require('dotenv');
 
 function run() {
-	console.log(chalk.whiteBright('Bundling project to production output...'));
+	console.log(chalk.whiteBright('Bundling project to production release...'));
 	dotenv.config({ path: path.resolve(process.cwd(), 'node_modules', 'react-universal-ui', 'cli-local', 'env', 'prod.env') });
 
 	setTimeout(() => {
-		const configs = require('../tools/webpack.config'),
-			compiler = webpack(configs);
+		const baseConfigs = require('../tools/webpack.config'),
+			compiler = webpack(baseConfigs);
 
 		compiler.run((error, stats) => {
 			if (error) console.log(error);
