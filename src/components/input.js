@@ -7,6 +7,7 @@ type Props = {
 	style?: Style,
 	wrapperStyle?: Style,
 	underlineStyle?: Style,
+	floatingLabelStyle?: Style,
 	underline?: boolean,
 	hint?: string,
 	hintColor?: string,
@@ -144,7 +145,7 @@ export default class RuuiInput extends Component<any, Props, any> {
 				pointerEvents="none"
 				onLayout={this.onFloatingLabelLayout}
 				style={[styles.floatingLabelWrapper, wrapperStyles]}>
-				<Text style={[styles.floatingLabelText, textStyles]}>
+				<Text style={[styles.floatingLabelText, textStyles, this.props.floatingLabelStyle]}>
 					{this.props.floatingLabel}
 				</Text>
 			</Animated.View>;
