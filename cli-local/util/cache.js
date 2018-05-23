@@ -17,7 +17,8 @@ module.exports = (callback, force = false, isAutoRun = false) => {
 		buildCache(callback, isAutoRun, 'force');
 	} else if (ruuiJsonExist && cacheExist) {
 		const ruuiJson = require(paths.ruuiJson),
-			isDependencyChange = !lodash.isEqual(currentPackageJson.dependencies, ruuiJson.dependencies);
+			isDependencyChange = foundDependencyChange(
+				currentPackageJson.dependencies, ruuiJson.dependencies, configs.ruui.excludeCaches || []);
 
 		if (isDependencyChange) {
 			if (isAutoCache && isAutoRun) { /* is autoCache mode and auto-run with [dev] command */
@@ -84,4 +85,19 @@ function buildCache(callback, isAutoRun = false, cacheType = 'nope') {
 			}
 		});
 	}, 0);
+}
+
+function foundDependencyChange(currentDeps, previousDeps, excludes = []) {
+	const currentClone = { ...currentDeps },
+		previousClone = { ...previousDeps };
+
+	Object.keys(currentClone).forEach((key) => {
+		if (excludes.indexOf(key) >= 0) delete currentClone[key];
+	});
+
+	Object.keys(previousClone).forEach((key) => {
+		if (excludes.indexOf(key) >= 0) delete previousClone[key];
+	});
+
+	return !lodash.isEqual(currentClone, previousClone);
 }

@@ -7,6 +7,7 @@ const chalk = require('chalk');
 const lodash = require('lodash');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const paths = require('../util/paths');
+const configs = require('../util/configs');
 
 const devVendors = [
 	'react-hot-loader', 'sockjs-client',
@@ -14,16 +15,12 @@ const devVendors = [
 	'webpack', 'webpack-dev-server', 'html-webpack-plugin',
 ];
 
-let packageJson = {},
-	ruuiConfigs = {},
-	vendors = [...devVendors, 'redux-logger', 'babel-polyfill', 'lodash', 'tinycolor2',];
-
-if (fs.existsSync(paths.packageJson)) packageJson = require(paths.packageJson);
-if (fs.existsSync(paths.ruuiConfig)) ruuiConfigs = require(paths.ruuiConfig);
+let packageJson = require(paths.packageJson),
+	vendors = [...devVendors];
 
 const dependencies = packageJson.dependencies || {},
-	extraCaches = ruuiConfigs.extraCaches || [],
-	excludeCaches = ruuiConfigs.excludeCaches  || [];
+	extraCaches = configs.ruui.extraCaches || [],
+	excludeCaches = configs.ruui.excludeCaches  || [];
 
 vendors = vendors.concat(Object.keys(dependencies));
 vendors = vendors.concat(extraCaches);
