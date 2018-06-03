@@ -216,7 +216,7 @@ function run(root, projectName, opts) {
 			if (!forceNpmClient) {
 				console.log('Consider installing yarn to make this faster: https://yarnpkg.com');
 			}
-			installCommand = `npm install --save --save-exact ${extraDependencies} ${getInstallPackage(rnPackage)}`;
+			installCommand = `npm install --save --save-exact ${getInstallPackage('react-universal-ui')} ${getInstallPackage(rnPackage)}`;
 			if (opts.verbose) {
 				installCommand += ' --verbose';
 			}
