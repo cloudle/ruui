@@ -18,23 +18,12 @@ type Props = {
 	prefix?: Element,
 	suffix?: Element,
 
-	autoCapitalize?: boolean,
-	autoCorrect?: boolean,
-	autoFocus?: boolean,
-	blurOnSubmit?: boolean,
 	value?: any,
 	defaultValue?: any,
-	editable?: boolean,
-	keyboardType?: string,
-	maxLength?: number,
-	returnKeyType?: string,
-	secureTextEntry?: boolean,
-	selectTextOnFocus?: boolean,
 
 	onFocus?: Function,
 	onBlur?: Function,
 	onChangeText?: Function,
-	onEndEditing?: Function,
 };
 
 const easeInSpeed = 450;
@@ -64,20 +53,37 @@ export default class RuuiInput extends Component<any, Props, any> {
 	}
 
 	render() {
-		const pointerEvents = this.props.disabled ? 'none' : 'auto',
+		const {
+				style,
+				wrapperStyle,
+				underlineStyle,
+				floatingLabelStyle,
+				underline,
+				hint,
+				hintColor,
+				floatingLabel,
+				forceFloating,
+				errorText,
+				disabled,
+				prefix,
+				suffix,
+				value,
+				...textInputProps } = this.props,
+			pointerEvents = disabled ? 'none' : 'auto',
 			scale = this.state.underlineAnimation.interpolate({
 				inputRange: [0, 1], outputRange: [0.0001, 1],
 			}),
-			containerStyles = this.props.underline ? {
+			containerStyles = underline ? {
 				borderBottomWidth: 1,
 				borderColor: '#f5f5f5',
 			} : {},
+			flattenUnderlineStyle = StyleSheet.flatten(underlineStyle) || {},
 			underlineStyles = {
-				...this.props.underlineStyle,
+				...flattenUnderlineStyle,
 				transform: [{ scaleX: scale }],
 			},
-			inputContainerStyles = this.buildInputContainerStyles(this.props.wrapperStyle),
-			hint = this.state.focus && this.state.empty ? this.props.hint : '',
+			inputContainerStyles = this.buildInputContainerStyles(wrapperStyle),
+			activeHint = this.state.focus && this.state.empty ? hint : '',
 			platformProps = isAndroid ? { underlineColorAndroid: 'transparent' } : {};
 
 		return <View
@@ -85,37 +91,27 @@ export default class RuuiInput extends Component<any, Props, any> {
 			style={[styles.container, containerStyles, inputContainerStyles]}>
 			<View style={{ flexDirection: 'row', }}>
 				<View style={styles.addonContainer}>
-					{this.props.prefix}
+					{prefix}
 				</View>
 				<View style={styles.inputContainer}>
 					<TextInput
+						{...textInputProps}
 						onChangeText={this.onChangeText}
 						onFocus={this.onInputFocus}
 						onBlur={this.onInputBlur}
-						autoCapitalize={this.props.autoCapitalize}
-						autoCorrect={this.props.autoCorrect}
-						autoFocus={this.props.autoFocus}
-						blurOnSubmit={this.props.blurOnSubmit}
-						editable={this.props.editable}
-						keyboardType={this.props.keyboardType}
-						maxLength={this.props.maxLength}
-						returnKeyType={this.props.returnKeyType}
-						secureTextEntry={this.props.secureTextEntry}
-						selectTextOnFocus={this.props.selectTextOnFocus}
-						onEndEditing={this.props.onEndEditing}
 						style={[styles.textInput, this.props.style]}
-						placeholder={hint}
-						placeholderTextColor={this.props.hintColor}
+						placeholder={activeHint}
+						placeholderTextColor={hintColor}
 						value={this.state.value}
 						{...platformProps}/>
 				</View>
 				<View style={styles.addonContainer}>
-					{this.props.suffix}
+					{suffix}
 				</View>
 				{this.renderFloatingLabel()}
 			</View>
 
-			{this.props.underline && <Animated.View
+			{underline && <Animated.View
 				style={[styles.inputUnderline, underlineStyles]}/>}
 		</View>;
 	}
