@@ -87,11 +87,11 @@ class App extends Component {
 			{/*<Button title="right-top" tooltipDirection="right-top" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>*/}
 			<View style={{ backgroundColor: '#ffffff', borderRadius: 3, paddingVertical: 18, }}>
 				<Input
-					forceFloating
 					floatingLabel="hey"
 					value={this.state.account}
 					onChangeText={account => this.setState({ account })}/>
 				<Input
+					floatingLabel="heoo"
 					value={this.state.account}
 					onChangeText={account => this.setState({ account })}/>
 			</View>
