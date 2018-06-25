@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, View, ScrollView, Text, } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, ScrollView, Text, TextInput } from 'react-native';
 import { Provider, connect } from 'react-redux';
 import { ruuiActions, RuuiProvider, Button, Input, Modal, Snackbar, Dropdown, Tooltip, DropdownContainer, Select } from '../../src';
 
@@ -63,7 +63,7 @@ class App extends Component {
 				dropdownComponent={ContextMenu}
 				dropdownDirection="right"
 				dropdownContext={{ name: 'Cloud' }}>
-				<Text>Drop</Text>
+				<Text>Drop {this.state.account}</Text>
 			</DropdownContainer>
 			<Button
 				title="hey!!"
@@ -85,9 +85,16 @@ class App extends Component {
 			{/*<Button title="right-bottom" tooltipDirection="right-bottom" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>*/}
 			{/*<Button title="top-right" tooltipDirection="top-right" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>*/}
 			{/*<Button title="right-top" tooltipDirection="right-top" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>*/}
-			<Input
-				value={this.state.account}
-				onChangeText={account => this.setState({ account })}/>
+			<View style={{ backgroundColor: '#ffffff', borderRadius: 3, paddingVertical: 18, }}>
+				<Input
+					forceFloating
+					floatingLabel="hey"
+					value={this.state.account}
+					onChangeText={account => this.setState({ account })}/>
+				<Input
+					value={this.state.account}
+					onChangeText={account => this.setState({ account })}/>
+			</View>
 			<Snackbar/>
 			<Modal/>
 			<Dropdown/>

@@ -67,7 +67,6 @@ export default class RuuiInput extends Component<any, Props, any> {
 				disabled,
 				prefix,
 				suffix,
-				value,
 				...textInputProps } = this.props,
 			pointerEvents = disabled ? 'none' : 'auto',
 			scale = this.state.underlineAnimation.interpolate({
@@ -102,7 +101,6 @@ export default class RuuiInput extends Component<any, Props, any> {
 						style={[styles.textInput, this.props.style]}
 						placeholder={activeHint}
 						placeholderTextColor={hintColor}
-						value={this.state.value}
 						{...platformProps}/>
 				</View>
 				<View style={styles.addonContainer}>
@@ -195,7 +193,7 @@ export default class RuuiInput extends Component<any, Props, any> {
 	};
 
 	onInputBlur = () => {
-		this.playAnimation(0);
+		if (!this.props.forceFloating) this.playAnimation(0);
 		if (this.props.onBlur) this.props.onBlur();
 	};
 
