@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, View, ScrollView, Text, TextInput } from 'react-native';
+import { StyleSheet, Animated, TouchableOpacity, View, ScrollView, Text, TextInput } from 'react-native';
 import { Provider, connect } from 'react-redux';
-import { ruuiActions, RuuiProvider, Button, Input, Modal, Snackbar, Dropdown, Tooltip, DropdownContainer, Select } from '../../src';
+import { enterAnimation, ruuiActions, RuuiProvider, Button, Input, Modal, Snackbar, Dropdown, Tooltip, DropdownContainer, Select } from '../../src';
 
 import store from './store';
 import ContextMenu from '../legacy/modal/contextMenu';
@@ -30,6 +30,7 @@ type Props = {
 		counter: app.counter,
 	};
 })
+@enterAnimation()
 
 class App extends Component {
 	props: Props;
@@ -43,7 +44,12 @@ class App extends Component {
 	}
 
 	render() {
-		return <View style={styles.container}>
+		const opacity = this.enterAnimation.interpolate({
+				inputRange: [0, 1], outputRange: [0.5, 1],
+			}),
+			animatedStyle = { opacity, minHeight: 1000, };
+
+		return <Animated.View style={[styles.container, animatedStyle]}>
 			<Select
 				options={selects}
 				value={this.state.activeSelect}
@@ -63,7 +69,7 @@ class App extends Component {
 				dropdownComponent={ContextMenu}
 				dropdownDirection="right"
 				dropdownContext={{ name: 'Cloud' }}>
-				<Text>Drop {this.state.account}</Text>
+				<Text>Drop {this.state.account} {this.state.animationFinished ? 'TRUE' : 'FALSE'}</Text>
 			</DropdownContainer>
 			<Button
 				title="hey!!"
@@ -99,7 +105,7 @@ class App extends Component {
 			<Modal/>
 			<Dropdown/>
 			<Tooltip/>
-		</View>;
+		</Animated.View>;
 	}
 }
 
