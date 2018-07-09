@@ -57,7 +57,7 @@ export default class RuuiDropdown extends Component {
 			positionOffset = configs.offset || { top: 0, left: 0 },
 			containerLayout = configs.containerLayout || { x: 0, y: 0, width: 0, height: 0 },
 			InnerComponent = configs.component || configs.Component || EmptyDropdown,
-			flattenWrapperStyle = StyleSheet.flatten(configs.wrapperStyle),
+			flattenWrapperStyle = StyleSheet.flatten(configs.wrapperStyle) || {},
 			finalBorderRadius = flattenWrapperStyle.borderRadius || 3,
 			animatedConfigs = directionAnimatedConfigs(
 				configs.direction, 10, this.enterAnimation, finalBorderRadius),
