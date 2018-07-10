@@ -79,7 +79,10 @@ export default class RuuiDropdown extends Component {
 
 		return <View style={wrapperStyles} onLayout={this.onLayout}>
 			<Animated.View style={[styles.dropdownContainer, configs.wrapperStyle, containerStyles]}>
-				<InnerComponent animation={this.enterAnimation} context={context}/>
+				<InnerComponent
+					animation={this.enterAnimation}
+					context={context}
+					close={this.closeModal}/>
 			</Animated.View>
 		</View>;
 	}
