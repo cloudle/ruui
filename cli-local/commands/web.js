@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const chalk = require('chalk');
 const dotenv = require('dotenv');
 const buildCache = require('../util/cache');
+const configs = require('../util/configs');
 const paths = require('../util/paths');
 
 function run(argv, config, args) {
@@ -13,12 +14,13 @@ function run(argv, config, args) {
 }
 
 function runServer(port, cached) {
-	console.log(`${cached ? '' : '\n'}Preparing super awesome dev-server at`, chalk.black(`localhost:${port}`), ':p');
+	console.log(`${cached ? '' : '\n'}Preparing super awesome dev-server at`, chalk.gray(`localhost:${port}`), ':p');
 
 	setTimeout(() => {
-		const devServer = require('../tools/webpack.devserver');
+		const devServer = require('../tools/webpack.devserver'),
+			host = configs.ruui.host || '0.0.0.0';
 
-		devServer.listen(3000, 'localhost', (err, result) => {
+		devServer.listen(port, host, (err, result) => {
 			if (err) console.log(err);
 			return true;
 		});
