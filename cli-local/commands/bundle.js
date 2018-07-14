@@ -7,7 +7,7 @@ const configs = require('../util/configs');
 const paths = require('../util/paths');
 
 function run() {
-	console.log(chalk.black('Bundling project to production release...'));
+	console.log('Bundling project to production release...');
 	dotenv.config({ path: path.resolve(process.cwd(), 'node_modules', 'react-universal-ui', 'cli-local', 'env', 'prod.env') });
 
 	setTimeout(() => {

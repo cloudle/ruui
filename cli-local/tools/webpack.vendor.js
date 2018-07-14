@@ -8,6 +8,7 @@ const lodash = require('lodash');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const paths = require('../util/paths');
 const configs = require('../util/configs');
+const helpers = require('../util/helpers');
 
 const devVendors = [
 	'react-hot-loader', 'sockjs-client',
@@ -20,7 +21,8 @@ let packageJson = require(paths.packageJson),
 
 const dependencies = packageJson.dependencies || {},
 	extraCaches = configs.ruui.extraCaches || [],
-	excludeCaches = configs.ruui.excludeCaches  || [];
+	excludeCaches = configs.ruui.excludeCaches  || [],
+	terminalTheme = helpers.terminalTheme;
 
 vendors = vendors.concat(Object.keys(dependencies));
 vendors = vendors.concat(extraCaches);
@@ -66,10 +68,12 @@ module.exports = {
 			name: '[name]_lib'
 		}),
 		new ProgressBarPlugin({
-			width: 32, complete: chalk.black('░'), incomplete: chalk.gray('░'),
-			format: 'building ⸨:bar⸩ (:elapsed seconds)',
+			width: 32,
+			complete: terminalTheme.progressbar.complete,
+			incomplete: terminalTheme.progressbar.remaining,
+			format: `building ${terminalTheme.progressbar.prefix}:bar${terminalTheme.progressbar.suffix} (:elapsed seconds)`,
 			summary: false, customSummary: (buildTime) => {
-				console.log('｢ruui｣ cache built successfully after', chalk.black(`[${buildTime}]`));
+				console.log(`${terminalTheme.prefix}${chalk.gray(`ruui`)}${terminalTheme.suffix} cache was built successfully after`, `[${buildTime}]`);
 			},
 		}),
 	],

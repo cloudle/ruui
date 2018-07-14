@@ -24,13 +24,13 @@ module.exports = (callback, force = false, isAutoRun = false) => {
 			if (isAutoCache && isAutoRun) { /* is autoCache mode and auto-run with [dev] command */
 				console.log(
 					chalk.gray('Dependency change detected, run'),
-					chalk.black('ruui cache'),
+					'ruui cache',
 					chalk.gray('to keep cached dependencies in sync!'));
 				console.log(
 					chalk.gray('(turn on'),
-					chalk.black('autoCache mode'),
+					'autoCache mode',
 					chalk.gray('in'),
-					chalk.black('ruui.configs.js'),
+					'ruui.configs.js',
 					chalk.gray('to automatically rebuild cache when dependency change detected)'));
 
 				if (lodash.isFunction(callback)) callback(true);
@@ -41,7 +41,7 @@ module.exports = (callback, force = false, isAutoRun = false) => {
 			if (!isAutoRun) {
 				console.log(
 					chalk.gray('No changes detected, keep using old cache.\nUse'),
-					chalk.black('ruui cache --force'),
+					'ruui cache --force',
 					chalk.gray('to force rebuild without checking dependency changes!'));
 			}
 
@@ -53,7 +53,7 @@ module.exports = (callback, force = false, isAutoRun = false) => {
 };
 
 function buildCache(callback, isAutoRun = false, cacheType = 'nope') {
-	console.log(chalk.black('Building common chunks (cache), this may take a while...'));
+	console.log('Building common chunks (cache), this may take a while...');
 
 	if (cacheType === 'initial') {
 		console.log(

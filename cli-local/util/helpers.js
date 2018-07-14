@@ -11,3 +11,39 @@
 
 const path = require('path');
 const fs = require('fs');
+
+const defaultTerminalTheme = {
+	prefix: '[',
+	suffix: ']',
+	progressbar: {
+		prefix: '[',
+		suffix: ']',
+		complete: '#',
+		remaining: '.'
+	},
+};
+
+const darwinTerminalTheme = {
+	...defaultTerminalTheme,
+	prefix: '｢',
+	suffix: '｣',
+	progressbar: {
+		prefix: '⸨',
+		suffix: '⸩',
+		complete: '░',
+		remaining: '⠂',
+	},
+};
+
+function getTerminalTheme() {
+	switch (process.platform) {
+	case 'darwin':
+		return darwinTerminalTheme;
+	default:
+		return defaultTerminalTheme;
+	}
+}
+
+module.exports = {
+	terminalTheme: getTerminalTheme(),
+};

@@ -11,6 +11,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const chalk = require('chalk');
 const paths = require('../util/paths');
 const configs = require('../util/configs');
+const helpers = require('../util/helpers');
 
 let brightFlag = false, initialBuild = true;
 
@@ -25,6 +26,7 @@ const env = process.env.ENV || 'development',
 		appName: configs.appJson.displayName || configs.appJson.name || 'ruui-app',
 		useVendorChunks: false
 	},
+	terminalTheme = helpers.terminalTheme,
 	uniqueId = configs.ruui.buildId || uuid.v4,
 	buildId = uniqueId(),
 	optionalPlugins = [],
@@ -53,7 +55,7 @@ if (!isProduction) {
 	}
 
 	if (!htmlOptions.useVendorChunks) {
-		console.log(chalk.black('｢ruui｣'), chalk.gray('not using ') + chalk.green('cache') +
+		console.log(`${terminalTheme.prefix}${chalk.gray('ruui')}${terminalTheme.suffix}`, chalk.gray('not using ') + chalk.green('cache') +
 			chalk.gray(', run ') + chalk.magenta('ruui cache') + chalk.gray(' once to boost up build speed..'));
 	}
 } else {
@@ -116,16 +118,18 @@ const defaultWebpackConfigs = {
 			filename: 'index.html',
 		}),
 		new ProgressBarPlugin({
-			width: 32, complete: chalk.black('░'), incomplete: chalk.gray('░'),
-			format: 'building ⸨:bar⸩ (:elapsed seconds)',
+			width: 32,
+			complete: terminalTheme.progressbar.complete,
+			incomplete: terminalTheme.progressbar.remaining,
+			format: `building ${terminalTheme.progressbar.prefix}:bar${terminalTheme.progressbar.suffix} (:elapsed seconds)`,
 			summary: false, customSummary: (buildTime) => {
-				const alternatedColor = brightFlag ? chalk.black : chalk.gray,
-					ruuiBullet = `${chalk.black('｢')}${alternatedColor('ruui')}${chalk.black('｣')}`,
+				const alternatedColor = brightFlag ? (x => x) : chalk.gray,
+					ruuiBullet = `${terminalTheme.prefix}${alternatedColor('ruui')}${terminalTheme.suffix}`,
 					buildType = initialBuild ? 'initial build' : 'hot rebuild',
 					buildFlag = isProduction ? 'production bundle' : buildType,
 					trailingSpace = initialBuild ? '' : '  ';
 
-				console.log(ruuiBullet, chalk.gray(`${buildFlag} completed after${trailingSpace}`), chalk.black(`${buildTime}`));
+				console.log(ruuiBullet, chalk.gray(`${buildFlag} completed after${trailingSpace}`), buildTime);
 				brightFlag = !brightFlag;
 				initialBuild = false;
 			},
