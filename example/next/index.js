@@ -75,10 +75,13 @@ class App extends Component {
 				title="hey!!"
 				tooltip="hey, this is a tooltip"
 				tooltipDirection="top"
-				onPress={() => { this.props.dispatch(ruuiActions.toggleModal(true, {
-					component: TestModal,
-					tapToClose: true,
-				})); }}/>
+				onPress={() => {
+					this.props.dispatch(ruuiActions.toggleModal(true, {
+						component: TestModal,
+						tapToClose: true,
+					}));
+					// this.secondInput.focus();
+				}}/>
 			{/*<Button title="top" tooltipDirection="top" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>*/}
 			{/*<Button title="left" tooltipDirection="left" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>*/}
 			{/*<Button title="bottom" tooltipDirection="bottom" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>*/}
@@ -97,6 +100,7 @@ class App extends Component {
 					value={this.state.account}
 					onChangeText={account => this.setState({ account })}/>
 				<Input
+					ref={(instance) => { this.secondInput = instance; }}
 					floatingLabel="heoo"
 					value={this.state.account}
 					onChangeText={account => this.setState({ account })}/>
