@@ -12,8 +12,15 @@ module.exports = {
 	getEnv: name => path.resolve(process.cwd(), 'node_modules', 'react-universal-ui', 'cli-local', 'env', `${name}.env`),
 	getEjsTemplate: () => {
 		const manualEjsPath = path.resolve(process.cwd(), 'index.ejs'),
+			localEjsPath = path.resolve(process.cwd(), 'cli-local', 'tools', 'index.ejs'),
 			defaultEjsPath = path.resolve(process.cwd(), 'node_modules', 'react-universal-ui', 'cli-local', 'tools', 'index.ejs');
 
-		return fs.existsSync(manualEjsPath) ? manualEjsPath : defaultEjsPath;
+		if (fs.existsSync(manualEjsPath)) {
+			return manualEjsPath;
+		} else if (fs.existsSync(localEjsPath)) {
+			return localEjsPath;
+		} else {
+			return defaultEjsPath;
+		}
 	},
 };
