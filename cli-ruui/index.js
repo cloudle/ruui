@@ -14,6 +14,10 @@ const CLI_MODULE_PATH = function (module = 'react-native') {
 	return path.resolve(process.cwd(), 'node_modules', module, 'cli.js');
 };
 
+const CLI_LOCAL_PATH = function (module = 'cli-local') {
+	return path.resolve(process.cwd(), module, 'cli.js');
+};
+
 const RN_CLI_MODULE = function (ext) {
 	return path.resolve(process.cwd(), 'node_modules', 'react-native', 'local-cli', ext);
 };
@@ -53,7 +57,7 @@ function getYarnVersionIfAvailable() {
 }
 
 let cli;
-const localCliPath = path.resolve(process.cwd(), 'cli-local', 'cli.js');
+const localCliPath = CLI_LOCAL_PATH();
 const installedCliPath = CLI_MODULE_PATH('react-universal-ui');
 
 if (fs.existsSync(localCliPath)) {
