@@ -72,6 +72,7 @@ class App extends Component {
 				<Text>Drop {this.state.account} {this.state.animationFinished ? 'TRUE' : 'FALSE'}</Text>
 			</DropdownContainer>
 			<Button
+				wrapperStyle={{ marginBottom: 10 }}
 				title="hey!!"
 				tooltip="hey, this is a tooltip"
 				tooltipDirection="top"
