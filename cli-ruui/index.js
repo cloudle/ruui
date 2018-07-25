@@ -53,9 +53,13 @@ function getYarnVersionIfAvailable() {
 }
 
 let cli;
-const cliPath = CLI_MODULE_PATH('react-universal-ui');
-if (fs.existsSync(cliPath)) {
-	cli = require(cliPath);
+const localCliPath = path.resolve(process.cwd(), 'cli-local', 'cli.js');
+const installedCliPath = CLI_MODULE_PATH('react-universal-ui');
+
+if (fs.existsSync(localCliPath)) {
+	cli = require(localCliPath);
+} else if (fs.existsSync(installedCliPath)) {
+	cli = require(installedCliPath);
 }
 
 const commands = options._;
