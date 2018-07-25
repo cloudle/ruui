@@ -215,7 +215,7 @@ function run(root, projectName, opts) {
 		if (yarnVersion) {
 			console.log(`Using yarn v ${yarnVersion}`);
 			console.log(`Installing ${getInstallPackage(rnPackage)}...`);
-			installCommand = `yarn add ${getInstallPackage('react-universal-ui')} ${getInstallPackage(rnPackage)} --exact`;
+			installCommand = `yarn add ${getInstallPackage(rnPackage)} ${getInstallPackage('react-universal-ui')} --exact`;
 			if (opts.verbose) {
 				installCommand += ' --verbose';
 			}
@@ -224,7 +224,7 @@ function run(root, projectName, opts) {
 			if (!forceNpmClient) {
 				console.log('Consider installing yarn to make this faster: https://yarnpkg.com');
 			}
-			installCommand = `npm install --save --save-exact ${getInstallPackage('react-universal-ui')} ${getInstallPackage(rnPackage)}`;
+			installCommand = `npm install --save --save-exact ${getInstallPackage(rnPackage)} ${getInstallPackage('react-universal-ui')}`;
 			if (opts.verbose) {
 				installCommand += ' --verbose';
 			}
