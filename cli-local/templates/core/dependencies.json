@@ -1,5 +1,4 @@
 {
 	"react-dom": "^16.4.1",
-	"react-native-web": "^0.8.9",
-	"react-universal-ui": "^0.9.66"
+	"react-native-web": "^0.8.9"
 }
