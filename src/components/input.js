@@ -168,7 +168,9 @@ export default class RuuiInput extends Component<any, Props, any> {
 		this.setState({ focus: true });
 		this.playUnderlineAnimation(1);
 		this.playFloatingLabelAnimation(1);
-		if (this.props.onFocus) this.props.onFocus();
+		setTimeout(() => {
+			if (this.props.onFocus) this.props.onFocus();
+		}, 0);
 	};
 
 	onInputBlur = () => {
