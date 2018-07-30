@@ -101,6 +101,7 @@ export default class RuuiInput extends Component<any, Props, any> {
 				</View>
 				<View style={styles.inputContainer}>
 					<TextInput
+						ref={(instance) => { this.textInput = instance; }}
 						{...textInputProps}
 						onFocus={this.onInputFocus}
 						onBlur={this.onInputBlur}
@@ -205,7 +206,23 @@ export default class RuuiInput extends Component<any, Props, any> {
 			...defaults,
 			paddingTop: (defaults.paddingTop || 0) + (this.props.floatingLabel ? 24 : 0),
 		};
-	}
+	};
+
+	focus = () => {
+		return this.textInput.focus && this.textInput.focus();
+	};
+
+	blur = () => {
+		return this.textInput.blur && this.textInput.blur();
+	};
+
+	clear = () => {
+		return this.textInput.clear && this.textInput.clear();
+	};
+
+	isFocused = () => {
+		return this.textInput.isFocused && this.textInput.isFocused();
+	};
 }
 
 const styles = StyleSheet.create({
