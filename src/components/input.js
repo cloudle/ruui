@@ -19,6 +19,7 @@ type Props = {
 	suffix?: Element,
 
 	value?: any,
+	editable?: Boolean,
 	onFocus?: Function,
 	onBlur?: Function,
 };
@@ -30,6 +31,7 @@ export default class RuuiInput extends Component<any, Props, any> {
 
 	static defaultProps = {
 		underline: true,
+		editable: true,
 	};
 
 	constructor(props) {
@@ -165,12 +167,12 @@ export default class RuuiInput extends Component<any, Props, any> {
 	};
 
 	onInputFocus = () => {
-		this.setState({ focus: true });
-		this.playUnderlineAnimation(1);
-		this.playFloatingLabelAnimation(1);
-		setTimeout(() => {
+		if (this.props.editable) {
+			this.setState({ focus: true });
+			this.playUnderlineAnimation(1);
+			this.playFloatingLabelAnimation(1);
 			if (this.props.onFocus) this.props.onFocus();
-		}, 0);
+		}
 	};
 
 	onInputBlur = () => {
