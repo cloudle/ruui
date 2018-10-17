@@ -2,13 +2,12 @@ fs = require("fs")
 path = require("path")
 chalk = require(path.resolve(process.cwd(), "node_modules", "chalk"))
 mkdirp = require(path.resolve(process.cwd(), "node_modules", "mkdirp"))
-uuid = require(path.resolve(process.cwd(), "node_modules", "uuid"))
 webpack = require(path.resolve(process.cwd(), "node_modules", "webpack"))
 HtmlWebpackPlugin = require(path.resolve(process.cwd(), "node_modules", "html-webpack-plugin"))
 DefinePlugin = require(path.resolve(process.cwd(), "node_modules", "webpack/lib/DefinePlugin"))
 ProgressBarPlugin = require(path.resolve(process.cwd(), "node_modules", "progress-bar-webpack-plugin"))
 { paths, ruui, ruuiJson, appJson } = require("../util/configs")
-{ terminalTheme } = require("../util/helper")
+{ terminalTheme, uuid } = require("../util/helper")
 
 defaultConfigurator = (baseConfig) -> baseConfig
 defaultConfigs = ->
@@ -21,7 +20,7 @@ defaultConfigs = ->
 		appName: appJson.displayName or appJson.name or "Ruui Application"
 		useVendorChunks: false
 	}
-	uniqueId = ruui.buildId or uuid.v4
+	uniqueId = ruui.buildId or uuid
 	buildId = uniqueId()
 	optionalPlugins = []
 	polyfills = []#["babel-polyfill"]
