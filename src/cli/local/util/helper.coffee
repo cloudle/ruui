@@ -25,6 +25,17 @@ getTerminalTheme = ->
 		when "darwin" then darwinTerminalTheme
 		else defaultTerminalTheme
 
+dotFilePath = (filePath) ->
+	return filePath unless filePath
+	return filePath
+		.replace("_eslintrc", ".eslintrc")
+		.replace("_gitignore", ".gitignore")
+		.replace("_gitattributes", ".gitattributes")
+		.replace("_babelrc", ".babelrc")
+		.replace("_flowconfig", ".flowconfig")
+		.replace("_buckconfig", ".buckconfig")
+		.replace("_watchmanconfig", ".watchmanconfig")
+
 isDirectory = (source) -> fs.lstatSync(source).isDirectory()
 setEnv = (opts) -> Object.keys(opts).forEach (key) -> process.env[key] = opts[key]
 uuid = -> "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace /[xy]/g, (c) ->
@@ -39,6 +50,7 @@ module.exports = {
 	isDirectory: isDirectory
 	getDirectories: (source) -> fs.readdirSync(source).map((name) -> path.join(source, name)).filter(isDirectory)
 	templateExclusions: ["dependencies.json", "devDependencies.json", ]
+	dotFilePath
 	setEnv
 	uuid
 }

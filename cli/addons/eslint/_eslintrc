@@ -19,6 +19,7 @@
     "indent": [2, "tab"],
     "array-bracket-spacing": "off",
     "object-property-newline": "off",
+    "object-curly-newline": "off",
     "no-unused-expressions": "warn",
     "no-unused-vars": "warn",
     "no-else-return": "off",
@@ -46,7 +47,6 @@
   "globals": {
     "localStorage": true,
     "window": true,
-    "Paho": true,
     "Headers": true,
     "fetch": true,
     "document": true

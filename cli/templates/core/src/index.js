@@ -3,12 +3,12 @@ import { View, Text, StyleSheet, Platform } from 'react-native';
 import { RuuiProvider, Button, Tooltip } from 'react-universal-ui';
 
 const instructions = Platform.select({
-	ios: 'Press Cmd+R to reload,\n' +
-	'Cmd+D or shake for dev menu',
-	android: 'Double tap R on your keyboard to reload,\n' +
-	'Shake or press menu button for dev menu',
-	web: 'Command/Control+R to reload your browser :p\n' +
-	'\nAnd in Browser, we have great advantage\nwhen using Chrome Developer Tool\ncompare to the poor native-dev-menu!',
+	ios: 'Press Cmd+R to reload,\n'
+		+ 'Cmd+D or shake for dev menu',
+	android: 'Double tap R on your keyboard to reload,\n'
+		+ 'Shake or press menu button for dev menu',
+	web: 'Command/Control+R to reload your browser :p\n'
+		+ '\nAnd in Browser, we have great advantage\nwhen using Chrome Developer Tool\ncompare to the poor native-dev-menu!',
 });
 
 class App extends Component {

@@ -1,21 +1,11 @@
 fs = require("fs")
 path = require("path")
-{ ruuiModule, ruuiCliModule, rnCliModule, isDirectory, getDirectories, templateExclusions } = require("../util/helper")
-
-dotFilePath = (filePath) ->
-	return filePath unless filePath
-	return filePath
-		.replace("_eslintrc", ".eslintrc")
-		.replace("_gitignore", ".gitignore")
-		.replace("_gitattributes", ".gitattributes")
-		.replace("_babelrc", ".babelrc")
-		.replace("_flowconfig", ".flowconfig")
-		.replace("_buckconfig", ".buckconfig")
-		.replace("_watchmanconfig", ".watchmanconfig")
+chalk = require("chalk")
+{ ruuiModule, ruuiCliModule, rnCliModule, isDirectory, getDirectories, dotFilePath, templateExclusions } = require("../util/helper")
 
 init = (root, argsOrName, opts) ->
-	template = opts["base"] or "default"
-	availableTemplates = getDirectories(path.resolve(ruuiModule("cli","templates")))
+	template = opts["extends"]
+	availableTemplates = getDirectories(path.resolve(ruuiModule("cli", "templates")))
 		.map((source) -> path.relative(ruuiModule("cli", "templates"), source))
 		.filter((name) -> name isnt "core")
 	walk = require(rnCliModule("util/walk"))
@@ -45,7 +35,7 @@ init = (root, argsOrName, opts) ->
 		return if templateExclusions.indexOf(relativeRenamedPath) >= 0
 		copyAndReplace(absoluteSrcPath, absoluteDestinationPath, templateReplacements)
 
-	if template isnt "core"
+	if template and template isnt "core"
 		if availableTemplates.indexOf(template) >= 0
 			childTemplatePath = path.resolve(ruuiModule("cli", "templates/#{template}"))
 			childDependenciesPath = path.resolve(childTemplatePath, "dependencies.json")
