@@ -23,16 +23,10 @@ module.exports =
 	examples: [
 		desc: "Run on different port, e.g. localhost:3005"
 		cmd: "ruui dev --port 3005"
-	,
-		desc: "Run bundle analyzer tool (on browser) to optimize cache"
-		cmd: "ruui web --analyze"
 	]
 	options: [
 		command: "--port [number]"
 		default: process.env.RUUI_PORT or 3000
 		description: "Specify port for development server"
 		parse: (val) -> Number(val)
-	,
-		command: "--analyze"
-		description: "Run with bundle-analyzer, help optimize caching.."
 	]
