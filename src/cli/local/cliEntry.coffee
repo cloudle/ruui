@@ -17,7 +17,8 @@ handleError = (err) ->
 
 printUnknownCommand = (cmdName) ->
 	spacing = "  "
-	firstLine = if cmdName then "  Unrecognized command '#{cmdName}'" else " You didn't pass any command"
+	firstLine = if cmdName then "Unrecognized command `#{cmdName}`" else " You didn't pass any command"
+	firstLine = chalk.red(firstLine)
 
 	console.log """
 
@@ -31,7 +32,7 @@ addCommand = (command, cfg) ->
 	cmd = commander.command(command.name, undefined, { noHelp: !command.description })
 		.description(command.description)
 		.action ->
-			passedOptions = @opts
+			passedOptions = @opts()
 			argv = Array.from(arguments).slice(0, -1)
 
 			Promise.resolve()
