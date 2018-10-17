@@ -1,3 +1,4 @@
 module.exports = [
-	require('./dev')
+	require("./dev")
+	require("./bundle")
 ]

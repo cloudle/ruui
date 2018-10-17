@@ -4,12 +4,13 @@ buildCache = require("../util/cache")
 { paths, ruui, ruuiJson, appJson } = require("../util/configs")
 
 run = (argv, config, args) ->
-	runningHost = if ruui.host then ruui.host else "localhost"
-	console.log("Preparing development server at #{runningHost}:#{chalk.gray(ruui.port)}")
+	host = ruui.host(); port = ruui.port()
+	runningHost = if host is "0.0.0.0" then "localhost" else host
+	console.log("Preparing development server at #{runningHost}:#{chalk.gray(port)}")
 
 	dotenv.config({ path: paths.getEnv("analyze") }) if args.analyze
-	devServer = require("../tools/webpack.devserver")
-	devServer.listen ruui.port, ruui.host or "0.0.0.0", (error, result) ->
+	devServer = require("../tools/webpack.devserver")()
+	devServer.listen port, host or "0.0.0.0", (error, result) ->
 		console.log(error) if error
 		true
 
