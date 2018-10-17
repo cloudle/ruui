@@ -1,5 +1,3 @@
-rootProject.name = 'react-universal-ui'
-include ':universal-vector-icons'
-project(':universal-vector-icons').projectDir = new File(rootProject.projectDir, '../node_modules/universal-vector-icons/android')
+rootProject.name = 'newProject'
 
 include ':app'

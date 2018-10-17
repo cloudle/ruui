@@ -1,19 +1,6 @@
 {
-  "presets": [
-    [
-      "env",
-      {
-        "loose": true,
-        "modules": false,
-        "targets": {
-          "browsers": "last 2 chrome versions"
-        }
-      }
-    ],
-    "react-native"
-  ],
+  "presets": ["module:metro-react-native-babel-preset"],
   "plugins": [
-    ["transform-class-properties", { "loose": true }],
-    "transform-decorators-legacy"
+    ["@babel/plugin-proposal-decorators", { "legacy": true }]
   ]
 }

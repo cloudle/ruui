@@ -4,10 +4,14 @@
 
 #Web
 web
+js
 !web/index.html
 
 #Distribution
 dist
+!cli-ruui/package.json
+cli-ruui/**/*.*
+
 
 # Xcode
 #

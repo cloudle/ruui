@@ -52,7 +52,7 @@ export default class RuuiSelect extends Component<any, Props, any> {
 			<View style={styles.iconWrapper}>
 				<Image
 					style={[styles.downIcon, this.props.iconStyle]}
-					resizeMode={Image.resizeMode.contain}
+					resizeMode="contain"
 					source={iconSource}/>
 			</View>
 		</TouchableOpacity>;
