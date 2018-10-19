@@ -25,6 +25,18 @@ getTerminalTheme = ->
 		when "darwin" then darwinTerminalTheme
 		else defaultTerminalTheme
 
+isPortTaken = (options) ->
+	new Promise (resolve, reject) ->
+		server = require("net").createServer()
+			.once("listening", -> handlePortAvailable(server, resolve))
+			.once("error", (error) -> handlePortTaken(error, resolve, reject))
+			.listen(options)
+
+handlePortAvailable = (server, resolve) -> server.once("close", -> resolve(false)).close()
+handlePortTaken = (error, resolve, reject) ->
+	reject(error) unless (error.code is "EADDRINUSE")
+	resolve(true)
+
 dotFilePath = (filePath) ->
 	return filePath unless filePath
 	return filePath
@@ -45,11 +57,13 @@ uuid = -> "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace /[xy]/g, (c) ->
 module.exports = {
 	terminalTheme: getTerminalTheme()
 	ruuiModule: (ext...) -> path.resolve(process.cwd(), "node_modules", "react-universal-ui", ext...)
+	electronModule: (ext...) -> path.resolve(process.cwd(), "node_modules", "electron", ext...)
 	ruuiCliModule: (ext...) -> path.resolve(process.cwd(), "node_modules", "react-universal-ui", "js", "cli", "local", ext...)
 	rnCliModule: (ext...) -> path.resolve(process.cwd(), "node_modules", "react-native", "local-cli", ext...)
 	isDirectory: isDirectory
 	getDirectories: (source) -> fs.readdirSync(source).map((name) -> path.join(source, name)).filter(isDirectory)
 	templateExclusions: ["dependencies.json", "devDependencies.json", ]
+	isPortTaken
 	dotFilePath
 	setEnv
 	uuid
