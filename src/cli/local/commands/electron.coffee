@@ -34,7 +34,9 @@ launchElectron = (electronPath) ->
 
 	child.on "close", (code) -> process.exit(code)
 
-electronNotFound = 'Cannot locate "electron" package, please install it and try again..'
+electronNotFound = """
+Cannot locate #{chalk.magenta("electron")} package,
+run `#{chalk.green("ruui extends --addon electron")}` to install it.."""
 
 module.exports =
 	name: "electron"
