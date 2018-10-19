@@ -4,6 +4,8 @@ childProcess = require("child_process")
 { execSync } = childProcess
 
 installDependencies = (depencencies, yarnVersion, isDev) ->
+	return if Object.keys(depencencies).length is 0
+
 	dependencyType = if isDev then "develop dependencies" else "dependencies"
 	console.log("Setting up #{dependencyType}.")
 
