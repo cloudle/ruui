@@ -9,11 +9,12 @@ run = (argv, config, args) ->
 	electronPath = electronModule("index.js")
 	(console.log(electronNotFound); process.exit(1)) unless fs.existsSync(electronPath)
 
-	console.log("launching electron..")
+	host = ruui.host(); port = ruui.port()
+	runningHost = if host is "0.0.0.0" then "localhost" else host
 	serverPortTaken = await isPortTaken({ port: ruui.port(), host: ruui.host() })
+
+	console.log("launching electron..")
 	unless (serverPortTaken)
-		host = ruui.host(); port = ruui.port()
-		runningHost = if host is "0.0.0.0" then "localhost" else host
 		console.log("preparing development server at #{runningHost}:#{chalk.gray(port)}")
 
 		devServer = require("../tools/webpack.devserver")()
@@ -22,6 +23,7 @@ run = (argv, config, args) ->
 			true
 		setTimeout (-> launchElectron(electronPath)), 0
 	else
+		console.log("development server already running at #{runningHost}:#{chalk.gray(port)}")
 		launchElectron(electronPath)
 
 launchElectron = (electronPath) ->
