@@ -7,12 +7,6 @@ export function screenWidthPadding(padding, maxSize): Number {
 	return paddedSize > maxSize ? maxSize : paddedSize;
 }
 
-/**
- * @deprecated Since version 0.0.76.
- * Will be deleted in version 0.1.0. Use screenWidthPadding (camelCase) instead.
- */
-export const ScreenWidthPadding = screenWidthPadding;
-
 export function horizontalPaddings(padding, maxSize): Number {
 	const paddedSize = ScreenSize.width - (padding * 2);
 	return paddedSize > maxSize ? { width: maxSize, } : {
