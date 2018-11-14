@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui';
 import { connect, Provider } from 'react-redux';
+import { hot } from 'react-hot-loader';
 
 import { store } from './store';
 import * as appActions from './store/action/app';
@@ -58,7 +59,7 @@ class App extends Component {
 	};
 }
 
-export default function AppContainer(props) {
+function AppContainer(props) {
 	return <RuuiProvider>
 		<Provider store={store}>
 			<App/>
@@ -67,6 +68,8 @@ export default function AppContainer(props) {
 		<Tooltip/>
 	</RuuiProvider>;
 }
+
+export default hot(module)(AppContainer);
 
 const styles = StyleSheet.create({
 	container: {
