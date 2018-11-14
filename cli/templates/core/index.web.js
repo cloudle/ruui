@@ -1,27 +1,10 @@
-import React from 'react';
 import { AppRegistry } from 'react-native';
-import { AppContainer } from 'react-hot-loader';
-import app from './src';
+import App from './src';
+import { name as appName } from './app.json';
 
-const renderApp = (Component) => {
-	const App = () => {
-		return <AppContainer>
-			<Component/>
-		</AppContainer>;
-	};
+AppRegistry.registerComponent(appName, () => App);
 
-	AppRegistry.registerComponent('App', () => App);
-	AppRegistry.runApplication('App', {
-		initialProps: {},
-		rootTag: document.getElementById('root'),
-	});
-};
-
-renderApp(app);
-
-if (module.hot) {
-	module.hot.accept('./src', () => {
-		const nextApp = require('./src').default;
-		renderApp(nextApp);
-	});
-}
+AppRegistry.runApplication(appName, {
+	initialProps: {},
+	rootTag: document.getElementById('root'),
+});
