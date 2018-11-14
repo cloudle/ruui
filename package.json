@@ -8,7 +8,7 @@
     "cli.js",
     "!**/__tests__"
   ],
-  "version": "0.9.87",
+  "version": "0.9.89",
   "scripts": {
     "start": "npm run compile && concurrently --kill-others 'npm run watch-cli' 'npm run watch-coffee' 'npm run watch-es6' 'npm run watch-cf6'",
     "watch-cli": "coffee --no-header -m -w -b -c -o ./cli-ruui ./src/cli/global",
