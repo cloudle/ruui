@@ -1,5 +1,4 @@
 chalk = require("chalk")
-buildCache = require("../util/cache")
 { paths, ruui, ruuiJson, appJson } = require("../util/configs")
 { setEnv } = require("../util/helper")
 
