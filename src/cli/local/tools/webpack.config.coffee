@@ -34,7 +34,7 @@ defaultConfigs = ->
 	initialBuild = true
 
 	if isProduction
-		extendedState = Object.assign(ruuiJson, { previousBuildId: ruuiJson.buildId, buildId })
+		extendedState = Object.assign(ruuiJson, { buildId })
 		mkdirp(paths.ruui)
 		fs.writeFileSync(paths.ruuiJson, JSON.stringify(extendedState, null, 2))
 	else
