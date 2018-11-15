@@ -2,13 +2,16 @@
   "name": "react-universal-ui",
   "description": "Universal UI Kit for React Native and Web",
   "main": "dist",
+  "bin": {
+    "ruui": "./cli/bin.js"
+  },
   "files": [
     "dist",
     "cli",
     "cli.js",
     "!**/__tests__"
   ],
-  "version": "0.9.92",
+  "version": "0.9.93",
   "scripts": {
     "start": "npm run compile && concurrently --kill-others 'npm run watch-cli' 'npm run watch-coffee' 'npm run watch-es6' 'npm run watch-cf6'",
     "watch-cli": "coffee --no-header -m -w -b -c -o ./cli-ruui ./src/cli/global",
