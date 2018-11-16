@@ -6,8 +6,8 @@ webpack = require(path.resolve(process.cwd(), "node_modules", "webpack"))
 HtmlWebpackPlugin = require(path.resolve(process.cwd(), "node_modules", "html-webpack-plugin"))
 DefinePlugin = require(path.resolve(process.cwd(), "node_modules", "webpack/lib/DefinePlugin"))
 ProgressBarPlugin = require(path.resolve(process.cwd(), "node_modules", "progress-bar-webpack-plugin"))
-{ paths, ruui, ruuiJson, appJson } = require("../util/configs")
-{ terminalTheme, uuid } = require("../util/helper")
+{ paths, ruui, appJson } = require("../util/configs")
+{ terminalTheme, getJson, uuid } = require("../util/helper")
 
 defaultConfigurator = (baseConfig) -> baseConfig
 defaultConfigs = ->
@@ -34,6 +34,7 @@ defaultConfigs = ->
 	initialBuild = true
 
 	if isProduction
+		ruuiJson = getJson(paths.ruuiJson)
 		extendedState = Object.assign(ruuiJson, { buildId })
 		mkdirp(paths.ruui)
 		fs.writeFileSync(paths.ruuiJson, JSON.stringify(extendedState, null, 2))

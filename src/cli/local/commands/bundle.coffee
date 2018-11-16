@@ -3,7 +3,7 @@ path = require("path")
 chalk = require("chalk")
 webpack = require("webpack")
 { paths, ruui, appJson } = require("../util/configs")
-{ setEnv } = require("../util/helper")
+{ setEnv, getJson } = require("../util/helper")
 
 run = ->
 	setEnv({ ENV: "production" })
@@ -16,8 +16,7 @@ run = ->
 		if error
 			console.log(error)
 		else
-			ruuiJson = {} # lastest version of ruui.json, after build successfully!
-			ruuiJson = require(paths.ruuiJson) if fs.existsSync(paths.ruuiJson)
+			ruuiJson = getJson(paths.ruuiJson) # lastest version of ruui.json, after build successfully!
 			lastBuildPath = path.resolve(paths.ruui, "#{ruuiJson.previousBuildId}.js")
 			indexHtmlPath = path.resolve(paths.ruui, "index.html")
 			nodeServerPath = path.resolve(process.cwd(), "index.node.js")

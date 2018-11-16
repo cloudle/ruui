@@ -20,6 +20,8 @@ darwinTerminalTheme = Object.assign defaultTerminalTheme,
 		complete: '#'
 		remaining: '-'
 
+getJson = (path, fallback = {}) -> if fs.existsSync(path) then require(path) else fallback
+
 getTerminalTheme = ->
 	switch process.platform
 		when "darwin" then darwinTerminalTheme
@@ -65,6 +67,7 @@ module.exports = {
 	templateExclusions: ["dependencies.json", "devDependencies.json", ]
 	isPortTaken
 	dotFilePath
+	getJson
 	setEnv
 	uuid
 }
