@@ -21,6 +21,10 @@ darwinTerminalTheme = Object.assign defaultTerminalTheme,
 		remaining: '-'
 
 getJson = (path, fallback = {}) -> if fs.existsSync(path) then require(path) else fallback
+writeFile = (file, data) ->
+	dirname = path.dirname(file)
+	fs.mkdirSync(dirname, { recursive: true }) unless fs.existsSync(dirname)
+	fs.writeFileSync(file, data)
 
 getTerminalTheme = ->
 	switch process.platform
@@ -67,6 +71,7 @@ module.exports = {
 	templateExclusions: ["dependencies.json", "devDependencies.json", ]
 	isPortTaken
 	dotFilePath
+	writeFile
 	getJson
 	setEnv
 	uuid

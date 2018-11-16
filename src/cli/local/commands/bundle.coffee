@@ -3,7 +3,7 @@ path = require("path")
 chalk = require("chalk")
 webpack = require("webpack")
 { paths, ruui, appJson } = require("../util/configs")
-{ setEnv, getJson } = require("../util/helper")
+{ setEnv, getJson, writeFile } = require("../util/helper")
 
 run = ->
 	setEnv({ ENV: "production" })
@@ -30,7 +30,7 @@ run = ->
 				fs.unlinkSync(indexHtmlPath)
 
 			extendedRuuiJson = Object.assign(ruuiJson, { previousBuildId: ruuiJson.buildId })
-			fs.writeFileSync(paths.ruuiJson, JSON.stringify(extendedRuuiJson, null, 2))
+			writeFile(paths.ruuiJson, JSON.stringify(extendedRuuiJson, null, 2))
 
 module.exports =
 	name: "bundle"
