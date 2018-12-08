@@ -31,6 +31,12 @@ See https://facebook.github.io/react-native/docs/getting-started.html
 modulePath = () -> path.resolve.apply(null, [process.cwd(), "node_modules"].concat(Object.values(arguments)))
 packageJsonPath = (module = "react-native") -> path.resolve(process.cwd(), "node_modules", module, "package.json")
 
+printVersionAndExit = (ruuiPackageJsonPath) ->
+	console.log("ruui-cli: #{require("./package.json").version}")
+	try console.log("react-universal-ui: #{require(ruuiPackageJsonPath).version}")
+	catch err then console.log("react-universal-ui: n/a - not inside a React Universal UI project directory")
+	process.exit()
+
 printVersionAndExit(packageJsonPath("react-universal-ui")) if options._.length is 0 and (options.v or options.version)
 
 ### check if current project contain it's own cli then use it,
@@ -146,12 +152,6 @@ checkNodeVersion = ->
 	invalidEngine = !semver.satisfies(process.version, packageJson.engines.node)
 	return if !packageJson.engines or !packageJson.engines.node
 	console.error(chalk.red(ruuiInvalidNodeVersion(process.version, packageJson.engines.node))) if invalidEngine
-
-printVersionAndExit = (ruuiPackageJsonPath) ->
-	console.log("ruui-cli: #{require("./package.json").version}")
-	try console.log("react-universal-ui: #{require(ruuiPackageJsonPath).version}")
-	catch err then console.log("react-universal-ui: n/a - not inside a React Universal UI project directory")
-	process.exit()
 
 if cli then cli.run() else
 	(console.log(ruuiInstruction); process.exit(1)) if options._.length is 0 and (options.h or options.help)
