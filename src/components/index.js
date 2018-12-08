@@ -1,6 +1,6 @@
+import ruuiProviderImport from './ruuiProvider';
 import responsibleTouchAreaImport from './responsibleTouchArea';
 import rippleEffectImport from './rippleEffect';
-import ruuiProviderImport from './ruuiProvider';
 import buttonImport from './button';
 import inputImport from './input';
 import modalImport from './modals';
@@ -14,9 +14,9 @@ import tabViewImport from './TabView';
 import sliderImport from './slider';
 import radioIconImport from './radioIcon';
 
+export const RuuiProvider = ruuiProviderImport;
 export const ResponsibleTouchArea = responsibleTouchAreaImport;
 export const RippleEffect = rippleEffectImport;
-export const RuuiProvider = ruuiProviderImport;
 export const Button = buttonImport;
 export const Input = inputImport;
 export const Modal = modalImport;
