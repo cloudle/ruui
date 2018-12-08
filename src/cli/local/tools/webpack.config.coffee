@@ -64,6 +64,7 @@ defaultConfigs = ->
 				test: /\.js?$/
 				loader: 'babel-loader'
 				options:
+					compact: false
 					cacheDirectory: true,
 					plugins: if isProduction then [] else ['react-hot-loader/babel']
 			,
