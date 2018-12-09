@@ -2,10 +2,10 @@ import * as Actions from './actions';
 import { collectionDestroy, collectionInsert, collectionMutate } from '../utils/collection';
 
 const defaultSelectorConfigs = {
-	selectText: 'Select',
-	cancelText: 'Cancel',
-	options: [{ title: 'Option 1' }, { title: 'Option 2' }],
-};
+		selectText: 'Select',
+		cancelText: 'Cancel',
+		options: [{ title: 'Option 1' }, { title: 'Option 2' }],
+	}, initialSize = { width: 0, height: 0, };
 
 export const initialState = {
 	counter: 0,
@@ -27,7 +27,7 @@ export const initialState = {
 	},
 	snackBars: [],
 	netInfo: {},
-	dimensions: {},
+	dimensions: { screen: initialSize, window: initialSize },
 };
 
 export default function (state = initialState, action) {
