@@ -10,6 +10,7 @@ const chalk = require('chalk'),
 	isProduction = cliConfigs.ruui.env() === 'production',
 	port = process.env.PORT || 3005;
 
+console.log(`Preparing server-side-rendering at http://localhost:${chalk.gray(port)}`);
 moduleAlias.addAlias('react-native', 'react-native-web');
 
 if (!isProduction) { /* <- hot reload server-side code on development mode */
@@ -31,5 +32,5 @@ server.use((req, res, next) => {
 });
 
 server.listen(port, () => {
-	console.log('Your api-server now listening at', chalk.green(`localhost:${port}`), ':p');
+	/* server-side-rendering ready */
 });
