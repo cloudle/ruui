@@ -62,6 +62,7 @@ uuid = -> "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace /[xy]/g, (c) ->
 
 module.exports = {
 	terminalTheme: getTerminalTheme()
+	localModule: (ext...) -> path.resolve(process.cwd(), ext...)
 	ruuiModule: (ext...) -> path.resolve(process.cwd(), "node_modules", "react-universal-ui", ext...)
 	electronModule: (ext...) -> path.resolve(process.cwd(), "node_modules", "electron", ext...)
 	ruuiCliModule: (ext...) -> path.resolve(process.cwd(), "node_modules", "react-universal-ui", "js", "cli", "local", ext...)
