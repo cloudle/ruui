@@ -12,7 +12,7 @@
     "index.d.ts",
     "!**/__tests__"
   ],
-  "version": "1.0.2",
+  "version": "1.0.3",
   "scripts": {
     "start": "npm run compile && concurrently --kill-others 'npm run watch-cli' 'npm run watch-coffee' 'npm run watch-es6' 'npm run watch-cf6'",
     "watch-cli": "coffee --no-header -m -w -b -c -o ./cli-ruui ./src/cli/global",
@@ -46,6 +46,7 @@
     "babel-loader": "^8.0.4",
     "chalk": "^2.4.1",
     "concurrently": "^4.0.1",
+    "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.47.0",
@@ -60,6 +61,7 @@
     "react-redux": "^5.0.7",
     "react-test-renderer": "16.5.0",
     "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.9"
