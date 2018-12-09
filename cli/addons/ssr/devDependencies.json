@@ -1,4 +1,5 @@
 {
+	"@babel/node": "latest",
 	"chalk": "latest",
 	"chokidar": "latest",
 	"invalidate-module": "latest",
