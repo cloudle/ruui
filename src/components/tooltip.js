@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Animated, StyleSheet, View, Text, Easing, } from 'react-native';
 import { isString } from 'lodash';
 
-import { connect, isBrowser, directionSnap, directionAnimatedConfigs } from '../utils';
+import { connect, isWeb, directionSnap, directionAnimatedConfigs } from '../utils';
 import type { Dimension, TooltipConfigs } from '../typeDefinition';
 
 type Props = {
@@ -84,7 +84,7 @@ export default class RuuiTooltip extends Component {
 
 export const styles = StyleSheet.create({
 	wrapper: {
-		position: isBrowser ? 'fixed' : 'absolute',
+		position: isWeb ? 'fixed' : 'absolute',
 	},
 	container: {
 		padding: 5, paddingHorizontal: 8,
