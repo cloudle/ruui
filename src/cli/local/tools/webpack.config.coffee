@@ -6,7 +6,7 @@ HtmlWebpackPlugin = require(path.resolve(process.cwd(), "node_modules", "html-we
 DefinePlugin = require(path.resolve(process.cwd(), "node_modules", "webpack/lib/DefinePlugin"))
 ProgressBarPlugin = require(path.resolve(process.cwd(), "node_modules", "progress-bar-webpack-plugin"))
 { paths, ruui, appJson } = require("../util/configs")
-{ terminalTheme, getJson, writeFile, uuid } = require("../util/helper")
+{ localModule, terminalTheme, getJson, writeFile, uuid } = require("../util/helper")
 
 defaultConfigurator = (baseConfig) -> baseConfig
 defaultConfigs = ->
@@ -57,7 +57,7 @@ defaultConfigs = ->
 			mainFields: ["browser", "main", "module"]
 			alias:
 				"react-native": "react-native-web"
-			modules: ["node_modules"]
+			modules: [localModule("src"), "node_modules"]
 			extensions: [".web.js", ".js"]
 		module:
 			rules: [
