@@ -1,12 +1,15 @@
 fs = require("fs")
 path = require("path")
 chalk = require("chalk")
-{ ruuiModule, ruuiCliModule, rnCliModule, isDirectory, getDirectories, dotFilePath, templateExclusions } = require("../util/helper")
+{ ruuiModule, localModule, ruuiCliModule, rnCliModule, isDirectory, getDirectories, dotFilePath, templateExclusions } = require("../util/helper")
 
 run = (argv, config, args) ->
 	addon = args.addon
-	availableAddons = getDirectories(path.resolve(ruuiModule("cli", "addons")))
-		.map((source) -> path.relative(ruuiModule("cli", "addons"), source))
+	addonPath = path.resolve(ruuiModule("cli", "addons"))
+	localAddonPath = path.resolve(localModule("cli", "addons"))
+	addonPath = localAddonPath if fs.existsSync(localAddonPath)
+	availableAddons = getDirectories(addonPath)
+		.map((source) -> path.relative(addonPath, source))
 		.filter((name) -> name isnt "core")
 	walk = require(rnCliModule("util/walk"))
 	copyAndReplace = require(rnCliModule("util/copyAndReplace"))
@@ -20,14 +23,14 @@ run = (argv, config, args) ->
 		return
 
 	dependencies = {}; devDependencies = {}
-	addonPath = path.resolve(ruuiModule("cli", "addons/#{addon}"))
-	dependenciesPath = path.resolve(addonPath, "dependencies.json")
-	devDependenciesPath = path.resolve(addonPath, "devDependencies.json")
+	currentAddonPath = path.resolve(addonPath, addon)
+	dependenciesPath = path.resolve(currentAddonPath, "dependencies.json")
+	devDependenciesPath = path.resolve(currentAddonPath, "devDependencies.json")
 	dependencies = Object.assign(dependencies, require(dependenciesPath)) if fs.existsSync(dependenciesPath)
 	devDependencies = Object.assign(devDependencies, require(devDependenciesPath)) if fs.existsSync(devDependenciesPath)
 
-	walk(addonPath).forEach (absoluteSrcPath) ->
-		relativeFilePath = path.relative(addonPath, absoluteSrcPath)
+	walk(currentAddonPath).forEach (absoluteSrcPath) ->
+		relativeFilePath = path.relative(currentAddonPath, absoluteSrcPath)
 		relativeRenamedPath = dotFilePath(relativeFilePath)
 		absoluteDestinationPath = path.resolve(process.cwd(), relativeRenamedPath)
 
