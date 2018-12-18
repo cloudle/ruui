@@ -6,6 +6,7 @@ commands = require("./commands/index")
 init = require("./commands/init")
 pkg = require("../../../package.json")
 configs = require("./util/configs");
+express = require("./util/express");
 
 commander.version(pkg.version)
 defaultOptParser = (val) -> val
@@ -61,8 +62,9 @@ run = ->
 	commander.help() unless commander.args.length
 
 module.exports = {
-	configs,
-	init,
+	configs
+	express
+	init
 	run: ->
 		commands.forEach (cmd) -> addCommand(cmd, {})
 		commander.parse(process.argv)
