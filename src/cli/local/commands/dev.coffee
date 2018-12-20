@@ -5,16 +5,18 @@ chalk = require("chalk")
 { setEnv, localModule, isPortTaken } = require("../util/helper")
 
 run = (argv, config, args) ->
-	{ port, host, devOnly } = args
+	{ port, ssrPort, host, devOnly } = args
 	nodeEntryPath = localModule("index.node.js")
+	actualHost = if host is "0.0.0.0" then "localhost" else host
 
-	launchSsr(nodeEntryPath) if !devOnly and fs.existsSync(nodeEntryPath)
+	launchSsr(nodeEntryPath, actualHost, ssrPort) if !devOnly and fs.existsSync(nodeEntryPath)
 	setTimeout ->
-		launchDevServer(host, port)
+		launchDevServer(actualHost, port)
 	, 1000 # <- it take at least
 
-
-launchSsr = (nodeEntryPath) ->
+launchSsr = (nodeEntryPath, host, ssrPort) ->
+	port = ssrPort or process.env.PORT or 3005 # <- since port will change for Development and Ssr, we must get it again..
+	console.log("Preparing node server at http://#{host}:#{chalk.gray(port)}")
 	child = childProcess.spawn "babel-node", [nodeEntryPath],
 		cwd: process.cwd()
 		stdio: "inherit"
@@ -23,11 +25,10 @@ launchSsr = (nodeEntryPath) ->
 
 launchDevServer = (host, port) ->
 	setEnv({ PORT: port })
-	runningHost = if host is "0.0.0.0" then "localhost" else host
-	console.log("Preparing development server at http://#{runningHost}:#{chalk.gray(port)}")
+	console.log("Preparing development server at http://#{host}:#{chalk.gray(port)}")
 
 	devServer = require("../tools/webpack.devserver")()
-	devServer.listen port, host or "0.0.0.0", (error, result) ->
+	devServer.listen port, host, (error, result) ->
 		console.log(error) if error
 		return true
 
@@ -46,6 +47,11 @@ module.exports =
 		command: "--port [number]"
 		default: ruui.port
 		description: "Specify port for development server"
+		parse: (val) -> Number(val)
+	,
+		command: "--ssr-port [number]"
+		default: ruui.ssrPort
+		description: "Specify port for sever-side-rendering server"
 		parse: (val) -> Number(val)
 	,
 		command: "--host [string]"
