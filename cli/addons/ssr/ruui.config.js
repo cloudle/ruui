@@ -1,3 +1,7 @@
+const env = () => process.env.ENV || 'development',
+	isProduction = env() === 'production';
+
 module.exports = {
-	publicPath: 'http://localhost:3000/',
+	env,
+	publicPath: isProduction ? '/' : 'http://localhost:3000/',
 };
