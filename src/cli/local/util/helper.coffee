@@ -21,10 +21,11 @@ darwinTerminalTheme = Object.assign defaultTerminalTheme,
 		remaining: '-'
 
 getJson = (path, fallback = {}) -> if fs.existsSync(path) then require(path) else fallback
-writeFile = (file, data) ->
+writeFile = (file, data, callback) ->
 	dirname = path.dirname(file)
 	fs.mkdirSync(dirname, { recursive: true }) unless fs.existsSync(dirname)
 	fs.writeFileSync(file, data)
+	callback() if callback
 
 getTerminalTheme = ->
 	switch process.platform
