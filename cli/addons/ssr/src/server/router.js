@@ -1,32 +1,16 @@
 import { Router } from 'express';
 import { AppRegistry } from 'react-native';
-import { renderToString, renderToStaticMarkup } from 'react-dom/server';
-import { configs as cliConfigs } from 'react-universal-ui/cli';
+import reactDom from 'react-dom/server';
+import { configs as cliConfigs, ssrUtils } from 'react-universal-ui/cli';
 import App from '../';
+import routes from '../routes';
 
-const router = Router(),
-	isProduction = cliConfigs.ruui.env() === 'production';
-
+const router = Router();
 AppRegistry.registerComponent(cliConfigs.appJson.name, () => App);
+/* Pre-render application on Node.js and send to Browser */
+router.use('*', ssrUtils.universalRender(AppRegistry, reactDom));
 
-router.use('*', (req, res, next) => {
-	const initialProps = { ssrLocation: req.baseUrl, ssrContext: {} },
-		{ element, getStyleElement } = AppRegistry.getApplication(cliConfigs.appJson.name, { initialProps, rootTag: 'root' }),
-		initialHtml = renderToString(element),
-		initialStyles = renderToStaticMarkup(getStyleElement()),
-		pageTemplate = cliConfigs.paths.getEjsTemplate();
-
-	res.render(pageTemplate, {
-		ssrContext: {
-			initialStyles,
-			initialHtml,
-			serverSide: true,
-			appName: cliConfigs.appJson.displayName || cliConfigs.appJson.name,
-			publicPath: cliConfigs.ruui.publicPath || '/',
-			buildId: cliConfigs.ruuiJson.buildId,
-			isProduction,
-		},
-	});
-});
-
-module.exports = router;
+module.exports = {
+	router,
+	hydrate: () => ssrUtils.hydrate(AppRegistry, reactDom, routes),
+};

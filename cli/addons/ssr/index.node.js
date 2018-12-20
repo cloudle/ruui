@@ -8,7 +8,8 @@ const chalk = require('chalk'),
 	server = express(),
 	{ configs: cliConfigs } = require('react-universal-ui/cli'),
 	isProduction = cliConfigs.ruui.env() === 'production',
-	port = process.env.PORT || 3005;
+	port = process.env.PORT || 3005,
+	hydrateMode = process.env.HYDRATE;
 
 moduleAlias.addAlias('react-native', 'react-native-web');
 
@@ -26,10 +27,13 @@ server.use(express.static('ruui'));
 server.use(morgan('dev'));
 
 server.use((req, res, next) => {
-	const router = require('./src/server/router');
-	router(req, res, next);
+	require('./src/server').router(req, res, next);
 });
 
-server.listen(port, () => {
-	/* server-side-rendering ready */
-});
+if (hydrateMode) { /* <- on hydrate-mode, instead of serving node.js */
+	require('./src/server').hydrate();
+} else {
+	server.listen(port, () => { /* <- serve express as normal */
+		/* server-side-rendering ready */
+	});
+}
