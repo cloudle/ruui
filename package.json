@@ -12,7 +12,7 @@
     "index.d.ts",
     "!**/__tests__"
   ],
-  "version": "1.0.7",
+  "version": "1.0.8",
   "scripts": {
     "start": "npm run compile && concurrently --kill-others 'npm run watch-cli' 'npm run watch-coffee' 'npm run watch-es6' 'npm run watch-cf6'",
     "watch-cli": "coffee --no-header -m -w -b -c -o ./cli-ruui ./src/cli/global",
