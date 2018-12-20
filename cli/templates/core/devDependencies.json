@@ -1,4 +1,7 @@
 {
+	"@babel/cli": "^7.2.0",
+	"@babel/core": "^7.2.2",
+	"@babel/node": "^7.2.2",
 	"babel-loader": "^8.0.4",
 	"file-loader": "latest",
 	"@babel/plugin-proposal-decorators": "^7.1.2",
