@@ -21,7 +21,7 @@ universalRender = (AppRegistry, reactDom) -> (req, res, next) ->
 			serverSide: true,
 			appName: configs.appJson.displayName or configs.appJson.name,
 			publicPath: configs.ruui.publicPath or "/",
-			buildId: require(paths.ruuiJson).buildId,
+			buildId: require(configs.paths.ruuiJson).buildId,
 			isProduction,
 		}, configs.ruui.ejsTemplate)
 
