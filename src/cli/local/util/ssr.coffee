@@ -38,7 +38,8 @@ hydrate = (AppRegistry, reactDom, routeConfig, pageExtractor = defaultPageExtrac
 	generateMarkup = ejs.compile(pageTemplate, {})
 
 	for page in pages
-		initialMarkups = pageMarkups(AppRegistry, reactDom, { ssrLocation: page.path, ssrContext: {} })
+		pageLocation = page.path or "/404"
+		initialMarkups = pageMarkups(AppRegistry, reactDom, { ssrLocation: pageLocation, ssrContext: {} })
 		options =
 			ssrContext: Object.assign(initialMarkups, {
 				serverSide: true,
@@ -49,8 +50,7 @@ hydrate = (AppRegistry, reactDom, routeConfig, pageExtractor = defaultPageExtrac
 			}, configs.ruui.ejsTemplate)
 		finalMarkups = generateMarkup(options)
 
-		fileName = page.path or "404"
-		fileName = "#{fileName.replace('/', '')}.html"
+		fileName = "#{pageLocation.replace('/', '')}.html"
 		fileName = "index.html" if page.path is "/"
 		writeFile(path.resolve(configs.paths.ruui, fileName), finalMarkups)
 
