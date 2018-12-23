@@ -17,7 +17,11 @@ run = (argv, config, args) ->
 launchSsr = (nodeEntryPath, host, ssrPort) ->
 	port = ssrPort or process.env.PORT or 3005 # <- since port will change for Development and Ssr, we must get it again..
 	console.log("Preparing node server at http://#{host}:#{chalk.gray(port)}")
-	child = childProcess.spawn "babel-node", [nodeEntryPath],
+	babelNodePath = localModule("node_modules", "@babel", "node", "bin", "babel-node.js")
+	unless fs.existsSync(babelNodePath)
+		console.log("couldn't locate babel-node module, make sure @babel/node package installed!")
+		return
+	child = childProcess.spawn babelNodePath, [nodeEntryPath],
 		cwd: process.cwd()
 		stdio: "inherit"
 
