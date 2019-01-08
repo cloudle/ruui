@@ -4,6 +4,10 @@ export function push(key, params = {}) {
 	return { type: Actions.RouterPush, key, params };
 }
 
+export function goto(key, params = {}) {
+	return { type: Actions.RouterGoTo, key, params };
+}
+
 export function replace(key, params = {}) {
 	return { type: Actions.RouterReplace, key, params };
 }

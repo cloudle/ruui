@@ -23,6 +23,8 @@ export function routeReducer(routeOptions: Object, reducer: Function, configs: O
 		switch (action.type) {
 		case Actions.RouterPush:
 			return handlePushRoute(state, action, configs, false);
+		case Actions.RouterGoTo:
+			return handleGoToRoute(state, action);
 		case Actions.RouterReplace:
 			return handlePushRoute(state, action, configs, true);
 		case Actions.RouterPop:
@@ -35,10 +37,11 @@ export function routeReducer(routeOptions: Object, reducer: Function, configs: O
 	};
 
 	function handlePushRoute(state, action: RouteAction, configs, replace = false) {
-		const nextRoute = routeConfigs[action.key],
-			existedRouteIndex = state.routes.findIndex(route => route.key === action.key);
+		const nextRoute = routeConfigs[action.key];
 
 		if (nextRoute) {
+			const existedRouteIndex = state.routes.findIndex(route => route.key === action.key);
+
 			if (configs.forceUnique === true && existedRouteIndex >= 0) {
 				/* If existed route.. and unique Route is required, we'll just back to the history
 				 * where the route was found (equal with GoTo..) */
@@ -77,6 +80,30 @@ export function routeReducer(routeOptions: Object, reducer: Function, configs: O
 			console.warn(`There is no route for: ${action.key}!, please check for typo or add the missing RouteOption..`);
 			return state;
 		}
+	}
+
+	function handleGoToRoute(state, action: RouteAction) {
+		const nextRoute = routeConfigs[action.key],
+			existedRouteIndex = state.routes.findIndex(route => route.key === action.key);
+
+		if (nextRoute) {
+			if (existedRouteIndex >= 0) {
+				return {
+					...state,
+					routes: [
+						...state.routes.slice(0, existedRouteIndex),
+						{ ...nextRoute, params: action.params }
+					],
+					index: existedRouteIndex,
+				};
+			} else {
+				console.warn(`The route "${action.key}" we're going to go back, didn't exist in route history!`);
+			}
+		} else {
+			console.warn(`There is no route for: "${action.key}", please check for typo or add the missing RouteOption..`);
+		}
+
+		return state;
 	}
 
 	function handlePopRoute(state, action: RouteAction) {
