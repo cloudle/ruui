@@ -10,7 +10,7 @@ type RouteOption = {
 	params?: Object,
 };
 
-export function routeReducer(routeOptions: Object, reducer: Function) {
+export function routeReducer(routeOptions: Object, reducer: Function, configs: Object = {}) {
 	const routeConfigs = buildOptions(routeOptions);
 
 	const initialState = {
@@ -22,9 +22,9 @@ export function routeReducer(routeOptions: Object, reducer: Function) {
 	return function (state = initialState, action) {
 		switch (action.type) {
 		case Actions.RouterPush:
-			return handlePushRoute(state, action, false);
+			return handlePushRoute(state, action, configs, false);
 		case Actions.RouterReplace:
-			return handlePushRoute(state, action, true);
+			return handlePushRoute(state, action, configs, true);
 		case Actions.RouterPop:
 			return handlePopRoute(state, action);
 		case Actions.RouterReset:
@@ -34,13 +34,13 @@ export function routeReducer(routeOptions: Object, reducer: Function) {
 		}
 	};
 
-	function handlePushRoute(state, action: RouteAction, replace = false) {
+	function handlePushRoute(state, action: RouteAction, configs, replace = false) {
 		const nextRoute = routeConfigs[action.key],
 			existedRouteIndex = state.routes.findIndex(route => route.key === action.key);
 
 		if (nextRoute) {
-			if (existedRouteIndex >= 0) {
-				/* If existed route.. we'll just back to the history
+			if (configs.forceUnique === true && existedRouteIndex >= 0) {
+				/* If existed route.. and unique Route is required, we'll just back to the history
 				 * where the route was found (equal with GoTo..) */
 				return {
 					...state,
