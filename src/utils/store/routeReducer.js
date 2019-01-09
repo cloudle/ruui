@@ -42,7 +42,7 @@ export function routeReducer(routeOptions: Object, reducer: Function, configs: O
 		if (nextRoute) {
 			const existedRouteIndex = state.routes.findIndex(route => route.key === action.key);
 
-			if (configs.forceUnique === true && existedRouteIndex >= 0) {
+			if (existedRouteIndex >= 0) {
 				/* If existed route.. and unique Route is required, we'll just back to the history
 				 * where the route was found (equal with GoTo..) */
 				return {
