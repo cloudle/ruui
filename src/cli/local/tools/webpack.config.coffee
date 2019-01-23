@@ -80,7 +80,7 @@ defaultConfigs = ->
 				'process.env.NODE_ENV': JSON.stringify(env)
 			}
 		,
-			new HtmlWebpackPlugin Object.assign(htmlOptions, {
+			new HtmlWebpackPlugin Object.assign(htmlOptions, ruui.ejsTemplate or {}, {
 				template: paths.getEjsTemplate()
 				filename: "index.html"
 			})
