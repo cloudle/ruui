@@ -35,15 +35,17 @@ run = (argv, config, args) ->
 				console.log("Finished generate static markups!")
 
 hydrate = (args) -> new Promise (resolve, reject) ->
-	resolve() unless args.hydrate
-	# start hydrate process..
-	console.log("Generate static markups..")
-	setEnv({ ENV: "production", HYDRATE: "true" })
-	nodeEntryPath = localModule("index.node.js")
-	child = childProcess.spawn "babel-node", [nodeEntryPath],
-		cwd: process.cwd()
-		stdio: "inherit"
-	child.on "close", () -> resolve()
+	if args.hydrate
+		# start hydrate process..
+		console.log("Generate static markups..")
+		setEnv({ ENV: "production", HYDRATE: "true" })
+		nodeEntryPath = localModule("index.node.js")
+		child = childProcess.spawn "babel-node", [nodeEntryPath],
+			cwd: process.cwd()
+			stdio: "inherit"
+		child.on "close", () -> resolve()
+	else
+		resolve()
 
 module.exports =
 	name: "bundle"
