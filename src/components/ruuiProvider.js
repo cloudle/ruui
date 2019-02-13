@@ -21,11 +21,13 @@ const navigator = global.navigator || {},
 
 export default class RuuiProvider extends Component {
 	static props: Props;
+
 	static defaultProps = {
 		store,
 		configs: {},
-		subscribeNetInfo: true,
+		subscribeNetInfo: false,
 	};
+
 	static childContextTypes = {
 		ruuiStore: PropTypes.object,
 		ruuiConfigs: PropTypes.object,

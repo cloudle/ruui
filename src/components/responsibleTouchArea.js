@@ -57,6 +57,7 @@ const MAX_PARTICLE_COUNT = 5;
 
 export default class RuuiResponsibleTouchArea extends Component<any, Props, any> {
 	static props: Props;
+
 	static contextTypes = {
 		ruuiStore: PropTypes.object,
 	};
@@ -72,6 +73,10 @@ export default class RuuiResponsibleTouchArea extends Component<any, Props, any>
 	};
 
 	rippleIndex = 0;
+
+	componentWillUnmount() {
+		this.willUnmount = true;
+	}
 
 	constructor(props) {
 		super(props);
@@ -123,7 +128,7 @@ export default class RuuiResponsibleTouchArea extends Component<any, Props, any>
 				style={this.props.innerStyle}
 				onPressIn={this.onPressIn}
 				onPressOut={this.onPressOut}
-				onPress={this.props.onPress}
+				onPress={this.onPress}
 				onLongPress={this.props.onLongPress}
 				delayPressIn={this.props.delayPressIn}
 				delayPressOut={this.props.delayPressOut}
@@ -198,6 +203,11 @@ export default class RuuiResponsibleTouchArea extends Component<any, Props, any>
 		this.setState({ layout });
 	};
 
+	onPress = (e) => {
+		const { onPress } = this.props;
+		if (onPress) setTimeout(() => onPress(e), 0);
+	};
+
 	onPressIn = (e) => {
 		if (this.props.disabled) return;
 
@@ -270,7 +280,7 @@ export default class RuuiResponsibleTouchArea extends Component<any, Props, any>
 				ripples = ripples.slice(0, MAX_PARTICLE_COUNT);
 			}
 
-			this.setState({ ripples });
+			if (!this.willUnmount) this.setState({ ripples });
 		});
 
 		if (this.props.onPressIn) this.props.onPressIn(e);
