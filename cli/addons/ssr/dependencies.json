@@ -5,6 +5,6 @@
 	"react-router-config": "^4.4.0-beta.6",
 	"connected-react-router": "^6.3.1",
 	"redux": "^4.0.1",
-	"react-redux": "^5.0.7",
+	"react-redux": "^6.0.1",
 	"redux-logger": "^3.0.6"
 }
