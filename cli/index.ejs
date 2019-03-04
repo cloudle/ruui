@@ -17,10 +17,10 @@ function get(name, defaultValue) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
-  <%= get('preHeading', '')%>
+  <%- get('preHeading', '')%>
 
   <style>
-    <%= get('preStyle', '')%>
+    <%- get('preStyle', '')%>
     <% if (!get('noDefaultStyles') === true) { %>
       :focus { outline: none; }
       body {
@@ -40,21 +40,21 @@ function get(name, defaultValue) {
         user-select: none;
       }
     <% } %>
-    <%= get('postStyle', '')%>
+    <%- get('postStyle', '')%>
   </style>
 
-  <%= get('postHeading', '')%>
-  <%= get('initialStyles', '')%>
+  <%- get('postHeading', '')%>
+  <%- get('initialStyles', '')%>
 </head>
 
 <body>
-  <div id="root"><%= get('initialHtml', '')%></div>
-  <%= get('preContent', '')%>
+  <div id="root"><%- get('initialHtml', '')%></div>
+  <%- get('preContent', '')%>
 
   <%if (isSSR) { %>
     <% if (get('initialProps')) { %>
       <script id="initialPropsInjector">
-        ssrInitialProps = <%=JSON.stringify(get('initialProps'))%>
+        ssrInitialProps = <%-JSON.stringify(get('initialProps'))%>
         var elem = document.getElementById("initialPropsInjector");
         elem.parentNode.removeChild(elem);
       </script>
@@ -66,6 +66,6 @@ function get(name, defaultValue) {
       <script src="<%= get('publicPath')%>app.js"></script>
     <% } %>
   <% } %>
-  <%= get('postContent', '')%>
+  <%- get('postContent', '')%>
 </body>
 </html>
