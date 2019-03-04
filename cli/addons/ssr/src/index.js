@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui';
 import { Provider } from 'react-redux';
 import { Router, MemoryRouter, StaticRouter } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 import { renderRoutes } from 'react-router-config';
 import { hot } from 'react-hot-loader';
 
 import routes from './routes';
 import { store } from './store';
+import { history } from './store/reducers';
 
 type ContainerProps = {
 	ssrLocation?: string,
@@ -42,8 +43,8 @@ function getRouterAndProps(props: ContainerProps) {
 		};
 	} else if (utils.isWeb) {
 		return {
-			component: BrowserRouter,
-			props: {},
+			component: ConnectedRouter,
+			props: { history, },
 		};
 	} else {
 		return {

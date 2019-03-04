@@ -1,7 +1,8 @@
 import { createStore, compose, combineReducers, applyMiddleware } from 'redux';
 import { ruuiMiddleware } from 'react-universal-ui';
+import { routerMiddleware } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
-import reducers from './reducers';
+import reducers, { history } from './reducers';
 
 const DEVTOOLS = '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__',
 	composeEnhancers = global[DEVTOOLS] || compose,
@@ -16,8 +17,7 @@ const DEVTOOLS = '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__',
 
 export default function configureStore(initialState) {
 	const enhancers = composeEnhancers(
-		applyMiddleware(logger),
-		applyMiddleware(ruuiMiddleware()),
+		applyMiddleware(logger, routerMiddleware(history), ruuiMiddleware()),
 	);
 
 	const store = initialState
