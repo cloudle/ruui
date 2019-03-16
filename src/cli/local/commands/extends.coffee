@@ -11,9 +11,9 @@ run = (argv, config, args) ->
 	availableAddons = getDirectories(addonPath)
 		.map((source) -> path.relative(addonPath, source))
 		.filter((name) -> name isnt "core")
-	walk = require(rnCliModule("util/walk"))
-	copyAndReplace = require(rnCliModule("util/copyAndReplace"))
-	yarn = require(rnCliModule("util/yarn"))
+	walk = require(rnCliModule("tools/walk"))
+	copyAndReplace = require(rnCliModule("tools/copyAndReplace"))
+	yarn = require(rnCliModule("tools/yarn"))
 	yarnVersion = yarn.getYarnVersionIfAvailable() and yarn.isGlobalCliUsingYarn(process.cwd())
 	templates = require("../util/templates")
 
