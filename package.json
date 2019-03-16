@@ -23,8 +23,8 @@
     "compile-cli": "coffee --no-header -m -b -c -o ./cli-ruui ./src/cli/global",
     "compile-coffee": "coffee --no-header -m -b -c -o ./js ./src",
     "compile-es6": "babel ./src --out-dir ./dist && babel ./js --out-dir ./dist",
-    "clean": "rm -Rf ./js && rm -rf ./dist",
-    "make-dir": "mkdir -p ./js && mkdir -p ./dist",
+    "clean": "rimraf ./js && rimraf ./dist",
+    "make-dir": "mkdirp -p ./js && mkdirp -p ./dist",
     "native": "node node_modules/react-native/local-cli/cli.js start",
     "release": "npm run compile && npm publish",
     "test": "jest"
@@ -47,6 +47,7 @@
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "chalk": "^2.4.1",
+    "coffeescript": "^2.3.2",
     "concurrently": "^4.0.1",
     "eslint": "^5.3.0",
     "eslint-config-airbnb": "^17.1.0",
@@ -70,6 +71,7 @@
     "react-test-renderer": "16.6.3",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
+    "rimraf": "^2.6.3",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.9"
