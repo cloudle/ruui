@@ -9,9 +9,9 @@ defaultTerminalTheme =
 		prefix: '['
 		suffix: ']'
 		complete: '#'
-		remaining: '.'
+		remaining: '-'
 
-darwinTerminalTheme = Object.assign defaultTerminalTheme,
+darwinTerminalTheme =
 	prefix: chalk.gray('｢')
 	suffix: chalk.gray('｣')
 	progressbar:

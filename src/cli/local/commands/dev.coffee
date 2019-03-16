@@ -15,17 +15,17 @@ run = (argv, config, args) ->
 	, 1000 # <- it take at least
 
 launchSsr = (nodeEntryPath, host, ssrPort) ->
-	port = ssrPort or process.env.PORT or 3005 # <- since port will change for Development and Ssr, we must get it again..
-	console.log("Preparing node server at http://#{host}:#{chalk.gray(port)}")
-	babelNodePath = localModule("node_modules", "@babel", "node", "bin", "babel-node.js")
-	unless fs.existsSync(babelNodePath)
-		console.log("couldn't locate babel-node module, make sure @babel/node package installed!")
-		return
-	child = childProcess.spawn babelNodePath, [nodeEntryPath],
-		cwd: process.cwd()
-		stdio: "inherit"
-
-	child.on "close", () -> process.exit(code)
+	try
+		port = ssrPort or process.env.PORT or 3005 # <- since port will change for Development and Ssr, we must get it again..
+		console.log("Preparing node server at http://#{host}:#{chalk.gray(port)}")
+		babelNodePath = localModule("node_modules", "@babel", "node", "bin", "babel-node.js")
+		unless fs.existsSync(babelNodePath)
+			console.log("couldn't locate babel-node module, make sure @babel/node package installed!")
+			return
+		childProcess.fork babelNodePath, [nodeEntryPath],
+			cwd: process.cwd()
+			stdio: "inherit"
+	catch error then console.log "error during spawn ssr-server\n", error
 
 launchDevServer = (host, port) ->
 	setEnv({ PORT: port })
