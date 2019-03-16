@@ -8,9 +8,9 @@ init = (root, argsOrName, opts) ->
 	availableTemplates = getDirectories(path.resolve(ruuiModule("cli", "templates")))
 		.map((source) -> path.relative(ruuiModule("cli", "templates"), source))
 		.filter((name) -> name isnt "core")
-	walk = require(rnCliModule("tools/walk"))
-	copyAndReplace = require(rnCliModule("tools/copyAndReplace"))
-	yarn = require(rnCliModule("tools/yarn"))
+	walk = require(rnCliModule("tools/walk")).default
+	copyAndReplace = require(rnCliModule("tools/copyAndReplace")).default
+	yarn = require(rnCliModule("tools/yarn")).default
 	yarnVersion = !opts.npm and yarn.getYarnVersionIfAvailable() and yarn.isGlobalCliUsingYarn(root)
 	templates = require('../util/templates')
 	args = if Array.isArray(argsOrName) then argsOrName else [argsOrName].concat(process.argv.slice(4))

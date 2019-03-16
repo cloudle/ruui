@@ -39,12 +39,10 @@ printVersionAndExit = (ruuiPackageJsonPath) ->
 
 printVersionAndExit(packageJsonPath("react-universal-ui")) if options._.length is 0 and (options.v or options.version)
 
-### check if current project contain it's own cli then use it,
- otherwise try to load cli from react-universal-ui ###
-cli = null
-innerLocalCliPath = path.resolve(process.cwd(), "cli.js") # local-cli of production run
-outerLocalCliPath = path.resolve(process.cwd(), "../../cli.js") # local-cli of development run
-installedCliPath = modulePath("react-universal-ui", "cli.js")
+cli = null # <- check if current project contain it's own cli then use it, otherwise try to load cli from react-universal-ui
+innerLocalCliPath = path.resolve(process.cwd(), "cli.js") # <- local-cli of production run
+outerLocalCliPath = path.resolve(process.cwd(), "../../cli.js") # <- local-cli of development run
+installedCliPath = modulePath("react-universal-ui", "cli.js") # <- default local-cli of ruui
 
 if fs.existsSync(innerLocalCliPath) then cli = require(innerLocalCliPath)
 else if fs.existsSync(outerLocalCliPath) then cli = require(outerLocalCliPath)
