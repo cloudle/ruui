@@ -73,7 +73,6 @@ run = (root, projectName, opts) ->
 	rnPackage = getInstallPackage(rnPackage)
 	ruuiPackage = if fs.existsSync(path.resolve(process.cwd(), "../../cli.js")) then "file:#{path.resolve(process.cwd(), "../../")}" else getInstallPackage("react-universal-ui")
 	packagesToInstall = "#{rnPackage} #{ruuiPackage}"
-	console.log packagesToInstall
 	installCommand = ""
 
 	if opts.installCommand
@@ -87,7 +86,7 @@ run = (root, projectName, opts) ->
 			installCommand = "npm install --save --save-exact #{packagesToInstall}"
 
 		installCommand += " --verbose" if opts.verbose
-		console.log "Installing #{packagesToInstall}."
+		console.log "Installing #{rnPackage}, #{ruuiPackage}."
 
 	try
 		childProcess.execSync(installCommand, { stdio: "inherit" })
@@ -141,7 +140,7 @@ createProject = (name, opts) ->
 getInstallPackage = (chosenPackage, defaultPackage = "react-native") ->
 	packageToInstall = defaultPackage
 	isValidSemver = semver.valid(chosenPackage)
-	if isValidSemver then packageToInstall = "@#{isValidSemver}"
+	if isValidSemver then packageToInstall = "#{defaultPackage}@#{isValidSemver}"
 	else if chosenPackage then packageToInstall = chosenPackage
 	packageToInstall
 
