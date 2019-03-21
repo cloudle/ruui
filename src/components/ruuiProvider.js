@@ -14,6 +14,7 @@ type Props = {
 	store?: Object,
 	configs?: RuuiConfigs,
 	subscribeNetInfo?: Boolean,
+	subscribeDimension?: Boolean,
 };
 
 const navigator = global.navigator || {},
@@ -26,6 +27,7 @@ export default class RuuiProvider extends Component {
 		store,
 		configs: {},
 		subscribeNetInfo: false,
+		subscribeDimension: true,
 	};
 
 	static childContextTypes = {
@@ -48,7 +50,9 @@ export default class RuuiProvider extends Component {
 
 	componentDidMount() {
 		if (!isServer && this.props.store) {
-			this.subscribeAndUpdateDimensions();
+			if (this.props.subscribeDimension) {
+				this.subscribeAndUpdateDimensions();
+			}
 
 			if (this.props.subscribeNetInfo && connectionModule) {
 				this.subscribeAndUpdateNetworkInfo();
@@ -58,7 +62,9 @@ export default class RuuiProvider extends Component {
 
 	componentWillUnmount() {
 		if (!isServer && this.props.store) {
-			Dimensions.removeEventListener('change', this.handleDimensionChange);
+			if (this.props.subscribeDimension) {
+				Dimensions.removeEventListener('change', this.handleDimensionChange);
+			}
 
 			if (this.props.subscribeNetInfo && connectionModule) {
 				NetInfo.removeEventListener(
