@@ -1,7 +1,7 @@
 fs = require("fs")
 path = require("path")
 chalk = require("chalk")
-{ ruuiModule, localModule, ruuiCliModule, rnCliModule, isDirectory, getDirectories, dotFilePath, templateExclusions } = require("../util/helper")
+{ ruuiModule, localModule, ruuiCliModule, rnCliTool, isDirectory, getDirectories, dotFilePath, templateExclusions } = require("../util/helper")
 
 run = (argv, config, args) ->
 	addon = args.addon
@@ -11,9 +11,9 @@ run = (argv, config, args) ->
 	availableAddons = getDirectories(addonPath)
 		.map((source) -> path.relative(addonPath, source))
 		.filter((name) -> name isnt "core")
-	walk = require(rnCliModule("tools/walk")).default
-	copyAndReplace = require(rnCliModule("tools/copyAndReplace")).default
-	yarn = require(rnCliModule("tools/yarn")).default
+	walk = rnCliTool("walk")
+	copyAndReplace = rnCliTool("copyAndReplace")
+	yarn = rnCliTool("yarn")
 	yarnVersion = yarn.getYarnVersionIfAvailable() and yarn.isGlobalCliUsingYarn(process.cwd())
 	templates = require("../util/templates")
 

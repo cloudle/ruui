@@ -61,6 +61,12 @@ uuid = -> "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace /[xy]/g, (c) ->
 	r = Math.random() * 16|0; v = if c is "x" then r else (r&0x3|0x8)
 	v.toString(16)
 
+rnCliModule = (ext...) -> # find react-native's cli from different places
+	if fs.existsSync(path.resolve(process.cwd(), "node_modules", "@react-native-community"))
+		path.resolve(process.cwd(), "node_modules", "@react-native-community", "cli", "build", ext...)
+	else # <- use legacy cli instead
+		path.resolve(process.cwd(), "node_modules", "react-native", "local-cli", ext...)
+
 module.exports = {
 	terminalTheme: getTerminalTheme()
 	localModule: (ext...) -> path.resolve(process.cwd(), ext...)
@@ -68,6 +74,13 @@ module.exports = {
 	electronModule: (ext...) -> path.resolve(process.cwd(), "node_modules", "electron", ext...)
 	ruuiCliModule: (ext...) -> path.resolve(process.cwd(), "node_modules", "react-universal-ui", "js", "cli", "local", ext...)
 	rnCliModule: (ext...) -> path.resolve(process.cwd(), "node_modules", "@react-native-community", "cli", "build", ext...)
+	rnCliTool: (ext...) ->
+		if fs.existsSync(path.resolve(process.cwd(), "node_modules", "@react-native-community"))
+			modulePath = path.resolve(process.cwd(), "node_modules", "@react-native-community", "cli", "build", "tools", ext...)
+			require(modulePath).default
+		else # <- use legacy cli instead
+			modulePath = path.resolve(process.cwd(), "node_modules", "react-native", "local-cli", "util", ext...)
+			require(modulePath)
 	isDirectory: isDirectory
 	getDirectories: (source) -> fs.readdirSync(source).map((name) -> path.join(source, name)).filter(isDirectory)
 	templateExclusions: ["dependencies.json", "devDependencies.json", ]
