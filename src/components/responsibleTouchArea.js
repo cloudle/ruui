@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import tinyColor from 'tinycolor2';
-import { Animated, Easing, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { Animated, Easing, TouchableOpacity, View, StyleSheet, Platform } from 'react-native';
 
 import RippleEffect from './rippleEffect';
 import Tooltip from './tooltip';
@@ -100,6 +100,9 @@ export default class RuuiResponsibleTouchArea extends Component<any, Props, any>
 				testID: this.props.testID,
 			},
 			flattenWrapperStyles = StyleSheet.flatten(this.props.wrapperStyle) || {},
+			platformStyles = Platform.select({
+				web: { cursor: 'pointer', userSelect: 'none' },
+			}),
 			isLightBackground = tinyColor(flattenWrapperStyles.backgroundColor).getBrightness() > 180,
 			wrapperBorderRadius = extractBorderRadius(flattenWrapperStyles);
 
@@ -113,9 +116,8 @@ export default class RuuiResponsibleTouchArea extends Component<any, Props, any>
 			onMagicTap={this.props.onMagicTap}
 			onMouseLeave={this.onMouseLeave}
 			onMouseEnter={this.onMouseEnter}
-			className="touchable"
 			ref={(instance) => { this.wrapperView = instance; }} collapsable={false}
-			style={[this.props.wrapperStyle]}
+			style={[this.props.wrapperStyle, platformStyles]}
 			onLayout={this.onLayout}>
 
 			{this.renderShadowEffect(isLightBackground, wrapperBorderRadius)}
@@ -144,20 +146,24 @@ export default class RuuiResponsibleTouchArea extends Component<any, Props, any>
 	}
 
 	renderShadowEffect(isLightBackground: Boolean, wrapperBorderRadius) {
-		const shadowOpacity = this.raiseAnimation.interpolate({
-				inputRange: [0, 1], outputRange: [this.props.raise ? 0.15 : 0, 0.6],
-			}),
-			shadow = this.props.raise ? {
-				borderRadius: 3,
-				shadowColor: '#666666',
-				opacity: shadowOpacity,
-				shadowOpacity: 1,
-				shadowRadius: raiseShadowRadius,
-				shadowOffset: { width: 0, height: 2 },
-			} : {};
+		if (this.props.raise) {
+			const shadowOpacity = this.raiseAnimation.interpolate({
+					inputRange: [0, 1], outputRange: [this.props.raise ? 0.15 : 0, 0.6],
+				}),
+				shadow = this.props.raise ? {
+					borderRadius: 3,
+					shadowColor: '#666666',
+					opacity: shadowOpacity,
+					shadowOpacity: 1,
+					shadowRadius: raiseShadowRadius,
+					shadowOffset: { width: 0, height: 2 },
+				} : {};
 
-		return <Animated.View
-			style={[styles.fullSizeAbsolute, shadow, wrapperBorderRadius]}/>;
+			return <Animated.View
+				style={[styles.fullSizeAbsolute, shadow, wrapperBorderRadius]}/>;
+		}
+
+		return null;
 	}
 
 	renderFadeEffect(isLightBackground: Boolean, wrapperBorderRadius) {
