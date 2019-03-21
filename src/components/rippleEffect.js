@@ -14,8 +14,8 @@ export default class RuuiRippleEffect extends Component<any, Props, any> {
 
 	static defaultProps = {
 		initialOpacity: 0.2,
-		initialScale: 0,
-		speed: 1000,
+		initialScale: 0.02,
+		speed: 800,
 	};
 
 	constructor(props) {
@@ -35,7 +35,7 @@ export default class RuuiRippleEffect extends Component<any, Props, any> {
 		const opacity = this.expandAnimation.interpolate({
 				inputRange: [0, 0.5, 1], outputRange: [this.props.initialOpacity, 0.1, 0],
 			}), scale = this.expandAnimation.interpolate({
-				inputRange: [0, 0.25, 1], outputRange: [this.props.initialScale, 0.8, 1],
+				inputRange: [0, 0.1, 0.5, 1], outputRange: [this.props.initialScale, 0.4, 0.8, 1],
 			}), styles = {
 				position: 'absolute',
 				...this.props.style,
