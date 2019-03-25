@@ -74,14 +74,6 @@ module.exports = {
 	electronModule: (ext...) -> path.resolve(process.cwd(), "node_modules", "electron", ext...)
 	ruuiCliModule: (ext...) -> path.resolve(process.cwd(), "node_modules", "react-universal-ui", "js", "cli", "local", ext...)
 	rnCliModule: (ext...) -> path.resolve(process.cwd(), "node_modules", "@react-native-community", "cli", "build", ext...)
-	rnCliTool: (ext...) ->
-		if fs.existsSync(path.resolve(process.cwd(), "node_modules", "@react-native-community"))
-			modulePath = path.resolve(process.cwd(), "node_modules", "@react-native-community", "cli", "build", "tools", ext...)
-			result = require(modulePath)
-			result.default or result
-		else # <- use legacy cli instead
-			modulePath = path.resolve(process.cwd(), "node_modules", "react-native", "local-cli", "util", ext...)
-			require(modulePath)
 	isDirectory: isDirectory
 	getDirectories: (source) -> fs.readdirSync(source).map((name) -> path.join(source, name)).filter(isDirectory)
 	templateExclusions: ["dependencies.json", "devDependencies.json", ]

@@ -1,7 +1,10 @@
 fs = require("fs")
 path = require("path")
 chalk = require("chalk")
-{ ruuiModule, localModule, ruuiCliModule, rnCliTool, isDirectory, getDirectories, dotFilePath, templateExclusions } = require("../util/helper")
+{ ruuiModule, localModule, ruuiCliModule, isDirectory, getDirectories, dotFilePath, templateExclusions } = require("../util/helper")
+walk = require("../util/walk")
+copyAndReplace = require("../util/copyAndReplace")
+yarn = require("../util/yarn")
 
 run = (argv, config, args) ->
 	addon = args.addon
@@ -11,11 +14,7 @@ run = (argv, config, args) ->
 	availableAddons = getDirectories(addonPath)
 		.map((source) -> path.relative(addonPath, source))
 		.filter((name) -> name isnt "core")
-	walk = rnCliTool("walk")
-	copyAndReplace = rnCliTool("copyAndReplace")
-	yarn = rnCliTool("yarn")
-	usingYarn = yarn.isGlobalCliUsingYarn or yarn.isProjectUsingYarn
-	yarnVersion = yarn.getYarnVersionIfAvailable() and usingYarn(process.cwd())
+	yarnVersion = yarn.getYarnVersionIfAvailable() and yarn.isProjectUsingYarn(process.cwd())
 	templates = require("../util/templates")
 
 	unless availableAddons.indexOf(addon) >= 0

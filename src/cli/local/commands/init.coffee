@@ -1,18 +1,17 @@
 fs = require("fs")
 path = require("path")
 chalk = require("chalk")
-{ ruuiModule, ruuiCliModule, rnCliTool, isDirectory, getDirectories, dotFilePath, templateExclusions } = require("../util/helper")
+{ ruuiModule, ruuiCliModule, isDirectory, getDirectories, dotFilePath, templateExclusions } = require("../util/helper")
+walk = require("../util/walk")
+copyAndReplace = require("../util/copyAndReplace")
+yarn = require("../util/yarn")
 
 init = (root, argsOrName, opts) ->
 	template = opts["extends"]
 	availableTemplates = getDirectories(path.resolve(ruuiModule("cli", "templates")))
 		.map((source) -> path.relative(ruuiModule("cli", "templates"), source))
 		.filter((name) -> name isnt "core")
-	walk = rnCliTool("walk")
-	copyAndReplace = rnCliTool("copyAndReplace")
-	yarn = rnCliTool("yarn")
-	usingYarn = yarn.isGlobalCliUsingYarn or yarn.isProjectUsingYarn
-	yarnVersion = !opts.npm and yarn.getYarnVersionIfAvailable() and usingYarn(root)
+	yarnVersion = !opts.npm and yarn.getYarnVersionIfAvailable() and yarn.isProjectUsingYarn(root)
 	templates = require('../util/templates')
 	args = if Array.isArray(argsOrName) then argsOrName else [argsOrName].concat(process.argv.slice(4))
 	newProjectName = args[0]
