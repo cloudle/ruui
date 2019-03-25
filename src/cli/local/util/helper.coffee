@@ -77,7 +77,8 @@ module.exports = {
 	rnCliTool: (ext...) ->
 		if fs.existsSync(path.resolve(process.cwd(), "node_modules", "@react-native-community"))
 			modulePath = path.resolve(process.cwd(), "node_modules", "@react-native-community", "cli", "build", "tools", ext...)
-			require(modulePath).default
+			result = require(modulePath)
+			result.default or result
 		else # <- use legacy cli instead
 			modulePath = path.resolve(process.cwd(), "node_modules", "react-native", "local-cli", "util", ext...)
 			require(modulePath)

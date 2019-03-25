@@ -14,7 +14,8 @@ run = (argv, config, args) ->
 	walk = rnCliTool("walk")
 	copyAndReplace = rnCliTool("copyAndReplace")
 	yarn = rnCliTool("yarn")
-	yarnVersion = yarn.getYarnVersionIfAvailable() and yarn.isGlobalCliUsingYarn(process.cwd())
+	usingYarn = yarn.isGlobalCliUsingYarn or yarn.isProjectUsingYarn
+	yarnVersion = yarn.getYarnVersionIfAvailable() and usingYarn(process.cwd())
 	templates = require("../util/templates")
 
 	unless availableAddons.indexOf(addon) >= 0

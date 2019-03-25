@@ -12,7 +12,7 @@
     "index.d.ts",
     "!**/__tests__"
   ],
-  "version": "1.0.23",
+  "version": "1.0.30",
   "scripts": {
     "start": "npm run compile && npm run watch",
     "watch": "concurrently --kill-others 'npm:watch-cli' 'npm:watch-coffee' 'npm:watch-es6' 'npm:watch-cf6'",
@@ -67,7 +67,7 @@
     "react-dom": "16.6.3",
     "react-hot-loader": "^4.3.11",
     "react-native": "0.58.3",
-    "react-native-web": "^0.10.0-alpha.3",
+    "react-native-web": "^0.11.1",
     "react-redux": "^6.0.0",
     "react-test-renderer": "16.6.3",
     "redux": "^4.0.1",
