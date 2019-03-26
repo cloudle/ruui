@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { Router, MemoryRouter, StaticRouter } from 'react-router';
 import { ConnectedRouter } from 'connected-react-router';
 import { renderRoutes } from 'react-router-config';
-import { hot } from 'react-hot-loader';
+import { hot } from 'react-hot-loader/root';
 
 import routes from './routes';
 import { store } from './store';
@@ -30,7 +30,7 @@ function AppContainer(props: ContainerProps) {
 	</RuuiProvider>;
 }
 
-export default hot(module)(AppContainer);
+export default hot(AppContainer);
 
 function getRouterAndProps(props: ContainerProps) {
 	if (utils.isServer) {
