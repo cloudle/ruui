@@ -120,20 +120,11 @@ export function defaultMaskPropsGenerator(animation, configs, modalCount, modalT
 			inputRange: [0, 1], outputRange: ['rgba(0, 0, 0, 0)', `rgba(0, 0, 0, ${averageOpacity})`],
 		}),
 		style = [styles.container, {
+			zIndex: configs.zIndex,
 			backgroundColor,
-			zIndex: modalDepth(modalType),
 		}];
 
 	return { style, };
-}
-
-export function modalDepth(modalType) {
-	switch (modalType) {
-	case 'select':
-		return 2;
-	default:
-		return 1;
-	}
 }
 
 const styles = StyleSheet.create({

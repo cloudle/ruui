@@ -2,6 +2,7 @@ import * as Actions from './actions';
 import { collectionDestroy, collectionInsert, collectionMutate } from '../utils/collection';
 
 const defaultSelectorConfigs = {
+		zIndex: 99,
 		selectText: 'Select',
 		cancelText: 'Cancel',
 		options: [{ title: 'Option 1' }, { title: 'Option 2' }],
@@ -115,6 +116,7 @@ function handleToggleLoading(state, action) {
 				type: 'loading',
 				active: action.flag === true,
 				configs: action.flag ? {
+					zIndex: 100,
 					...action.configs,
 				} : {},
 			} : null,
