@@ -32,13 +32,14 @@ export default class RuuiRippleEffect extends Component<any, Props, any> {
 	}
 
 	render() {
-		const opacity = this.expandAnimation.interpolate({
-				inputRange: [0, 0.5, 1], outputRange: [this.props.initialOpacity, 0.1, 0],
+		const { style, initialScale, initialOpacity } = this.props,
+			opacity = this.expandAnimation.interpolate({
+				inputRange: [0, 0.5, 1], outputRange: [initialOpacity, 0.1, 0],
 			}), scale = this.expandAnimation.interpolate({
-				inputRange: [0, 0.1, 0.5, 1], outputRange: [this.props.initialScale, 0.4, 0.8, 1],
+				inputRange: [0, 0.1, 0.5, 1], outputRange: [initialScale, 0.4, 0.8, 1],
 			}), styles = {
+				...style,
 				position: 'absolute',
-				...this.props.style,
 				transform: [{ scale }],
 				opacity,
 			};

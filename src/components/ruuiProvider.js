@@ -37,8 +37,8 @@ export default class RuuiProvider extends Component {
 
 	constructor(props) {
 		super(props);
-		this.store = this.props.store;
-		this.configs = merge({}, coreConfigs, this.props.configs);
+		this.store = props.store;
+		this.configs = merge({}, coreConfigs, props.configs);
 	}
 
 	getChildContext() {
@@ -49,29 +49,27 @@ export default class RuuiProvider extends Component {
 	}
 
 	componentDidMount() {
-		if (!isServer && this.props.store) {
-			if (this.props.subscribeDimension) {
-				this.subscribeAndUpdateDimensions();
-			}
+		const { store, subscribeDimension, subscribeNetInfo } = this.props;
 
-			if (this.props.subscribeNetInfo && connectionModule) {
-				this.subscribeAndUpdateNetworkInfo();
-			}
-		}
+		if (isServer || !store) return;
+		if (subscribeDimension) this.subscribeAndUpdateDimensions();
+		if (subscribeNetInfo && connectionModule) this.subscribeAndUpdateNetworkInfo();
 	}
 
 	componentWillUnmount() {
-		if (!isServer && this.props.store) {
-			if (this.props.subscribeDimension) {
-				Dimensions.removeEventListener('change', this.handleDimensionChange);
-			}
+		const { store, subscribeDimension, subscribeNetInfo } = this.props;
 
-			if (this.props.subscribeNetInfo && connectionModule) {
-				NetInfo.removeEventListener(
-					'connectionChange', this.handleConnectionTypeChange);
-				NetInfo.isConnected.removeEventListener(
-					'connectionChange', this.handleIsConnectedChange);
-			}
+		if (isServer || !store) return;
+
+		if (subscribeDimension) {
+			Dimensions.removeEventListener('change', this.handleDimensionChange);
+		}
+
+		if (subscribeNetInfo && connectionModule) {
+			NetInfo.removeEventListener(
+				'connectionChange', this.handleConnectionTypeChange);
+			NetInfo.isConnected.removeEventListener(
+				'connectionChange', this.handleIsConnectedChange);
 		}
 	}
 
