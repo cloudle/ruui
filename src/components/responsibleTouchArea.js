@@ -4,21 +4,12 @@ import tinyColor from 'tinycolor2';
 import { Animated, Easing, TouchableOpacity, View, StyleSheet, Platform } from 'react-native';
 
 import RippleEffect from './rippleEffect';
-import Tooltip from './tooltip';
-import { debounce, isIos, isWeb } from '../utils';
+import { debounce, isIos, } from '../utils';
 import * as appActions from '../store/action/app';
-import type { Style, Element, SnappingDirection, AccessibilityComponentType, AccessibilityTrait, Corners, } from '../typeDefinition';
+import type { Style, Element, SnappingDirection, } from '../typeDefinition';
 
 type Props = {
-	id?: string,
-	nativeID?: string,
-	testID?: string,
-	accessible?: boolean,
-	accessibilityLabel?: any,
-	accessibilityComponentType?: AccessibilityComponentType,
-	accessibilityTraits?: AccessibilityTrait,
-	onAccessibilityTap?: Function,
-	onMagicTap?: Function,
+	children?: Element,
 	wrapperStyle?: Style,
 	innerStyle?: Style,
 	tooltip?: String | Element,
@@ -33,24 +24,16 @@ type Props = {
 	rippleInitialScale?: number,
 	rippleAnimationSpeed?: number,
 	fade?: boolean,
+	fadeLevel?: number,
 	raise?: boolean,
 	debounce?: number,
 	disabled?: boolean,
-	minActiveOpacity?: number,
+	activeOpacity?: number,
 	onPress?: Function,
 	onPressIn?: Function,
 	onPressOut?: Function,
-	onLongPress?: Function,
-	delayPressIn?: number,
-	delayPressOut?: number,
-	delayLongPress?: number,
-	hitSlop?: Corners,
-	pressRetentionOffset?: Corners,
-	onLayout?: Function,
 	onMouseEnter?: Function,
 	onMouseLeave?: Function,
-	fadeLevel?: number,
-	children?: Element,
 };
 
 const MAX_PARTICLE_COUNT = 5;
@@ -64,7 +47,7 @@ export default class RuuiResponsibleTouchArea extends Component<any, Props, any>
 
 	static defaultProps = {
 		staticRipple: false,
-		minActiveOpacity: 0.8,
+		activeOpacity: 0.7,
 		ripple: true,
 		raise: false,
 		fade: false,
@@ -83,23 +66,31 @@ export default class RuuiResponsibleTouchArea extends Component<any, Props, any>
 		this.state = {
 			ripples: [],
 			mouseInside: false,
-			layout: { width: 0, height: 0 },
 		};
 
 		this.raiseAnimation = new Animated.Value(0);
 		this.fadeAnimation = new Animated.Value(0);
 
-		if (this.props.debounce) {
-			this.handlePress = debounce(this.handlePress.bind(this), this.props.debounce);
+		if (props.debounce) {
+			this.handlePress = debounce(this.handlePress.bind(this), props.debounce);
 		}
 	}
 
 	render() {
-		const nativeProps = isWeb ? {} : {
-				nativeID: this.props.nativeID,
-				testID: this.props.testID,
-			},
-			flattenWrapperStyles = StyleSheet.flatten(this.props.wrapperStyle) || {},
+		const {
+				children,
+				wrapperStyle,
+				innerStyle,
+				disabled,
+				onPressIn,
+				onPressOut,
+				onPress,
+				ripple,
+				fade,
+				fadeLevel,
+				raise,
+				...otherProps } = this.props,
+			flattenWrapperStyles = StyleSheet.flatten(wrapperStyle) || {},
 			platformStyles = Platform.select({
 				web: { cursor: 'pointer', userSelect: 'none' },
 			}),
@@ -107,71 +98,52 @@ export default class RuuiResponsibleTouchArea extends Component<any, Props, any>
 			wrapperBorderRadius = extractBorderRadius(flattenWrapperStyles);
 
 		return <View
-			id={this.props.id} {...nativeProps}
-			accessible={this.props.accessible}
-			accessibilityLabel={this.props.accessibilityLabel}
-			accessibilityComponentType={this.props.accessibilityComponentType}
-			accessibilityTraits={this.props.accessibilityTraits}
-			onAccessibilityTap={this.props.onAccessibilityTap}
-			onMagicTap={this.props.onMagicTap}
 			onMouseLeave={this.onMouseLeave}
 			onMouseEnter={this.onMouseEnter}
-			ref={(instance) => { this.wrapperView = instance; }} collapsable={false}
-			style={[this.props.wrapperStyle, platformStyles]}
-			onLayout={this.onLayout}>
+			ref={(instance) => { this.wrapperView = instance; }}
+			collapsable={false}
+			style={[wrapperStyle, platformStyles]}>
 
-			{this.renderShadowEffect(isLightBackground, wrapperBorderRadius)}
-			{this.renderFadeEffect(isLightBackground, wrapperBorderRadius)}
-			{this.renderRippleEffect(isLightBackground, wrapperBorderRadius)}
+			{raise && this.renderShadowEffect(raise, isLightBackground, wrapperBorderRadius)}
+			{fade && this.renderFadeEffect(fade, fadeLevel, isLightBackground, wrapperBorderRadius)}
+			{ripple && this.renderRippleEffect(isLightBackground, wrapperBorderRadius)}
 
 			<TouchableOpacity
-				disabled={this.props.disabled}
-				activeOpacity={this.props.minActiveOpacity}
-				style={this.props.innerStyle}
+				disabled={disabled}
+				style={innerStyle}
 				onPressIn={this.onPressIn}
 				onPressOut={this.onPressOut}
 				onPress={this.onPress}
-				onLongPress={this.props.onLongPress}
-				delayPressIn={this.props.delayPressIn}
-				delayPressOut={this.props.delayPressOut}
-				delayLongPress={this.props.delayLongPress}
-				hitSlop={this.props.hitSlop}
-				pressRetentionOffset={this.props.pressRetentionOffset}
-				onStartShouldSetResponderCapture={() => !this.props.disabled}>
+				onStartShouldSetResponderCapture={() => !disabled}
+				{...otherProps}>
 				<View pointerEvents="none">
-					{this.props.children}
+					{children}
 				</View>
 			</TouchableOpacity>
 		</View>;
 	}
 
-	renderShadowEffect(isLightBackground: Boolean, wrapperBorderRadius) {
-		if (this.props.raise) {
-			const shadowOpacity = this.raiseAnimation.interpolate({
-					inputRange: [0, 1], outputRange: [this.props.raise ? 0.15 : 0, 0.6],
-				}),
-				shadow = this.props.raise ? {
-					borderRadius: 3,
-					shadowColor: '#666666',
-					opacity: shadowOpacity,
-					shadowOpacity: 1,
-					shadowRadius: raiseShadowRadius,
-					shadowOffset: { width: 0, height: 2 },
-				} : {};
+	renderShadowEffect(raise: Boolean, isLightBackground: Boolean, wrapperBorderRadius) {
+		const shadowOpacity = this.raiseAnimation.interpolate({
+				inputRange: [0, 1], outputRange: [raise ? 0.15 : 0, 0.6],
+			}),
+			shadow = raise && {
+				borderRadius: 3,
+				shadowColor: '#666666',
+				opacity: shadowOpacity,
+				shadowOpacity: 1,
+				shadowRadius: raiseShadowRadius,
+				shadowOffset: { width: 0, height: 2 },
+			};
 
-			return <Animated.View
-				style={[styles.fullSizeAbsolute, shadow, wrapperBorderRadius]}/>;
-		}
-
-		return null;
+		return <Animated.View
+			style={[styles.fullSizeAbsolute, shadow, wrapperBorderRadius]}/>;
 	}
 
-	renderFadeEffect(isLightBackground: Boolean, wrapperBorderRadius) {
-		if (!this.props.fade) return <View/>;
-
+	renderFadeEffect(fade, fadeLevel, isLightBackground: Boolean, wrapperBorderRadius) {
 		const opacity = this.fadeAnimation.interpolate({
 				inputRange: [0, 1],
-				outputRange: [0, this.props.fadeLevel],
+				outputRange: [0, fadeLevel],
 				extrapolate: 'clamp',
 			}),
 			maskStyles = {
@@ -183,31 +155,25 @@ export default class RuuiResponsibleTouchArea extends Component<any, Props, any>
 	}
 
 	renderRippleEffect(isLightBackground: Boolean, wrapperBorderRadius) {
-		if (!this.props.ripple) return <View/>;
-
 		return <View style={[styles.fullSizeAbsolute, wrapperBorderRadius, { overflow: 'hidden' }]}>
 			{this.renderRipples()}
 		</View>;
 	}
 
 	renderRipples() {
-		return this.state.ripples.map((ripple) => {
+		const { ripples } = this.state,
+			{ rippleInitialOpacity, rippleInitialScale, rippleAnimationSpeed } = this.props;
+
+		return ripples.map((ripple) => {
 			return <RippleEffect
 				key={ripple.index}
 				style={ripple.style}
 				index={ripple.index}
-				initialOpacity={this.props.rippleInitialOpacity}
-				initialScale={this.props.rippleInitialScale}
-				speed={this.props.rippleAnimationSpeed}/>;
+				initialOpacity={rippleInitialOpacity}
+				initialScale={rippleInitialScale}
+				speed={rippleAnimationSpeed}/>;
 		});
 	}
-
-	onLayout = (e) => {
-		const layout = e.nativeEvent.layout;
-
-		if (this.props.onLayout) this.props.onLayout(e);
-		this.setState({ layout });
-	};
 
 	onPress = (e) => {
 		const { onPress } = this.props;
@@ -215,14 +181,15 @@ export default class RuuiResponsibleTouchArea extends Component<any, Props, any>
 	};
 
 	onPressIn = (e) => {
-		if (this.props.disabled) return;
+		const { ripples } = this.state,
+			{ wrapperStyle, disabled, raise, staticRipple, rippleColor, onPressIn } = this.props;
 
-		const flattenWrapperStyles = StyleSheet.flatten(this.props.wrapperStyle) || {},
+		if (disabled) return;
+
+		const flattenWrapperStyles = StyleSheet.flatten(wrapperStyle) || {},
 			isLightBackground = tinyColor(flattenWrapperStyles.backgroundColor).getBrightness() > 180;
 
-		if (this.props.raise) {
-			this.playRaiseAnimation(1);
-		}
+		if (raise) this.playRaiseAnimation(1);
 
 		this.playFadeAnimation(1);
 
@@ -232,7 +199,7 @@ export default class RuuiResponsibleTouchArea extends Component<any, Props, any>
 			let rippleRadius = 0, ripplePosition;
 			const touchX = locationX || offsetX, touchY = locationY || offsetY;
 
-			if (this.props.staticRipple || !touchX) {
+			if (staticRipple || !touchX) {
 				rippleRadius = wrapperWidth / 2;
 				ripplePosition = {
 					top: (wrapperHeight / 2) - rippleRadius,
@@ -276,55 +243,72 @@ export default class RuuiResponsibleTouchArea extends Component<any, Props, any>
 						width: rippleRadius * 2,
 						height: rippleRadius * 2,
 						borderRadius: rippleRadius,
-						backgroundColor: this.props.rippleColor || defaultRippleColor,
+						backgroundColor: rippleColor || defaultRippleColor,
 						...ripplePosition,
 					},
 				};
-			let ripples = [newRipple, ...this.state.ripples];
+			let nextRipples = [newRipple, ...ripples];
 
-			if (ripples.length > MAX_PARTICLE_COUNT) {
-				ripples = ripples.slice(0, MAX_PARTICLE_COUNT);
+			if (nextRipples.length > MAX_PARTICLE_COUNT) {
+				nextRipples = nextRipples.slice(0, MAX_PARTICLE_COUNT);
 			}
 
-			if (!this.willUnmount) this.setState({ ripples });
+			if (!this.willUnmount) this.setState({ ripples: nextRipples });
 		});
 
-		if (this.props.onPressIn) this.props.onPressIn(e);
+		if (onPressIn) onPressIn(e);
 	};
 
 	onPressOut = (e, forceFade = false) => {
-		if (this.props.raise) this.playRaiseAnimation(0);
-		if (this.props.onPressOut && e) this.props.onPressOut(e);
+		const { mouseInside } = this.state,
+			{ raise, onPressOut } = this.props;
 
-		if (forceFade === true || !this.state.mouseInside) {
+		if (raise) this.playRaiseAnimation(0);
+		if (onPressOut && e) onPressOut(e);
+
+		if (forceFade === true || !mouseInside) {
 			this.playFadeAnimation(0);
 		}
 	};
 
 	onMouseEnter = () => {
-		!this.props.disabled && this.playFadeAnimation(1);
+		const { ruuiStore } = this.context,
+			{ disabled,
+				tooltip,
+				tooltipWrapperStyle,
+				tooltipDirection,
+				tooltipPositionSpacing,
+				tooltipPositionOffset } = this.props;
+
 		this.setState({ mouseInside: true });
 
-		if (!this.props.disabled && this.props.tooltip) {
-			this.wrapperView.measure((x, y, width, height, pageX, pageY) => {
-				this.context.ruuiStore.dispatch(appActions.toggleTooltip(true, {
-					targetLayout: { x: pageX, y: pageY, width, height },
-					direction: this.props.tooltipDirection,
-					positionSpacing: this.props.tooltipPositionSpacing,
-					positionOffset: this.props.tooltipPositionOffset,
-					content: this.props.tooltip,
-					wrapperStyle: this.props.tooltipWrapperStyle,
-				}));
-			});
+		if (!disabled) {
+			this.playFadeAnimation(1);
+
+			if (tooltip) {
+				this.wrapperView.measure((x, y, width, height, pageX, pageY) => {
+					ruuiStore.dispatch(appActions.toggleTooltip(true, {
+						targetLayout: { x: pageX, y: pageY, width, height },
+						direction: tooltipDirection,
+						positionSpacing: tooltipPositionSpacing,
+						positionOffset: tooltipPositionOffset,
+						content: tooltip,
+						wrapperStyle: tooltipWrapperStyle,
+					}));
+				});
+			}
 		}
 	};
 
 	onMouseLeave = () => {
+		const { ruuiStore } = this.context,
+			{ disabled, tooltip } = this.props;
+
 		this.onPressOut(null, true);
 		this.setState({ mouseInside: false });
 
-		if (!this.props.disabled && this.props.tooltip) {
-			this.context.ruuiStore.dispatch(appActions.toggleTooltip(false));
+		if (!disabled && tooltip) {
+			ruuiStore.dispatch(appActions.toggleTooltip(false));
 		}
 	};
 

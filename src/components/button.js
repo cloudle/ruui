@@ -3,54 +3,43 @@ import PropTypes from 'prop-types';
 import { View, Text, StyleSheet } from 'react-native';
 import ResponsibleTouchArea from './responsibleTouchArea';
 import { colors, valueAt } from '../utils';
-import type { Style, Element, SnappingDirection, AccessibilityComponentType, AccessibilityTrait, Corners, } from '../typeDefinition';
+import type { Style, Element, SnappingDirection, } from '../typeDefinition';
 
 type Props = {
-	id?: String,
-	nativeID?: String,
-	testID?: String,
-	accessible?: Boolean,
-	accessibilityLabel?: any,
-	accessibilityComponentType?: AccessibilityComponentType,
-	accessibilityTraits?: AccessibilityTrait,
-	onAccessibilityTap?: Function,
-	onMagicTap?: Function,
-	wrapperStyle?: Style,
-	innerStyle?: Style,
-	color?: String,
-	borderRadius?: Number,
-	ripple?: Boolean,
-	rippleColor?: String,
-	rippleInitialOpacity?: Number,
-	rippleInitialScale?: Number,
-	staticRipple?: Boolean,
+	title?: String,
 	icon?: Element,
 	rightIcon?: Element,
-	title?: String,
-	tooltip?: String | Element,
-	tooltipDirection?: SnappingDirection,
-	tooltipPositionSpacing?: Number,
-	tooltipPositionOffset?: Object,
+	children?: Element,
+	wrapperStyle?: Style,
+	innerStyle?: Style,
 	textStyle?: Style,
-	disabled?: Boolean,
-	raise?: Boolean,
-	fade?: Boolean,
+	tooltip?: String | Element,
+	tooltipWrapperStyle?: Style,
+	tooltipDirection?: SnappingDirection,
+	tooltipPositionSpacing?: number,
+	tooltipPositionOffset?: Object,
+	ripple?: boolean,
+	staticRipple?: boolean,
+	rippleColor?: string,
+	rippleInitialOpacity?: number,
+	rippleInitialScale?: number,
+	rippleAnimationSpeed?: number,
+	fade?: boolean,
+	fadeLevel?: number,
+	raise?: boolean,
+	debounce?: number,
+	disabled?: boolean,
+	activeOpacity?: number,
 	onPress?: Function,
 	onPressIn?: Function,
 	onPressOut?: Function,
-	onLongPress?: Function,
-	delayPressIn?: Number,
-	delayPressOut?: Number,
-	delayLongPress?: Number,
-	hitSlop?: Corners,
-	pressRetentionOffset?: Corners,
-	onLayout?: Function,
-	fadeLevel?: Number,
-	children?: Element,
+	onMouseEnter?: Function,
+	onMouseLeave?: Function,
 };
 
 export default class RuuiButton extends Component<any, Props, any> {
 	props: Props;
+
 	static contextTypes = {
 		ruuiConfigs: PropTypes.object,
 	};
@@ -66,59 +55,29 @@ export default class RuuiButton extends Component<any, Props, any> {
 	};
 
 	render() {
-		const ruuiStyles = valueAt(this, 'context.ruuiConfigs.button.styles', styles);
+		const { wrapperStyle, innerStyle, ...otherProps } = this.props,
+			ruuiStyles = valueAt(this, 'context.ruuiConfigs.button.styles', styles);
 
 		return <ResponsibleTouchArea
-			id={this.props.id}
-			nativeID={this.props.nativeID}
-			testID={this.props.testID}
-			accessible={this.props.accessible}
-			accessibilityLabel={this.props.accessibilityLabel}
-			accessibilityComponentType={this.props.accessibilityComponentType}
-			accessibilityTraits={this.props.accessibilityTraits}
-			onAccessibilityTap={this.props.onAccessibilityTap}
-			onMagicTap={this.props.onMagicTap}
-			onPress={this.props.onPress}
-			onPressIn={this.props.onPressIn}
-			onPressOut={this.props.onPressOut}
-			onLongPress={this.props.onLongPress}
-			delayPressIn={this.props.delayPressIn}
-			delayPressOut={this.props.delayPressOut}
-			delayLongPress={this.props.delayLongPress}
-			hitSlop={this.props.hitSlop}
-			pressRetentionOffset={this.props.pressRetentionOffset}
-			onLayout={this.props.onLayout}
-			ripple={this.props.ripple}
-			staticRipple={this.props.staticRipple}
-			rippleColor={this.props.rippleColor}
-			rippleInitialOpacity={this.props.rippleInitialOpacity}
-			rippleInitialScale={this.props.rippleInitialScale}
-			disabled={this.props.disabled}
-			raise={this.props.raise}
-			fade={this.props.fade}
-			fadeLevel={this.props.fadeLevel}
-			tooltip={this.props.tooltip}
-			tooltipDirection={this.props.tooltipDirection}
-			tooltipPositionSpacing={this.props.tooltipPositionSpacing}
-			tooltipPositionOffset={this.props.tooltipPositionOffset}
-			wrapperStyle={[ruuiStyles.wrapper, this.props.wrapperStyle]}
-			innerStyle={[ruuiStyles.contentContainer, this.props.innerStyle]}>
+			wrapperStyle={[ruuiStyles.wrapper, wrapperStyle]}
+			innerStyle={[ruuiStyles.contentContainer, innerStyle]}
+			{...otherProps}>
 			{this.renderContent()}
 		</ResponsibleTouchArea>;
 	}
 
 	renderContent() {
-		const ruuiStyles = valueAt(this, 'context.ruuiConfigs.button.styles', styles),
-			{ title } = this.props,
-			textStyles = [ruuiStyles.titleText, this.props.textStyle];
+		const { title, textStyle, icon, rightIcon, children } = this.props,
+			ruuiStyles = valueAt(this, 'context.ruuiConfigs.button.styles', styles),
+			textStyles = [ruuiStyles.titleText, textStyle];
 
-		if (this.props.children) {
-			return this.props.children;
+		if (children) {
+			return children;
 		} else {
 			return <View style={ruuiStyles.innerContainer}>
-				<View style={ruuiStyles.leftContainer}>{this.props.icon}</View>
+				<View style={ruuiStyles.leftContainer}>{icon}</View>
 				<Text style={textStyles}>{title}</Text>
-				<View style={ruuiStyles.rightContainer}>{this.props.rightIcon}</View>
+				<View style={ruuiStyles.rightContainer}>{rightIcon}</View>
 			</View>;
 		}
 	}
