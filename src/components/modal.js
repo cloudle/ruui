@@ -18,6 +18,7 @@ type Props = {
 
 export default class RuuiModal extends Component {
 	static props: Props;
+
 	static contextTypes = {
 		ruuiConfigs: PropTypes.object,
 	};
@@ -26,7 +27,7 @@ export default class RuuiModal extends Component {
 		super(props);
 		this.state = {
 			enterAnimation: new Animated.Value(0),
-			active: this.props.active,
+			active: props.active,
 		};
 	}
 
@@ -54,18 +55,18 @@ export default class RuuiModal extends Component {
 	}
 
 	render() {
-		const globalConfigs = valueAt(this, 'context.ruuiConfigs.modal'),
-			{ configs = {}, modalCount } = this.props,
+		const { enterAnimation, active } = this.state,
+			{ configs = {}, modalCount, type: modalType } = this.props,
+			globalConfigs = valueAt(this, 'context.ruuiConfigs.modal'),
 			containerPropsGenerator = configs.maskProps || globalConfigs.maskProps,
-			containerProps = containerPropsGenerator(
-				this.state.enterAnimation, configs, modalCount, this.props.type);
+			containerProps = containerPropsGenerator(enterAnimation, configs, modalCount, modalType);
 
 		if (configs.maskProps && !containerProps.style) {
 			containerProps.style = globalConfigs.maskProps(
-				this.state.enterAnimation, configs, modalCount, this.props.type).style;
+				enterAnimation, configs, modalCount, modalType).style;
 		}
 
-		return this.state.active ? <Animated.View {...containerProps}>
+		return active ? <Animated.View {...containerProps}>
 			<View style={styles.innerTouchable}>
 				{this.renderModalInner()}
 			</View>
@@ -73,24 +74,27 @@ export default class RuuiModal extends Component {
 	}
 
 	renderModalInner() {
-		switch (this.props.type) {
+		const { enterAnimation } = this.state,
+			{ dispatch, type: modalType, active, configs: modalConfigs } = this.props;
+
+		switch (modalType) {
 		case 'select':
 			return <Selector
-				onRequestClose={configs => this.props.dispatch(appActions.toggleSelector(false, configs))}
-				animation={this.state.enterAnimation}
-				active={this.props.active}
-				configs={this.props.configs}/>;
+				onRequestClose={configs => dispatch(appActions.toggleSelector(false, configs))}
+				animation={enterAnimation}
+				active={active}
+				configs={modalConfigs}/>;
 		case 'modal':
 			return <CloseableModal
-				onRequestClose={configs => this.props.dispatch(appActions.toggleModal(false, configs))}
-				animation={this.state.enterAnimation}
-				active={this.props.active}
-				configs={this.props.configs}/>;
+				onRequestClose={configs => dispatch(appActions.toggleModal(false, configs))}
+				animation={enterAnimation}
+				active={active}
+				configs={modalConfigs}/>;
 		case 'loading':
 			return <LoadingMask
-				animation={this.state.enterAnimation}
-				active={this.props.active}
-				configs={this.props.configs}/>;
+				animation={enterAnimation}
+				active={active}
+				configs={modalConfigs}/>;
 		default:
 			return <View/>;
 		}

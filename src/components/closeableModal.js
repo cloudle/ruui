@@ -13,34 +13,41 @@ type Props = {
 
 export default class RuuiCloseableModal extends Component<any, Props, any> {
 	static props: Props;
+
 	static contextTypes = {
 		ruuiConfigs: PropTypes.object,
 	};
 
 	render() {
-		const globalConfigs = valueAt(this, 'context.ruuiConfigs.modal'),
-			{ configs = {}, animation, } = this.props,
+		const { configs = {}, animation, active } = this.props,
+			globalConfigs = valueAt(this, 'context.ruuiConfigs.modal'),
 			containerPropsGenerator = configs.containerProps || globalConfigs.containerProps,
-			containerProps = containerPropsGenerator(animation, configs, this.props.active),
-			InnerComponent = this.props.configs.component || this.props.configs.Component;
+			containerProps = containerPropsGenerator(animation, configs, active),
+			InnerComponent = configs.component || configs.Component;
 
 		if (configs.containerProps && !containerProps.style) {
 			containerProps.style = globalConfigs.containerProps(
-				animation, configs, this.props.active).style;
+				animation, configs, active).style;
 		}
 
 		return <Animated.View {...containerProps}>
-			{this.props.configs.tapToClose ? <TouchableWithoutFeedback
-				onPress={() => this.props.onRequestClose(this.props.configs)}>
+			{configs.tapToClose ? <TouchableWithoutFeedback
+				onPress={this.onClose}>
 				<View style={styles.touchableMask}/>
 			</TouchableWithoutFeedback> : <View/>}
 
 			{InnerComponent ? <InnerComponent
-				animation={this.props.animation}
-				configs={this.props.configs}/>
+				animation={animation}
+				configs={configs}
+				close={this.onClose}/>
 				: <View />}
 		</Animated.View>;
 	}
+
+	onClose = () => {
+		const { configs, onRequestClose, } = this.props;
+		onRequestClose(configs);
+	};
 }
 
 export function defaultContainerPropsGenerator(animation, configs, isOpening) {
