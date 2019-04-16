@@ -5,7 +5,7 @@ type Props = {
 	selectorConfigs?: Object,
 };
 
-export default class RuuiPicker extends Component<any, Props, any> {
+class RuuiPicker extends Component<any, Props, any> {
 	props: Props;
 
 	render() {
@@ -15,7 +15,8 @@ export default class RuuiPicker extends Component<any, Props, any> {
 	}
 
 	renderOptions() {
-		const { options } = this.props.selectorConfigs;
+		const { selectorConfigs } = this.props,
+			{ options } = selectorConfigs;
 
 		return options.map((item, i) => {
 			return <View key={i}>
@@ -26,6 +27,8 @@ export default class RuuiPicker extends Component<any, Props, any> {
 		});
 	}
 }
+
+export default RuuiPicker;
 
 const styles = StyleSheet.create({
 	container: {

@@ -8,7 +8,7 @@ type Props = {
 	color?: string,
 };
 
-export default class RuuiRadioIcon extends Component {
+class RuuiRadioIcon extends Component {
 	props: Props;
 
 	static defaultProps = {
@@ -16,17 +16,17 @@ export default class RuuiRadioIcon extends Component {
 	};
 
 	render() {
-		const wrapperStyle = {
-				borderColor: this.props.active ? this.props.color : '#dedede',
-			}, innerStyle = {
-				backgroundColor: this.props.color,
-			};
+		const { active, color } = this.props,
+			wrapperStyle = { borderColor: active ? color : '#dedede', },
+			innerStyle = { backgroundColor: color, };
 
 		return <View style={[styles.container, wrapperStyle]}>
-			{this.props.active ? <View style={[styles.inner, innerStyle]}/> : <View/>}
+			{active ? <View style={[styles.inner, innerStyle]}/> : <View/>}
 		</View>;
 	}
 }
+
+export default RuuiRadioIcon;
 
 const styles = StyleSheet.create({
 	container: {
@@ -45,4 +45,3 @@ const styles = StyleSheet.create({
 		borderRadius: 7,
 	},
 });
-

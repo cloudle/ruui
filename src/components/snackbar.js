@@ -15,7 +15,7 @@ type Props = {
 	configs: Object,
 };
 
-export default class Snackbar extends Component {
+class Snackbar extends Component {
 	props: Props;
 
 	constructor(props) {
@@ -103,6 +103,8 @@ export default class Snackbar extends Component {
 		</Animated.View>;
 	}
 }
+
+export default Snackbar;
 
 function defaultContentRenderer(configs) {
 	return <Text

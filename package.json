@@ -12,7 +12,7 @@
     "index.d.ts",
     "!**/__tests__"
   ],
-  "version": "1.0.34",
+  "version": "1.0.35",
   "scripts": {
     "start": "npm run compile && npm run watch",
     "watch": "concurrently --kill-others 'npm:watch-cli' 'npm:watch-coffee' 'npm:watch-es6' 'npm:watch-cf6'",
@@ -44,6 +44,7 @@
     "@babel/node": "^7.2.2",
     "@babel/plugin-proposal-decorators": "^7.1.2",
     "@babel/runtime": "^7.1.2",
+    "@hot-loader/react-dom": "^16.8.6",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",

@@ -18,8 +18,7 @@ export default class SelectorItem extends Component<any, Props, any> {
 	props: Props;
 
 	render() {
-		const optionInstance = this.props.optionInstance,
-			activeInstance = this.props.activeInstance,
+		const { optionInstance, activeInstance } = this.props,
 			wrapperStyles = {},
 			iconStyles = {};
 		let isActive = false;
@@ -48,8 +47,8 @@ export default class SelectorItem extends Component<any, Props, any> {
 	}
 
 	renderOptionText() {
-		const option = this.props.optionInstance,
-			optionTitle = this.props.getTitle ? this.props.getTitle(option) : option.title;
+		const { optionInstance, getTitle } = this.props,
+			optionTitle = getTitle(optionInstance);
 
 		return <Text style={styles.optionTitle}>
 			{optionTitle}
@@ -57,7 +56,8 @@ export default class SelectorItem extends Component<any, Props, any> {
 	}
 
 	onItemPick = () => {
-		this.props.onPress(this.props.optionInstance);
+		const { onPress, optionInstance } = this.props;
+		if (onPress) onPress(optionInstance);
 	}
 }
 

@@ -9,7 +9,7 @@ type Props = {
 	style: Style,
 };
 
-export default class RuuiRippleEffect extends Component<any, Props, any> {
+class RuuiRippleEffect extends Component<any, Props, any> {
 	props: Props;
 
 	static defaultProps = {
@@ -47,3 +47,5 @@ export default class RuuiRippleEffect extends Component<any, Props, any> {
 		return <Animated.View pointerEvents="none" style={styles}/>;
 	}
 }
+
+export default RuuiRippleEffect;

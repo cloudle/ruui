@@ -38,7 +38,7 @@ type Props = {
 
 const MAX_PARTICLE_COUNT = 5;
 
-export default class RuuiResponsibleTouchArea extends Component<any, Props, any> {
+class RuuiResponsibleTouchArea extends Component<any, Props, any> {
 	static props: Props;
 
 	static contextTypes = {
@@ -336,6 +336,8 @@ export default class RuuiResponsibleTouchArea extends Component<any, Props, any>
 		}).start();
 	};
 }
+
+export default RuuiResponsibleTouchArea;
 
 function extractBorderRadius(baseStyles) {
 	return [

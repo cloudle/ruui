@@ -19,7 +19,7 @@ type Props = {
 	};
 })
 
-export default class RuuiDropdown extends Component {
+class RuuiDropdown extends Component {
 	props: Props;
 
 	constructor(props) {
@@ -95,6 +95,8 @@ export default class RuuiDropdown extends Component {
 		this.setState({ layout: nativeEvent.layout });
 	};
 }
+
+export default RuuiDropdown;
 
 function EmptyDropdown(props) {
 	return <View>

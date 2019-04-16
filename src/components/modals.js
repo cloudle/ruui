@@ -17,7 +17,7 @@ type Props = {
 	};
 })
 
-export default class RuuiModals extends Component {
+class RuuiModals extends Component {
 	props: Props;
 
 	render() {
@@ -38,6 +38,8 @@ export default class RuuiModals extends Component {
 		</View>;
 	}
 }
+
+export default RuuiModals;
 
 const styles = StyleSheet.create({
 	container: {

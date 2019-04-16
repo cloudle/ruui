@@ -20,7 +20,7 @@ type Props = {
 	};
 })
 
-export default class RuuiTooltip extends Component {
+class RuuiTooltip extends Component {
 	props: Props;
 
 	constructor(props) {
@@ -81,6 +81,8 @@ export default class RuuiTooltip extends Component {
 		}
 	};
 }
+
+export default RuuiTooltip;
 
 export const styles = StyleSheet.create({
 	wrapper: {

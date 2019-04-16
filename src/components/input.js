@@ -26,7 +26,7 @@ type Props = {
 
 const easeInSpeed = 450;
 
-export default class RuuiInput extends Component<any, Props, any> {
+class RuuiInput extends Component<any, Props, any> {
 	props: Props;
 
 	static defaultProps = {
@@ -36,8 +36,8 @@ export default class RuuiInput extends Component<any, Props, any> {
 
 	constructor(props) {
 		super(props);
-		const shouldFloating = this.props.value && this.props.value.length > 0,
-			initialFloating = this.props.forceFloating || shouldFloating ? 1 : 0;
+		const shouldFloating = props.value && props.value.length > 0,
+			initialFloating = props.forceFloating || shouldFloating ? 1 : 0;
 
 		this.underlineAnimation = new Animated.Value(0);
 		this.floatingAnimation = new Animated.Value(initialFloating);
@@ -49,13 +49,15 @@ export default class RuuiInput extends Component<any, Props, any> {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (this.props.floatingLabel) {
+		const { focus } = this.state,
+			{ floatingLabel, value, } = this.props;
+
+		if (floatingLabel) {
 			if (nextProps.value && nextProps.value.length > 0) {
-				/* previous value is Empty? */
-				if (!this.state.focus && (!this.props.value || !this.props.value.length)) {
+				if (!focus && (!value || !value.length)) { /* <- previous value is Empty? */
 					this.playFloatingLabelAnimation(1);
 				}
-			} else if (!this.state.focus && (!nextProps.value || !nextProps.value.length)) {
+			} else if (!focus && (!nextProps.value || !nextProps.value.length)) {
 				this.playFloatingLabelAnimation(0);
 			}
 		}
@@ -77,6 +79,7 @@ export default class RuuiInput extends Component<any, Props, any> {
 				prefix,
 				suffix,
 				...textInputProps } = this.props,
+			{ focus, empty } = this.state,
 			pointerEvents = disabled ? 'none' : 'auto',
 			scale = this.underlineAnimation.interpolate({
 				inputRange: [0, 1], outputRange: [0.0001, 1],
@@ -91,16 +94,14 @@ export default class RuuiInput extends Component<any, Props, any> {
 				transform: [{ scaleX: scale }],
 			},
 			inputContainerStyles = this.buildInputContainerStyles(wrapperStyle),
-			activeHint = this.state.focus && this.state.empty ? hint : '',
+			activeHint = focus && empty ? hint : '',
 			platformProps = isAndroid ? { underlineColorAndroid: 'transparent' } : {};
 
 		return <View
 			pointerEvents={pointerEvents}
 			style={[styles.container, containerStyles, inputContainerStyles]}>
 			<View style={{ flexDirection: 'row', }}>
-				<View style={styles.addonContainer}>
-					{prefix}
-				</View>
+				<View style={styles.addonContainer}>{prefix}</View>
 				<View style={styles.inputContainer}>
 					<TextInput
 						ref={(instance) => { this.textInput = instance; }}
@@ -112,9 +113,7 @@ export default class RuuiInput extends Component<any, Props, any> {
 						placeholderTextColor={hintColor}
 						{...platformProps}/>
 				</View>
-				<View style={styles.addonContainer}>
-					{suffix}
-				</View>
+				<View style={styles.addonContainer}>{suffix}</View>
 				{this.renderFloatingLabel()}
 			</View>
 
@@ -124,15 +123,18 @@ export default class RuuiInput extends Component<any, Props, any> {
 	}
 
 	renderFloatingLabel() {
-		if (this.props.floatingLabel) {
+		const { floatingLabel, floatingLabelStyle } = this.props,
+			{ floatingLabelWidth, floatingLabelHeight } = this.state;
+
+		if (floatingLabel) {
 			const scaleSize = 0.8,
-				scaledWidth = this.state.floatingLabelWidth * (1.05 - scaleSize),
+				scaledWidth = floatingLabelWidth * (1.05 - scaleSize),
 				sideScaledWidth = scaledWidth / 2,
 				scale = this.floatingAnimation.interpolate({
 					inputRange: [0, 1], outputRange: [1, scaleSize],
 				}),
 				translateY = this.floatingAnimation.interpolate({
-					inputRange: [0, 1], outputRange: [0, -this.state.floatingLabelHeight],
+					inputRange: [0, 1], outputRange: [0, -floatingLabelHeight],
 				}),
 				translateX = this.floatingAnimation.interpolate({
 					inputRange: [0, 1], outputRange: [0, -sideScaledWidth],
@@ -140,16 +142,14 @@ export default class RuuiInput extends Component<any, Props, any> {
 				wrapperStyles = {
 					transform: [{ scale }, { translateX }, { translateY }],
 				},
-				textStyles = {
-					color: '#888888',
-				};
+				textStyles = { color: '#888888', };
 
 			return <Animated.View
 				pointerEvents="none"
 				onLayout={this.onFloatingLabelLayout}
 				style={[styles.floatingLabelWrapper, wrapperStyles]}>
-				<Text style={[styles.floatingLabelText, textStyles, this.props.floatingLabelStyle]}>
-					{this.props.floatingLabel}
+				<Text style={[styles.floatingLabelText, textStyles, floatingLabelStyle]}>
+					{floatingLabel}
 				</Text>
 			</Animated.View>;
 		} else {
@@ -158,7 +158,9 @@ export default class RuuiInput extends Component<any, Props, any> {
 	}
 
 	onFloatingLabelLayout = ({ nativeEvent: { layout } }) => {
-		if (!this.state.floatingLabelWidth) {
+		const { floatingLabelWidth } = this.state;
+
+		if (!floatingLabelWidth) {
 			this.setState({
 				floatingLabelWidth: layout.width,
 				floatingLabelHeight: layout.height,
@@ -167,22 +169,25 @@ export default class RuuiInput extends Component<any, Props, any> {
 	};
 
 	onInputFocus = () => {
-		if (this.props.editable) {
+		const { editable, onFocus } = this.props;
+
+		if (editable) {
 			this.setState({ focus: true });
 			this.playUnderlineAnimation(1);
 			this.playFloatingLabelAnimation(1);
-			if (this.props.onFocus) this.props.onFocus();
+			if (onFocus) onFocus();
 		}
 	};
 
 	onInputBlur = () => {
-		const noForceFloating = !this.props.forceFloating,
-			hasEmptyValue = !this.props.value || !this.props.value.length;
+		const { forceFloating, value, onBlur } = this.props,
+			noForceFloating = !forceFloating,
+			hasEmptyValue = !value || !value.length;
 
 		this.setState({ focus: false });
 		this.playUnderlineAnimation(0);
 		if (noForceFloating && hasEmptyValue) this.playFloatingLabelAnimation(0);
-		if (this.props.onBlur) this.props.onBlur();
+		if (onBlur) onBlur();
 	};
 
 	playFloatingLabelAnimation = (toValue: Number) => {
@@ -206,9 +211,11 @@ export default class RuuiInput extends Component<any, Props, any> {
 	};
 
 	buildInputContainerStyles = (defaults = {}) => {
+		const { floatingLabel } = this.props;
+
 		return {
 			...defaults,
-			paddingTop: (defaults.paddingTop || 0) + (this.props.floatingLabel ? 24 : 0),
+			paddingTop: (defaults.paddingTop || 0) + (floatingLabel ? 24 : 0),
 		};
 	};
 
@@ -228,6 +235,8 @@ export default class RuuiInput extends Component<any, Props, any> {
 		return this.textInput.isFocused && this.textInput.isFocused();
 	};
 }
+
+export default RuuiInput;
 
 const styles = StyleSheet.create({
 	container: {

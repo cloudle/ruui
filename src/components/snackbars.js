@@ -24,7 +24,7 @@ const snackbarRadius = 3;
 	};
 })
 
-export default class Snackbars extends Component<any, Props, any> {
+class Snackbars extends Component<any, Props, any> {
 	props: Props;
 
 	static edge = {
@@ -79,6 +79,8 @@ export default class Snackbars extends Component<any, Props, any> {
 		this.props.dispatch(appActions.destroySnackBar(configs));
 	};
 }
+
+export default Snackbars;
 
 const styles = StyleSheet.create({
 	container: {

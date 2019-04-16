@@ -6,6 +6,9 @@ import { base64Icons, } from '../utils';
 import { Style } from '../typeDefinition';
 import * as appAction from '../utils/store/appAction';
 
+const defaultIcon = { uri: base64Icons.downArrow };
+const defaultTitleGet = item => item.title;
+
 type Props = {
 	floatingLabel?: string,
 	cancelText?: string,
@@ -22,6 +25,7 @@ type Props = {
 
 export default class RuuiSelect extends Component<any, Props, any> {
 	static props: Props;
+
 	static contextTypes = {
 		ruuiStore: PropTypes.object,
 	};
@@ -31,6 +35,7 @@ export default class RuuiSelect extends Component<any, Props, any> {
 		cancelText: 'Cancel',
 		options: [{ title: 'Missing options param' }],
 		tapToClose: true,
+		getTitle: defaultTitleGet,
 	};
 
 	constructor(props, context) {
@@ -39,19 +44,19 @@ export default class RuuiSelect extends Component<any, Props, any> {
 	}
 
 	render() {
-		const iconSource = this.props.iconSource || { uri: base64Icons.downArrow };
+		const { iconSource = defaultIcon, floatingLabel, iconStyle } = this.props;
 
 		return <TouchableOpacity
 			onPress={this.activateSelector}
 			style={styles.container}
 			activeOpacity={0.8}>
 			<View style={styles.contentWrapper}>
-				<Text style={styles.floatingLabel}>{this.props.floatingLabel}</Text>
+				<Text style={styles.floatingLabel}>{floatingLabel}</Text>
 				{this.renderValue()}
 			</View>
 			<View style={styles.iconWrapper}>
 				<Image
-					style={[styles.downIcon, this.props.iconStyle]}
+					style={[styles.downIcon, iconStyle]}
 					resizeMode="contain"
 					source={iconSource}/>
 			</View>
@@ -59,26 +64,20 @@ export default class RuuiSelect extends Component<any, Props, any> {
 	}
 
 	renderValue() {
-		let valueText = this.props.value && (this.props.value.title || 'Missing value option');
-		if (this.props.getTitle) valueText = this.props.getTitle(this.props.value);
+		const { value, getTitle, } = this.props,
+			valueText = getTitle(value) || 'Missing value option';
 
-		return <Text style={styles.valueText}>
-			{valueText}
-		</Text>;
+		return <Text style={styles.valueText}>{valueText}</Text>;
 	}
 
 	activateSelector = () => {
+		const { floatingLabel, value, ...otherProps } = this.props;
+
 		this.store.dispatch(appAction.toggleSelector(true, {
-			selectText: this.props.floatingLabel,
-			cancelText: this.props.cancelText,
-			options: this.props.options,
-			activeOption: this.props.value,
-			getTitle: this.props.getTitle,
-			onSelect: this.props.onSelect,
-			onChange: this.props.onChange,
-			onCancel: this.props.onCancel,
-			value: this.props.value,
-			tapToClose: this.props.tapToClose,
+			selectText: floatingLabel,
+			activeOption: value,
+			value,
+			...otherProps
 		}));
 	}
 }

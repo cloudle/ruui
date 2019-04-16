@@ -7,28 +7,31 @@ type Props = {
 	dispatch?: Function,
 };
 
-export default class RuuiLoadingModal extends Component<any, Props, any> {
+class RuuiLoadingModal extends Component<any, Props, any> {
 	props: Props;
 
 	render() {
-		const configs = this.props.configs || {},
+		const { configs = {} } = this.props,
 			indicatorColor = configs.indicatorColor || '#ffffff',
 			indicatorSize = configs.indicatorSize || 'small';
 
-		return <View
-			style={styles.container}>
+		return <View style={styles.container}>
 			<TouchableOpacity onPress={this.onMaskPress}>
 				<ActivityIndicator color={indicatorColor} size={indicatorSize}/>
 			</TouchableOpacity>
-    </View>;
+		</View>;
 	}
 
 	onMaskPress = () => {
-		if (this.props.configs.tapToClose) {
-			this.props.dispatch(appActions.toggleLoading(false));
+		const { dispatch, configs } = this.props;
+
+		if (configs.tapToClose) {
+			dispatch(appActions.toggleLoading(false));
 		}
 	}
 }
+
+export default RuuiLoadingModal;
 
 const styles = StyleSheet.create({
 	container: {

@@ -26,17 +26,19 @@ export default class RuuiModal extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			enterAnimation: new Animated.Value(0),
 			active: props.active,
 		};
+		this.enterAnimation = new Animated.Value(0);
 	}
 
 	componentDidMount() {
-		this.playTransition(this.props.active);
+		const { active } = this.props;
+		this.playTransition(active);
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.active !== this.props.active) {
+		const { active } = this.props;
+		if (nextProps.active !== active) {
 			this.playTransition(nextProps.active);
 		}
 	}
@@ -55,15 +57,15 @@ export default class RuuiModal extends Component {
 	}
 
 	render() {
-		const { enterAnimation, active } = this.state,
-			{ configs = {}, modalCount, type: modalType } = this.props,
+		const { configs = {}, modalCount, type: modalType } = this.props,
+			{ active } = this.state,
 			globalConfigs = valueAt(this, 'context.ruuiConfigs.modal'),
 			containerPropsGenerator = configs.maskProps || globalConfigs.maskProps,
-			containerProps = containerPropsGenerator(enterAnimation, configs, modalCount, modalType);
+			containerProps = containerPropsGenerator(this.enterAnimation, configs, modalCount, modalType);
 
 		if (configs.maskProps && !containerProps.style) {
 			containerProps.style = globalConfigs.maskProps(
-				enterAnimation, configs, modalCount, modalType).style;
+				this.enterAnimation, configs, modalCount, modalType).style;
 		}
 
 		return active ? <Animated.View {...containerProps}>
@@ -74,25 +76,24 @@ export default class RuuiModal extends Component {
 	}
 
 	renderModalInner() {
-		const { enterAnimation } = this.state,
-			{ dispatch, type: modalType, active, configs: modalConfigs } = this.props;
+		const { dispatch, type: modalType, active, configs: modalConfigs } = this.props;
 
 		switch (modalType) {
 		case 'select':
 			return <Selector
 				onRequestClose={configs => dispatch(appActions.toggleSelector(false, configs))}
-				animation={enterAnimation}
+				animation={this.enterAnimation}
 				active={active}
 				configs={modalConfigs}/>;
 		case 'modal':
 			return <CloseableModal
 				onRequestClose={configs => dispatch(appActions.toggleModal(false, configs))}
-				animation={enterAnimation}
+				animation={this.enterAnimation}
 				active={active}
 				configs={modalConfigs}/>;
 		case 'loading':
 			return <LoadingMask
-				animation={enterAnimation}
+				animation={this.enterAnimation}
 				active={active}
 				configs={modalConfigs}/>;
 		default:
@@ -107,7 +108,7 @@ export default class RuuiModal extends Component {
 				? Easing.out(Easing.bezier(0, 0, 0.58, 1))
 				: Easing.in(Easing.bezier(0, 0.48, 0.35, 1)),
 			animations = [
-				Animated.timing(this.state.enterAnimation, {
+				Animated.timing(this.enterAnimation, {
 					toValue,
 					duration: 500,
 					easing,

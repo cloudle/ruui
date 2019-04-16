@@ -20,7 +20,7 @@ type Props = {
 const navigator = global.navigator || {},
 	connectionModule = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 
-export default class RuuiProvider extends Component {
+class RuuiProvider extends Component {
 	static props: Props;
 
 	static defaultProps = {
@@ -66,15 +66,14 @@ export default class RuuiProvider extends Component {
 		}
 
 		if (subscribeNetInfo && connectionModule) {
-			NetInfo.removeEventListener(
-				'connectionChange', this.handleConnectionTypeChange);
-			NetInfo.isConnected.removeEventListener(
-				'connectionChange', this.handleIsConnectedChange);
+			NetInfo.removeEventListener('connectionChange', this.handleConnectionTypeChange);
+			NetInfo.isConnected.removeEventListener('connectionChange', this.handleIsConnectedChange);
 		}
 	}
 
 	render() {
-		return this.props.children;
+		const { children } = this.props;
+		return children;
 	}
 
 	subscribeAndUpdateDimensions = () => {
@@ -97,10 +96,8 @@ export default class RuuiProvider extends Component {
 		NetInfo.isConnected.getConnectionInfo && NetInfo.isConnected.getConnectionInfo()
 			.then(isConnected => this.handleIsConnectedChange(isConnected));
 
-		NetInfo.addEventListener(
-			'connectionChange', this.handleConnectionTypeChange);
-		NetInfo.isConnected.addEventListener(
-			'connectionChange', this.handleIsConnectedChange);
+		NetInfo.addEventListener('connectionChange', this.handleConnectionTypeChange);
+		NetInfo.isConnected.addEventListener('connectionChange', this.handleIsConnectedChange);
 	};
 
 	handleConnectionTypeChange = (connectionType) => {
@@ -108,6 +105,8 @@ export default class RuuiProvider extends Component {
 	};
 
 	handleIsConnectedChange = (isConnected) => {
-		this.props.store.dispatch(appActions.updateNetInfo({ isConnected, }));
+		this.store.dispatch(appActions.updateNetInfo({ isConnected, }));
 	};
 }
+
+export default RuuiProvider;

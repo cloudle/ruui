@@ -2,26 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-import { isWeb } from '../utils';
 import * as appActions from '../utils/store/appAction';
-import { Style, Element, SnappingDirection, Layout, AccessibilityComponentType, AccessibilityTrait, } from '../typeDefinition';
+import { Style, Element, SnappingDirection, Layout, } from '../typeDefinition';
 
 type Props = {
-	id?: String,
-	nativeID?: String,
-	testID?: String,
-	accessible?: Boolean,
-	accessibilityLabel?: any,
-	accessibilityComponentType?: AccessibilityComponentType,
-	accessibilityTraits?: AccessibilityTrait,
-	className?: String,
 	dispatch?: Function,
 	dropdownEvent?: 'onPress' | 'onLongPress',
 	onPress?: Function,
 	onLongPress?: Function,
-	onMagicTap?: Function,
-	onAccessibilityTap?: Function,
-	delayLongPress?: Number,
 	style?: Style,
 	wrapperStyle?: Style,
 	children?: Element,
@@ -32,11 +20,11 @@ type Props = {
 	dropdownDirection?: SnappingDirection,
 	dropdownSpacing?: number,
 	dropdownOffset?: Object,
-	offset?: Object,
 };
 
-export default class RuuiDropdownContainer extends Component {
+class RuuiDropdownContainer extends Component {
 	static props: Props;
+
 	static contextTypes = {
 		ruuiStore: PropTypes.object,
 	};
@@ -50,7 +38,7 @@ export default class RuuiDropdownContainer extends Component {
 		dropdownEvent: 'onPress',
 		dropdownDirection: 'bottom',
 		dropdownSpacing: 10,
-		offset: { top: 0, left: 0 },
+		dropdownOffset: { top: 0, left: 0 },
 	};
 
 	constructor(props, context) {
@@ -59,56 +47,56 @@ export default class RuuiDropdownContainer extends Component {
 	}
 
 	render() {
-		const nativeProps = isWeb ? {} : {
-			nativeID: this.props.nativeID,
-			testID: this.props.testID,
-		};
+		const { wrapperStyle, style, children, ...otherProps } = this.props;
 
 		return <TouchableOpacity
-			style={this.props.wrapperStyle}
+			style={wrapperStyle}
 			onPress={this.onPress}
 			onLongPress={this.onLongPress}
-			delayLongPress={this.props.delayLongPress}>
-			<View
-				className={this.props.className}
-				id={this.props.id} {...nativeProps}
-				accessible={this.props.accessible}
-				accessibilityLabel={this.props.accessibilityLabel}
-				accessibilityComponentType={this.props.accessibilityComponentType}
-				accessibilityTraits={this.props.accessibilityTraits}
-				onAccessibilityTap={this.props.onAccessibilityTap}
-				onMagicTap={this.props.onMagicTap}
-				style={this.props.style}
-				ref={(container) => { this.container = container; }}>
-				{this.props.children}
+			{...otherProps}>
+			<View style={style} ref={(container) => { this.container = container; }}>
+				{children}
 			</View>
 		</TouchableOpacity>;
 	}
 
 	onPress = (e) => {
-		if (this.props.onPress) this.props.onPress(e);
-		if (this.props.dropdownEvent === 'onPress') this.toggleDropdown();
+		const { onPress, dropdownEvent } = this.props;
+		if (onPress) onPress(e); /* <- call default onPress, so that it'll work as normal */
+		if (dropdownEvent === 'onPress') this.toggleDropdown();
 	};
 
 	onLongPress = (e) => {
-		if (this.props.onLongPress) this.props.onLongPress(e);
-		if (this.props.dropdownEvent === 'onLongPress') this.toggleDropdown();
+		const { onLongPress, dropdownEvent } = this.props;
+		if (onLongPress) onLongPress(e); /* <- call default onLongPress, so that it'll work as normal */
+		if (dropdownEvent === 'onLongPress') this.toggleDropdown();
 	};
 
 	toggleDropdown = () => {
+		const {
+			dropdownWrapperStyle,
+			dropdownComponent,
+			dropdownDirection,
+			dropdownSpacing,
+			dropdownOffset,
+			dropdownContext,
+			containerLayout, } = this.props;
+
 		this.container.measure((a, b, width, height, px, py) => {
 			this.store.dispatch(appActions.toggleDropdown(true, {
-				wrapperStyle: this.props.dropdownWrapperStyle,
-				component: this.props.dropdownComponent,
-				containerLayout: this.props.containerLayout || { x: px, y: py, width, height, },
-				direction: this.props.dropdownDirection,
-				spacing: this.props.dropdownSpacing,
-				offset: this.props.dropdownOffset,
-				context: this.props.dropdownContext,
+				wrapperStyle: dropdownWrapperStyle,
+				component: dropdownComponent,
+				containerLayout: containerLayout || { x: px, y: py, width, height, },
+				direction: dropdownDirection,
+				spacing: dropdownSpacing,
+				offset: dropdownOffset,
+				context: dropdownContext,
 			}));
 		});
 	};
 }
+
+export default RuuiDropdownContainer;
 
 const styles = StyleSheet.create({
 	container: {

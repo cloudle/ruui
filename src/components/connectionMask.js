@@ -25,7 +25,7 @@ type Props = {
 	};
 })
 
-export default class RuuiConnectionMask extends Component {
+class RuuiConnectionMask extends Component {
 	props: Props;
 
 	static defaultProps = {
@@ -99,6 +99,8 @@ export default class RuuiConnectionMask extends Component {
 		this.animation = Animated.parallel(animations).start(callback);
 	}
 }
+
+export default RuuiConnectionMask;
 
 const styles = StyleSheet.create({
 	container: {

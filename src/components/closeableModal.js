@@ -11,7 +11,7 @@ type Props = {
 	onRequestClose: Function,
 };
 
-export default class RuuiCloseableModal extends Component<any, Props, any> {
+class RuuiCloseableModal extends Component<any, Props, any> {
 	static props: Props;
 
 	static contextTypes = {
@@ -49,6 +49,8 @@ export default class RuuiCloseableModal extends Component<any, Props, any> {
 		onRequestClose(configs);
 	};
 }
+
+export default RuuiCloseableModal;
 
 export function defaultContainerPropsGenerator(animation, configs, isOpening) {
 	const containerOpacity = animation.interpolate({

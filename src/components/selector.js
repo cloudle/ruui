@@ -16,8 +16,9 @@ type Props = {
 	onRequestClose?: Function,
 };
 
-export default class Selector extends Component<any, Props, any> {
+class Selector extends Component<any, Props, any> {
 	static props: Props;
+
 	static contextTypes = {
 		ruuiStore: PropTypes.object,
 	};
@@ -28,17 +29,18 @@ export default class Selector extends Component<any, Props, any> {
 	}
 
 	render() {
-		const translateY = this.props.animation.interpolate({
+		const { animation, configs, active, onRequestClose } = this.props,
+			translateY = animation.interpolate({
 				inputRange: [0, 0.32, 1], outputRange: [maxContainerSize, maxContainerSize * 0.15, 0],
 			}), selectionContainerStyles = {
 				transform: [{ translateY }],
 			},
-			OptionWrapperElement = this.props.configs.options.length > 5 ? ScrollView : View,
-			pointerEvents = this.props.active ? 'auto' : 'none';
+			OptionWrapperElement = configs.options.length > 5 ? ScrollView : View,
+			pointerEvents = active ? 'auto' : 'none';
 
 		return <View pointerEvents={pointerEvents} style={styles.container}>
-			{this.props.configs.tapToClose ? <TouchableWithoutFeedback
-				onPress={() => this.props.onRequestClose(this.props.configs)}>
+			{configs.tapToClose ? <TouchableWithoutFeedback
+				onPress={() => onRequestClose(configs)}>
 				<View style={styles.touchableMask}/>
 			</TouchableWithoutFeedback> : <View/>}
 
@@ -47,7 +49,7 @@ export default class Selector extends Component<any, Props, any> {
 				<View style={styles.optionWrapper}>
 					<View style={styles.selectTitle}>
 						<Text style={styles.selectTitleText}>
-							{this.props.configs.selectText}
+							{configs.selectText}
 						</Text>
 					</View>
 					<View style={{ maxHeight: 255 }}>
@@ -65,18 +67,22 @@ export default class Selector extends Component<any, Props, any> {
 	}
 
 	renderOptions() {
-		const options = this.props.configs.options || [];
+		const { configs } = this.props,
+			{ options = [] } = configs;
+
 		return options.map((item, i) => {
 			return <SelectorItem
 				key={i}
 				optionInstance={item}
-				activeInstance={this.props.configs.value}
-				getTitle={this.props.configs.getTitle}
+				activeInstance={configs.value}
+				getTitle={configs.getTitle}
 				onPress={this.onItemPick}/>;
 		});
 	}
 
 	renderCommands() {
+		const { configs } = this.props;
+
 		return <ResponsibleTouchArea
 			onPress={this.cancelSelector}
 			rippleColor={colors.iOsBlue}
@@ -84,28 +90,33 @@ export default class Selector extends Component<any, Props, any> {
 			innerStyle={styles.optionItemInner}
 			fadeLevel={0.04}>
 			<Text style={styles.commandTitle}>
-				{this.props.configs.cancelText}
+				{configs.cancelText}
 			</Text>
 		</ResponsibleTouchArea>;
 	}
 
 	onItemPick = (item) => {
-		this.store.dispatch(appActions.toggleSelector(false));
+		const { configs } = this.props;
 
-		if (this.props.configs.onSelect) this.props.configs.onSelect(item);
-		if (this.props.configs.onChange
-			&& JSON.stringify(this.props.configs.value) !== JSON.stringify(item)) {
-			this.props.configs.onChange(item);
+		this.store.dispatch(appActions.toggleSelector(false));
+		if (configs.onSelect) configs.onSelect(item);
+		if (configs.onChange
+			&& JSON.stringify(configs.value) !== JSON.stringify(item)) {
+			configs.onChange(item);
 		}
 	};
 
 	cancelSelector = () => {
+		const { configs } = this.props;
+
 		this.store.dispatch(appActions.toggleSelector(false, {
-			id: this.props.configs.id,
+			id: configs.id,
 		}));
-		if (this.props.configs.onCancel) this.props.configs.onCancel();
+		if (configs.onCancel) configs.onCancel();
 	}
 }
+
+export default Selector;
 
 const maxContainerSize = 500,
 	selectorRadius = isAndroid ? 3 : 8,

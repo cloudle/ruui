@@ -37,7 +37,7 @@ type Props = {
 	onMouseLeave?: Function,
 };
 
-export default class RuuiButton extends Component<any, Props, any> {
+class RuuiButton extends Component<any, Props, any> {
 	props: Props;
 
 	static contextTypes = {
@@ -82,6 +82,8 @@ export default class RuuiButton extends Component<any, Props, any> {
 		}
 	}
 }
+
+export default RuuiButton;
 
 export const styles = StyleSheet.create({
 	wrapper: {
