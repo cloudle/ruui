@@ -10,7 +10,6 @@ const defaultSelectorConfigs = {
 
 export const initialState = {
 	counter: 0,
-	message: 'Hello, Stranger!',
 	activeModals: {
 		defaultSelector: null,
 		defaultModal: null,
@@ -35,8 +34,6 @@ export default function (state = initialState, action) {
 	switch (action.type) {
 	case '@APP:INCREASE-COUNTER':
 		return { ...state, counter: state.counter + 1 };
-	case '@APP:SET-MESSAGE':
-		return { ...state, message: action.message };
 	case Actions.ToggleSelect:
 		return handleToggleSelect(state, action);
 	case Actions.ToggleModal:

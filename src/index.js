@@ -2,9 +2,15 @@ import * as utilsImport from './utils';
 import * as actionsImport from './utils/store/actions';
 import * as appActionImport from './utils/store/appAction';
 import * as routeActionImport from './utils/store/routeAction';
+import appReducer from './store/appReducer';
+import { createStore } from './utils/ruuiStore';
 
-export { store, ruuiMiddleware, ruuiReducer } from './store';
+export { ruuiMiddleware, ruuiReducer } from './store';
 export { connect } from './utils/ruuiStore';
+
+export function createRuuiStore() {
+	return createStore(appReducer);
+}
 
 export * from './components';
 export * from './decorators';

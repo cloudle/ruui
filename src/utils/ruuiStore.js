@@ -54,6 +54,7 @@ export function connect(stateToPropsFactory) {
 
 		return class RuuiConnected extends Component {
 			static displayName = enhancedDisplayName;
+
 			static contextTypes = {
 				ruuiStore: PropTypes.object,
 			};
@@ -73,16 +74,20 @@ export function connect(stateToPropsFactory) {
 			}
 
 			render() {
+				const { generatedProps, } = this.state,
+					{ dispatch } = this.store;
+
 				return <BaseComponent
 					{...this.props}
-					{...this.state.generatedProps}
-					dispatch={this.store.dispatch}/>;
+					{...generatedProps}
+					dispatch={dispatch}/>;
 			}
 
 			syncProps = () => {
-				const nextProps = stateToPropsFactory(this.store.getState());
+				const { generatedProps } = this.state,
+					nextProps = stateToPropsFactory(this.store.getState());
 
-				if (!shallowEqual(this.state.generatedProps, nextProps)) {
+				if (!shallowEqual(generatedProps, nextProps)) {
 					this.setState({ generatedProps: nextProps });
 				}
 			}

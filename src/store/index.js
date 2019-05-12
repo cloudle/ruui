@@ -3,8 +3,6 @@ import appReducer, { initialState } from './appReducer';
 import * as appActions from './action/app';
 import * as actions from './actions';
 
-export const store = createStore(appReducer);
-
 export const ruuiReducer = (state = initialState, action) => {
 	switch (action.type) {
 	case actions.ReduxSync:
@@ -14,7 +12,7 @@ export const ruuiReducer = (state = initialState, action) => {
 	}
 };
 
-export const ruuiMiddleware = (ruuiStore = store) => {
+export const ruuiMiddleware = (ruuiStore) => {
 	return (reduxStore) => {
 		const reduxState = reduxStore.getState();
 
@@ -33,6 +31,3 @@ export const ruuiMiddleware = (ruuiStore = store) => {
 		};
 	};
 };
-
-export default store;
-global.ruuiStore = store;

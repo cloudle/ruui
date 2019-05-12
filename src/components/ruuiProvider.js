@@ -3,7 +3,6 @@ import { NetInfo, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { merge } from 'lodash';
 
-import store from '../store';
 import { isServer } from '../utils';
 import coreConfigs from '../configs/core';
 import * as appActions from '../store/action/app';
@@ -24,7 +23,6 @@ class RuuiProvider extends Component {
 	static props: Props;
 
 	static defaultProps = {
-		store,
 		configs: {},
 		subscribeNetInfo: false,
 		subscribeDimension: true,

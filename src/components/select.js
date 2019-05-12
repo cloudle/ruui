@@ -7,7 +7,7 @@ import { Style } from '../typeDefinition';
 import * as appAction from '../utils/store/appAction';
 
 const defaultIcon = { uri: base64Icons.downArrow };
-const defaultTitleGet = item => item.title;
+const defaultTitleGet = item => item && item.title;
 
 type Props = {
 	floatingLabel?: string,
