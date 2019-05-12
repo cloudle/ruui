@@ -4,7 +4,7 @@ import { Provider, connect } from 'react-redux';
 import { enterAnimation, ruuiActions, RuuiProvider, Button, Input, Modal, Snackbar, Dropdown, Tooltip, DropdownContainer, Select } from '../../src';
 import { hot } from 'react-hot-loader';
 
-import store from './store';
+import appStore, { ruuiStore } from './store';
 import ContextMenu from '../legacy/modal/contextMenu';
 import TestModal from './components/modal';
 import * as appActions from './store/action/app';
@@ -14,8 +14,8 @@ type ContainerProps = {
 };
 
 function AppContainer(props: ContainerProps) {
-	return <RuuiProvider configs={configs}>
-		<Provider store={store}>
+	return <RuuiProvider store={ruuiStore} configs={configs}>
+		<Provider store={appStore}>
 			<App/>
 		</Provider>
 	</RuuiProvider>;
