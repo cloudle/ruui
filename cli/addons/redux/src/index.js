@@ -4,7 +4,7 @@ import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui';
 import { connect, Provider } from 'react-redux';
 import { hot } from 'react-hot-loader/root';
 
-import { store } from './store';
+import { ruuiStore, appStore } from './store';
 import * as appActions from './store/action/app';
 
 const instructions = Platform.select({
@@ -56,8 +56,8 @@ class App extends Component {
 }
 
 function AppContainer(props) {
-	return <RuuiProvider>
-		<Provider store={store}>
+	return <RuuiProvider store={ruuiStore}>
+		<Provider store={appStore}>
 			<App/>
 		</Provider>
 

@@ -1,7 +1,9 @@
 import { createStore, compose, combineReducers, applyMiddleware } from 'redux';
-import { ruuiMiddleware } from 'react-universal-ui';
+import { ruuiMiddleware, createRuuiStore } from 'react-universal-ui';
 import { createLogger } from 'redux-logger';
 import reducers from './reducers';
+
+export const ruuiStore = createRuuiStore();
 
 const DEVTOOLS = '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__',
 	composeEnhancers = global[DEVTOOLS] || compose,
@@ -17,7 +19,7 @@ const DEVTOOLS = '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__',
 export default function configureStore(initialState) {
 	const enhancers = composeEnhancers(
 		applyMiddleware(logger),
-		applyMiddleware(ruuiMiddleware()),
+		applyMiddleware(ruuiMiddleware(ruuiStore)),
 	);
 
 	const store = initialState
@@ -27,4 +29,4 @@ export default function configureStore(initialState) {
 	return store;
 }
 
-export const store = configureStore();
+export const appStore = configureStore();

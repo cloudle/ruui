@@ -7,7 +7,7 @@ import { renderRoutes } from 'react-router-config';
 import { hot } from 'react-hot-loader/root';
 
 import routes from './routes';
-import { store } from './store';
+import { ruuiStore, appStore } from './store';
 import { history } from './store/reducers';
 
 type ContainerProps = {
@@ -19,8 +19,8 @@ function AppContainer(props: ContainerProps) {
 	const routerAndProps = getRouterAndProps(props),
 		{ component: Router, props: routerProps  } = routerAndProps;
 
-	return <RuuiProvider>
-		<Provider store={store}>
+	return <RuuiProvider store={ruuiStore}>
+		<Provider store={appStore}>
 			<Router {...routerProps}>
 				{renderRoutes(routes)}
 			</Router>
