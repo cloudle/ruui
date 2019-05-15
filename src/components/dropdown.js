@@ -42,8 +42,10 @@ class RuuiDropdown extends Component {
 	}
 
 	render() {
-		return this.props.active ? <View style={styles.container}>
-			{this.props.configs.tapToClose ? <TouchableWithoutFeedback
+		const { active, configs } = this.props;
+
+		return active ? <View style={styles.container}>
+			{configs.tapToClose ? <TouchableWithoutFeedback
 				onPress={this.closeModal}>
 				<View style={styles.touchableMask}/>
 			</TouchableWithoutFeedback> : <View/>}
@@ -53,6 +55,7 @@ class RuuiDropdown extends Component {
 
 	renderDropDown() {
 		const { configs } = this.props,
+			{ layout, } = this.state,
 			context = configs.context || {},
 			positionOffset = configs.offset || { top: 0, left: 0 },
 			containerLayout = configs.containerLayout || { x: 0, y: 0, width: 0, height: 0 },
@@ -64,7 +67,7 @@ class RuuiDropdown extends Component {
 			snappingPosition = directionSnap(
 				containerLayout.y, containerLayout.x,
 				containerLayout.width, containerLayout.height,
-				this.state.layout.width, this.state.layout.height,
+				layout.width, layout.height,
 				configs.direction, configs.spacing),
 			wrapperStyles = {
 				position: 'absolute',
@@ -88,7 +91,8 @@ class RuuiDropdown extends Component {
 	}
 
 	closeModal = () => {
-		this.props.dispatch(appActions.toggleDropdown(false));
+		const { dispatch } = this.props;
+		dispatch(appActions.toggleDropdown(false));
 	};
 
 	onLayout = ({ nativeEvent }) => {

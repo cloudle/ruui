@@ -1,3 +1,4 @@
+import { Dimensions } from 'react-native';
 import type { SnappingDirection } from '../typeDefinition';
 
 export function debounce(fn, duration) {
@@ -90,11 +91,12 @@ export function valueAt(root = {}, path, defaultValue) {
 	return defaultValue;
 }
 
-export function directionSnap(
+function rawDirectionSnap(
 	top: number = 0, left: number = 0, width1: number = 0, height1: number = 0,
 	width2: number = 0, height2: number = 0,
 	position: SnappingDirection = 'bottom',
-	spacing = 10) {
+	spacing = 10,
+) {
 	switch (position) {
 	case 'top':
 		return {
@@ -159,6 +161,39 @@ export function directionSnap(
 	default:
 		return { top: 0, left: 0 };
 	}
+}
+
+/* <- to make sure floating component's position won't exceed screen's visible area */
+function screenGuard(position, componentSize, screenPadding = 5) {
+	const screenSize = Dimensions.get('window'),
+		{ top, left, } = position;
+	let guardedTop = top, guardedLeft = left;
+
+	if (top < 5) {
+		guardedTop = 5;
+	} else if (top + componentSize.height > screenSize.height - screenPadding) {
+		guardedTop = screenSize.height - componentSize.height - screenPadding;
+	}
+
+	if (left < 5) {
+		guardedLeft = 5;
+	} else if (left + componentSize.width > screenSize.width - screenPadding) {
+		guardedLeft = screenSize.width - componentSize.width - screenPadding;
+	}
+
+	return { top: guardedTop, left: guardedLeft, };
+}
+
+export function directionSnap(
+	top: number = 0, left: number = 0, width1: number = 0, height1: number = 0,
+	width2: number = 0, height2: number = 0,
+	position: SnappingDirection = 'bottom',
+	spacing = 10,
+) {
+	return screenGuard(
+		rawDirectionSnap(top, left, width1, height1, width2, height2, position, spacing),
+		{ width: width2, height: height2, },
+	);
 }
 
 export function directionAnimatedConfigs(
