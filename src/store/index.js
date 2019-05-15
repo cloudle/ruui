@@ -14,7 +14,8 @@ export const ruuiReducer = (state = initialState, action) => {
 
 export const ruuiMiddleware = (ruuiStore) => {
 	return (reduxStore) => {
-		const reduxState = reduxStore.getState();
+		let reduxState = reduxStore.getState();
+		if (reduxState.toJS) reduxState = reduxState.toJS(); /* <- support Immutable state */
 
 		if (reduxState.ruui) {
 			ruuiStore.subscribe(() => {
