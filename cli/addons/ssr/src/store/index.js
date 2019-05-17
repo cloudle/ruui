@@ -19,7 +19,11 @@ const DEVTOOLS = '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__',
 
 export default function configureStore(initialState) {
 	const enhancers = composeEnhancers(
-		applyMiddleware(logger, routerMiddleware(history), ruuiMiddleware()),
+		applyMiddleware(
+			logger,
+			routerMiddleware(history),
+			ruuiMiddleware(ruuiStore),
+		),
 	);
 
 	const store = initialState

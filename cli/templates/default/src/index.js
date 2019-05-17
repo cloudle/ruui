@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui';
 import { connect, Provider } from 'react-redux';
-import { hot } from 'react-hot-loader';
+import { hot } from 'react-hot-loader/root';
 
 import { store } from './store';
 import * as appActions from './store/action/app';
