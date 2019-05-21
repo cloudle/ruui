@@ -3,8 +3,10 @@ import { NetInfo, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { merge } from 'lodash';
 
-import { isServer } from '../utils';
 import coreConfigs from '../configs/core';
+import { isServer } from '../utils';
+import { createStore } from '../utils/ruuiStore';
+import appReducer from '../store/appReducer';
 import * as appActions from '../store/action/app';
 import { Element, RuuiConfigs } from '../typeDefinition';
 
@@ -26,6 +28,7 @@ class RuuiProvider extends Component {
 		configs: {},
 		subscribeNetInfo: false,
 		subscribeDimension: true,
+		store: createStore(appReducer),
 	};
 
 	static childContextTypes = {
