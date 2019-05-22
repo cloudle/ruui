@@ -36,16 +36,23 @@ run = (argv, config, args) ->
 
 hydrate = (args) -> new Promise (resolve, reject) ->
 	if args.hydrate
-		# start hydrate process..
-		console.log("Generate static markups..")
-		setEnv({ ENV: "production", HYDRATE: "true" })
-		nodeEntryPath = localModule("index.node.js")
-		child = childProcess.spawn "babel-node", [nodeEntryPath],
-			cwd: process.cwd()
-			stdio: "inherit"
-		child.on "close", () -> resolve()
-	else
-		resolve()
+		try
+			# start hydrate process..
+			console.log("Generate static markups..")
+			setEnv({ ENV: "production", HYDRATE: "true" })
+			nodeEntryPath = localModule("index.node.js")
+			babelNodePath = localModule("node_modules", "@babel", "node", "bin", "babel-node.js")
+
+			unless fs.existsSync(babelNodePath)
+				console.log("couldn't locate babel-node module, make sure @babel/node package installed!")
+				return
+
+			child = childProcess.fork babelNodePath, [nodeEntryPath],
+				cwd: process.cwd()
+				stdio: "inherit"
+			child.on "close", () -> resolve()
+		catch error then console.log "error during spawn hydrate process\n", error
+	else resolve()
 
 module.exports =
 	name: "bundle"
