@@ -101,7 +101,8 @@ run = (root, projectName, opts) ->
 
 	rnCli.init(root, projectName, opts)
 	ruuiInit(root, projectName, opts)
-	fs.unlinkSync(path.resolve(root, "App.js"));
+	defaultAppPath = path.resolve(root, "App.js")
+	fs.unlinkSync(defaultAppPath) if fs.existsSync(defaultAppPath)
 
 validateProjectName = (name) ->
 	(console.log(ruuiInvalidProjectName(name)); process.exit(1)) unless String(name).match(/^[$A-Z_][0-9A-Z_$]*$/i)
