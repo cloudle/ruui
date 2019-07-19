@@ -68,49 +68,47 @@ init = (name, opts) ->
 
 run = (root, projectName, opts) ->
 	rnPackage = opts.version
+	verbose = opts.verbose
 	forceNpmClient = opts.npm
 	yarnVersion = not forceNpmClient and getYarnVersionIfAvailable()
 	rnPackage = getInstallPackage(rnPackage)
 	ruuiPackage = if fs.existsSync(path.resolve(process.cwd(), "../../cli.js")) then "file:#{path.resolve(process.cwd(), "../../")}" else getInstallPackage("react-universal-ui")
-	packagesToInstall = "#{rnPackage} #{ruuiPackage}"
-	installCommand = ""
 
-	if opts.installCommand
-		installCommand = opts.installCommand
+	installPackage rnPackage, yarnVersion, forceNpmClient, verbose
+	checkNodeVersion()
+	rnCli = require(modulePath("react-native", "cli.js"))
+	rnInit = rnCli.init(root, projectName, opts)
+
+	bootstrapRuuiProject = ->
+		installPackage ruuiPackage, yarnVersion, forceNpmClient, verbose # install react-universal-ui package
+		ruuiInit = require(modulePath("react-universal-ui", "dist", "cli", "local", "commands", "init"))
+		ruuiInit(root, projectName, opts)
+		defaultAppPath = path.resolve(root, "App.js")
+		fs.unlinkSync(defaultAppPath) if fs.existsSync(defaultAppPath)
+
+	if rnInit.then
+		rnInit.then -> bootstrapRuuiProject()
+		rnInit.catch (error) -> console.log "React Native failed, #{error}"
 	else
-		if yarnVersion
-			console.log "Using yarn v #{yarnVersion}"
-			installCommand = "yarn add #{packagesToInstall} --exact"
-		else
-			console.log "Consider installing yarn to make this faster: https://yarnpkg.com" unless forceNpmClient
-			installCommand = "npm install --save --save-exact #{packagesToInstall}"
+		bootstrapRuuiProject()
 
-		installCommand += " --verbose" if opts.verbose
-		console.log "Installing #{rnPackage}, #{ruuiPackage}."
+installPackage = (packageName, yarnVersion, forceNpmClient, verbose) ->
+	installCommand = ""
+	if yarnVersion and !forceNpmClient
+		console.log "Using yarn v #{yarnVersion} to install #{packageName}"
+		installCommand = "yarn add #{packageName} --exact"
+	else
+		console.log "Consider installing yarn to make this faster: https://yarnpkg.com"
+		installCommand = "npm install --save --save-exact #{packageName}"
+
+	installCommand += " --verbose" if verbose
 
 	try
 		childProcess.execSync(installCommand, { stdio: "inherit" })
 	catch err
-		console.error(err)
+		console.log(err)
 		console.error("Command #{installCommand} failed.")
 		process.exit(1)
-
-	checkNodeVersion()
-	rnCli = require(modulePath("react-native", "cli.js"))
-	ruuiInit = require(modulePath("react-universal-ui", "dist", "cli", "local", "commands", "init"))
-
-	rnInit = rnCli.init(root, projectName, opts)
-
-	if rnInit.then
-		rnInit.then -> ruuiInitializer(ruuiInit, root, projectName, opts)
-		rnInit.catch (error) -> console.log "React Native failed, #{error}"
-	else
-		ruuiInitializer(ruuiInit, root, projectName, opts)
-
-ruuiInitializer = (initCommand, root, projectName, opts) ->
-	initCommand(root, projectName, opts)
-	defaultAppPath = path.resolve(root, "App.js")
-	fs.unlinkSync(defaultAppPath) if fs.existsSync(defaultAppPath)
 
 validateProjectName = (name) ->
 	(console.log(ruuiInvalidProjectName(name)); process.exit(1)) unless String(name).match(/^[$A-Z_][0-9A-Z_$]*$/i)
