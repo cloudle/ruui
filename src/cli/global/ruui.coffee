@@ -99,8 +99,16 @@ run = (root, projectName, opts) ->
 	rnCli = require(modulePath("react-native", "cli.js"))
 	ruuiInit = require(modulePath("react-universal-ui", "dist", "cli", "local", "commands", "init"))
 
-	rnCli.init(root, projectName, opts)
-	ruuiInit(root, projectName, opts)
+	rnInit = rnCli.init(root, projectName, opts)
+
+	if rnInit.then
+		rnInit.then -> ruuiInitializer(ruuiInit, root, projectName, opts)
+		rnInit.catch (error) -> console.log "React Native failed, #{error}"
+	else
+		ruuiInitializer(ruuiInit, root, projectName, opts)
+
+ruuiInitializer = (initCommand, root, projectName, opts) ->
+	initCommand(root, projectName, opts)
 	defaultAppPath = path.resolve(root, "App.js")
 	fs.unlinkSync(defaultAppPath) if fs.existsSync(defaultAppPath)
 
