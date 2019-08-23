@@ -54,7 +54,10 @@ class RuuiDropdownContainer extends Component {
 			onPress={this.onPress}
 			onLongPress={this.onLongPress}
 			{...otherProps}>
-			<View style={style} ref={(container) => { this.container = container; }}>
+			<View 
+			 renderToHardwareTextureAndroid
+			 style={style}
+			 ref={(container) => { this.container = container; }}>
 				{children}
 			</View>
 		</TouchableOpacity>;
