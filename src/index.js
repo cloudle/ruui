@@ -2,6 +2,8 @@ import * as utilsImport from './utils';
 import * as actionsImport from './utils/store/actions';
 import * as appActionImport from './utils/store/appAction';
 import * as routeActionImport from './utils/store/routeAction';
+
+import coreConfigs from './configs/core';
 import appReducer from './store/appReducer';
 import { createStore } from './utils/ruuiStore';
 
@@ -24,3 +26,4 @@ export const appAction = appActionImport;
 export const ruuiActions = appActionImport;
 export const routeActions = routeActionImport;
 export const routeAction = routeActionImport;
+export const defaultConfigs = coreConfigs;

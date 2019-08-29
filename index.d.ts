@@ -51,5 +51,10 @@ export const utils: {
 	): Object,
 };
 
+export const defaultConfigs: {
+	button: Object,
+	modal: Object,
+};
+
 export function enterAnimation(configs: Object): Component;
 
