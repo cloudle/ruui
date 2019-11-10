@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 import { RuuiProvider, Button, Tooltip } from 'react-universal-ui';
-import { hot } from 'react-hot-loader/root';
 
 const instructions = Platform.select({
 	ios: 'Press Cmd+R to reload,\n'
@@ -53,7 +52,7 @@ function AppContainer(props) {
 	</RuuiProvider>;
 }
 
-export default hot(AppContainer);
+export default AppContainer;
 
 const styles = StyleSheet.create({
 	container: {

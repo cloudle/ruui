@@ -13,7 +13,7 @@ type Props = {
 	};
 })
 
-export default class WelcomeScene extends Component {
+class WelcomeScene extends Component {
 	props: Props;
 
 	render() {
@@ -41,6 +41,8 @@ export default class WelcomeScene extends Component {
 		this.props.history.push('/');
 	};
 }
+
+export default WelcomeScene;
 
 const styles = StyleSheet.create({
 	container: {

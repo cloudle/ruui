@@ -5,7 +5,7 @@ type Props = {
 
 };
 
-export default class NotFoundScene extends Component {
+class NotFoundScene extends Component {
 	props: Props;
 
 	render() {
@@ -14,6 +14,8 @@ export default class NotFoundScene extends Component {
 		</View>;
 	}
 }
+
+export default NotFoundScene;
 
 const styles = StyleSheet.create({
 	container: {

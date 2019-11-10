@@ -23,7 +23,7 @@ type Props = {
 	};
 })
 
-export default class HomeScene extends Component {
+class HomeScene extends Component {
 	props: Props;
 
 	render() {
@@ -56,6 +56,8 @@ export default class HomeScene extends Component {
 		this.props.history.push('/welcome');
 	};
 }
+
+export default HomeScene;
 
 const styles = StyleSheet.create({
 	container: {
