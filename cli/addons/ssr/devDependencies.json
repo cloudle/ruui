@@ -1,7 +1,7 @@
 {
 	"@babel/node": "latest",
-	"chalk": "latest",
-	"chokidar": "latest",
-	"invalidate-module": "latest",
-	"module-alias": "latest"
+	"chalk": "2.4.2",
+	"chokidar": "3.3.0",
+	"invalidate-module": "1.0.0",
+	"module-alias": "2.2.0"
 }

@@ -14,7 +14,7 @@ const chalk = require('chalk'),
 moduleAlias.addAlias('react-native', 'react-native-web');
 
 if (!isProduction) { /* <- hot reload server-side code on development mode */
-	const watcher = chokidar.watch('.', { cwd: './src', ignoreInitial: true });
+	const watcher = chokidar.watch('./src', { ignoreInitial: true });
 
 	watcher.on('all', (event, filename) => {
 		console.log(chalk.magenta('hot code reload'), chalk.green(filename), 'updated.');
