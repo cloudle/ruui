@@ -20,13 +20,8 @@ export const Select: Component;
 export const Snackbar: Component;
 export const Tooltip: Component;
 export const ConnectionMask: Component;
-export const TabView: Component;
 export const Slider: Component;
 export const RadioIcon: Component;
-export const NavigationCard: Component;
-export const NavigationCardStack: Component;
-export const NavigationHeader: Component;
-export const NavigationTransitioner: Component;
 
 export function collectionMutate(collection: Array<Object>, instance: Object, uniqueKey?: String, merge?: Boolean, additionalMerge?: Object): Array<Object>;
 export function collectionInsert(collection: Array<Object>, instance: Object, pop?: Boolean): Array<Object>;
