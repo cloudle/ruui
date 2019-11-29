@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import tinyColor from 'tinycolor2';
 import { Animated, Easing, TouchableOpacity, View, StyleSheet, Platform } from 'react-native';
+import tinyColor from 'tinycolor2';
 
 import RippleEffect from './rippleEffect';
 import { debounce, isIos, } from '../utils';
@@ -39,7 +39,7 @@ type Props = {
 const MAX_PARTICLE_COUNT = 5;
 
 class RuuiResponsibleTouchArea extends Component<any, Props, any> {
-	static props: Props;
+	props: Props;
 
 	static contextTypes = {
 		ruuiStore: PropTypes.object,
@@ -77,19 +77,7 @@ class RuuiResponsibleTouchArea extends Component<any, Props, any> {
 	}
 
 	render() {
-		const {
-				children,
-				wrapperStyle,
-				innerStyle,
-				disabled,
-				onPressIn,
-				onPressOut,
-				onPress,
-				ripple,
-				fade,
-				fadeLevel,
-				raise,
-				...otherProps } = this.props,
+		const { children, wrapperStyle, innerStyle, disabled, onPressIn, onPressOut, onPress, ripple, fade, fadeLevel, raise, ...otherProps } = this.props,
 			flattenWrapperStyles = StyleSheet.flatten(wrapperStyle) || {},
 			platformStyles = Platform.select({
 				web: { cursor: 'pointer', userSelect: 'none' },
@@ -273,12 +261,7 @@ class RuuiResponsibleTouchArea extends Component<any, Props, any> {
 
 	onMouseEnter = () => {
 		const { ruuiStore } = this.context,
-			{ disabled,
-				tooltip,
-				tooltipWrapperStyle,
-				tooltipDirection,
-				tooltipPositionSpacing,
-				tooltipPositionOffset } = this.props;
+			{ disabled, tooltip, tooltipWrapperStyle, tooltipDirection, tooltipPositionSpacing, tooltipPositionOffset } = this.props;
 
 		this.setState({ mouseInside: true });
 

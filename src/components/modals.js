@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { PanResponder, View, Text, StyleSheet } from 'react-native';
-import { orderBy } from 'lodash';
+import { View, StyleSheet, } from 'react-native';
 
 import { connect } from '../utils/ruuiStore';
 
@@ -21,9 +20,8 @@ class RuuiModals extends Component {
 	props: Props;
 
 	render() {
-		const { modals } = this.props,
-			modalArray = Object.keys(modals).map(key =>
-				Object.assign({}, modals[key], { id: key }));
+		const { dispatch, modals } = this.props,
+			modalArray = Object.keys(modals).map(key => Object.assign({}, modals[key], { id: key }));
 
 		return <View
 			pointerEvents="box-none"
@@ -32,7 +30,7 @@ class RuuiModals extends Component {
 				return <Modal
 					key={i}
 					modalCount={modalArray.length}
-					dispatch={this.props.dispatch}
+					dispatch={dispatch}
 					{...modalConfigs}/>;
 			})}
 		</View>;

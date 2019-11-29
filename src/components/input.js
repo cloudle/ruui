@@ -48,16 +48,16 @@ class RuuiInput extends Component<any, Props, any> {
 		};
 	}
 
-	componentWillReceiveProps(nextProps) {
+	componentDidUpdate(prevProps) {
 		const { focus } = this.state,
 			{ floatingLabel, value, } = this.props;
 
 		if (floatingLabel) {
-			if (nextProps.value && nextProps.value.length > 0) {
-				if (!focus && (!value || !value.length)) { /* <- previous value is Empty? */
+			if (value && value.length > 0) {
+				if (!focus && (!prevProps.value || !prevProps.value.length)) {
 					this.playFloatingLabelAnimation(1);
 				}
-			} else if (!focus && (!nextProps.value || !nextProps.value.length)) {
+			} else if (!focus && (!value || !value.length)) {
 				this.playFloatingLabelAnimation(0);
 			}
 		}

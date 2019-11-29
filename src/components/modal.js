@@ -36,10 +36,10 @@ export default class RuuiModal extends Component {
 		this.playTransition(active);
 	}
 
-	componentWillReceiveProps(nextProps) {
+	componentDidUpdate(prevProps) {
 		const { active } = this.props;
-		if (nextProps.active !== active) {
-			this.playTransition(nextProps.active);
+		if (prevProps.active !== active) {
+			this.playTransition(active);
 		}
 	}
 

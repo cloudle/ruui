@@ -205,15 +205,15 @@ export default class Slider extends PureComponent {
     });
   };
 
-  componentWillReceiveProps(nextProps) {
-    const newValue = nextProps.value;
+  componentDidUpdate(prevProps) {
+  	const { value, animateTransitions, } = this.props;
 
-    if (this.props.value !== newValue) {
-      if (this.props.animateTransitions) {
-        this._setCurrentValueAnimated(newValue);
+    if (prevProps.value !== value) {
+      if (animateTransitions) {
+        this._setCurrentValueAnimated(value);
       }
       else {
-        this._setCurrentValue(newValue);
+        this._setCurrentValue(value);
       }
     }
   };

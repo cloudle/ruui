@@ -13,41 +13,30 @@ type Props = {
 	onStartTimeout: Function,
 	onTimeout: Function,
 	configs: Object,
-};
+}
 
 class Snackbar extends Component {
 	props: Props;
 
 	constructor(props) {
 		super(props);
-		const initialPosition = this.props.aliveIndex - 1;
-		this.state = {
-			positionAnimation: new Animated.Value(initialPosition),
-			firstItemAnimation: new Animated.Value(0),
-			lastPosition: initialPosition,
-			currentPosition: this.props.aliveIndex,
-		};
+		const initialPosition = props.aliveIndex - 1;
+		this.positionAnimation = new Animated.Value(initialPosition);
+		this.firstItemAnimation = new Animated.Value(0);
 	}
 
-	static defaultProps = {
-		contentRenderer: defaultContentRenderer,
-	};
+	componentDidUpdate(prevProps) {
+		const { aliveIndex, } = this.props;
 
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.aliveIndex !== this.props.aliveIndex) {
-			this.setState({
-				lastPosition: this.props.aliveIndex,
-				currentPosition: nextProps.aliveIndex,
-			});
-
-			Animated.timing(this.state.positionAnimation, {
-				toValue: nextProps.aliveIndex, duration: 1000,
+		if (prevProps.aliveIndex !== aliveIndex) {
+			Animated.timing(this.positionAnimation, {
+				toValue: aliveIndex, duration: 1000,
 				easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
 			}).start();
 
-			if (this.props.aliveIndex === 0 && nextProps.aliveIndex !== -1) {
-				Animated.timing(this.state.firstItemAnimation, {
-					toValue: nextProps.aliveIndex === 0 ? 0 : 1,
+			if (prevProps.aliveIndex === 0 && aliveIndex !== -1) {
+				Animated.timing(this.firstItemAnimation, {
+					toValue: aliveIndex === 0 ? 0 : 1,
 					duration: 1000,
 					easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
 				}).start();
@@ -56,50 +45,51 @@ class Snackbar extends Component {
 	}
 
 	componentDidMount() {
-		Animated.timing(this.state.positionAnimation, {
-			toValue: this.state.currentPosition, duration: 1000,
+		const { configs, aliveIndex, onStartTimeout, onTimeout, } = this.props;
+
+		Animated.timing(this.positionAnimation, {
+			toValue: aliveIndex, duration: 1000,
 			easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
 		}).start(() => {
 			this.timeout = setTimeout(() => {
-				this.props.onStartTimeout(this.props.configs);
+				onStartTimeout(configs);
 
-				Animated.timing(this.state.positionAnimation, {
-					toValue: this.props.aliveIndex, duration: 1000,
+				Animated.timing(this.positionAnimation, {
+					toValue: aliveIndex, duration: 1000,
 					easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
-				}).start(() => {
-					this.props.onTimeout(this.props.configs);
-				});
-			}, this.props.configs.timeout || 5000);
+				}).start(() => onTimeout(configs));
+			}, configs.timeout || 5000);
 		});
 	}
 
 	render() {
-		const contentRenderer = this.props.configs.contentRenderer || defaultContentRenderer,
-			velocity = this.props.edge === 'top' ? this.props.itemHeight : -this.props.itemHeight,
-			borderRadius = this.state.firstItemAnimation.interpolate({
+		const { configs, edge, edgeOffset, itemHeight, index, } = this.props,
+			contentRenderer = configs.contentRenderer || defaultContentRenderer,
+			velocity = edge === 'top' ? itemHeight : -itemHeight,
+			borderRadius = this.firstItemAnimation.interpolate({
 				inputRange: [0, 1], outputRange: [0, 3],
 			}),
-			marginHorizontal = this.state.firstItemAnimation.interpolate({
+			marginHorizontal = this.firstItemAnimation.interpolate({
 				inputRange: [0, 1], outputRange: [0, 12],
 			}),
-			offset = this.state.positionAnimation.interpolate({
+			offset = this.positionAnimation.interpolate({
 				inputRange: [0, 100], outputRange: [0, 100 * velocity],
 			}),
 			containerStyles = {
-				zIndex: -this.props.index + 100,
+				zIndex: -index + 100,
 				borderRadius, marginHorizontal,
 				transform: [{ translateY: offset }],
 			};
 
-		if (this.props.edge === 'top') {
-			containerStyles.top = this.props.edgeOffset;
+		if (edge === 'top') {
+			containerStyles.top = edgeOffset;
 		} else {
-			containerStyles.bottom = this.props.edgeOffset;
+			containerStyles.bottom = edgeOffset;
 		}
 
 		return <Animated.View
-			style={[styles.container, this.props.configs.containerStyle, containerStyles]}>
-			{contentRenderer(this.props.configs)}
+			style={[styles.container, configs.containerStyle, containerStyles]}>
+			{contentRenderer(configs)}
 		</Animated.View>;
 	}
 }

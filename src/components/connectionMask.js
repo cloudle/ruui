@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Animated, Easing, NetInfo, ActivityIndicator, View, Text, StyleSheet } from 'react-native';
 
-import Button from '../components/button';
+import Button from './button';
 import { connect } from '../utils';
 import * as appActions from '../utils/store/appAction';
 import type { Style, Element } from '../typeDefinition';
@@ -44,9 +44,11 @@ class RuuiConnectionMask extends Component {
 		};
 	}
 
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.netInfo.isConnected !== this.props.netInfo.isConnected) {
-			this.playAnimation(nextProps.netInfo.isConnected ? 0 : 1);
+	componentDidUpdate(prevProps) {
+		const { netInfo } = this.props;
+
+		if (prevProps.netInfo.isConnected !== netInfo.isConnected) {
+			this.playAnimation(netInfo.isConnected ? 0 : 1);
 		}
 	}
 

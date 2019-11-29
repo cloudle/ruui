@@ -30,8 +30,10 @@ class RuuiDropdown extends Component {
 		};
 	}
 
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.active === true) {
+	componentDidUpdate() {
+		const { active } = this.props;
+
+		if (active === true) {
 			this.enterAnimation.setValue(0);
 			Animated.timing(this.enterAnimation, {
 				toValue: 1,
