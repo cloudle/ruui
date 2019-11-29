@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, Animated, TouchableOpacity, View, ScrollView, Text, TextInput } from 'react-native';
 import { Provider, connect } from 'react-redux';
 import { enterAnimation, ruuiActions, RuuiProvider, Button, Input, Modal, Snackbar, Dropdown, Tooltip, DropdownContainer, Select } from '../../src';
-import { hot } from 'react-hot-loader';
 
 import appStore, { ruuiStore } from './store';
 import ContextMenu from '../legacy/modal/contextMenu';
@@ -21,7 +20,7 @@ function AppContainer(props: ContainerProps) {
 	</RuuiProvider>;
 }
 
-export default hot(module)(AppContainer);
+export default AppContainer;
 
 type Props = {
 	counter?: String | Number,
