@@ -33,3 +33,30 @@ export type Route = {
 	exact?: Boolean,
 	routes?: Array<Route>,
 };
+
+export type RouterLocation = {
+	pathname?: String,
+	search?: String,
+	hash?: String,
+	state?: any,
+};
+
+export type RouterMatch = {
+	path?: String,
+	url?: String,
+	isExact?: Boolean,
+	params?: Object,
+};
+
+export type RouterHistory = {
+	action?: String,
+	block?: Function,
+	listen?: Function,
+	go?: Function,
+	goBack?: Function,
+	goForward?: Function,
+	length?: Number | String,
+	push?: Function,
+	replace?: Function,
+	location?: RouterLocation,
+};
