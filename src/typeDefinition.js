@@ -104,5 +104,6 @@ export type TooltipConfigs = {
 	positionSpacing?: Number,
 	positionOffset?: PositionOffset,
 	wrapperStyle?: Style,
+	innerStyle?: Style,
 	content?: String | Element,
 };

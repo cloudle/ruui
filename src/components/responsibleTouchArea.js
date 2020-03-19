@@ -14,6 +14,7 @@ type Props = {
 	innerStyle?: Style,
 	tooltip?: String | Element,
 	tooltipWrapperStyle?: Style,
+	tooltipInnerStyle?: Style,
 	tooltipDirection?: SnappingDirection,
 	tooltipPositionSpacing?: number,
 	tooltipPositionOffset?: Object,
@@ -260,8 +261,8 @@ class RuuiResponsibleTouchArea extends Component<any, Props, any> {
 	};
 
 	onMouseEnter = () => {
-		const { ruuiStore } = this.context,
-			{ disabled, tooltip, tooltipWrapperStyle, tooltipDirection, tooltipPositionSpacing, tooltipPositionOffset } = this.props;
+		const { ruuiStore } = this.context;
+		const { disabled, tooltip, tooltipWrapperStyle, tooltipInnerStyle, tooltipDirection, tooltipPositionSpacing, tooltipPositionOffset } = this.props;
 
 		this.setState({ mouseInside: true });
 
@@ -277,6 +278,7 @@ class RuuiResponsibleTouchArea extends Component<any, Props, any> {
 						positionOffset: tooltipPositionOffset,
 						content: tooltip,
 						wrapperStyle: tooltipWrapperStyle,
+						innerStyle: tooltipInnerStyle,
 					}));
 				});
 			}

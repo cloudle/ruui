@@ -53,18 +53,19 @@ class RuuiTooltip extends Component {
 	}
 
 	render() {
-		const animatedConfigs = directionAnimatedConfigs(
-				this.props.tooltip.configs.direction, 10, this.enterAnimation),
-			wrapperStyle = {
-				top: this.state.top, left: this.state.left,
-				transform: animatedConfigs.transform,
-				opacity: animatedConfigs.opacity,
-			},
-			innerStyles = animatedConfigs.borderRadius;
+		const { tooltip, } = this.props;
+		const { top, left, } = this.state;
+		const animatedConfigs = directionAnimatedConfigs(tooltip.configs.direction, 10, this.enterAnimation);
+		const innerStyles = animatedConfigs.borderRadius;
+		const wrapperStyle = {
+			top, left,
+			transform: animatedConfigs.transform,
+			opacity: animatedConfigs.opacity,
+		};
 
 		return <Animated.View pointerEvents="none" style={[styles.wrapper, wrapperStyle]}>
 			<View ref={(instance) => { this.container = instance; }}>
-				<Animated.View style={[styles.container, innerStyles]}>
+				<Animated.View style={[styles.container, innerStyles, tooltip.configs.innerStyle]}>
 					{this.renderContent()}
 				</Animated.View>
 			</View>
