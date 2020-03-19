@@ -19,6 +19,7 @@ export const DropdownContainer: Component;
 export const Select: Component;
 export const Snackbar: Component;
 export const Tooltip: Component;
+export const TooltipContainer: Component;
 export const ConnectionMask: Component;
 export const Slider: Component;
 export const RadioIcon: Component;

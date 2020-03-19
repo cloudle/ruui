@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Animated, TouchableOpacity, View, ScrollView, Text, TextInput } from 'react-native';
 import { Provider, connect } from 'react-redux';
-import { enterAnimation, ruuiActions, RuuiProvider, Button, Input, Modal, Snackbar, Dropdown, Tooltip, DropdownContainer, Select } from '../../src';
+import { enterAnimation, ruuiActions, RuuiProvider, Button, Input, Modal, Snackbar, Dropdown, Tooltip, TooltipContainer, DropdownContainer, Select } from '../../src';
 
 import appStore, { ruuiStore } from './store';
 import ContextMenu from '../legacy/modal/contextMenu';
@@ -62,6 +62,10 @@ class App extends Component {
 				onPress={() => {
 					// this.props.dispatch(appActions.increaseCounter());
 					this.props.dispatch(ruuiActions.insertSnackBar({ message: 'Snackbar content..', }));
+					this.props.dispatch(ruuiActions.toggleLoading(true));
+					setTimeout(() => {
+						this.props.dispatch(ruuiActions.toggleLoading(false));
+					}, 2000);
 				}}>
 				<Text>Add Snackbar {this.props.counter}</Text>
 			</TouchableOpacity>
@@ -78,10 +82,12 @@ class App extends Component {
 				title="hey!!"
 				tooltip="hey, this is a tooltip"
 				tooltipDirection="top"
+				tooltipInnerStyle={{ backgroundColor: 'red' }}
 				onPress={() => {
 					this.props.dispatch(ruuiActions.toggleModal(true, {
 						component: TestModal,
 						tapToClose: true,
+						zIndex: 10,
 					}));
 					// this.secondInput.focus();
 				}}/>
@@ -97,7 +103,9 @@ class App extends Component {
 			{/*<Button title="right-bottom" tooltipDirection="right-bottom" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>*/}
 			{/*<Button title="top-right" tooltipDirection="top-right" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>*/}
 			{/*<Button title="right-top" tooltipDirection="right-top" wrapperStyle={{ marginTop: 10 }} tooltip="Yoohoo a skdjkalsjdlasdjla"/>*/}
-			<View style={{ backgroundColor: '#ffffff', borderRadius: 3, paddingVertical: 18, }}>
+			<TooltipContainer
+				tooltip="hello world"
+				style={{ backgroundColor: 'red', borderRadius: 3, paddingVertical: 18, }}>
 				<Input
 					floatingLabel="hey"
 					value={this.state.account}
@@ -107,7 +115,10 @@ class App extends Component {
 					floatingLabel="heoo"
 					value={this.state.account}
 					onChangeText={account => this.setState({ account })}/>
-			</View>
+			</TooltipContainer>
+			<TooltipContainer tooltip="hello">
+				<Text>Hello</Text>
+			</TooltipContainer>
 			<Snackbar/>
 			<Modal/>
 			<Dropdown/>

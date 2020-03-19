@@ -286,8 +286,8 @@ class RuuiResponsibleTouchArea extends Component<any, Props, any> {
 	};
 
 	onMouseLeave = () => {
-		const { ruuiStore } = this.context,
-			{ disabled, tooltip } = this.props;
+		const { ruuiStore } = this.context;
+		const { disabled, tooltip } = this.props;
 
 		this.onPressOut(null, true);
 		this.setState({ mouseInside: false });
