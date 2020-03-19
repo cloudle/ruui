@@ -1,12 +1,13 @@
 import * as Actions from './actions';
 import { collectionDestroy, collectionInsert, collectionMutate } from '../utils/collection';
+import { maxBy, } from '../utils/helpers';
 
+const initialSize = { width: 0, height: 0, };
 const defaultSelectorConfigs = {
-		zIndex: 99,
-		selectText: 'Select',
-		cancelText: 'Cancel',
-		options: [{ title: 'Option 1' }, { title: 'Option 2' }],
-	}, initialSize = { width: 0, height: 0, };
+	selectText: 'Select',
+	cancelText: 'Cancel',
+	options: [{ title: 'Option 1' }, { title: 'Option 2' }],
+};
 
 export const initialState = {
 	counter: 0,
@@ -65,15 +66,18 @@ export default function (state = initialState, action) {
 
 
 function handleToggleSelect(state, action) {
-	const selectorName = action.configs.id || 'default',
-		selectorConfigs = {
-			type: 'select',
-			active: action.flag === true,
-			configs: action.flag === true ? {
-				...defaultSelectorConfigs,
-				...action.configs
-			} : state.activeModals[`${selectorName}Selector`].configs,
-		};
+	const selectorName = action.configs.id || 'default';
+	const isToggleOn = action.flag === true;
+	const layerProp = extractLayerDepthProp(state.activeModals, isToggleOn);
+	const selectorConfigs = {
+		type: 'select',
+		active: action.flag === true,
+		configs: action.flag === true ? {
+			...defaultSelectorConfigs,
+			...layerProp,
+			...action.configs
+		} : state.activeModals[`${selectorName}Selector`].configs,
+	};
 
 	return {
 		...state,
@@ -85,15 +89,18 @@ function handleToggleSelect(state, action) {
 }
 
 function handleToggleModal(state, action) {
-	const modalName = action.configs.id || 'default',
-		currentModal = state.activeModals[modalName] || {},
-		modalConfigs = {
-			type: 'modal',
-			active: action.flag === true,
-			configs: action.flag === true ? {
-				...action.configs,
-			} : currentModal.configs,
-		};
+	const modalName = action.configs.id || 'default';
+	const currentModal = state.activeModals[modalName] || {};
+	const isToggleOn = action.flag === true;
+	const layerProp = extractLayerDepthProp(state.activeModals, isToggleOn);
+	const modalConfigs = {
+		type: 'modal',
+		active: isToggleOn,
+		configs: action.flag === true ? {
+			...layerProp,
+			...action.configs,
+		} : currentModal.configs,
+	};
 
 	return {
 		...state,
@@ -113,7 +120,7 @@ function handleToggleLoading(state, action) {
 				type: 'loading',
 				active: action.flag === true,
 				configs: action.flag ? {
-					zIndex: 100,
+					zIndex: 9999,
 					...action.configs,
 				} : {},
 			} : null,
@@ -142,4 +149,16 @@ function handleToggleTooltip(state, action) {
 			configs: action.flag === true ? action.configs : state.tooltip.configs,
 		},
 	};
+}
+
+function suggestLayerDepth(modalMap) {
+	const modalArray = Object.values(modalMap);
+	const extractIndex = (item) => item && item.configs && item.configs.zIndex;
+	const indexArray = modalArray.map(extractIndex).filter(item => item >= 0 && item < 9000);
+	return maxBy(indexArray) + 1;
+}
+
+function extractLayerDepthProp(modalMap, isToggleOn) {
+	const nextLayerDepth = suggestLayerDepth(modalMap);
+	return isToggleOn ? { zIndex: isNaN(nextLayerDepth) ? 0 : nextLayerDepth } : {};
 }

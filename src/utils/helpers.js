@@ -36,6 +36,24 @@ export function maxGuard(value: Number, gap: Number) {
 	return value > gap ? gap : value;
 }
 
+const defaultIteratee = (item) => item;
+
+export function maxBy(array, iteratee = defaultIteratee) {
+	let result
+	if (array == null) return result
+
+	let computed
+	for (const value of array) {
+		const current = iteratee(value)
+
+		if (current != null && (computed === undefined ? current === current : current > computed)) {
+			computed = current
+			result = value
+		}
+	}
+	return result
+}
+
 export function clamp(value: Number, min: Number, max: Number) {
 	return min < max
 		? (value < min ? min : value > max ? max : value)
