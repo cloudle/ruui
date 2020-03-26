@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Animated, TouchableOpacity, View, ScrollView, Text, TextInput } from 'react-native';
 import { Provider, connect } from 'react-redux';
-import { enterAnimation, ruuiActions, RuuiProvider, Button, Input, Modal, Snackbar, Dropdown, Tooltip, TooltipContainer, DropdownContainer, Select } from '../../src';
+import { enterAnimation, ruuiActions, RuuiProvider, TouchableRipple, Button, Input, Modal, Snackbar, Dropdown, Tooltip, TooltipContainer, DropdownContainer, Select } from '../../src';
 
 import appStore, { ruuiStore } from './store';
 import ContextMenu from '../legacy/modal/contextMenu';
@@ -119,6 +119,10 @@ class App extends Component {
 			<TooltipContainer tooltip="hello">
 				<Text>Hello</Text>
 			</TooltipContainer>
+			<TouchableRipple style={styles.touchableRipple}>
+				<Text>Touchable Ripple</Text>
+			</TouchableRipple>
+
 			<Snackbar/>
 			<Modal/>
 			<Dropdown/>
@@ -135,6 +139,9 @@ const styles = StyleSheet.create({
 	buttonWrapper: {
 		backgroundColor: 'red',
 		borderRadius: 4,
+	},
+	touchableRipple: {
+		backgroundColor: 'red',
 	},
 });
 

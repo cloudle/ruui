@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import { createBrowserHistory, createMemoryHistory } from 'history';
 import { utils } from 'react-universal-ui';
-import appReducer from './app';
+import { createBrowserHistory, createMemoryHistory } from 'history';
 import { connectRouter } from 'connected-react-router';
+import appReducer from './app';
 
 export const history = utils.isServer ? createMemoryHistory() : createBrowserHistory();
 
