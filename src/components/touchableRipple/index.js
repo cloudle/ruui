@@ -1,6 +1,7 @@
-import React from 'react';
-import { StyleSheet, View, Text, } from 'react-native';
+import React, { useRef, } from 'react';
+import { Platform, StyleSheet, View, TouchableOpacity, Text, } from 'react-native';
 
+import { extractBorderRadius, } from './utils';
 import { Element, Style, } from '../../typeDefinition';
 
 type Props = {
@@ -12,12 +13,29 @@ type Props = {
 };
 
 function RippleView(props: Props) {
-	const { style, children, } = props;
+	const { style, children, fade, raise, disabled, ...otherProps } = props;
 	const flattenStyle = StyleSheet.flatten(style);
-	console.log(flattenStyle, '<<- flatten style');
+	const radiusStyle = extractBorderRadius(flattenStyle);
+	const platformStyle = Platform.select({ web: { cursor: 'pointer', userSelect: 'none' }, });
+	const platformProps = Platform.select({
+		web: {
+			onMouseEnter: () => {
 
-	return <View style={[styles.container, style]}>
-		{children}
+			},
+			onMouseLeave: () => {
+
+			},
+		},
+		default: {},
+	});
+
+	return <View
+		style={[radiusStyle, platformStyle]}>
+		<TouchableOpacity
+			style={style}
+			disabled={disabled}>
+			{children}
+		</TouchableOpacity>
 	</View>;
 }
 

@@ -120,7 +120,7 @@ class App extends Component {
 				<Text>Hello</Text>
 			</TooltipContainer>
 			<TouchableRipple style={styles.touchableRipple}>
-				<Text>Touchable Ripple</Text>
+				<Text style={{ color: '#ffffff', }}>Touchable Ripple</Text>
 			</TouchableRipple>
 
 			<Snackbar/>
@@ -141,7 +141,9 @@ const styles = StyleSheet.create({
 		borderRadius: 4,
 	},
 	touchableRipple: {
-		backgroundColor: 'red',
+		backgroundColor: 'rgb(0, 122, 255)',
+		padding: 12,
+		borderRadius: 3,
 	},
 });
 
