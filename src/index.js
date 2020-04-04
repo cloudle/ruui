@@ -7,6 +7,7 @@ import coreConfigs from './configs/core';
 import appReducer from './store/appReducer';
 import { createStore } from './utils/ruuiStore';
 
+export { RuuiContext } from './utils/context';
 export { ruuiMiddleware, ruuiReducer } from './store';
 export { connect } from './utils/ruuiStore';
 

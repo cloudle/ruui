@@ -1,7 +1,8 @@
-import React, { useRef, } from 'react';
+import React, { useContext, useRef, } from 'react';
 import { Platform, StyleSheet, View, TouchableOpacity, Text, } from 'react-native';
 
 import { extractBorderRadius, } from './utils';
+import { RuuiContext, } from '../../utils/context';
 import { Element, Style, } from '../../typeDefinition';
 
 type Props = {
@@ -14,7 +15,8 @@ type Props = {
 
 function RippleView(props: Props) {
 	const { style, children, fade, raise, disabled, ...otherProps } = props;
-	const flattenStyle = StyleSheet.flatten(style);
+	const ruuiStore = useContext(RuuiContext);
+	const flattenStyle = StyleSheet.flatten(style) || {};
 	const radiusStyle = extractBorderRadius(flattenStyle);
 	const platformStyle = Platform.select({ web: { cursor: 'pointer', userSelect: 'none' }, });
 	const platformProps = Platform.select({
