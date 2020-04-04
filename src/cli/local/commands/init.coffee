@@ -1,5 +1,6 @@
 fs = require("fs")
 path = require("path")
+chalk = require("chalk")
 { ruuiModule, ruuiCliModule, isDirectory, getDirectories, dotFilePath, templateExclusions } = require("../util/helper")
 walk = require("../util/walk")
 copyAndReplace = require("../util/copyAndReplace")
@@ -51,7 +52,7 @@ init = (root, argsOrName, opts) ->
 				return if templateExclusions.indexOf(relativeRenamedPath) >= 0
 				copyAndReplace(absoluteSrcPath, absoluteDestinationPath, templateReplacements)
 		else
-			console.log "Couldn't found template with name \"#{template}\", used essential template."
+			console.log(chalk.yellow("Couldn't found template with name \"#{template}\", used essential template."))
 
 	templates.installDependencies(dependencies, yarnVersion, false)
 	templates.installDependencies(devDependencies, yarnVersion, true)
