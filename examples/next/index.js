@@ -11,7 +11,7 @@ function App(props: Props) {
 
 	return <View style={styles.container}>
 		<TouchableRipple style={styles.buttonContainer}>
-			<Text style={styles.buttonText}>App</Text>
+			<Text style={styles.buttonText}>This is a Ripple button</Text>
 		</TouchableRipple>
 	</View>;
 }
