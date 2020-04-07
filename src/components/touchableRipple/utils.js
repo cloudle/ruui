@@ -3,13 +3,14 @@ import { useState, useRef, } from 'react';
 import { uuid, } from '../../utils';
 import { collectionDestroy, } from '../../utils/collection';
 
-export function extractBorderRadius(baseStyles) {
+export function extractWrapperStyle(baseStyles) {
 	return [
 		'borderRadius',
 		'borderTopLeftRadius',
 		'borderTopRightRadius',
 		'borderBottomLeftRadius',
 		'borderBottomRightRadius',
+		'backgroundColor',
 	].reduce((accumulate, currentAttribute) => {
 		if (baseStyles[currentAttribute]) {
 			accumulate[currentAttribute] = baseStyles[currentAttribute];
@@ -25,12 +26,18 @@ export function useRipple(rippleCount = 5, staticRipple, flattenStyle) {
 	const onPressIn = (containerRef, touchEvent) => {
 		containerRef.current.measure((x, y, width, height, px, py) => {
 			const rippleStyle = extractRippleStyle(touchEvent, staticRipple, x, y, width, height, px, py);
-			console.log(rippleStyle);
+
 			const newRipple = {
 				id: uuid(),
 				style: rippleStyle,
 			};
-			setRipples([...ripples, newRipple]);
+			let nextRipples = [newRipple, ...ripples];
+
+			if (nextRipples.length > 5) {
+				nextRipples = nextRipples.slice(0, 5);
+			}
+
+			setRipples(nextRipples);
 		});
 	};
 

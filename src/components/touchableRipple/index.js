@@ -2,7 +2,7 @@ import React, { useContext, useRef, } from 'react';
 import { Platform, StyleSheet, View, TouchableOpacity, Text, } from 'react-native';
 
 import Ripple from './ripple';
-import { extractBorderRadius, useRipple, } from './utils';
+import { extractWrapperStyle, useRipple, } from './utils';
 import { RuuiContext, } from '../../utils/context';
 import { Element, Style, } from '../../typeDefinition';
 
@@ -20,7 +20,7 @@ function RippleView(props: Props) {
 	const containerRef = useRef();
 	const ruuiStore = useContext(RuuiContext);
 	const flattenStyle = StyleSheet.flatten(style) || {};
-	const radiusStyle = extractBorderRadius(flattenStyle);
+	const wrapperStyle = extractWrapperStyle(flattenStyle);
 	const [onPressIn, onAnimationComplete, ripples] = useRipple(5, staticRipple, flattenStyle);
 	const platformStyle = Platform.select({ web: { cursor: 'pointer', userSelect: 'none' }, });
 	const platformProps = Platform.select({
@@ -37,21 +37,20 @@ function RippleView(props: Props) {
 
 	return <View
 		ref={containerRef}
-		style={[radiusStyle, platformStyle]}>
+		style={[wrapperStyle, platformStyle]}>
+		<View style={[StyleSheet.absoluteFill, { overflow: 'hidden' }]}>
+			{ripples.map((ripple) => <Ripple
+				key={ripple.id}
+				id={ripple.id}
+				style={ripple.style}
+				onAnimationComplete={onAnimationComplete}/>)}
+		</View>
 		<TouchableOpacity
 			activeOpacity={1}
-			style={style}
+			style={[style, { backgroundColor: 'transparent' }]}
 			disabled={disabled}
-			onPressIn={(e) => onPressIn(containerRef, e)}>
+			onPressIn={e => onPressIn(containerRef, e)}>
 			{children}
-			<View style={StyleSheet.absoluteFill}>
-				{ripples.map((ripple) => <Ripple
-					key={ripple.id}
-					id={ripple.id}
-					style={ripple.style}
-					onAnimationComplete={onAnimationComplete}/>)}
-			</View>
-			<Text>{ripples.length}</Text>
 		</TouchableOpacity>
 	</View>;
 }

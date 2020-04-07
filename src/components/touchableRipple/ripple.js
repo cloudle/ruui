@@ -25,14 +25,14 @@ function Ripple(props: Props) {
 			duration: speed,
 			easing: Easing.out(Easing.bezier(0.445, 0.05, 0.55, 0.95)),
 			useNativeDriver: !isBrowser,
-		}).start(() => onAnimationComplete(id));
+		}).start();
 	}, []);
 
 	const opacity = expand.interpolate({
 		inputRange: [0, 0.5, 1], outputRange: [initialOpacity, 0.1, 0], });
 	const scale = expand.interpolate({
 		inputRange: [0, 0.1, 0.5, 1], outputRange: [initialScale, 0.4, 0.8, 1], });
-	const containerStyle = { position: 'absolute', transform: [{ scale }], opacity, }
+	const containerStyle = { position: 'absolute', transform: [{ scale }], opacity, };
 
 	return <Animated.View style={[style, containerStyle]}/>;
 }
