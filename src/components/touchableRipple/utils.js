@@ -68,12 +68,12 @@ function extractRippleStyle({ nativeEvent, }, staticRipple, x, y, width, height,
 		if (touchX > (width / 2)) {
 			if (touchY > (height / 2)) { /* <- bottom-right */
 				rippleRadius = Math.sqrt((touchX * touchX) + (touchY * touchY));
-			} else {  /* <- top-right */
+			} else { /* <- top-right */
 				const paddedY = touchY - height;
 				rippleRadius = Math.sqrt((touchX * touchX) + (paddedY * paddedY));
 			}
-		} else if (touchY > (height / 2)) {  /* <- bottom-left */
-			const paddedX = touchY - width;
+		} else if (touchY > (height / 2)) { /* <- bottom-left */
+			const paddedX = touchX - width;
 			rippleRadius = Math.sqrt((paddedX * paddedX) + (touchY * touchY));
 		} else {
 			const paddedX = touchX - width;

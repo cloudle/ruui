@@ -50,7 +50,9 @@ function RippleView(props: Props) {
 			style={[style, { backgroundColor: 'transparent' }]}
 			disabled={disabled}
 			onPressIn={e => onPressIn(containerRef, e)}>
-			{children}
+			<View pointerEvents="none">
+				{children}
+			</View>
 		</TouchableOpacity>
 	</View>;
 }
