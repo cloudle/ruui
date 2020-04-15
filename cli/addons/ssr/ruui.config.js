@@ -1,7 +1,11 @@
-const env = () => process.env.ENV || 'development',
-	isProduction = env() === 'production';
+const env = () => process.env.ENV || 'development';
+const host = () => process.env.HOST || 'localhost';
+const port = () => process.env.DEV_PORT || 3000;
+const isProduction = env() === 'production';
+
 
 module.exports = {
 	env,
-	publicPath: isProduction ? '/' : 'http://localhost:3000/',
+	publicPath: isProduction ? '/' : `http://${host()}:${port()}/`,
+	port
 };
