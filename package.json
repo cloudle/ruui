@@ -1,5 +1,5 @@
 {
-  "name": "@phucanthony/react-universal-ui",
+  "name": "react-universal-ui",
   "description": "Universal UI Kit for React Native and Web",
   "main": "dist",
   "bin": {
