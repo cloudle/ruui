@@ -132,9 +132,12 @@ function handleToggleDropdown(state, action) {
 	const currentDropdown = state.activeModals[dropdownName] || {},
 		isToggleOn = action.flag === true;
 	if (!isToggleOn) {
-		const newState = { ...state };
-		delete newState.activeModals[dropdownName];
-		return newState;
+		const activeModals = { ...state.activeModals };
+		delete activeModals[dropdownName];
+		return {
+			...state,
+			activeModals,
+		};
 	}
 	const layerProp = extractLayerDepthProp(state.activeModals, isToggleOn);
 	const dropdownConfigs = {
