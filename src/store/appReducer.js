@@ -1,6 +1,5 @@
 import * as Actions from './actions';
-import { collectionDestroy, collectionInsert, collectionMutate } from '../utils/collection';
-import { maxBy, } from '../utils/helpers';
+import { collectionDestroy, collectionInsert, collectionMutate, maxBy, } from '../utils';
 
 const initialSize = { width: 0, height: 0, };
 const defaultSelectorConfigs = {
@@ -129,14 +128,24 @@ function handleToggleLoading(state, action) {
 }
 
 function handleToggleDropdown(state, action) {
+	const dropdownName = action.configs.id || 'default';
+	const currentDropdown = state.activeModals[dropdownName] || {};
+	const isToggleOn = action.flag === true;
+	const layerProp = extractLayerDepthProp(state.activeModals, isToggleOn);
+	const dropdownConfigs = {
+		type: 'dropdown',
+		active: isToggleOn,
+		configs: action.flag === true ? {
+			...layerProp,
+			...action.configs,
+		} : currentDropdown.configs,
+	};
+
 	return {
 		...state,
-		activeDropdown: {
-			active: action.flag === true,
-			configs: action.flag === true ? {
-				...action.configs,
-				tapToClose: action.configs.tapToClose || true,
-			} : state.activeDropdown.configs,
+		activeModals: {
+			...state.activeModals,
+			[dropdownName]: dropdownConfigs,
 		},
 	};
 }
@@ -153,12 +162,12 @@ function handleToggleTooltip(state, action) {
 
 function suggestLayerDepth(modalMap) {
 	const modalArray = Object.values(modalMap);
-	const extractIndex = (item) => item && item.configs && item.configs.zIndex;
+	const extractIndex = item => item && item.configs && item.configs.zIndex;
 	const indexArray = modalArray.map(extractIndex).filter(item => item >= 0 && item < 9000);
 	return maxBy(indexArray) + 1;
 }
 
 function extractLayerDepthProp(modalMap, isToggleOn) {
 	const nextLayerDepth = suggestLayerDepth(modalMap);
-	return isToggleOn ? { zIndex: isNaN(nextLayerDepth) ? 0 : nextLayerDepth } : {};
+	return isToggleOn ? { zIndex: Number.isNaN(nextLayerDepth) ? 0 : nextLayerDepth } : {};
 }
