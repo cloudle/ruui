@@ -128,9 +128,14 @@ function handleToggleLoading(state, action) {
 }
 
 function handleToggleDropdown(state, action) {
-	const dropdownName = action.configs.id || 'default';
-	const currentDropdown = state.activeModals[dropdownName] || {};
-	const isToggleOn = action.flag === true;
+	const dropdownName = action.configs.id || 'default_dropdown';
+	const currentDropdown = state.activeModals[dropdownName] || {},
+		isToggleOn = action.flag === true;
+	if (!isToggleOn) {
+		const newState = { ...state };
+		delete newState.activeModals[dropdownName];
+		return newState;
+	}
 	const layerProp = extractLayerDepthProp(state.activeModals, isToggleOn);
 	const dropdownConfigs = {
 		type: 'dropdown',
