@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 
 import * as appActions from '../utils/store/appAction';
 import { Style, Element, SnappingDirection, Layout, } from '../typeDefinition';
@@ -54,10 +54,10 @@ class RuuiDropdownContainer extends Component {
 			onPress={this.onPress}
 			onLongPress={this.onLongPress}
 			{...otherProps}>
-			<View 
-			 renderToHardwareTextureAndroid
-			 style={style}
-			 ref={(container) => { this.container = container; }}>
+			<View
+				renderToHardwareTextureAndroid
+				style={style}
+				ref={(container) => { this.container = container; }}>
 				{children}
 			</View>
 		</TouchableOpacity>;
@@ -87,6 +87,7 @@ class RuuiDropdownContainer extends Component {
 
 		this.container.measure((a, b, width, height, px, py) => {
 			this.store.dispatch(appActions.toggleDropdown(true, {
+				id: `Dropdown_${Math.random()}`,
 				wrapperStyle: dropdownWrapperStyle,
 				component: dropdownComponent,
 				containerLayout: containerLayout || { x: px, y: py, width, height, },

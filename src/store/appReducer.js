@@ -140,6 +140,7 @@ function handleToggleDropdown(state, action) {
 			...action.configs,
 		} : currentDropdown.configs,
 	};
+	dropdownConfigs.configs.tapToClose = true;
 
 	return {
 		...state,

@@ -5,7 +5,6 @@ import { Animated, Easing, View, StyleSheet } from 'react-native';
 import Selector from './selector';
 import LoadingMask from './loadingMask';
 import CloseableModal from './closeableModal';
-import RuuiDropdown from './dropdown';
 import { valueAt } from '../utils';
 import * as appActions from '../utils/store/appAction';
 
@@ -98,11 +97,6 @@ export default class RuuiModal extends Component {
 				animation={this.enterAnimation}
 				active={active}
 				configs={modalConfigs}/>;
-		case 'dropdown':
-			return <RuuiDropdown
-				active={active}
-				configs={modalConfigs}
-			/>;
 		default:
 			return <View/>;
 		}

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Animated, Easing, View, TouchableWithoutFeedback, Text, StyleSheet } from 'react-native';
 
-import { directionSnap, directionAnimatedConfigs } from '../utils';
-import { connect } from '../utils/ruuiStore';
+import { directionSnap, directionAnimatedConfigs, connect } from '../utils';
 import * as appActions from '../utils/store/appAction';
-import { Style, Element, DropdownConfigs } from '../typeDefinition';
+import { DropdownConfigs } from '../typeDefinition';
 
 type Props = {
 	dispatch?: Function,
@@ -12,12 +11,7 @@ type Props = {
 	configs?: DropdownConfigs,
 };
 
-@connect(({ activeDropdown }) => {
-	return {
-		active: activeDropdown.active,
-		configs: activeDropdown.configs,
-	};
-})
+@connect(() => ({}))
 
 class RuuiDropdown extends Component {
 	props: Props;
@@ -30,16 +24,23 @@ class RuuiDropdown extends Component {
 		};
 	}
 
-	componentDidUpdate() {
-		const { active } = this.props;
+	componentDidMount() {
+		this.playAnimation();
+	}
 
-		if (active === true) {
-			this.enterAnimation.setValue(0);
-			Animated.timing(this.enterAnimation, {
-				toValue: 1,
-				duration: 800,
-				easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
-			}).start();
+	playAnimation = () => {
+		this.enterAnimation.setValue(0);
+		Animated.timing(this.enterAnimation, {
+			toValue: 1,
+			duration: 800,
+			easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
+		}).start();
+	}
+
+	componentDidUpdate(prevProps) {
+		const { active } = this.props;
+		if (prevProps.active !== active && active) {
+			this.playAnimation();
 		}
 	}
 
@@ -65,12 +66,14 @@ class RuuiDropdown extends Component {
 			flattenWrapperStyle = StyleSheet.flatten(configs.wrapperStyle) || {},
 			finalBorderRadius = flattenWrapperStyle.borderRadius || 3,
 			animatedConfigs = directionAnimatedConfigs(
-				configs.direction, 10, this.enterAnimation, finalBorderRadius),
+				configs.direction, 10, this.enterAnimation, finalBorderRadius
+			),
 			snappingPosition = directionSnap(
 				containerLayout.y, containerLayout.x,
 				containerLayout.width, containerLayout.height,
 				layout.width, layout.height,
-				configs.direction, configs.spacing),
+				configs.direction, configs.spacing
+			),
 			wrapperStyles = {
 				position: 'absolute',
 				top: snappingPosition.top + positionOffset.top,
@@ -82,7 +85,7 @@ class RuuiDropdown extends Component {
 				...animatedConfigs.borderRadius,
 			};
 
-		return <View style={wrapperStyles} onLayout={this.onLayout}>
+		return <View style={[wrapperStyles, { zIndex: configs.zIndex }]} onLayout={this.onLayout}>
 			<Animated.View style={[styles.dropdownContainer, configs.wrapperStyle, containerStyles]}>
 				<InnerComponent
 					animation={this.enterAnimation}
@@ -93,8 +96,8 @@ class RuuiDropdown extends Component {
 	}
 
 	closeModal = () => {
-		const { dispatch } = this.props;
-		dispatch(appActions.toggleDropdown(false));
+		const { dispatch, configs } = this.props;
+		dispatch(appActions.toggleDropdown(false, configs));
 	};
 
 	onLayout = ({ nativeEvent }) => {
