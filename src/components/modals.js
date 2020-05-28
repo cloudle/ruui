@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, } from 'react-native';
 
-import { connect } from '../utils/ruuiStore';
+import { connect } from '../utils';
 
 import Modal from './modal';
+import RuuiDropdown from './dropdown';
 
 type Props = {
 	modals?: Array<Object>,
@@ -27,6 +28,12 @@ class RuuiModals extends Component {
 			pointerEvents="box-none"
 			style={styles.container}>
 			{modalArray.map((modalConfigs, i) => {
+				if (modalConfigs.type === 'dropdown') {
+					return <RuuiDropdown
+						key={i}
+						{...modalConfigs}
+					/>;
+				}
 				return <Modal
 					key={i}
 					modalCount={modalArray.length}

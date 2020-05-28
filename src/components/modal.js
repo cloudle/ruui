@@ -65,7 +65,8 @@ export default class RuuiModal extends Component {
 
 		if (configs.maskProps && !containerProps.style) {
 			containerProps.style = globalConfigs.maskProps(
-				this.enterAnimation, configs, modalCount, modalType).style;
+				this.enterAnimation, configs, modalCount, modalType
+			).style;
 		}
 
 		return active ? <Animated.View {...containerProps}>
