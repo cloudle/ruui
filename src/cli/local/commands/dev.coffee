@@ -7,11 +7,10 @@ chalk = require("chalk")
 run = (argv, config, args) ->
 	{ port, ssrPort, host, devOnly } = args
 	nodeEntryPath = localModule("index.node.js")
-	actualHost = if host is "0.0.0.0" then "localhost" else host
 
-	launchSsr(nodeEntryPath, actualHost, ssrPort) if !devOnly and fs.existsSync(nodeEntryPath)
+	launchSsr(nodeEntryPath, host, ssrPort) if !devOnly and fs.existsSync(nodeEntryPath)
 	setTimeout ->
-		launchDevServer(actualHost, port)
+		launchDevServer(host, port)
 	, 1000 # <- it take at least
 
 launchSsr = (nodeEntryPath, host, ssrPort) ->
