@@ -75,9 +75,11 @@ class RuuiDropdown extends Component {
 				configs.direction, configs.spacing
 			),
 			wrapperStyles = {
+				overflow: 'hidden',
 				position: 'absolute',
 				top: snappingPosition.top + positionOffset.top,
 				left: snappingPosition.left + positionOffset.left,
+				opacity: layout.width ? 1 : 0,
 			},
 			containerStyles = {
 				transform: animatedConfigs.transform,
