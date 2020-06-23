@@ -85,6 +85,7 @@ export type DropdownConfigs = {
 	direction: SnappingDirection,
 	spacing?: number,
 	context?: Object,
+	onClose ?: Function,
 };
 
 export type RuuiConfigs = {

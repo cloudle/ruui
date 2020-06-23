@@ -36,7 +36,7 @@ class RuuiModals extends Component {
 				}
 				return <Modal
 					key={i}
-					modalCount={modalArray.length}
+					modalCount={modalArray.filter(e => e.type !== 'dropdown').length}
 					dispatch={dispatch}
 					{...modalConfigs}/>;
 			})}
