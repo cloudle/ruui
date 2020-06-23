@@ -28,6 +28,11 @@ class RuuiDropdown extends Component {
 		this.playAnimation();
 	}
 
+	componentWillUnmount() {
+		const { configs: { onClose } } = this.props;
+		if (onClose) onClose();
+	}
+
 	playAnimation = () => {
 		this.enterAnimation.setValue(0);
 		Animated.timing(this.enterAnimation, {
@@ -90,6 +95,7 @@ class RuuiDropdown extends Component {
 		return <View style={[wrapperStyles, { zIndex: configs.zIndex }]} onLayout={this.onLayout}>
 			<Animated.View style={[styles.dropdownContainer, configs.wrapperStyle, containerStyles]}>
 				<InnerComponent
+					configs={configs}
 					animation={this.enterAnimation}
 					context={context}
 					close={this.closeModal}/>
@@ -119,10 +125,12 @@ const styles = StyleSheet.create({
 	container: {
 		zIndex: 1000,
 		position: 'absolute',
+		overflow: 'hidden',
 		top: 0, bottom: 0, left: 0, right: 0,
 	},
 	touchableMask: {
 		position: 'absolute',
+		overflow: 'hidden',
 		top: 0, bottom: 0, left: 0, right: 0,
 	},
 	dropdownContainer: {

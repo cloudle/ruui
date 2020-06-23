@@ -20,6 +20,8 @@ type Props = {
 	dropdownDirection?: SnappingDirection,
 	dropdownSpacing?: number,
 	dropdownOffset?: Object,
+	id ?: string | number,
+	onClose ?: Function,
 };
 
 class RuuiDropdownContainer extends Component {
@@ -77,17 +79,20 @@ class RuuiDropdownContainer extends Component {
 
 	toggleDropdown = () => {
 		const {
+			id,
 			dropdownWrapperStyle,
 			dropdownComponent,
 			dropdownDirection,
 			dropdownSpacing,
 			dropdownOffset,
 			dropdownContext,
-			containerLayout, } = this.props;
+			containerLayout,
+			onClose,
+		} = this.props;
 
 		this.container.measure((a, b, width, height, px, py) => {
 			this.store.dispatch(appActions.toggleDropdown(true, {
-				id: `Dropdown_${Math.random()}`,
+				id: id || `Dropdown_${Math.random()}`,
 				wrapperStyle: dropdownWrapperStyle,
 				component: dropdownComponent,
 				containerLayout: containerLayout || { x: px, y: py, width, height, },
@@ -95,6 +100,7 @@ class RuuiDropdownContainer extends Component {
 				spacing: dropdownSpacing,
 				offset: dropdownOffset,
 				context: dropdownContext,
+				onClose,
 			}));
 		});
 	};
