@@ -13,8 +13,8 @@ export function debounce(fn, duration) {
 }
 
 export function uuid() {
-	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-		const r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
+	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+		const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
 		return v.toString(16);
 	});
 }
@@ -36,22 +36,22 @@ export function maxGuard(value: Number, gap: Number) {
 	return value > gap ? gap : value;
 }
 
-const defaultIteratee = (item) => item;
+const defaultIteratee = item => item;
 
 export function maxBy(array, iteratee = defaultIteratee) {
-	let result
-	if (array == null) return result
+	let result;
+	if (array == null) return result;
 
-	let computed
+	let computed;
 	for (const value of array) {
-		const current = iteratee(value)
+		const current = iteratee(value);
 
 		if (current != null && (computed === undefined ? current === current : current > computed)) {
-			computed = current
-			result = value
+			computed = current;
+			result = value;
 		}
 	}
-	return result
+	return result;
 }
 
 export function clamp(value: Number, min: Number, max: Number) {
@@ -73,8 +73,8 @@ function is(x, y) {
 export function shallowEqual(objA, objB) {
 	if (is(objA, objB)) return true;
 
-	if (typeof objA !== 'object' || objA === null ||
-		typeof objB !== 'object' || objB === null) {
+	if (typeof objA !== 'object' || objA === null
+		|| typeof objB !== 'object' || objB === null) {
 		return false;
 	}
 
@@ -84,8 +84,8 @@ export function shallowEqual(objA, objB) {
 	if (keysA.length !== keysB.length) return false;
 
 	for (let i = 0; i < keysA.length; i += 1) {
-		if (!hasOwn.call(objB, keysA[i]) ||
-			!is(objA[keysA[i]], objB[keysA[i]])) {
+		if (!hasOwn.call(objB, keysA[i])
+			|| !is(objA[keysA[i]], objB[keysA[i]])) {
 			return false;
 		}
 	}
@@ -182,8 +182,8 @@ function rawDirectionSnap(
 }
 
 /* <- to make sure floating component's position won't exceed screen's visible area */
-function screenGuard(position, componentSize, screenPadding = 5) {
-	const screenSize = Dimensions.get('window'),
+function screenGuard(position, componentSize, screenPadding = 5, moddedScreenSize = {}) {
+	const screenSize = { ...Dimensions.get('window'), ...moddedScreenSize },
 		{ top, left, } = position;
 	let guardedTop = top, guardedLeft = left;
 
@@ -207,15 +207,17 @@ export function directionSnap(
 	width2: number = 0, height2: number = 0,
 	position: SnappingDirection = 'bottom',
 	spacing = 10,
+	screenSize,
 ) {
 	return screenGuard(
 		rawDirectionSnap(top, left, width1, height1, width2, height2, position, spacing),
-		{ width: width2, height: height2, },
+		{ width: width2, height: height2, }, 5, screenSize
 	);
 }
 
 export function directionAnimatedConfigs(
-	direction, translateDistance, animation, finalBorderRadius = 3) {
+	direction, translateDistance, animation, finalBorderRadius = 3
+) {
 	const borderRadius = animation.interpolate({
 			inputRange: [0, 0.5, 1], outputRange: [50, 15, finalBorderRadius],
 		}),
