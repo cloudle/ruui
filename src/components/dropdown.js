@@ -9,6 +9,7 @@ type Props = {
 	dispatch?: Function,
 	active?: boolean,
 	configs?: DropdownConfigs,
+	screenSize?: { width?: number, height?: number },
 };
 
 @connect(() => ({}))
@@ -62,7 +63,7 @@ class RuuiDropdown extends Component {
 	}
 
 	renderDropDown() {
-		const { configs } = this.props,
+		const { configs, screenSize } = this.props,
 			{ layout, } = this.state,
 			context = configs.context || {},
 			positionOffset = configs.offset || { top: 0, left: 0 },
@@ -77,7 +78,8 @@ class RuuiDropdown extends Component {
 				containerLayout.y, containerLayout.x,
 				containerLayout.width, containerLayout.height,
 				layout.width, layout.height,
-				configs.direction, configs.spacing
+				configs.direction, configs.spacing,
+				screenSize,
 			),
 			wrapperStyles = {
 				overflow: 'hidden',

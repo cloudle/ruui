@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, findNodeHandle } from 'react-native';
 
 import * as appActions from '../utils/store/appAction';
 import { Style, Element, SnappingDirection, Layout, } from '../typeDefinition';
@@ -90,12 +90,12 @@ class RuuiDropdownContainer extends Component {
 			onClose,
 		} = this.props;
 
-		this.container.measure((a, b, width, height, px, py) => {
+		this.container.measureLayout(findNodeHandle(global.modalsContainer), (a, b, width, height) => {
 			this.store.dispatch(appActions.toggleDropdown(true, {
 				id: id || `Dropdown_${Math.random()}`,
 				wrapperStyle: dropdownWrapperStyle,
 				component: dropdownComponent,
-				containerLayout: containerLayout || { x: px, y: py, width, height, },
+				containerLayout: containerLayout || { x: a, y: b, width, height, },
 				direction: dropdownDirection,
 				spacing: dropdownSpacing,
 				offset: dropdownOffset,

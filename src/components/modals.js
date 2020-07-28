@@ -9,6 +9,7 @@ import RuuiDropdown from './dropdown';
 type Props = {
 	modals?: Array<Object>,
 	dispatch?: Function,
+	screenSize?: { width?: number, height?: number },
 };
 
 @connect(({ activeModals }) => {
@@ -21,16 +22,18 @@ class RuuiModals extends Component {
 	props: Props;
 
 	render() {
-		const { dispatch, modals } = this.props,
+		const { dispatch, modals, screenSize } = this.props,
 			modalArray = Object.keys(modals).map(key => Object.assign({}, modals[key], { id: key }));
 
 		return <View
+			ref={(ref) => { global.modalsContainer = ref; }}
 			pointerEvents="box-none"
 			style={styles.container}>
 			{modalArray.map((modalConfigs, i) => {
 				if (modalConfigs.type === 'dropdown') {
 					return <RuuiDropdown
 						key={i}
+						screenSize={screenSize}
 						{...modalConfigs}
 					/>;
 				}
