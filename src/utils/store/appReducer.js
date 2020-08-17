@@ -30,7 +30,7 @@ export function initialAppState(initialState = {}, previousState = {}) {
 
 export function appReducer(reducer) {
 	const initialState = initialAppState(reducer(undefined, { type: Actions.ReduxInit }));
-
+	console.log('!!!');
 	return function (state = initialState, action) {
 		switch (action.type) {
 		case Actions.ToggleSelect:
@@ -94,6 +94,7 @@ function handleToggleModal(state, action) {
 			} : currentModal.configs,
 		};
 
+	console.log(modalName, modalConfigs, '<<--');
 	return {
 		...state,
 		activeModals: {

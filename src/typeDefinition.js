@@ -108,3 +108,14 @@ export type TooltipConfigs = {
 	innerStyle?: Style,
 	content?: String | Element,
 };
+
+export type ModalOptions = {
+	id?: String,
+	type: "modal" | "dropdown",
+	active?: Boolean,
+	configs?: {
+		zIndex?: Number,
+		tapToClose?: Boolean,
+		component?: Function | Element,
+	},
+};

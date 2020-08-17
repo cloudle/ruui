@@ -16,3 +16,4 @@ export * from './helpers';
 export * from './screen';
 export * from './icons';
 export * from './collection';
+export * from './animated';
