@@ -7,7 +7,7 @@ webpack = require("webpack")
 { localModule, setEnv, getJson, writeFile } = require("../util/helper")
 
 run = (argv, config, args) ->
-	setEnv({ ENV: "production" })
+	setEnv({ ENV: "production", NODE_ENV: "production" })
 	console.log("Bundling project to #{chalk.magenta(process.env.ENV)} release...")
 
 	configs = require("../tools/webpack.config")()
@@ -39,7 +39,7 @@ hydrate = (args) -> new Promise (resolve, reject) ->
 		try
 			# start hydrate process..
 			console.log("Generate static markups..")
-			setEnv({ ENV: "production", HYDRATE: "true" })
+			setEnv({ ENV: "production", HYDRATE: "true", NODE_ENV: "production" })
 			nodeEntryPath = localModule("index.node.js")
 			babelNodePath = localModule("node_modules", "@babel", "node", "bin", "babel-node.js")
 
