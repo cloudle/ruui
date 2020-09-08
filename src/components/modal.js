@@ -14,6 +14,7 @@ type Props = {
 	configs?: Object,
 	modalCount?: number,
 	dispatch?: Function,
+	animationDelay?: Number,
 };
 
 export default class RuuiModal extends Component {
@@ -32,8 +33,8 @@ export default class RuuiModal extends Component {
 	}
 
 	componentDidMount() {
-		const { active } = this.props;
-		setTimeout(() => this.playTransition(active), 200);
+		const { active, animationDelay, } = this.props;
+		setTimeout(() => this.playTransition(active), animationDelay);
 	}
 
 	componentDidUpdate(prevProps) {

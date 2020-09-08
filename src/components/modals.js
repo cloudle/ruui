@@ -10,6 +10,7 @@ type Props = {
 	modals?: Array<Object>,
 	dispatch?: Function,
 	screenSize?: { width?: number, height?: number },
+	animationDelay?: Number,
 };
 
 @connect(({ activeModals }) => {
@@ -20,9 +21,12 @@ type Props = {
 
 class RuuiModals extends Component {
 	props: Props;
+	static defaultProps = {
+		animationDelay: 200,
+	};
 
 	render() {
-		const { dispatch, modals, screenSize } = this.props,
+		const { dispatch, modals, screenSize, animationDelay, } = this.props,
 			modalArray = Object.keys(modals).map(key => Object.assign({}, modals[key], { id: key }));
 
 		return <View
@@ -41,6 +45,7 @@ class RuuiModals extends Component {
 					key={i}
 					modalCount={modalArray.filter(e => e.type !== 'dropdown').length}
 					dispatch={dispatch}
+					animationDelay={animationDelay}
 					{...modalConfigs}/>;
 			})}
 		</View>;
