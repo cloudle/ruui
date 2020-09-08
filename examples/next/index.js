@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Animated, TouchableOpacity, View, ScrollView, Text, TextInput } from 'react-native';
 import { Provider, connect } from 'react-redux';
-import { enterAnimation, ruuiActions, RuuiProvider, TouchableRipple, Button, Input, Modal, Floats, Snackbar, Dropdown, Tooltip, TooltipContainer, DropdownContainer, Select } from '../../src';
+import { enterAnimation, ruuiActions, RuuiProvider, TouchableRipple, Button, Input, Modal, Snackbar, Dropdown, Tooltip, TooltipContainer, DropdownContainer, Select } from '../../src';
 
 import appStore, { ruuiStore } from './store';
 import ContextMenu from '../legacy/modal/contextMenu';
@@ -77,15 +77,6 @@ class App extends Component {
 				dropdownContext={{ name: 'Cloud' }}>
 				<Text>Drop {this.state.account} {this.state.animationFinished ? 'TRUE' : 'FALSE'}</Text>
 			</DropdownContainer>
-			<TouchableOpacity onPress={() => {
-				this.props.dispatch(ruuiActions.toggleModal(true, {
-					component: TestModal,
-					tapToClose: true,
-					zIndex: 10,
-				}));
-			}}>
-				<Text>Add</Text>
-			</TouchableOpacity>
 			<Button
 				wrapperStyle={{ marginBottom: 10 }}
 				title="hey!!"
@@ -133,7 +124,7 @@ class App extends Component {
 			</TouchableRipple>
 
 			<Snackbar/>
-			<Floats/>
+			<Modal/>
 			<Dropdown/>
 			<Tooltip/>
 		</Animated.View>;

@@ -33,7 +33,7 @@ export default class RuuiModal extends Component {
 
 	componentDidMount() {
 		const { active } = this.props;
-		this.playTransition(active);
+		setTimeout(() => this.playTransition(active), 200);
 	}
 
 	componentDidUpdate(prevProps) {
