@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, } from 'react-native';
 
-import { connect } from '../utils';
-
 import Modal from './modal';
 import RuuiDropdown from './dropdown';
+import { connect } from '../utils';
 
 type Props = {
+	preRenders?: Array<Object>,
+	preRenderDelay?: Number,
 	modals?: Array<Object>,
 	dispatch?: Function,
 	screenSize?: { width?: number, height?: number },
@@ -23,7 +24,20 @@ class RuuiModals extends Component {
 	props: Props;
 	static defaultProps = {
 		animationDelay: 200,
+		preRenderDelay: 300,
 	};
+
+	componentDidMount() {
+		const { dispatch, preRenders, preRenderDelay, } = this.props;
+
+		if (preRenders?.length) {
+			for (let i = 0; i < preRenders.length; i += 1) {
+				const item = preRenders[i];
+				item.flag = false;
+				setTimeout(() => dispatch(item), i * preRenderDelay);
+			}
+		}
+	}
 
 	render() {
 		const { dispatch, modals, screenSize, animationDelay, } = this.props,
