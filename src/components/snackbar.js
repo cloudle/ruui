@@ -39,6 +39,7 @@ class Snackbar extends Component {
 					toValue: aliveIndex === 0 ? 0 : 1,
 					duration: 1000,
 					easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
+					useNativeDriver: false,
 				}).start();
 			}
 		}
@@ -50,6 +51,7 @@ class Snackbar extends Component {
 		Animated.timing(this.positionAnimation, {
 			toValue: aliveIndex, duration: 1000,
 			easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
+			useNativeDriver: true,
 		}).start(() => {
 			this.timeout = setTimeout(() => {
 				onStartTimeout(configs);
@@ -57,6 +59,7 @@ class Snackbar extends Component {
 				Animated.timing(this.positionAnimation, {
 					toValue: aliveIndex, duration: 1000,
 					easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
+					useNativeDriver: true,
 				}).start(() => onTimeout(configs));
 			}, configs.timeout || 5000);
 		});

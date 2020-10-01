@@ -40,6 +40,7 @@ class RuuiDropdown extends Component {
 			toValue: 1,
 			duration: 800,
 			easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
+			useNativeDriver: false,
 		}).start();
 	}
 

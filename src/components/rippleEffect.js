@@ -28,6 +28,7 @@ class RuuiRippleEffect extends Component<any, Props, any> {
 			toValue: 1,
 			duration: this.props.speed,
 			easing: Easing.out(Easing.bezier(0.445, 0.05, 0.55, 0.95)),
+			useNativeDriver: true,
 		}).start();
 	}
 

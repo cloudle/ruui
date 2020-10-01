@@ -24,7 +24,7 @@ function Ripple(props: Props) {
 			toValue: 1,
 			duration: speed,
 			easing: Easing.out(Easing.bezier(0.445, 0.05, 0.55, 0.95)),
-			useNativeDriver: !isBrowser,
+			useNativeDriver: true,
 		}).start();
 	}, []);
 

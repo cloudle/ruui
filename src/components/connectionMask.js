@@ -95,6 +95,7 @@ class RuuiConnectionMask extends Component {
 					toValue,
 					duration: 500,
 					easing,
+					useNativeDriver: true,
 				}),
 			];
 

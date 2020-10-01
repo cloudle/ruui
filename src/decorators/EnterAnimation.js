@@ -19,6 +19,7 @@ export default function ({
 					Animated.timing(this.enterAnimation, {
 						toValue, easing,
 						duration: speed,
+						useNativeDriver: false,
 					}).start(() => {
 						this.setState({ animationFinished: true });
 						super.animationDidFinish && super.animationDidFinish();

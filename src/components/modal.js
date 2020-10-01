@@ -114,6 +114,7 @@ export default class RuuiModal extends Component {
 					toValue,
 					duration: 500,
 					easing,
+					useNativeDriver: false,
 				}),
 			];
 

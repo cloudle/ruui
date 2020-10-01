@@ -197,6 +197,7 @@ class RuuiInput extends Component<any, Props, any> {
 			toValue,
 			duration: easeInSpeed,
 			easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
+			useNativeDriver: true,
 		}).start();
 	};
 
@@ -207,6 +208,7 @@ class RuuiInput extends Component<any, Props, any> {
 			toValue,
 			duration: easeInSpeed,
 			easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
+			useNativeDriver: true,
 		}).start();
 	};
 

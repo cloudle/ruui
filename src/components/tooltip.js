@@ -47,6 +47,7 @@ class RuuiTooltip extends Component {
 					toValue: this.props.tooltip.active ? 1 : 0,
 					duration: 500,
 					easing: Easing.in(Easing.bezier(0.23, 1, 0.32, 1)),
+					useNativeDriver: false,
 				}).start();
 			});
 		}

@@ -2,7 +2,7 @@ type Component = Function;
 
 export function connect(stateToPropsFactory: Function): Component;
 
-export function ruuiMiddleware(ruuiStore: Object): void;
+export function ruuiMiddleware(ruuiStore: Object): any;
 export function ruuiReducer(state: Object, action: Object): Object;
 export function createRuuiStore(): Object;
 export function appReducer(reducer: Function): Function;
