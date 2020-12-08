@@ -71,7 +71,7 @@ class RuuiDropdown extends Component {
 		const positionOffset = configs.offset || { top: 0, left: 0 };
 		const containerLayout = configs.containerLayout || { x: 0, y: 0, width: 0, height: 0 };
 		const InnerComponent = configs.component || configs.Component || EmptyDropdown;
-		const arrowSize = configs.arrowSize || 10;
+		const arrowSize = configs.arrowSize || 8;
 		const flattenWrapperStyle = StyleSheet.flatten(configs.wrapperStyle) || {};
 		const backgroundColor = flattenWrapperStyle.background || '#ffffff';
 		const finalBorderRadius = flattenWrapperStyle.borderRadius || 3;
@@ -100,8 +100,8 @@ class RuuiDropdown extends Component {
 		const arrowStyle = {
 			position: 'absolute',
 			top: layout.height / 2 - arrowSize,
-			right: 1-arrowSize,
-			width: arrowSize,
+			right: -arrowSize,
+			width: arrowSize + 2,
 			height: arrowSize * 2,
 		};
 
@@ -113,7 +113,10 @@ class RuuiDropdown extends Component {
 					context={context}
 					close={this.closeModal}/>
 				<Svg style={arrowStyle}>
-					<Path d={drawArrow(arrowSize)} fill="white"/>
+					<Path
+						d={drawArrow(arrowSize)}
+						transform="translate(2,0)"
+						fill={backgroundColor}/>
 				</Svg>
 			</Animated.View>
 		</View>;
@@ -146,7 +149,7 @@ const drawArrow = (size) => {
 	const bottomEdge = `Q${width} ${(height / 2) + baseSize}, ${baseSize} ${height - baseSize}`;
 	const bottomCurve = `Q${0} ${height - (baseSize / 2)}, 0 ${height}`;
 
-	return `M0,0 ${topCurve} ${topEdge} ${bottomEdge} ${bottomCurve} Z`;
+	return `M-2,0 L0,0 ${topCurve} ${topEdge} ${bottomEdge} ${bottomCurve} L-2,${height} Z`;
 };
 
 const styles = StyleSheet.create({
