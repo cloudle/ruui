@@ -69,11 +69,12 @@ class RuuiDropdown extends Component {
 		const { layout, } = this.state;
 		const context = configs.context || {};
 		const positionOffset = configs.offset || { top: 0, left: 0 };
+		const arrowOffset = configs.arrowOffset || { top: 0, left: 0 };
 		const containerLayout = configs.containerLayout || { x: 0, y: 0, width: 0, height: 0 };
 		const InnerComponent = configs.component || configs.Component || EmptyDropdown;
 		const arrowSize = configs.arrowSize || 8;
 		const flattenWrapperStyle = StyleSheet.flatten(configs.wrapperStyle) || {};
-		const backgroundColor = flattenWrapperStyle.background || '#ffffff';
+		const backgroundColor = flattenWrapperStyle.backgroundColor || '#ffffff';
 		const finalBorderRadius = flattenWrapperStyle.borderRadius || 3;
 		const animatedDirection = configs.animatedDirection || configs.direction;
 		const animatedConfigs = directionAnimatedConfigs(
@@ -100,7 +101,9 @@ class RuuiDropdown extends Component {
 		};
 		const arrowStyle = {
 			position: 'absolute',
-			...arrowPosition,
+			top: arrowPosition.top + arrowOffset.top,
+			left: arrowPosition.left + arrowOffset.left,
+			transform: arrowPosition.transform || [],
 			width: arrowSize + 2,
 			height: arrowSize * 2,
 		};
@@ -112,12 +115,12 @@ class RuuiDropdown extends Component {
 					animation={this.enterAnimation}
 					context={context}
 					close={this.closeModal}/>
-				<Svg style={arrowStyle}>
+				{configs.showArrow !== false && <Svg style={arrowStyle}>
 					<Path
 						d={drawArrow(arrowSize)}
 						transform="translate(2,0)"
 						fill={backgroundColor}/>
-				</Svg>
+				</Svg>}
 			</Animated.View>
 		</View>;
 	}

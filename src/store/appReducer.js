@@ -145,7 +145,7 @@ function handleToggleDropdown(state, action) {
 		active: isToggleOn,
 		configs: action.flag === true ? {
 			tapToClose: true,
-			showArrow: true,
+			showArrow: action.configs.direction !== 'center',
 			...layerProp,
 			...action.configs,
 		} : currentDropdown.configs,

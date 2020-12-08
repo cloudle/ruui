@@ -224,71 +224,71 @@ export function arrowSnap(width, height, arrowSize, parentPosition: SnappingDire
 	switch (parentPosition) {
 	case 'top':
 		return {
-			bottom: 1 - (arrowSize * 1.5),
-			left: (width / 2) - arrowSize,
+			top: height - (arrowSize / 2) - 1,
+			left: (width / 2) - (arrowSize / 2),
 			transform: [{ rotate: '90deg' }],
 		};
 	case 'left':
 		return {
-			right: -arrowSize,
 			top: (height / 2) - arrowSize,
+			left: width - 2,
 		};
 	case 'bottom':
 		return {
 			top: 1 - (arrowSize * 1.5),
-			left: (width / 2) - arrowSize,
+			left: (width / 2) - (arrowSize / 2),
 			transform: [{ rotate: '-90deg' }],
 		};
 	case 'right':
 		return {
-			left: -arrowSize,
 			top: (height / 2) - arrowSize,
+			left: -arrowSize,
 			transform: [{ rotate: '180deg' }],
 		};
 	case 'top-left':
 		return {
-			bottom: 1 - (arrowSize * 1.5),
-			left: padding,
+			top: height - (arrowSize / 2) - 1,
+			left: padding + (arrowSize / 2),
 			transform: [{ rotate: '90deg' }],
 		};
 	case 'left-top':
 		return {
-			right: -arrowSize,
 			top: padding,
+			left: width - 2,
 		};
 	case 'bottom-left':
 		return {
 			top: 1 - (arrowSize * 1.5),
-			left: padding,
+			left: padding + (arrowSize / 2),
 			transform: [{ rotate: '-90deg' }],
 		};
 	case 'left-bottom':
 		return {
-			right: -arrowSize,
-			bottom: padding,
+			top: height - (arrowSize * 2) - padding,
+			left: width - 2,
 		};
 	case 'bottom-right':
 		return {
 			top: 1 - (arrowSize * 1.5),
-			right: padding,
+			left: width - (arrowSize * 1.5) - padding,
 			transform: [{ rotate: '-90deg' }],
 		};
 	case 'right-bottom':
 		return {
+			top: height - (arrowSize * 2) - padding,
 			left: -arrowSize,
-			bottom: padding,
 			transform: [{ rotate: '180deg' }],
 		};
 	case 'top-right':
 		return {
-			bottom: 1 - (arrowSize * 1.5),
-			right: padding,
+			top: height - (arrowSize / 2) - 1,
+			left: width - (arrowSize * 1.5) - padding,
 			transform: [{ rotate: '90deg' }],
 		};
 	case 'center':
 		return {
-			right: -arrowSize,
 			top: (height / 2) - arrowSize,
+			left: width - 2,
 			opacity: 0,
 		};
 	case 'right-top':

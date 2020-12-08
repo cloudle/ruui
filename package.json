@@ -12,7 +12,7 @@
     "index.d.ts",
     "!**/__tests__"
   ],
-  "version": "1.0.63",
+  "version": "1.0.65",
   "scripts": {
     "start": "npm run compile && npm run watch",
     "watch": "concurrently --kill-others 'npm:watch-cli' 'npm:watch-coffee' 'npm:watch-es6' 'npm:watch-cf6'",

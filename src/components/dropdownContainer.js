@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, TouchableOpacity, StyleSheet, findNodeHandle } from 'react-native';
 
+import type { PositionOffset } from '../typeDefinition';
 import * as appActions from '../utils/store/appAction';
 import { Style, Element, SnappingDirection, Layout, } from '../typeDefinition';
 
@@ -20,7 +21,10 @@ type Props = {
 	dropdownDirection?: SnappingDirection,
 	animatedDirection?: SnappingDirection,
 	dropdownSpacing?: number,
-	dropdownOffset?: Object,
+	dropdownOffset?: PositionOffset,
+	showArrow?: Boolean,
+	arrowSize?: Number,
+	arrowOffset?: PositionOffset,
 	id ?: string | number,
 	onClose ?: Function,
 };
@@ -88,6 +92,9 @@ class RuuiDropdownContainer extends Component {
 			dropdownSpacing,
 			dropdownOffset,
 			dropdownContext,
+			showArrow,
+			arrowSize,
+			arrowOffset,
 			containerLayout,
 			onClose,
 		} = this.props;
@@ -102,6 +109,9 @@ class RuuiDropdownContainer extends Component {
 				animatedDirection: animatedDirection || dropdownDirection,
 				spacing: dropdownSpacing,
 				offset: dropdownOffset,
+				showArrow,
+				arrowSize,
+				arrowOffset,
 				context: dropdownContext,
 				onClose,
 			}));

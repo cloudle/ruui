@@ -71,8 +71,9 @@ class App extends Component {
 			</TouchableOpacity>
 
 			<DropdownContainer
-				dropdownWrapperStyle={{ width: 200, borderRadius: 5, }}
+				dropdownWrapperStyle={{ width: 200, borderRadius: 5, backgroundColor: 'red', }}
 				dropdownComponent={ContextMenu}
+				// arrowSize={96}
 				dropdownDirection="bottom"
 				dropdownContext={{ name: 'Cloud' }}>
 				<Text>Drop {this.state.account} {this.state.animationFinished ? 'TRUE' : 'FALSE'}</Text>
