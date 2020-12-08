@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Animated, Easing, View, TouchableWithoutFeedback, Text, StyleSheet } from 'react-native';
+import { Svg, Path, } from 'react-native-svg';
 
 import { directionSnap, directionAnimatedConfigs, connect } from '../utils';
 import * as appActions from '../utils/store/appAction';
@@ -64,36 +65,45 @@ class RuuiDropdown extends Component {
 	}
 
 	renderDropDown() {
-		const { configs, screenSize } = this.props,
-			{ layout, } = this.state,
-			context = configs.context || {},
-			positionOffset = configs.offset || { top: 0, left: 0 },
-			containerLayout = configs.containerLayout || { x: 0, y: 0, width: 0, height: 0 },
-			InnerComponent = configs.component || configs.Component || EmptyDropdown,
-			flattenWrapperStyle = StyleSheet.flatten(configs.wrapperStyle) || {},
-			finalBorderRadius = flattenWrapperStyle.borderRadius || 3,
-			animatedConfigs = directionAnimatedConfigs(
-				configs.direction, 10, this.enterAnimation, finalBorderRadius
-			),
-			snappingPosition = directionSnap(
-				containerLayout.y, containerLayout.x,
-				containerLayout.width, containerLayout.height,
-				layout.width, layout.height,
-				configs.direction, configs.spacing,
-				screenSize,
-			),
-			wrapperStyles = {
-				overflow: 'hidden',
-				position: 'absolute',
-				top: snappingPosition.top + positionOffset.top,
-				left: snappingPosition.left + positionOffset.left,
-				opacity: layout.width ? 1 : 0,
-			},
-			containerStyles = {
-				transform: animatedConfigs.transform,
-				opacity: animatedConfigs.opacity,
-				...animatedConfigs.borderRadius,
-			};
+		const { configs, screenSize } = this.props;
+		const { layout, } = this.state;
+		const context = configs.context || {};
+		const positionOffset = configs.offset || { top: 0, left: 0 };
+		const containerLayout = configs.containerLayout || { x: 0, y: 0, width: 0, height: 0 };
+		const InnerComponent = configs.component || configs.Component || EmptyDropdown;
+		const arrowSize = configs.arrowSize || 10;
+		const flattenWrapperStyle = StyleSheet.flatten(configs.wrapperStyle) || {};
+		const backgroundColor = flattenWrapperStyle.background || '#ffffff';
+		const finalBorderRadius = flattenWrapperStyle.borderRadius || 3;
+		const animatedDirection = configs.animatedDirection || configs.direction;
+		const animatedConfigs = directionAnimatedConfigs(
+			animatedDirection, 10, this.enterAnimation, finalBorderRadius,
+		);
+		const snappingPosition = directionSnap(
+			containerLayout.y, containerLayout.x,
+			containerLayout.width, containerLayout.height,
+			layout.width, layout.height,
+			configs.direction, configs.spacing,
+			screenSize,
+		);
+		const wrapperStyles = {
+			position: 'absolute',
+			top: snappingPosition.top + positionOffset.top,
+			left: snappingPosition.left + positionOffset.left,
+			opacity: layout.width ? 1 : 0,
+		};
+		const containerStyles = {
+			transform: animatedConfigs.transform,
+			opacity: animatedConfigs.opacity,
+			...animatedConfigs.borderRadius,
+		};
+		const arrowStyle = {
+			position: 'absolute',
+			top: layout.height / 2 - arrowSize,
+			right: 1-arrowSize,
+			width: arrowSize,
+			height: arrowSize * 2,
+		};
 
 		return <View style={[wrapperStyles, { zIndex: configs.zIndex }]} onLayout={this.onLayout}>
 			<Animated.View style={[styles.dropdownContainer, configs.wrapperStyle, containerStyles]}>
@@ -102,6 +112,9 @@ class RuuiDropdown extends Component {
 					animation={this.enterAnimation}
 					context={context}
 					close={this.closeModal}/>
+				<Svg style={arrowStyle}>
+					<Path d={drawArrow(arrowSize)} fill="white"/>
+				</Svg>
 			</Animated.View>
 		</View>;
 	}
@@ -124,21 +137,30 @@ function EmptyDropdown(props) {
 	</View>;
 }
 
+const drawArrow = (size) => {
+	const width = size;
+	const height = size * 2;
+	const baseSize = width / 2.8;
+	const topCurve = `Q0 ${baseSize / 2}, ${baseSize} ${baseSize}`;
+	const topEdge = `Q${width} ${(height / 2) - baseSize}, ${width} ${height / 2}`;
+	const bottomEdge = `Q${width} ${(height / 2) + baseSize}, ${baseSize} ${height - baseSize}`;
+	const bottomCurve = `Q${0} ${height - (baseSize / 2)}, 0 ${height}`;
+
+	return `M0,0 ${topCurve} ${topEdge} ${bottomEdge} ${bottomCurve} Z`;
+};
+
 const styles = StyleSheet.create({
 	container: {
 		zIndex: 1000,
 		position: 'absolute',
-		overflow: 'hidden',
 		top: 0, bottom: 0, left: 0, right: 0,
 	},
 	touchableMask: {
 		position: 'absolute',
-		overflow: 'hidden',
 		top: 0, bottom: 0, left: 0, right: 0,
 	},
 	dropdownContainer: {
 		backgroundColor: '#ffffff',
 		borderRadius: 3,
-		overflow: 'hidden',
 	},
 });

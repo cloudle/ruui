@@ -12,6 +12,7 @@ const chalk = require('chalk'),
 	hydrateMode = process.env.HYDRATE;
 
 moduleAlias.addAlias('react-native', 'react-native-web');
+moduleAlias.addAlias('react-native-svg', path.resolve(process.cwd(), 'node_modules/react-native-svg/lib/commonjs/ReactNativeSVG.web.js'));
 
 if (!isProduction) { /* <- hot reload server-side code on development mode */
 	const watcher = chokidar.watch('./src', { ignoreInitial: true });

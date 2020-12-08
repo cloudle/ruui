@@ -176,6 +176,11 @@ function rawDirectionSnap(
 			top,
 			left: left + (spacing + width1),
 		};
+	case 'center':
+		return {
+			top: top + ((height1 / 2) - (height2 / 2)),
+			left: left + ((width1 / 2) - (width2 / 2)),
+		};
 	default:
 		return { top: 0, left: 0 };
 	}
@@ -230,8 +235,8 @@ export function directionAnimatedConfigs(
 	case 'top':
 		return {
 			borderRadius: {
-				borderTopLeftRadius: borderRadius,
-				borderTopRightRadius: borderRadius,
+				borderBottomLeftRadius: borderRadius,
+				borderBottomRightRadius: borderRadius,
 			},
 			transform: [{
 				translateY: animation.interpolate({
@@ -243,10 +248,11 @@ export function directionAnimatedConfigs(
 	case 'left':
 		return {
 			borderRadius: {
-				borderTopLeftRadius: borderRadius,
+				borderTopRightRadius: borderRadius,
+				borderBottomRightRadius: borderRadius,
 			},
 			transform: [{
-				translateY: animation.interpolate({
+				translateX: animation.interpolate({
 					inputRange: [0, 1], outputRange: [translateDistance, 0],
 				}),
 			}],
@@ -255,8 +261,8 @@ export function directionAnimatedConfigs(
 	case 'bottom':
 		return {
 			borderRadius: {
-				borderBottomLeftRadius: borderRadius,
-				borderBottomRightRadius: borderRadius,
+				borderTopLeftRadius: borderRadius,
+				borderTopRightRadius: borderRadius,
 			},
 			transform: [{
 				translateY: animation.interpolate({
@@ -268,11 +274,12 @@ export function directionAnimatedConfigs(
 	case 'right':
 		return {
 			borderRadius: {
-				borderTopRightRadius: borderRadius,
+				borderTopLeftRadius: borderRadius,
+				borderBottomLeftRadius: borderRadius,
 			},
 			transform: [{
-				translateY: animation.interpolate({
-					inputRange: [0, 1], outputRange: [translateDistance, 0],
+				translateX: animation.interpolate({
+					inputRange: [0, 1], outputRange: [-translateDistance, 0],
 				}),
 			}],
 			opacity,
@@ -280,7 +287,7 @@ export function directionAnimatedConfigs(
 	case 'top-left':
 		return {
 			borderRadius: {
-				borderTopRightRadius: borderRadius,
+				borderBottomLeftRadius: borderRadius,
 			},
 			transform: [{
 				translateY: animation.interpolate({
@@ -292,10 +299,10 @@ export function directionAnimatedConfigs(
 	case 'left-top':
 		return {
 			borderRadius: {
-				borderTopLeftRadius: borderRadius,
+				borderTopRightRadius: borderRadius,
 			},
 			transform: [{
-				translateY: animation.interpolate({
+				translateX: animation.interpolate({
 					inputRange: [0, 1], outputRange: [translateDistance, 0],
 				}),
 			}],
@@ -304,7 +311,7 @@ export function directionAnimatedConfigs(
 	case 'bottom-left':
 		return {
 			borderRadius: {
-				borderBottomRightRadius: borderRadius,
+				borderTopLeftRadius: borderRadius,
 			},
 			transform: [{
 				translateY: animation.interpolate({
@@ -316,11 +323,11 @@ export function directionAnimatedConfigs(
 	case 'left-bottom':
 		return {
 			borderRadius: {
-				borderBottomLeftRadius: borderRadius,
+				borderBottomRightRadius: borderRadius,
 			},
 			transform: [{
-				translateY: animation.interpolate({
-					inputRange: [0, 1], outputRange: [-translateDistance, 0],
+				translateX: animation.interpolate({
+					inputRange: [0, 1], outputRange: [translateDistance, 0],
 				}),
 			}],
 			opacity,
@@ -328,7 +335,7 @@ export function directionAnimatedConfigs(
 	case 'bottom-right':
 		return {
 			borderRadius: {
-				borderBottomLeftRadius: borderRadius,
+				borderTopRightRadius: borderRadius,
 			},
 			transform: [{
 				translateY: animation.interpolate({
@@ -340,10 +347,10 @@ export function directionAnimatedConfigs(
 	case 'right-bottom':
 		return {
 			borderRadius: {
-				borderBottomRightRadius: borderRadius,
+				borderBottomLeftRadius: borderRadius,
 			},
 			transform: [{
-				translateY: animation.interpolate({
+				translateX: animation.interpolate({
 					inputRange: [0, 1], outputRange: [-translateDistance, 0],
 				}),
 			}],
@@ -352,7 +359,7 @@ export function directionAnimatedConfigs(
 	case 'top-right':
 		return {
 			borderRadius: {
-				borderTopLeftRadius: borderRadius,
+				borderBottomRightRadius: borderRadius,
 			},
 			transform: [{
 				translateY: animation.interpolate({
@@ -364,13 +371,19 @@ export function directionAnimatedConfigs(
 	case 'right-top':
 		return {
 			borderRadius: {
-				borderTopRightRadius: borderRadius,
+				borderTopLeftRadius: borderRadius,
 			},
 			transform: [{
-				translateY: animation.interpolate({
-					inputRange: [0, 1], outputRange: [translateDistance, 0],
+				translateX: animation.interpolate({
+					inputRange: [0, 1], outputRange: [-translateDistance, 0],
 				}),
 			}],
+			opacity,
+		};
+	case 'center':
+		return {
+			borderRadius: { borderRadius, },
+			transform: [],
 			opacity,
 		};
 	default:

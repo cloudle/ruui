@@ -1,5 +1,5 @@
 import { createStore, compose, applyMiddleware } from 'redux';
-import { ruuiMiddleware, createRuuiStore, } from '../../../dist';
+import { ruuiMiddleware, createRuuiStore, } from '../../../src';
 import * as Actions from './actions';
 
 import reducers from './reducers';

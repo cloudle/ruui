@@ -11,11 +11,12 @@ export default class ContextMenu extends Component {
 	render() {
 		return <View style={styles.container}>
 			{menuItems.map((item, i) => {
+				const lastItemStyle = i == menuItems.length - 1 && { borderBottomWidth: 0 };
 				return <View
 					key={i}
-					style={{
+					style={[{
 						padding: 8,
-						borderBottomWidth: 1, borderColor: '#e0e0e0', }}>
+						borderBottomWidth: 1, borderColor: '#e0e0e0', }, lastItemStyle]}>
 					<Text>{this.props.context.name} {item.title}</Text>
 				</View>;
 			})}

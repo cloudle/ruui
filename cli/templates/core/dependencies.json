@@ -1,5 +1,7 @@
 {
 	"react-dom": "latest",
 	"react-art": "^16.5.2",
-	"react-native-web": "latest"
+	"react-native-web": "latest",
+	"react-native-svg": "^12.1.0",
+	"react-native-reanimated": "^1.13.0"
 }

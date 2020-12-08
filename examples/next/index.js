@@ -73,7 +73,7 @@ class App extends Component {
 			<DropdownContainer
 				dropdownWrapperStyle={{ width: 200, borderRadius: 5, }}
 				dropdownComponent={ContextMenu}
-				dropdownDirection="right"
+				dropdownDirection="left"
 				dropdownContext={{ name: 'Cloud' }}>
 				<Text>Drop {this.state.account} {this.state.animationFinished ? 'TRUE' : 'FALSE'}</Text>
 			</DropdownContainer>

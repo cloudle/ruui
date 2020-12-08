@@ -71,7 +71,7 @@ export type Corners = {
 	right: number
 };
 
-export type SnappingDirection = 'top' | 'left' | 'bottom' | 'right' | 'top-left' | 'left-top' | 'top-right' | 'right-top' | 'bottom-left' | 'left-bottom' | 'bottom-right' | 'right-bottom';
+export type SnappingDirection = 'top' | 'left' | 'bottom' | 'right' | 'top-left' | 'left-top' | 'top-right' | 'right-top' | 'bottom-left' | 'left-bottom' | 'bottom-right' | 'right-bottom' | 'center';
 
 export type PositionOffset = {
 	top: Number,
@@ -83,6 +83,9 @@ export type DropdownConfigs = {
 	wrapperStyle?: Style,
 	containerLayout?: Layout,
 	direction: SnappingDirection,
+	animatedDirection: SnappingDirection,
+	showArrow?: Boolean,
+	arrowSize?: Number,
 	spacing?: number,
 	context?: Object,
 	onClose ?: Function,

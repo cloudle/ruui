@@ -144,11 +144,12 @@ function handleToggleDropdown(state, action) {
 		type: 'dropdown',
 		active: isToggleOn,
 		configs: action.flag === true ? {
+			tapToClose: true,
+			showArrow: true,
 			...layerProp,
 			...action.configs,
 		} : currentDropdown.configs,
 	};
-	dropdownConfigs.configs.tapToClose = true;
 
 	return {
 		...state,
