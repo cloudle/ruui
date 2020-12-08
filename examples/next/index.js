@@ -73,7 +73,7 @@ class App extends Component {
 			<DropdownContainer
 				dropdownWrapperStyle={{ width: 200, borderRadius: 5, }}
 				dropdownComponent={ContextMenu}
-				dropdownDirection="left"
+				dropdownDirection="bottom"
 				dropdownContext={{ name: 'Cloud' }}>
 				<Text>Drop {this.state.account} {this.state.animationFinished ? 'TRUE' : 'FALSE'}</Text>
 			</DropdownContainer>
@@ -124,7 +124,13 @@ class App extends Component {
 			</TouchableRipple>
 
 			<Snackbar/>
-			<Modal/>
+			<Modal
+				preRenderDelay={300} /* <- by default delay is 300ms */
+				preRenders={[
+				ruuiActions.toggleDropdown(true, {
+					component: TestModal,
+				}),
+			]}/>
 			<Dropdown/>
 			<Tooltip/>
 		</Animated.View>;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Animated, Easing, View, TouchableWithoutFeedback, Text, StyleSheet } from 'react-native';
 import { Svg, Path, } from 'react-native-svg';
 
-import { directionSnap, directionAnimatedConfigs, connect } from '../utils';
+import { directionSnap, arrowSnap, directionAnimatedConfigs, connect } from '../utils';
 import * as appActions from '../utils/store/appAction';
 import { DropdownConfigs } from '../typeDefinition';
 
@@ -86,6 +86,7 @@ class RuuiDropdown extends Component {
 			configs.direction, configs.spacing,
 			screenSize,
 		);
+		const arrowPosition = arrowSnap(layout.width, layout.height, arrowSize, configs.direction);
 		const wrapperStyles = {
 			position: 'absolute',
 			top: snappingPosition.top + positionOffset.top,
@@ -99,8 +100,7 @@ class RuuiDropdown extends Component {
 		};
 		const arrowStyle = {
 			position: 'absolute',
-			top: layout.height / 2 - arrowSize,
-			right: -arrowSize,
+			...arrowPosition,
 			width: arrowSize + 2,
 			height: arrowSize * 2,
 		};

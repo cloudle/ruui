@@ -220,6 +220,88 @@ export function directionSnap(
 	);
 }
 
+export function arrowSnap(width, height, arrowSize, parentPosition: SnappingDirection, padding = 15) {
+	switch (parentPosition) {
+	case 'top':
+		return {
+			bottom: 1 - (arrowSize * 1.5),
+			left: (width / 2) - arrowSize,
+			transform: [{ rotate: '90deg' }],
+		};
+	case 'left':
+		return {
+			right: -arrowSize,
+			top: (height / 2) - arrowSize,
+		};
+	case 'bottom':
+		return {
+			top: 1 - (arrowSize * 1.5),
+			left: (width / 2) - arrowSize,
+			transform: [{ rotate: '-90deg' }],
+		};
+	case 'right':
+		return {
+			left: -arrowSize,
+			top: (height / 2) - arrowSize,
+			transform: [{ rotate: '180deg' }],
+		};
+	case 'top-left':
+		return {
+			bottom: 1 - (arrowSize * 1.5),
+			left: padding,
+			transform: [{ rotate: '90deg' }],
+		};
+	case 'left-top':
+		return {
+			right: -arrowSize,
+			top: padding,
+		};
+	case 'bottom-left':
+		return {
+			top: 1 - (arrowSize * 1.5),
+			left: padding,
+			transform: [{ rotate: '-90deg' }],
+		};
+	case 'left-bottom':
+		return {
+			right: -arrowSize,
+			bottom: padding,
+		};
+	case 'bottom-right':
+		return {
+			top: 1 - (arrowSize * 1.5),
+			right: padding,
+			transform: [{ rotate: '-90deg' }],
+		};
+	case 'right-bottom':
+		return {
+			left: -arrowSize,
+			bottom: padding,
+			transform: [{ rotate: '180deg' }],
+		};
+	case 'top-right':
+		return {
+			bottom: 1 - (arrowSize * 1.5),
+			right: padding,
+			transform: [{ rotate: '90deg' }],
+		};
+	case 'center':
+		return {
+			right: -arrowSize,
+			top: (height / 2) - arrowSize,
+			opacity: 0,
+		};
+	case 'right-top':
+		return {
+			left: -arrowSize,
+			top: padding,
+			transform: [{ rotate: '180deg' }],
+		};
+	default:
+		return {};
+	}
+}
+
 export function directionAnimatedConfigs(
 	direction, translateDistance, animation, finalBorderRadius = 3
 ) {
