@@ -57,7 +57,6 @@ defaultConfigs = ->
 			mainFields: ["browser", "main", "module"]
 			alias:
 				"react-native": "react-native-web"
-				"react-dom": "@hot-loader/react-dom"
 			modules: [localModule("src"), "node_modules"]
 			extensions: [".web.js", ".js"]
 		module:

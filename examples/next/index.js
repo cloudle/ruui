@@ -160,11 +160,12 @@ const configs = {
 	// },
 };
 
-const ConnectedApp = (({ app }) => {
+const ConnectedApp = connect((state) => {
+	console.log(state);
 	return {
-		counter: app.counter,
+		// counter: app.counter,
 	};
-})(App)
+})(App);
 
 function fillArray(len) {
 	const res = [];

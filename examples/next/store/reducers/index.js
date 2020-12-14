@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { ruuiReducer } from '../../../../dist';
+import { ruuiReducer } from '../../../../src';
 
 import appReducer from './app';
 
