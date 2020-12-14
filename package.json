@@ -1,7 +1,8 @@
 {
   "name": "react-universal-ui",
   "description": "Universal UI Kit for React Native and Web",
-  "main": "lib",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
   "bin": {
     "ruui": "./cli/bin.js"
   },
@@ -23,7 +24,7 @@
     "compile": "npm run clean && npm run make-dir && npm run compile-cli && npm run compile-coffee && npm run compile-es6",
     "compile-cli": "coffee --no-header -m -b -c -o ./cli-ruui ./src/cli/global",
     "compile-coffee": "coffee --no-header -m -b -c -o ./js ./src",
-    "compile-es6": "bob build",
+    "compile-es6": "bob build && BUILD=cli bob build && cp -r lib-cli/ lib && rm -rf lib-cli",
     "clean": "rimraf ./js && rimraf ./lib",
     "make-dir": "mkdirp -p ./js && mkdirp -p ./lib",
     "native": "node node_modules/react-native/local-cli/cli.js start",
@@ -38,6 +39,7 @@
     "url": "git://github.com/cloudle/ruui.git"
   },
   "dependencies": {
+    "setimmediate": "^1.0.5",
     "tinycolor2": "^1.4.1"
   },
   "peerDependencies": {
@@ -50,6 +52,7 @@
     "@babel/node": "^7.12.10",
     "@babel/runtime": "^7.12.5",
     "@hot-loader/react-dom": "^16.8.4",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
     "@react-native-community/bob": "^0.16.2",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.9.0",
@@ -65,7 +68,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.0",
     "file-loader": "^5.0.2",
-    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-plugin": "^4.5.0",
     "jest": "^24.9.0",
     "metro-react-native-babel-preset": "^0.57.0",
     "mkdirp": "^0.5.1",
@@ -79,10 +82,12 @@
     "react-native-svg": "^12.1.0",
     "react-native-web": "^0.11.7",
     "react-redux": "^6.0.0",
+    "react-refresh": "^0.9.0",
     "react-test-renderer": "16.9.0",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "rimraf": "^2.6.3",
+    "sass-loader": "^10.1.0",
     "style-loader": "^1.0.1",
     "webpack": "^5.10.1",
     "webpack-cli": "^3.1.2",
@@ -90,13 +95,5 @@
   },
   "jest": {
     "preset": "react-native"
-  },
-  "@react-native-community/bob": {
-    "source": "src",
-    "output": "lib",
-    "targets": [
-      "commonjs",
-      "module"
-    ]
   }
 }

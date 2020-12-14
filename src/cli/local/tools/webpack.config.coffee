@@ -4,6 +4,7 @@ path = require("path")
 HtmlWebpackPlugin = require(path.resolve(process.cwd(), "node_modules", "html-webpack-plugin"))
 DefinePlugin = require(path.resolve(process.cwd(), "node_modules", "webpack/lib/DefinePlugin"))
 ProgressBarPlugin = require(path.resolve(process.cwd(), "node_modules", "progress-bar-webpack-plugin"))
+ReactRefreshWebpackPlugin = require(path.resolve(process.cwd(), "node_modules", "@pmmmwh/react-refresh-webpack-plugin"))
 { paths, ruui, appJson } = require("../util/configs")
 { localModule, terminalTheme, getJson, writeFile, uuid } = require("../util/helper")
 
@@ -24,7 +25,6 @@ defaultConfigs = ->
 	polyfills = []#["babel-polyfill"]
 	entries = ["./index.web.js"]
 	hot = [
-		"react-hot-loader/patch"
 		"webpack-dev-server/client?#{publicPath}"
 		"webpack/hot/only-dev-server"
 	]
@@ -37,7 +37,7 @@ defaultConfigs = ->
 		writeFile(paths.ruuiJson, JSON.stringify(extendedState, null, 2))
 	else
 		optionalPlugins.push(new webpack.HotModuleReplacementPlugin())
-#		optionalPlugins.push(new webpack.NamedModulesPlugin())
+		optionalPlugins.push(new ReactRefreshWebpackPlugin())
 
 	return {
 		context: process.cwd()
@@ -47,6 +47,7 @@ defaultConfigs = ->
 			app: if isProduction then entries else hot.concat(entries)
 		optimization:
 			minimize: isProduction
+			moduleIds: "named"
 		output:
 			publicPath: publicPath
 			path: paths.ruui
@@ -66,13 +67,23 @@ defaultConfigs = ->
 				options:
 					compact: false
 					cacheDirectory: true,
-					plugins: if isProduction then [] else ['react-hot-loader/babel']
+					plugins: if isProduction then [] else [require.resolve('react-refresh/babel')]
 			,
-				test: /\.css$/
-				loader: 'style-loader!css-loader'
+				test: /\.sass$/
+				use: [
+					loader: "style-loader"
+				,
+					loader: "css-loader"
+					options:
+						modules: true
+				,
+					loader: "sass-loader"
+				]
 			,
 				test: /\.(png|jpg|svg|ttf)$/
-				loader: 'file-loader?name=[name].[ext]'
+				loader: "file-loader"
+				options:
+					name: "[name].[ext]"
 			]
 		plugins: [
 			new DefinePlugin {

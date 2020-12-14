@@ -4,5 +4,5 @@ module.exports = {
 	},
 	webpack: (configs) => { /* <- customize webpack configures */
 		return configs;
-	}
+	},
 };

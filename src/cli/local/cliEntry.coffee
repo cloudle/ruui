@@ -1,11 +1,9 @@
-console.log(process.cwd())
-
 path = require("path")
 childProcess = require("child_process")
 { chalk, commander, } = require("./util/modules")
 commands = require("./commands/index")
 init = require("./commands/init")
-pkg = require("../../../package.json")
+pkg = require("../../../../package.json")
 configs = require("./util/configs")
 ssrUtils = require("./util/ssr")
 

@@ -1,12 +1,19 @@
+fs = require("fs")
 path = require("path")
-commander = require(path.resolve(process.cwd(), "node_modules", "commander"))
-webpack = require(path.resolve(process.cwd(), "node_modules", "webpack"))
-webpackDevServer = require(path.resolve(process.cwd(), "node_modules", "webpack-dev-server"))
-chalk = require(path.resolve(process.cwd(), "node_modules", "chalk"))
+
+requireModule = (name) ->
+	localPath = path.resolve(process.cwd(), "node_modules", name)
+	return require(localPath) if fs.existsSync(localPath)
+	require(path.resolve(__dirname, name))
+
+commander = requireModule("commander")
+webpack = requireModule("webpack")
+WebpackDevServer = requireModule("webpack-dev-server")
+chalk = requireModule("chalk")
 
 module.exports = {
 	commander,
 	webpack,
-	webpackDevServer,
+	WebpackDevServer,
 	chalk,
 }

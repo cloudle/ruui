@@ -15,7 +15,7 @@ type ContainerProps = {
 function AppContainer(props: ContainerProps) {
 	return <RuuiProvider store={ruuiStore} configs={configs}>
 		<Provider store={appStore}>
-			<App/>
+			<ConnectedApp/>
 		</Provider>
 	</RuuiProvider>;
 }
@@ -26,13 +26,6 @@ type Props = {
 	counter?: String | Number,
 	dispatch?: Function,
 }
-
-@connect(({ app }) => {
-	return {
-		counter: app.counter,
-	};
-})
-@enterAnimation()
 
 class App extends Component {
 	props: Props;
@@ -46,12 +39,7 @@ class App extends Component {
 	}
 
 	render() {
-		const opacity = this.enterAnimation.interpolate({
-				inputRange: [0, 1], outputRange: [0.5, 1],
-			}),
-			animatedStyle = { opacity, minHeight: 1000, };
-
-		return <Animated.View style={[styles.container, animatedStyle]}>
+		return <Animated.View style={styles.container}>
 			<Select
 				options={selects}
 				value={this.state.activeSelect}
@@ -171,6 +159,12 @@ const configs = {
 	// 	}),
 	// },
 };
+
+const ConnectedApp = (({ app }) => {
+	return {
+		counter: app.counter,
+	};
+})(App)
 
 function fillArray(len) {
 	const res = [];

@@ -1,1 +1,1 @@
-module.exports = require('./dist/cli/local');
+module.exports = require('./lib/commonjs/cli/local');

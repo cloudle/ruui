@@ -9,6 +9,7 @@ js
 
 #Distribution
 lib
+lib-cli
 !cli-ruui/package.json
 cli-ruui/**/*.*
 

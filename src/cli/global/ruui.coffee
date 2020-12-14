@@ -81,7 +81,7 @@ run = (root, projectName, opts) ->
 
 	bootstrapRuuiProject = ->
 		installPackage ruuiPackage, yarnVersion, forceNpmClient, verbose # install react-universal-ui package
-		ruuiInit = require(modulePath("react-universal-ui", "dist", "cli", "local", "commands", "init"))
+		ruuiInit = require(modulePath("react-universal-ui", "lib", "commonjs", "cli", "local", "commands", "init"))
 		ruuiInit(root, projectName, opts)
 		defaultAppPath = path.resolve(root, "App.js")
 		fs.unlinkSync(defaultAppPath) if fs.existsSync(defaultAppPath)
