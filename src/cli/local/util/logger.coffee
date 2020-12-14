@@ -1,4 +1,4 @@
-chalk = require("chalk")
+chalk = chalk = require(path.resolve(process.cwd(), "node_modules", "chalk"))
 SEPARATOR = ', '
 verbose = false
 

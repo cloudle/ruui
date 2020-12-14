@@ -19,12 +19,6 @@ type Props = {
 	retryButtonInnerStyle?: Style,
 };
 
-@connect(({ netInfo }) => {
-	return {
-		netInfo,
-	};
-})
-
 class RuuiConnectionMask extends Component {
 	props: Props;
 
@@ -103,7 +97,11 @@ class RuuiConnectionMask extends Component {
 	}
 }
 
-export default RuuiConnectionMask;
+export default connect(({ netInfo }) => {
+	return {
+		netInfo,
+	};
+})(RuuiConnectionMask);
 
 const styles = StyleSheet.create({
 	container: {

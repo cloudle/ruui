@@ -1,6 +1,5 @@
 path = require("path")
-webpack = require(path.resolve(process.cwd(), "node_modules", "webpack"))
-WebpackDevServer = require(path.resolve(process.cwd(), "node_modules", "webpack-dev-server"))
+{ webpack, WebpackDevServer, } = require("../util/modules")
 webpackConfigs = require("./webpack.config")
 { ruui } = require("../util/configs")
 

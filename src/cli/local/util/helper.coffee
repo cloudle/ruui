@@ -1,6 +1,6 @@
 fs = require("fs")
 path = require("path")
-chalk = require("chalk")
+{ chalk, } = require("../util/modules")
 
 defaultTerminalTheme =
 	prefix: chalk.gray('[')

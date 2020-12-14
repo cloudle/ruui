@@ -1,6 +1,6 @@
 fs = require("fs")
 childProcess = require("child_process")
-chalk = require("chalk")
+{ chalk, } = require("../util/modules")
 { paths, ruui, ruuiJson, appJson } = require("../util/configs")
 { setEnv, localModule, isPortTaken } = require("../util/helper")
 

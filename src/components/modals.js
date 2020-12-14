@@ -14,12 +14,6 @@ type Props = {
 	animationDelay?: Number,
 };
 
-@connect(({ activeModals }) => {
-	return {
-		modals: activeModals,
-	};
-})
-
 class RuuiModals extends Component {
 	props: Props;
 	static defaultProps = {
@@ -66,7 +60,11 @@ class RuuiModals extends Component {
 	}
 }
 
-export default RuuiModals;
+export default connect(({ activeModals }) => {
+	return {
+		modals: activeModals,
+	};
+})(RuuiModals);
 
 const styles = StyleSheet.create({
 	container: {

@@ -13,13 +13,6 @@ type Props = {
 	screenSize?: Dimension,
 };
 
-@connect(({ dimensions, tooltip }) => {
-	return {
-		screenSize: dimensions.window,
-		tooltip,
-	};
-})
-
 class RuuiTooltip extends Component {
 	props: Props;
 
@@ -84,7 +77,12 @@ class RuuiTooltip extends Component {
 	};
 }
 
-export default RuuiTooltip;
+export default connect(({ dimensions, tooltip }) => {
+	return {
+		screenSize: dimensions.window,
+		tooltip,
+	};
+})(RuuiTooltip);
 
 export const styles = StyleSheet.create({
 	wrapper: {

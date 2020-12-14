@@ -1,8 +1,7 @@
 fs = require("fs")
 path = require("path")
 childProcess = require("child_process")
-chalk = require("chalk")
-webpack = require("webpack")
+{ chalk, webpack, } = require("../util/modules")
 { paths, ruui, appJson } = require("../util/configs")
 { localModule, setEnv, getJson, writeFile } = require("../util/helper")
 

@@ -18,12 +18,6 @@ type Props = {
 
 const snackbarRadius = 3;
 
-@connect(({ snackBars }) => {
-	return {
-		snackBars,
-	};
-})
-
 class Snackbars extends Component<any, Props, any> {
 	props: Props;
 
@@ -80,7 +74,11 @@ class Snackbars extends Component<any, Props, any> {
 	};
 }
 
-export default Snackbars;
+export default connect(({ snackBars }) => {
+	return {
+		snackBars,
+	};
+})(Snackbars);
 
 const styles = StyleSheet.create({
 	container: {

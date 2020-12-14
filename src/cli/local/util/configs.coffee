@@ -1,6 +1,6 @@
 fs = require("fs")
 path = require("path")
-{ ruuiModule, ruuiCliModule } = require("./helper")
+{ ruuiModule, ruuiCliModule, } = require("./helper")
 
 paths =
 	ruui: path.resolve(process.cwd(), "ruui")

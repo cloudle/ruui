@@ -1,7 +1,7 @@
 fs = require("fs")
 path = require("path")
 childProcess = require("child_process")
-chalk = require("chalk")
+{ chalk, } = require("../util/modules")
 { ruui } = require("../util/configs")
 { electronModule, isPortTaken } = require("../util/helper")
 

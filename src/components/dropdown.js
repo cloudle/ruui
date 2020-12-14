@@ -13,8 +13,6 @@ type Props = {
 	screenSize?: { width?: number, height?: number },
 };
 
-@connect(() => ({}))
-
 class RuuiDropdown extends Component {
 	props: Props;
 
@@ -135,7 +133,11 @@ class RuuiDropdown extends Component {
 	};
 }
 
-export default RuuiDropdown;
+export default connect(() => {
+	return {
+
+	};
+})(RuuiDropdown);
 
 function EmptyDropdown(props) {
 	return <View>

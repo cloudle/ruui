@@ -19,6 +19,7 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* ruuiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ruuiTests.m */; };
 		81CCCBAEFFB4F04F8E014654 /* libPods-ruui-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 532E2CE7D7E8AAEBF21DE0B6 /* libPods-ruui-tvOSTests.a */; };
+		8B74AAE424A30BEB0044093E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B74AAE324A30BEB0044093E /* Default-568h@2x.png */; };
 		ABE90ADF0826E986E3C2DF14 /* libPods-ruuiTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB780CFDE7EF5F76B6624A9 /* libPods-ruuiTests.a */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,7 @@
 		532E2CE7D7E8AAEBF21DE0B6 /* libPods-ruui-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ruui-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E7B7F80A0C8AAED444200A8 /* Pods-ruui.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ruui.release.xcconfig"; path = "Target Support Files/Pods-ruui/Pods-ruui.release.xcconfig"; sourceTree = "<group>"; };
 		600DF5BE9263AEBE827CDB95 /* Pods-ruui.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ruui.debug.xcconfig"; path = "Target Support Files/Pods-ruui/Pods-ruui.debug.xcconfig"; sourceTree = "<group>"; };
+		8B74AAE324A30BEB0044093E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		9A132D199B0D0677C2B18257 /* libPods-ruui.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ruui.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FCFEEC59E3E10A31C42928B /* Pods-ruui-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ruui-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-ruui-tvOS/Pods-ruui-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		A80E1BEA301ACF885B404AB7 /* libPods-ruui-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ruui-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,7 +136,6 @@
 				3FC25C33277DC403C0448B2F /* Pods-ruuiTests.debug.xcconfig */,
 				ED3B6EBEB2496330C2742CAE /* Pods-ruuiTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -175,6 +176,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				8B74AAE324A30BEB0044093E /* Default-568h@2x.png */,
 				13B07FAE1A68108700A75B9A /* ruui */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* ruuiTests */,
@@ -292,6 +294,9 @@
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 5DZWK75H8D;
+					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
@@ -308,6 +313,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -338,6 +344,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				8B74AAE424A30BEB0044093E /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,6 +635,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 5DZWK75H8D;
 				INFOPLIST_FILE = ruui/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -647,6 +655,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5DZWK75H8D;
 				INFOPLIST_FILE = ruui/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (

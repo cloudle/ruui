@@ -1,7 +1,6 @@
 fs = require("fs")
 path = require("path")
-chalk = require(path.resolve(process.cwd(), "node_modules", "chalk"))
-webpack = require(path.resolve(process.cwd(), "node_modules", "webpack"))
+{ chalk, webpack, } = require("../util/modules")
 HtmlWebpackPlugin = require(path.resolve(process.cwd(), "node_modules", "html-webpack-plugin"))
 DefinePlugin = require(path.resolve(process.cwd(), "node_modules", "webpack/lib/DefinePlugin"))
 ProgressBarPlugin = require(path.resolve(process.cwd(), "node_modules", "progress-bar-webpack-plugin"))
@@ -38,7 +37,7 @@ defaultConfigs = ->
 		writeFile(paths.ruuiJson, JSON.stringify(extendedState, null, 2))
 	else
 		optionalPlugins.push(new webpack.HotModuleReplacementPlugin())
-		optionalPlugins.push(new webpack.NamedModulesPlugin())
+#		optionalPlugins.push(new webpack.NamedModulesPlugin())
 
 	return {
 		context: process.cwd()

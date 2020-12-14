@@ -1,6 +1,6 @@
 fs = require("fs")
 path = require("path")
-chalk = require("chalk")
+{ chalk, } = require("../util/modules")
 { ruuiModule, localModule, ruuiCliModule, isDirectory, getDirectories, dotFilePath, templateExclusions } = require("../util/helper")
 walk = require("../util/walk")
 copyAndReplace = require("../util/copyAndReplace")

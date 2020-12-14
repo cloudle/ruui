@@ -1,32 +1,33 @@
 {
   "name": "react-universal-ui",
   "description": "Universal UI Kit for React Native and Web",
-  "main": "dist",
+  "main": "lib",
   "bin": {
     "ruui": "./cli/bin.js"
   },
   "files": [
-    "dist",
+    "lib",
     "cli",
     "cli.js",
     "index.d.ts",
     "!**/__tests__"
   ],
-  "version": "1.0.65",
+  "version": "1.0.66",
   "scripts": {
     "start": "npm run compile && npm run watch",
     "watch": "concurrently --kill-others 'npm:watch-cli' 'npm:watch-coffee' 'npm:watch-es6' 'npm:watch-cf6'",
     "watch-cli": "coffee --no-header -m -w -b -c -o ./cli-ruui ./src/cli/global",
     "watch-coffee": "coffee --no-header -m -w -b -c -o ./js ./src",
-    "watch-es6": "babel --watch ./src --out-dir ./dist",
-    "watch-cf6": "babel --watch ./js --out-dir ./dist",
+    "watch-es6": "babel --watch ./src --out-dir ./lib",
+    "watch-cf6": "babel --watch ./js --out-dir ./lib",
     "compile": "npm run clean && npm run make-dir && npm run compile-cli && npm run compile-coffee && npm run compile-es6",
     "compile-cli": "coffee --no-header -m -b -c -o ./cli-ruui ./src/cli/global",
     "compile-coffee": "coffee --no-header -m -b -c -o ./js ./src",
-    "compile-es6": "babel ./src --out-dir ./dist && babel ./js --out-dir ./dist",
-    "clean": "rimraf ./js && rimraf ./dist",
-    "make-dir": "mkdirp -p ./js && mkdirp -p ./dist",
+    "compile-es6": "bob build",
+    "clean": "rimraf ./js && rimraf ./lib",
+    "make-dir": "mkdirp -p ./js && mkdirp -p ./lib",
     "native": "node node_modules/react-native/local-cli/cli.js start",
+    "install-cli": "npm run compile && npm pack && npm i -g react-universal-ui-1.0.66.tgz",
     "release": "npm run compile && npm publish",
     "test": "jest"
   },
@@ -44,12 +45,12 @@
     "react-native-svg": "^12.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.0",
-    "@babel/core": "^7.2.2",
-    "@babel/node": "^7.2.2",
-    "@babel/plugin-proposal-decorators": "^7.1.2",
-    "@babel/runtime": "^7.7.4",
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.12.10",
+    "@babel/runtime": "^7.12.5",
     "@hot-loader/react-dom": "^16.8.4",
+    "@react-native-community/bob": "^0.16.2",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.4",
@@ -83,11 +84,19 @@
     "redux-logger": "^3.0.6",
     "rimraf": "^2.6.3",
     "style-loader": "^1.0.1",
-    "webpack": "^4.20.2",
+    "webpack": "^5.10.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.9"
   },
   "jest": {
     "preset": "react-native"
+  },
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module"
+    ]
   }
 }
