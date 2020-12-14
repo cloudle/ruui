@@ -15,12 +15,6 @@ type Props = {
 	history?: Object,
 };
 
-@connect(({ app }) => {
-	return {
-
-	};
-})
-
 class Layout extends Component {
 	props: Props;
 
@@ -31,6 +25,12 @@ class Layout extends Component {
 	}
 }
 
+const ConnectedLayout = connect(({ app }) => {
+	return {
+
+	};
+})(Layout);
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 1, flexDirection: 'row',
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 });
 
 export default [{
-	component: Layout,
+	component: ConnectedLayout,
 	routes: [{
 		path: '/',
 		exact: true,

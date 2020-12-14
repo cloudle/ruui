@@ -21,12 +21,6 @@ type Props = {
 	dispatch?: Function,
 };
 
-@connect(({ app }) => {
-	return {
-		counter: app.counter,
-	};
-})
-
 class App extends Component {
 	props: Props;
 
@@ -59,10 +53,16 @@ class App extends Component {
 	};
 }
 
+const ConnectedApp = connect(({ app }) => {
+	return {
+		counter: app.counter,
+	};
+})(App);
+
 function AppContainer(props) {
 	return <RuuiProvider>
 		<Provider store={store}>
-			<App/>
+			<ConnectedApp/>
 		</Provider>
 
 		<Tooltip/>

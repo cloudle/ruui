@@ -17,12 +17,6 @@ type Props = {
 	dispatch?: Function,
 };
 
-@connect(({ app }) => {
-	return {
-		counter: app.counter,
-	};
-})
-
 class HomeScene extends Component {
 	props: Props;
 
@@ -57,7 +51,11 @@ class HomeScene extends Component {
 	};
 }
 
-export default HomeScene;
+export default connect(({ app }) => {
+	return {
+		counter: app.counter,
+	};
+})(HomeScene);
 
 const styles = StyleSheet.create({
 	container: {

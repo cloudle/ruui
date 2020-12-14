@@ -7,12 +7,6 @@ type Props = {
 	counter?: Number,
 };
 
-@connect(({ app }) => {
-	return {
-		counter: app.counter,
-	};
-})
-
 class WelcomeScene extends Component {
 	props: Props;
 
@@ -42,7 +36,11 @@ class WelcomeScene extends Component {
 	};
 }
 
-export default WelcomeScene;
+export default connect(({ app }) => {
+	return {
+		counter: app.counter,
+	};
+})(WelcomeScene);
 
 const styles = StyleSheet.create({
 	container: {
