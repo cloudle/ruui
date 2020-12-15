@@ -77,6 +77,7 @@ class App extends Component {
 						component: TestModal,
 						tapToClose: true,
 						zIndex: 10,
+						instantClose: true,
 					}));
 					// this.secondInput.focus();
 				}}/>

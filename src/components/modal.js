@@ -45,12 +45,17 @@ export default class RuuiModal extends Component {
 	}
 
 	playTransition(active) {
+		const { configs = {}, } = this.props;
 		const nextValue = active ? 1 : 0;
 
 		if (!active) {
-			this.playAnimation(nextValue, () => {
+			if (configs.instantClose) {
 				this.setState({ active: null });
-			});
+			} else {
+				this.playAnimation(nextValue, () => {
+					this.setState({ active: null });
+				});
+			}
 		} else {
 			this.setState({ active });
 			this.playAnimation(nextValue);
