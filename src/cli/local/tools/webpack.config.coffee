@@ -44,15 +44,18 @@ defaultConfigs = ->
 		mode: if isProduction then "production" else "development"
 		cache: true
 		entry:
-			app: if isProduction then entries else hot.concat(entries)
+			app:
+				import: if isProduction then entries else hot.concat(entries)
+				filename: if isProduction then "#{buildId}.js" else "[name].js"
 		optimization:
 			minimize: isProduction
 			moduleIds: "named"
 		output:
 			publicPath: publicPath
 			path: paths.ruui
-			filename: if isProduction then "#{buildId}.js" else "[name].js"
-			chunkFilename: '[name].js'
+			filename: "[name].js"
+			sourceMapFilename: if isProduction then "#{buildId}.map" else "[name].map"
+			chunkFilename: '[id].js'
 		resolve:
 			mainFields: ["browser", "main", "module"]
 			alias:
@@ -82,7 +85,7 @@ defaultConfigs = ->
 				test: /\.(png|jpg|svg|ttf)$/
 				loader: "file-loader"
 				options:
-					name: "[name].[ext]"
+					name: "[hash].[ext]"
 			]
 		plugins: [
 			new DefinePlugin {
