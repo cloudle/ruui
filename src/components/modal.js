@@ -51,9 +51,11 @@ export default class RuuiModal extends Component {
 		if (!active) {
 			if (configs.instantClose) {
 				this.setState({ active: null });
+				if (configs.onClose) configs.onClose();
 			} else {
 				this.playAnimation(nextValue, () => {
 					this.setState({ active: null });
+					if (configs.onClose) configs.onClose();
 				});
 			}
 		} else {
