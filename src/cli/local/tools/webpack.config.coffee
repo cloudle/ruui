@@ -11,7 +11,7 @@ ReactRefreshWebpackPlugin = require(path.resolve(process.cwd(), "node_modules", 
 defaultConfigurator = (baseConfig) -> baseConfig
 defaultConfigs = ->
 	env = ruui.env()
-	publicPath = ruui.publicPath or "/"
+	publicPath = ruui.publicPath(env)
 	isProduction = env is "production"
 	htmlOptions = {
 		isProduction

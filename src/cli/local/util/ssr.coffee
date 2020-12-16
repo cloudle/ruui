@@ -11,7 +11,9 @@ pageMarkups = (AppRegistry, reactDom, initialProps) ->
 	}
 
 universalRender = (AppRegistry, reactDom) -> (req, res, next) ->
-	isProduction = configs.ruui.env() is "production"
+	env = configs.ruui.env()
+	publicPath = configs.ruui.publicPath(env)
+	isProduction = env is "production"
 	initialProps = { ssrLocation: req.baseUrl, ssrContext: {} }
 	initialMarkups = pageMarkups(AppRegistry, reactDom, initialProps)
 	pageTemplate = configs.paths.getEjsTemplate()
@@ -20,15 +22,17 @@ universalRender = (AppRegistry, reactDom) -> (req, res, next) ->
 		ssrContext: Object.assign(initialMarkups,{
 			serverSide: true,
 			appName: configs.appJson.displayName or configs.appJson.name,
-			publicPath: configs.ruui.publicPath or "/",
+			publicPath: publicPath
 			buildId: configs.ruuiJson.buildId,
 			isProduction,
 		}, configs.ruui.ejsTemplate)
 
 defaultPageExtractor = (routeConfig) -> routeConfig[0]?.routes or []
 hydrate = (AppRegistry, reactDom, routeConfig, pageExtractor = defaultPageExtractor) ->
+	env = configs.ruui.env()
+	publicPath = configs.ruui.publicPath(env)
 	ejs = require(localModule("node_modules", "ejs"))
-	isProduction = configs.ruui.env() is "production"
+	isProduction = env is "production"
 	pages = pageExtractor(routeConfig)
 	templatePath = configs.paths.getEjsTemplate()
 	unless fs.existsSync
@@ -44,7 +48,7 @@ hydrate = (AppRegistry, reactDom, routeConfig, pageExtractor = defaultPageExtrac
 			ssrContext: Object.assign(initialMarkups, {
 				serverSide: true,
 				appName: configs.appJson.displayName or configs.appJson.name,
-				publicPath: configs.ruui.publicPath or "/",
+				publicPath: publicPath
 				buildId: configs.ruuiJson.buildId,
 				isProduction,
 			}, configs.ruui.ejsTemplate)

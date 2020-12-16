@@ -5,11 +5,13 @@ webpackConfigs = require("./webpack.config")
 
 defaultConfigurator = (baseConfig) -> baseConfig
 defaultConfigs = ->
+	env = ruui.env()
+	publicPath = ruui.publicPath(env)
 	optimizeMode = ruui.optimizeMode()
 	port = ruui.port()
 
 	return {
-		publicPath: ruui.publicPath or "/"
+		publicPath: publicPath
 		port: port
 		contentBase: "ruui"
 		hot: true

@@ -22,6 +22,7 @@ appJson = {}; ruuiJson = {}; ruuiConfig = {}
 appJson = require(paths.appJson) if fs.existsSync(paths.appJson)
 ruuiJson = require(paths.ruuiJson) if fs.existsSync(paths.ruuiJson)
 ruuiConfig =
+	publicPath: (env) -> "/"
 	host: () -> process.env.HOST or "localhost"
 	port: () -> process.env.PORT or 3000
 	env: () -> process.env.ENV or "development"
