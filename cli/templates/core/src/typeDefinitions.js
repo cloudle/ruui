@@ -24,3 +24,5 @@ export type LayoutEvent = {
 		},
 	},
 };
+
+export type SnappingDirection = 'top' | 'left' | 'bottom' | 'right' | 'top-left' | 'left-top' | 'top-right' | 'right-top' | 'bottom-left' | 'left-bottom' | 'bottom-right' | 'right-bottom';

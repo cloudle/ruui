@@ -92,6 +92,7 @@ defaultConfigs = ->
 			]
 		plugins: [
 			new DefinePlugin {
+				__DEV__: isProduction
 				ENV: JSON.stringify(env)
 				'process.env.NODE_ENV': JSON.stringify(env)
 			}

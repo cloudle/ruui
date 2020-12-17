@@ -1,18 +1,19 @@
-const chalk = require('chalk'),
-	moduleAlias = require('module-alias'),
-	chokidar = require('chokidar'),
-	invalidate = require('invalidate-module'),
-	path = require('path'),
-	express = require('express'),
-	morgan = require('morgan'),
-	server = express(),
-	{ configs: cliConfigs } = require('react-universal-ui/cli'),
-	isProduction = cliConfigs.ruui.env() === 'production',
-	port = process.env.PORT || 3005,
-	hydrateMode = process.env.HYDRATE;
+const chalk = require('chalk');
+const moduleAlias = require('module-alias');
+const chokidar = require('chokidar');
+const invalidate = require('invalidate-module');
+const path = require('path');
+const express = require('express');
+const morgan = require('morgan');
+const { configs: cliConfigs } = require('react-universal-ui/cli');
+const alias = require('./configurations/moduleAliases');
 
-moduleAlias.addAlias('react-native', 'react-native-web');
-moduleAlias.addAlias('react-native-svg', path.resolve(process.cwd(), 'node_modules/react-native-svg/lib/commonjs/ReactNativeSVG.web.js'));
+const isProduction = cliConfigs.ruui.env() === 'production';
+const port = process.env.PORT || 3005;
+const hydrateMode = process.env.HYDRATE;
+const server = express();
+
+moduleAlias.addAliases(Object.assign({}, alias.shared, alias.node));
 
 if (!isProduction) { /* <- hot reload server-side code on development mode */
 	const watcher = chokidar.watch('./src', { ignoreInitial: true });
@@ -22,7 +23,6 @@ if (!isProduction) { /* <- hot reload server-side code on development mode */
 		invalidate(path.resolve(filename));
 	});
 }
-
 server.set('view engine', 'ejs');
 server.use(express.static('ruui'));
 server.use(morgan('dev'));

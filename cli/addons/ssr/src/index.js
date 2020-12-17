@@ -1,54 +1,46 @@
-import React, { Component } from 'react';
-import { utils, RuuiProvider, Button, Tooltip } from 'react-universal-ui';
-import { Provider } from 'react-redux';
-import { Router, MemoryRouter, StaticRouter } from 'react-router';
-import { ConnectedRouter } from 'connected-react-router';
-import { renderRoutes } from 'react-router-config';
+import React from 'react';
+import { View, StyleSheet, } from 'react-native';
+import { RuuiProvider, Tooltip } from 'react-universal-ui';
+import { Provider, } from 'react-redux';
+import { NavigationContainer, } from '@react-navigation/native';
+import { createStackNavigator, } from '@react-navigation/stack';
 
-import routes from './routes';
-import { ruuiStore, appStore } from './store';
-import { history } from './store/reducers';
+import { ruuiStore, appStore } from 'store';
+import WelcomeScreen from './welcome';
+import HomeScreen from './home';
+import { routeConfig, } from './routes';
 
-type ContainerProps = {
-	ssrLocation?: string,
-	ssrContext?: Object,
+const Stack = createStackNavigator();
+const linking = { config: routeConfig, };
+
+type Props = {
+
 };
 
-function AppContainer(props: ContainerProps) {
-	const routerAndProps = getRouterAndProps(props),
-		{ component: Router, props: routerProps  } = routerAndProps;
+const App = (props: Props) => {
+	return <NavigationContainer linking={linking}>
+		<Stack.Navigator headerMode="none">
+			<Stack.Screen name="Welcome" component={WelcomeScreen}/>
+			<Stack.Screen name="Home" component={HomeScreen}/>
+		</Stack.Navigator>
+	</NavigationContainer>;
+};
 
+const AppContainer = (props) => {
 	return <RuuiProvider store={ruuiStore}>
 		<Provider store={appStore}>
-			<Router {...routerProps}>
-				{renderRoutes(routes)}
-			</Router>
+			<App/>
+			<Tooltip/>
 		</Provider>
-
-		<Tooltip/>
 	</RuuiProvider>;
 }
 
 export default AppContainer;
 
-function getRouterAndProps(props: ContainerProps) {
-	if (utils.isServer) {
-		return {
-			component: StaticRouter,
-			props: {
-				location: props.ssrLocation,
-				context: props.ssrContext,
-			}
-		};
-	} else if (utils.isWeb) {
-		return {
-			component: ConnectedRouter,
-			props: { history, },
-		};
-	} else {
-		return {
-			component: MemoryRouter,
-			props: {},
-		};
-	}
-}
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+});

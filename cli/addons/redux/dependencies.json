@@ -1,5 +1,5 @@
 {
-	"redux": "^4.0.0",
-	"react-redux": "^5.0.7",
-	"redux-logger": "^3.0.6"
+	"redux": "latest",
+	"react-redux": "latest",
+	"redux-logger": "latest"
 }

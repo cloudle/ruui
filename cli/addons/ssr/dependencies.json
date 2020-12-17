@@ -1,10 +1,11 @@
 {
 	"ejs": "latest",
 	"morgan": "latest",
-	"react-router": "^4.3.1",
-	"react-router-config": "^4.4.0-beta.6",
-	"connected-react-router": "^6.3.1",
-	"redux": "^4.0.1",
-	"react-redux": "^6.0.1",
-	"redux-logger": "^3.0.6"
+	"@react-native-community/masked-view": "^0.1.10",
+	"@react-navigation/native": "^5.7.2",
+	"@react-navigation/stack": "^5.8.0",
+	"react-native-safe-area-context": "^3.1.1",
+	"redux": "latest",
+	"react-redux": "latest",
+	"redux-logger": "latest"
 }
