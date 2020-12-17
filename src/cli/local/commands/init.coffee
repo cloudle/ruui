@@ -1,10 +1,12 @@
 fs = require("fs")
 path = require("path")
-{ chalk, } = require("../util/modules")
 { ruuiModule, ruuiCliModule, isDirectory, getDirectories, dotFilePath, templateExclusions } = require("../util/helper")
 walk = require("../util/walk")
 copyAndReplace = require("../util/copyAndReplace")
 yarn = require("../util/yarn")
+{ requireModule, } = require("../util/modules")
+
+chalk = requireModule("chalk")
 
 init = (root, argsOrName, opts) ->
 	template = opts["extends"]

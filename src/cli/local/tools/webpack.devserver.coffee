@@ -1,7 +1,10 @@
 path = require("path")
-{ webpack, WebpackDevServer, } = require("../util/modules")
 webpackConfigs = require("./webpack.config")
 { ruui } = require("../util/configs")
+{ requireModule, } = require("../util/modules")
+
+webpack = requireModule("webpack")
+WebpackDevServer = requireModule("webpack-dev-server")
 
 defaultConfigurator = (baseConfig) -> baseConfig
 defaultConfigs = ->

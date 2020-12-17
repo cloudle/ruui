@@ -1,4 +1,6 @@
-{ chalk, } = require("./modules")
+{ requireModule, } = require("../util/modules")
+
+chalk = requireModule("chalk")
 SEPARATOR = ', '
 verbose = false
 

@@ -1,9 +1,11 @@
 fs = require("fs")
 path = require("path")
 childProcess = require("child_process")
-{ chalk, } = require("../util/modules")
 { ruui } = require("../util/configs")
 { electronModule, isPortTaken } = require("../util/helper")
+{ requireModule, } = require("../util/modules")
+
+chalk = requireModule("chalk")
 
 run = (argv, config, args) ->
 	electronPath = electronModule("index.js")

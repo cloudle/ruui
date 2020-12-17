@@ -1,12 +1,15 @@
 fs = require("fs")
 path = require("path")
-{ chalk, webpack, } = require("../util/modules")
 HtmlWebpackPlugin = require(path.resolve(process.cwd(), "node_modules", "html-webpack-plugin"))
 DefinePlugin = require(path.resolve(process.cwd(), "node_modules", "webpack/lib/DefinePlugin"))
 ProgressBarPlugin = require(path.resolve(process.cwd(), "node_modules", "progress-bar-webpack-plugin"))
 ReactRefreshWebpackPlugin = require(path.resolve(process.cwd(), "node_modules", "@pmmmwh/react-refresh-webpack-plugin"))
 { paths, ruui, appJson } = require("../util/configs")
 { localModule, terminalTheme, getJson, writeFile, uuid } = require("../util/helper")
+{ requireModule, } = require("../util/modules")
+
+chalk = requireModule("chalk")
+webpack = requireModule("webpack")
 
 defaultConfigurator = (baseConfig) -> baseConfig
 defaultConfigs = ->

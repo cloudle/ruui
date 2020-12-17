@@ -1,9 +1,12 @@
 fs = require("fs")
 path = require("path")
 childProcess = require("child_process")
-{ chalk, webpack, } = require("../util/modules")
 { paths, ruui, appJson } = require("../util/configs")
 { localModule, setEnv, getJson, writeFile } = require("../util/helper")
+{ requireModule, } = require("../util/modules")
+
+chalk = requireModule("chalk")
+webpack = requireModule("webpack")
 
 run = (argv, config, args) ->
 	setEnv({ ENV: "production", NODE_ENV: "production" })

@@ -1,11 +1,14 @@
 path = require("path")
 childProcess = require("child_process")
-{ chalk, commander, } = require("./util/modules")
 commands = require("./commands/index")
 init = require("./commands/init")
 pkg = require("../../../../package.json")
 configs = require("./util/configs")
 ssrUtils = require("./util/ssr")
+{ requireModule, } = require("./util/modules")
+
+chalk = requireModule("chalk")
+commander = requireModule("commander")
 
 commander.version(pkg.version)
 defaultOptParser = (val) -> val

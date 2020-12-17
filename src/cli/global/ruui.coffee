@@ -1,7 +1,7 @@
 fs = require("fs")
 path = require("path")
 childProcess = require("child_process")
-chalk = require(path.resolve(process.cwd(), "node_modules", "chalk"))
+chalk = require("chalk")
 prompt = require("prompt")
 semver = require("semver")
 options = require("minimist")(process.argv.slice 2)
