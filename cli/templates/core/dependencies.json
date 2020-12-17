@@ -1,8 +1,8 @@
 {
-	"@react-native-community/async-storage": "latest",
-	"react-dom": "latest",
+	"@react-native-community/async-storage": "^1.12.1",
+	"react-dom": "^17.0.1",
 	"react-art": "^16.5.2",
-	"react-native-web": "latest",
+	"react-native-web": "^0.14.9",
 	"react-native-svg": "^12.1.0",
 	"react-native-reanimated": "^1.13.0",
 	"setimmediate": "^1.0.5"
