@@ -27,6 +27,8 @@ type Props = {
 	arrowOffset?: PositionOffset,
 	id ?: string | number,
 	onClose ?: Function,
+	tapToClose?: boolean,
+	maskPointerEvents?: string,
 };
 
 class RuuiDropdownContainer extends Component {
@@ -46,6 +48,7 @@ class RuuiDropdownContainer extends Component {
 		dropdownDirection: 'bottom',
 		dropdownSpacing: 10,
 		dropdownOffset: { top: 0, left: 0 },
+		tapToClose: true,
 	};
 
 	constructor(props, context) {
@@ -97,6 +100,8 @@ class RuuiDropdownContainer extends Component {
 			arrowOffset,
 			containerLayout,
 			onClose,
+			tapToClose,
+			maskPointerEvents,
 		} = this.props;
 
 		this.container.measureLayout(findNodeHandle(global.modalsContainer), (a, b, width, height) => {
@@ -114,6 +119,8 @@ class RuuiDropdownContainer extends Component {
 				arrowOffset,
 				context: dropdownContext,
 				onClose,
+				tapToClose,
+				maskPointerEvents,
 			}));
 		});
 	};

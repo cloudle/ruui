@@ -91,6 +91,8 @@ export type DropdownConfigs = {
 	spacing?: number,
 	context?: Object,
 	onClose ?: Function,
+	tapToClose?: boolean,
+	maskPointerEvents?: string,
 };
 
 export type RuuiConfigs = {

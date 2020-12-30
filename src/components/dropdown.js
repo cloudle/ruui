@@ -52,8 +52,11 @@ class RuuiDropdown extends Component {
 
 	render() {
 		const { active, configs } = this.props;
+		const pointerEvents = configs?.maskPointerEvents || 'auto';
 
-		return active ? <View style={styles.container}>
+		return active ? <View
+			pointerEvents={pointerEvents}
+			style={styles.container}>
 			{configs.tapToClose ? <TouchableWithoutFeedback
 				onPress={this.closeModal}>
 				<View style={styles.touchableMask}/>
