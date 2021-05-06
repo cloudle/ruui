@@ -36,6 +36,13 @@ Cross-platform (**React Native** and **Web Browser**) [React][react-url], [React
 
 #### **See [home page][home-url] for detailed documentation and tutorials (the site is under construction and will be ready soon)**
 
+## require env
+require `yarn`, `react-native-cli`
+
+```
+npm install -g yarn react-native-cli
+```
+
 ## Quick start
 ### Existing Web or React Native project:
 1. Install `react-universal-ui` package (no further config required)
